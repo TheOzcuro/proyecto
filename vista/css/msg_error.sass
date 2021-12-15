@@ -1,0 +1,48 @@
+.msg_error img, .msg_check img
+    width: 40px
+    height: 40px
+.msg_error
+    border: solid 5px rgb(220, 60, 50)
+    border-radius: 4px
+    padding: 15px
+    max-width: 400px
+    position: absolute
+    background: rgb(240,240,240)
+    transition-property: left, right
+    transition-duration: 1s
+    transition-timing-function: ease
+    right: -500px
+    display: none
+    z-index: 1000
+.msg_check
+    border: solid 5px rgb(50, 220, 64)
+    border-radius: 4px
+    padding: 15px
+    max-width: 400px
+    position: absolute
+    background: rgb(240,240,240)
+    transition-property: left, right
+    transition-duration: 1s
+    transition-timing-function: ease
+    right: -500px
+    display: none
+    z-index: 1000
+
+.msg_error h2, .msg_check h2
+    display: inline
+    width: auto
+    position: relative
+    top: -13px
+    left: 5px
+    color: rgb(50, 50, 50)
+    font-size: 20px
+.msg_error p 
+    font-size: 16px
+    color: rgb(50, 50, 50)
+.hidder
+    position: absolute
+    top: 20px
+    right: 0px
+    width: 500px
+    height: 170px
+    overflow: hidden

@@ -1,0 +1,152 @@
+@font-face
+    font-family: Open Sans
+    src: url(fonts/OpenSans-Regular.ttf)
+body
+    background-color: rgb(230, 230, 230)
+    padding: 0
+    margin: 0
+    font-family: Open Sans, sans-serif
+.grid-container
+    display: grid
+    grid-template-columns: repeat(3,1fr)
+    grid-auto-rows: minmax(100px,auto)
+.header 
+    background-image: linear-gradient( rgb(228, 72, 72),rgb(30, 30, 30) 130%)
+    grid-column: 1/5
+.contend
+    grid-column: 1/5
+    position: relative
+ul
+    list-style: none
+    
+li 
+    text-align: center
+    padding: 20px 20px 5px 20px
+
+.boderline
+    background-color: transparent
+    transition-property: transform, width, background
+    transition-duration: .2s
+    transition-timing-function: ease
+    height: 3px
+    width:0.1px
+    text-align: center
+    margin: auto
+a 
+    text-decoration: none
+    color: rgb(230,230,230)
+    display: inline-block
+    text-align: center
+    height: 35px
+    width: auto
+    font-size: 20px
+    &:hover>.boderline
+        transform: scaleX(100)
+        width: 1px
+        background-color: rgb(240, 238, 238)
+
+.profesor-container 
+    display: none
+    grid-template-columns: 250px 250px
+    grid-auto-rows: 70px
+    grid-gap: 10px
+    background: rgb(250, 250, 250)
+    box-shadow: 50px 30px 50px rgb(30, 30, 30,0.6)
+    max-width: 480px
+    padding: 20px 30px
+    position: relative
+    top: 20%
+    left: 50%
+    transform: translate(-50%, 10%)
+    border-radius: 7px
+    z-index: 500
+.materia-container, .aula-container
+    display: none
+    flex-direction: column
+    background: rgb(250, 250, 250)
+    box-shadow: 50px 30px 50px rgb(30, 30, 30,0.6)
+    max-width: 270px
+    padding: 20px 30px
+    position: relative
+    top: 20%
+    left: 50%
+    transform: translate(-50%, 10%)
+    border-radius: 7px
+    z-index: 500
+.materia-container input, .aula-container input
+    width: 95%
+input
+    height: 25px
+    outline: none
+    width: 80%
+    border: none
+    border-bottom: 2px solid rgb(30, 30, 30,0.8)
+    position: relative
+    z-index: 100
+    background: transparent
+    transition-property: border-color
+    transition-duration: .7s
+    -o-transition-timing-function: ease
+    &:focus
+        border-color: rgb(32, 107, 219)
+.profesor-container select
+    width: 80%
+    border: none
+    border-bottom: 2px solid rgb(30, 30, 30,0.8)
+    outline: none
+    font-size: 16px
+    margin-top: 30px
+    transition-property: border-color
+    transition-duration: .7s
+    -o-transition-timing-function: ease
+.input-container 
+    position: relative
+label
+    font-size: 18px
+    position: absolute
+    top: 20px
+    color: rgb(138, 136, 136)
+    transition-property: top, font-size
+    transition-timing-function: ease
+    transition-duration: 0.5s
+    user-select: none
+button
+    grid-column: 1/3
+    width: 60%
+    height: 40px
+    margin: auto
+    font-size: 20px
+    background: rgb(73, 87, 214)
+    border: none
+    color: rgb(240, 240, 240)
+    transition-property: background
+    transition-duration: .5s
+    transition-timing-function: ease
+    cursor: pointer
+    &:hover
+        background: rgb(94, 110, 252)
+.materia-container button
+    margin: auto
+h2 
+    text-align: center
+    grid-column: 1/3
+#logout
+    float: right
+    margin-right: 20px
+    &:hover>.boderline
+        transform: scaleX(150)
+        width: 1px
+        background-color: rgb(240, 238, 238)
+        
+@keyframes Opacity 
+
+    0%
+        opacity: 0
+    100%
+        opacity: 1
+@keyframes Dissapear 
+
+    0%
+        opacity: 1
+    100%
+        opacity: 0

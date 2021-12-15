@@ -1,0 +1,66 @@
+@font-face
+    font-family: Open Sans
+    src: url(fonts/OpenSans-Regular.ttf)
+body
+    background-color: rgb(230, 230, 230)
+    padding: 0
+    margin: 0
+    font-family: Open Sans, sans-serif
+.login-container
+    display: flex
+    flex-direction: column
+    position: absolute
+    top: 40%
+    left: 50%
+    width: 250px
+    height: 285px
+    transform: translate(-50%,-50%)
+    background-color: rgb(245, 245, 250)
+    border-radius: 10px
+    box-shadow: 20px 15px 30px rgb(30, 30, 30,0.6)
+    padding: 15px 25px
+h2
+    text-align: center
+
+a
+    text-decoration: none
+label
+    font-size: 18px
+    position: absolute
+    top: 20px
+    color: rgb(138, 136, 136)
+    transition-property: top, font-size
+    transition-timing-function: ease
+    transition-duration: 0.5s
+    user-select: none
+.input-container 
+    position: relative
+input
+    height: 25px
+    border: none
+    width: 98%
+    background-color: transparent
+    border-bottom: 1.9px solid black
+    position: relative
+    z-index: 100
+    outline: none
+    transition-property: border-color
+    transition-duration: .5s
+    transition-timing-function: ease
+    &:focus
+        border-color: rgb(32, 107, 219)
+button 
+    border: none
+    font-size: 17px
+    padding: 5px 0px
+    background-color: rgb(32, 107, 219)
+    color: rgb(240, 240, 240)
+    cursor: pointer
+    transition-property: background-color, color
+    transition-duration: 0.5s
+    transition-timing-function: linear
+    transition-property: border-color
+    transition-duration: .7s
+    -o-transition-timing-function: ease
+    &:hover
+        background-color: rgb(97, 148, 226)
