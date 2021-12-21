@@ -10,6 +10,9 @@ function LabelAnimation(input,label){
     document.getElementById(label).style.top = "1px";
     document.getElementById(label).style.fontSize = "15px";
 }
+function AnimationPrincipalMenu(thisvalue){
+    document.getElementById("arrow_down").style.transform = "rotate(180deg)";
+}
 function OnLoad(){
     var url=window.location.href;
     url=url.slice(-5);
@@ -100,12 +103,14 @@ function ValidateNumeros(input){
         }
     })
 }
+/*
 document.getElementById("materia").addEventListener("click", function(){
     AppearsAndDissapear("materia-container","profesor-container","aula-container","flex")})
 document.getElementById("profesor").addEventListener("click", function(){
     AppearsAndDissapear("profesor-container","materia-container","aula-container","grid")})
 document.getElementById("aula").addEventListener("click", function(){
     AppearsAndDissapear("aula-container","profesor-container","materia-container","flex")})
+*/
 ValidateTexto('primer_nombre');
 ValidateTexto('segundo_nombre');
 ValidateTexto('primer_apellido');

@@ -8,17 +8,40 @@ body
     font-family: Open Sans, sans-serif
 .grid-container
     display: grid
-    grid-template-columns: repeat(3,1fr)
+    grid-template-columns: repeat(4,1fr)
     grid-auto-rows: minmax(100px,auto)
 .header 
-    background-image: linear-gradient( rgb(228, 72, 72),rgb(30, 30, 30) 130%)
+    background-image: linear-gradient(to top, rgb(228, 72, 72),rgb(30, 30, 30) 130%)
     grid-column: 1/5
 .contend
-    grid-column: 1/5
+    grid-column: 2/5
     position: relative
+.slide-menu 
+    grid-column: 1/2
+    width: 200px
+    padding: 10px 20px
+    color: white
+    background-image: linear-gradient(to bottom, rgb(228, 72, 72),rgb(30, 30, 30) 130%)
+    .principal-menu 
+        position: relative
+        padding: 10px 20px
+        margin-top: 20px
+        cursor: pointer
+    h4
+        display: inline
+    #arrow_down
+        width: 35px
+        height: 35px
+        position: absolute
+        bottom: 3px
+        left: 170px
+        
+        transition-duration: .5s
+        transition-timing-function: ease
+        -o-transition-property: transform, rotate
 ul
     list-style: none
-    
+
 li 
     text-align: center
     padding: 20px 20px 5px 20px

@@ -11,18 +11,45 @@ body {
 
 .grid-container {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   grid-auto-rows: minmax(100px, auto);
 }
 
 .header {
-  background-image: linear-gradient(#e44848, #1e1e1e 130%);
+  background-image: linear-gradient(to top, #e44848, #1e1e1e 130%);
   grid-column: 1/5;
 }
 
 .contend {
-  grid-column: 1/5;
+  grid-column: 2/5;
   position: relative;
+}
+
+.slide-menu {
+  grid-column: 1/2;
+  width: 200px;
+  padding: 10px 20px;
+  color: white;
+  background-image: linear-gradient(to bottom, #e44848, #1e1e1e 130%);
+}
+.slide-menu .principal-menu {
+  position: relative;
+  padding: 10px 20px;
+  margin-top: 20px;
+  cursor: pointer;
+}
+.slide-menu h4 {
+  display: inline;
+}
+.slide-menu #arrow_down {
+  width: 35px;
+  height: 35px;
+  position: absolute;
+  bottom: 3px;
+  left: 170px;
+  transition-duration: 0.5s;
+  transition-timing-function: ease;
+  -o-transition-property: transform, rotate;
 }
 
 ul {

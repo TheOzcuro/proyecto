@@ -16,12 +16,32 @@ if (isset($_SESSION["usuario"])==false) {
 <body>
     <div class="grid-container">
         <div class="header">
-            <ul class="nav">
-                <a href="#mater" id="materia"><li>Materia</li><div class="boderline"></div></a>
-                <a href="#aula" id="aula"><li>Aula</li><div class="boderline"></div></a>
-                <a href="#profe" id="profesor"><li>Profesor</li><div class="boderline"></div></a>
-                <a href="logout.php" id="logout"><li>Cerrar Sesion</li><div class="boderline"></div></a>
-            </ul>
+        </div>
+        <div class="slide-menu">
+            <div class="principal-menu" onclick="AnimationPrincipalMenu()">
+            <h4>Control Profesor</h4>
+            <img src="css/img/arrow_down.png" alt="" id="arrow_down">
+            </div>
+            <div class="principal-menu">
+            <h4>Horario</h4>
+            <img src="css/img/arrow_down.png" alt="" id="arrow_down">
+            </div>
+            <div class="principal-menu">
+            <h4>Materias</h4>
+            <img src="css/img/arrow_down.png" alt="" id="arrow_down">
+            </div>
+            <div class="principal-menu">
+            <h4>Carreras</h4>
+            <img src="css/img/arrow_down.png" alt="" id="arrow_down">
+            </div>
+            <div class="principal-menu">
+            <h4>Aulas</h4>
+            <img src="css/img/arrow_down.png" alt="" id="arrow_down">
+            </div>
+            <div class="principal-menu">
+            <h4>Lapso Academico</h4>
+            <img src="css/img/arrow_down.png" alt="" id="arrow_down">
+            </div>
         </div>
         <div class="contend">
             <?php include_once("msg_error.php");?>
