@@ -24,7 +24,7 @@ body
     background-image: linear-gradient(to bottom, rgb(228, 72, 72),rgb(30, 30, 30) 130%)
     .principal-menu 
         position: relative
-        padding: 10px 20px
+        padding: 5px 20px
         margin-top: 20px
         cursor: pointer
     h4
@@ -33,18 +33,26 @@ body
         width: 35px
         height: 35px
         position: absolute
-        bottom: 3px
+        top: 1px
         left: 170px
-        
         transition-duration: .5s
         transition-timing-function: ease
         -o-transition-property: transform, rotate
+    .submenu
+        background-color: rgb(80, 110, 190)
+        margin-top: 10px
+        margin-left: -40px
+        width: 240px
+        transition-duration: .5s
+        transition-property: max-height
+        transition-timing-function: ease
+        max-height: 0px
+        overflow: hidden
+    .submenu li 
+        padding: 5px 5px
+        cursor: pointer
 ul
     list-style: none
-
-li 
-    text-align: center
-    padding: 20px 20px 5px 20px
 
 .boderline
     background-color: transparent

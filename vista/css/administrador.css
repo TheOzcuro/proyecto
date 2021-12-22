@@ -34,7 +34,7 @@ body {
 }
 .slide-menu .principal-menu {
   position: relative;
-  padding: 10px 20px;
+  padding: 5px 20px;
   margin-top: 20px;
   cursor: pointer;
 }
@@ -45,20 +45,30 @@ body {
   width: 35px;
   height: 35px;
   position: absolute;
-  bottom: 3px;
+  top: 1px;
   left: 170px;
   transition-duration: 0.5s;
   transition-timing-function: ease;
   -o-transition-property: transform, rotate;
 }
+.slide-menu .submenu {
+  background-color: #506ebe;
+  margin-top: 10px;
+  margin-left: -40px;
+  width: 240px;
+  transition-duration: 0.5s;
+  transition-property: max-height;
+  transition-timing-function: ease;
+  max-height: 0px;
+  overflow: hidden;
+}
+.slide-menu .submenu li {
+  padding: 5px 5px;
+  cursor: pointer;
+}
 
 ul {
   list-style: none;
-}
-
-li {
-  text-align: center;
-  padding: 20px 20px 5px 20px;
 }
 
 .boderline {

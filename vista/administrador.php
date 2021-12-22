@@ -18,29 +18,68 @@ if (isset($_SESSION["usuario"])==false) {
         <div class="header">
         </div>
         <div class="slide-menu">
-            <div class="principal-menu" onclick="AnimationPrincipalMenu()">
+            <div class="principal-menu" onclick="AnimationPrincipalMenu(0)">
             <h4>Control Profesor</h4>
             <img src="css/img/arrow_down.png" alt="" id="arrow_down">
+                <div class="submenu">
+                    <ul>
+                        <li>Registrar</li>
+                        <li>Disponibilidad</li>
+                        <li>Editar Datos</li>
+                    </ul>
+                </div>
             </div>
-            <div class="principal-menu">
-            <h4>Horario</h4>
+            <div class="principal-menu" onclick="AnimationPrincipalMenu(1)">
+            <h4>Control Horario</h4>
             <img src="css/img/arrow_down.png" alt="" id="arrow_down">
+            <div class="submenu">
+                    <ul>
+                        <li>Crear Horario</li>
+                        <li>Editar Horario</li>
+                        <li>Imprimir</li>
+                    </ul>
+                </div>
             </div>
-            <div class="principal-menu">
-            <h4>Materias</h4>
+            <div class="principal-menu" onclick="AnimationPrincipalMenu(2)">
+            <h4>Control Materias</h4>
             <img src="css/img/arrow_down.png" alt="" id="arrow_down">
+            <div class="submenu">
+                    <ul>
+                        <li>Crear Materias</li>
+                        <li>Editar Materias</li>
+                    </ul>
+                </div>
             </div>
-            <div class="principal-menu">
-            <h4>Carreras</h4>
+            <div class="principal-menu" onclick="AnimationPrincipalMenu(3)">
+            <h4>Control Carreras</h4>
             <img src="css/img/arrow_down.png" alt="" id="arrow_down">
+            <div class="submenu">
+                    <ul>
+                        <li>Crear Carreras</li>
+                        <li>Editar Carreras</li>
+                    </ul>
+                </div>
             </div>
-            <div class="principal-menu">
-            <h4>Aulas</h4>
+            <div class="principal-menu" onclick="AnimationPrincipalMenu(4)">
+            <h4>Control Aulas</h4>
             <img src="css/img/arrow_down.png" alt="" id="arrow_down">
+            <div class="submenu">
+                    <ul>
+                        <li>Crear Aulas</li>
+                        <li>Editar Aulas</li>
+                    </ul>
+                </div>
             </div>
-            <div class="principal-menu">
+            <div class="principal-menu" onclick="AnimationPrincipalMenu(5)">
             <h4>Lapso Academico</h4>
             <img src="css/img/arrow_down.png" alt="" id="arrow_down">
+            <div class="submenu">
+                    <ul>
+                        <li>Iniciar Lapso Academico</li>
+                        <li>Inserte Texto</li>
+                        <li>Inserte Texto</li>
+                    </ul>
+                </div>
             </div>
         </div>
         <div class="contend">

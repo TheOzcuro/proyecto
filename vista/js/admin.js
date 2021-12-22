@@ -1,3 +1,15 @@
+// ----------------------------------VARIABLES---------------------------------
+//VARIABLES PARA ANIMAR EL MENU LATERAL
+var click=0;
+var comparechild=0;
+
+
+// ----------------------------------VARIABLES---------------------------------
+
+
+
+
+//--------------------------------------------FUNCIONES--------------------------------
 function AppearsAndDissapear(appear,firstdiss,secondiss,display) {
     document.getElementById(firstdiss).style.display="none";
     document.getElementById(secondiss).style.display="none";
@@ -10,8 +22,31 @@ function LabelAnimation(input,label){
     document.getElementById(label).style.top = "1px";
     document.getElementById(label).style.fontSize = "15px";
 }
-function AnimationPrincipalMenu(thisvalue){
-    document.getElementById("arrow_down").style.transform = "rotate(180deg)";
+function AnimationPrincipalMenu(child){
+    click=click+1;
+        for (let index = 0; index < 6; index++) {
+            if (index==child) {
+                const div=document.querySelector(".slide-menu").children[child];
+                if (click>=2 && comparechild==child) {
+                    div.children[1].style.transform = "rotate(0)";
+                    div.children[2].style.maxHeight = "0";
+                    click=0
+                }
+                else {
+                    div.children[1].style.transform = "rotate(180deg)";
+                    div.children[2].style.maxHeight = "120px";
+                    
+                }  
+            }
+            else {
+                const div=document.querySelector(".slide-menu").children[index];
+                div.children[1].style.transform = "rotate(0)";
+                div.children[2].style.maxHeight = "0";
+            }
+            
+        }
+    comparechild=child
+    
 }
 function OnLoad(){
     var url=window.location.href;
@@ -78,9 +113,6 @@ function Submit(){
     }
     
 }
-function SubmitMateria() {
-
-}
 function ValidateTexto(input){
     var x=new RegExp("[A-Za-z ]+")
     var inputs=document.getElementById(input)
@@ -103,6 +135,7 @@ function ValidateNumeros(input){
         }
     })
 }
+//--------------------------------------------FUNCIONES--------------------------------
 /*
 document.getElementById("materia").addEventListener("click", function(){
     AppearsAndDissapear("materia-container","profesor-container","aula-container","flex")})
@@ -111,6 +144,7 @@ document.getElementById("profesor").addEventListener("click", function(){
 document.getElementById("aula").addEventListener("click", function(){
     AppearsAndDissapear("aula-container","profesor-container","materia-container","flex")})
 */
+//----------------------------------------EJECUTAR FUNCIONES------------------------------------
 ValidateTexto('primer_nombre');
 ValidateTexto('segundo_nombre');
 ValidateTexto('primer_apellido');
@@ -122,3 +156,4 @@ ValidateNumeros('telefono');
 ValidateNumeros('codigo_materia');
 ValidateNumeros('codigo_aula');
 OnLoad();
+//----------------------------------------EJECUTAR FUNCIONES------------------------------------
