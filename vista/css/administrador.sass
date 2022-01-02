@@ -6,29 +6,44 @@ body
     padding: 0
     margin: 0
     font-family: Open Sans, sans-serif
+    position: relative
+    z-index: -100
 .grid-container
     display: grid
     grid-template-columns: repeat(4,1fr)
     grid-auto-rows: minmax(100px,auto)
+    position: relative
+    z-index: -100
 .header 
     background-image: linear-gradient(to top, rgb(228, 72, 72),rgb(30, 30, 30) 130%)
     grid-column: 1/5
 .contend
     grid-column: 2/5
     position: relative
+    z-index: -100
 .slide-menu 
     grid-column: 1/2
     width: 200px
     padding: 10px 20px
+    height: 100%
     color: white
     background-image: linear-gradient(to bottom, rgb(228, 72, 72),rgb(30, 30, 30) 130%)
+    position: relative
+    z-index: -2
     .principal-menu 
         position: relative
         padding: 5px 20px
         margin-top: 20px
         cursor: pointer
+        position: relative
+        z-index: -1
     h4
         display: inline
+    .h4-container
+        margin-left:-20px
+        width: 200px
+        
+        
     #arrow_down
         width: 35px
         height: 35px
@@ -48,33 +63,29 @@ body
         transition-timing-function: ease
         max-height: 0px
         overflow: hidden
+        position: relative
+        z-index: 100
+         
     .submenu li 
         padding: 5px 5px
-        cursor: pointer
 ul
     list-style: none
 
-.boderline
+.borderline
     background-color: transparent
     transition-property: transform, width, background
     transition-duration: .2s
     transition-timing-function: ease
+    margin-top: -3px
     height: 3px
-    width:0.1px
-    text-align: center
-    margin: auto
+    width:1px
 a 
     text-decoration: none
     color: rgb(230,230,230)
-    display: inline-block
-    text-align: center
-    height: 35px
-    width: auto
-    font-size: 20px
-    &:hover>.boderline
-        transform: scaleX(100)
-        width: 1px
-        background-color: rgb(240, 238, 238)
+    &:hover>.borderline
+        background-color: white
+        width: 150px
+        
 
 .profesor-container 
     display: none
@@ -168,7 +179,7 @@ h2
         transform: scaleX(150)
         width: 1px
         background-color: rgb(240, 238, 238)
-        
+
 @keyframes Opacity 
 
     0%

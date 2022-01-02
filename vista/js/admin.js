@@ -136,15 +136,15 @@ function ValidateNumeros(input){
     })
 }
 //--------------------------------------------FUNCIONES--------------------------------
-/*
-document.getElementById("materia").addEventListener("click", function(){
-    AppearsAndDissapear("materia-container","profesor-container","aula-container","flex")})
-document.getElementById("profesor").addEventListener("click", function(){
-    AppearsAndDissapear("profesor-container","materia-container","aula-container","grid")})
-document.getElementById("aula").addEventListener("click", function(){
-    AppearsAndDissapear("aula-container","profesor-container","materia-container","flex")})
-*/
+
 //----------------------------------------EJECUTAR FUNCIONES------------------------------------
+document.getElementById("registrarMateria").addEventListener("click", function(){
+    AppearsAndDissapear("materia-container","profesor-container","aula-container","flex")})
+document.getElementById("registrarProfesor").addEventListener("click", function(){
+    AppearsAndDissapear("profesor-container","materia-container","aula-container","grid")})
+document.getElementById("registrarAulas").addEventListener("click", function(){
+    AppearsAndDissapear("aula-container","profesor-container","materia-container","flex")})
+
 ValidateTexto('primer_nombre');
 ValidateTexto('segundo_nombre');
 ValidateTexto('primer_apellido');

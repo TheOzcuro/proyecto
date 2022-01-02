@@ -18,68 +18,90 @@ if (isset($_SESSION["usuario"])==false) {
         <div class="header">
         </div>
         <div class="slide-menu">
-            <div class="principal-menu" onclick="AnimationPrincipalMenu(0)">
-            <h4>Control Profesor</h4>
-            <img src="css/img/arrow_down.png" alt="" id="arrow_down">
+            <div class="principal-menu" >
+            <div class="h4-container" onclick="AnimationPrincipalMenu(0)">
+            <h4>Profesor</h4>
+            </div>
+            <img src="css/img/arrow_down.png" alt="" id="arrow_down" onclick="AnimationPrincipalMenu(0)">
                 <div class="submenu">
                     <ul>
-                        <li>Registrar</li>
-                        <li>Disponibilidad</li>
-                        <li>Editar Datos</li>
+                        <a href="#regprofesor"><li id="registrarProfesor">Registrar</li><div class="borderline"></div></a>
+                        <a href="#disprofesor"><li id="disponibilidadProfesor">Disponibilidad</li> <div class="borderline"></div></a>
+                        <a href="#editprofesor"><li id="editarProfesor">Editar Datos</li> <div class="borderline"></div></a>
                     </ul>
                 </div>
             </div>
-            <div class="principal-menu" onclick="AnimationPrincipalMenu(1)">
-            <h4>Control Horario</h4>
-            <img src="css/img/arrow_down.png" alt="" id="arrow_down">
+            <div class="principal-menu">
+            <div class="h4-container" onclick="AnimationPrincipalMenu(1)">
+                <h4>Horario</h4>
+            </div>
+            
+            <img src="css/img/arrow_down.png" alt="" id="arrow_down" onclick="AnimationPrincipalMenu(1)">
             <div class="submenu">
                     <ul>
-                        <li>Crear Horario</li>
-                        <li>Editar Horario</li>
-                        <li>Imprimir</li>
+                        <a href="#reghorario"><li id="registrarHorario">Crear Horario</li><div class="borderline"></div></a>
+                        <a href="#edithorario"><li id="editarHorario">Editar Horario</li><div class="borderline"></div></a>
+                        <a href="#imphorario"><li id="ImprimirHorario">Imprimir</li><div class="borderline"></div></a>
                     </ul>
                 </div>
             </div>
-            <div class="principal-menu" onclick="AnimationPrincipalMenu(2)">
-            <h4>Control Materias</h4>
-            <img src="css/img/arrow_down.png" alt="" id="arrow_down">
+            <div class="principal-menu">
+            <div class="h4-container" onclick="AnimationPrincipalMenu(2)">
+                <h4>Materias</h4>
+            </div>
+            <img src="css/img/arrow_down.png" alt="" id="arrow_down" onclick="AnimationPrincipalMenu(2)">
             <div class="submenu">
                     <ul>
-                        <li>Crear Materias</li>
-                        <li>Editar Materias</li>
+                        <a href="#regmateria"><li id="registrarMateria">Crear Materias</li><div class="borderline"></div></a>
+                        <a href="#editmateria"><li id="editarMateria">Editar Materias</li><div class="borderline"></div></a>
                     </ul>
                 </div>
             </div>
-            <div class="principal-menu" onclick="AnimationPrincipalMenu(3)">
-            <h4>Control Carreras</h4>
-            <img src="css/img/arrow_down.png" alt="" id="arrow_down">
+            <div class="principal-menu">
+            <div class="h4-container" onclick="AnimationPrincipalMenu(3)">
+                <h4>Carreras</h4>
+            </div> 
+            
+            <img src="css/img/arrow_down.png" alt="" id="arrow_down" onclick="AnimationPrincipalMenu(3)">
             <div class="submenu">
                     <ul>
-                        <li>Crear Carreras</li>
-                        <li>Editar Carreras</li>
+                        <a href="#regcarreras"><li id="registrarCarreras">Crear Carreras</li><div class="borderline"></div></a>
+                        <a href="#editcarreras"><li id="editarCarreras">Editar Carreras</li><div class="borderline"></div></a>
                     </ul>
                 </div>
             </div>
-            <div class="principal-menu" onclick="AnimationPrincipalMenu(4)">
-            <h4>Control Aulas</h4>
-            <img src="css/img/arrow_down.png" alt="" id="arrow_down">
+            <div class="principal-menu">
+            <div class="h4-container" onclick="AnimationPrincipalMenu(4)">
+                <h4>Control Aulas</h4>
+            </div>
+            
+            <img src="css/img/arrow_down.png" alt="" id="arrow_down" onclick="AnimationPrincipalMenu(4)">
             <div class="submenu">
                     <ul>
-                        <li>Crear Aulas</li>
-                        <li>Editar Aulas</li>
+                        <a href="#regaulas"><li id="registrarAulas">Crear Aulas</li><div class="borderline"></div></a>
+                        <a href="#editaulas"><li id="editarAulas">Editar Aulas</li><div class="borderline"></div></a>
                     </ul>
                 </div>
             </div>
-            <div class="principal-menu" onclick="AnimationPrincipalMenu(5)">
-            <h4>Lapso Academico</h4>
-            <img src="css/img/arrow_down.png" alt="" id="arrow_down">
+            <div class="principal-menu">
+            
+            <div class="h4-container" onclick="AnimationPrincipalMenu(5)">
+                <h4>Lapso Academico</h4>
+            </div>
+            <img src="css/img/arrow_down.png" alt="" id="arrow_down" onclick="AnimationPrincipalMenu(5)">
             <div class="submenu">
                     <ul>
-                        <li>Iniciar Lapso Academico</li>
-                        <li>Inserte Texto</li>
-                        <li>Inserte Texto</li>
+                        <a href=""><li>Iniciar Lapso Academico</li><div class="borderline"></div></a>
+                        <a href=""><li>Inserte Texto</li><div class="borderline"></div></a>
+                        <a href=""><li>Inserte Texto</li><div class="borderline"></div></a>
                     </ul>
                 </div>
+            </div>
+            <div class="principal-menu">
+                <div class="h4-container">
+                <a href="logout.php"><h4>Cerrar Sesion</h4></a>
+                </div>
+               
             </div>
         </div>
         <div class="contend">
