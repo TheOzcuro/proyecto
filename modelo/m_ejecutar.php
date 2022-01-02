@@ -26,6 +26,11 @@ class registry extends mybsd {
 		
 		return $this->execute($query);
 	}
+	function registrarAdministrador($contraseña){
+		$query="INSERT INTO `administrador`(`cedula`,`contraseña`)
+		VALUES ('".$this->cedula."','$contraseña')";
+		return $this->execute($query);
+	}
 	function registrarMateria($codigo, $nombre, $tipo){
 		$query="INSERT INTO `materia`(`codigo`, `nombre`, `tipo`)
 		VALUES ('".$codigo."','".$nombre."','".$tipo."')";
@@ -41,10 +46,23 @@ class registry extends mybsd {
     function ValidateLogin($cedula){
 		$query="SELECT `cedula`,`rol` FROM `profesor` WHERE `cedula`=$cedula";
 		$valido=$this->list($this->execute($query));
-		if ($valido[0]==$cedula && $valido[1]==1) {
+		if ($valido[0]==$cedula && $valido[1]==0) {
 			return true;
 			}
-		if ($valido[0]==$cedula && $valido[1]==0) {
+		if ($valido[0]==$cedula && $valido[1]==1) {
+			return 2;
+		}
+		else {
+			return false;
+			}	
+	}
+	function ValidateAdministrador($cedula, $contraseña){
+		$query="SELECT `cedula`,`contraseña` FROM `administrador` WHERE `cedula`=$cedula";
+		$valido=$this->list($this->execute($query));
+		if ($valido[0]==$cedula && $valido[1]==$contraseña) {
+			return true;
+			}
+		if ($valido[0]==$cedula && $valido[1]=="") {
 			return 2;
 			}
 		else {

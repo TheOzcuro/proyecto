@@ -3,13 +3,19 @@ session_start();
 include_once("../modelo/m_ejecutar.php");
 $ejecutar= new registry();
 $validate=$ejecutar->ValidateLogin($_POST["usuario"]);
+$administrador=$ejecutar->ValidateAdministrador($_POST["usuario"],$_POST["pass"]);
+    echo $administrador;
     if ($validate===true) {
+        $_SESSION["usuario"]="true";
+        header("Location: ../vista/profesor.php");
+    }
+    if ($administrador===true) {
         $_SESSION["usuario"]="true";
         header("Location: ../vista/administrador.php");
     }
-    if ($validate===2) {
-        $_SESSION["error"]="usuario_no_administrador";
-        header("Location: ../vista/login.php");
+    if ($administrador===2) {
+        $_SESSION["usuario"]="true";
+        header("Location: ../vista/configadmin.php");
     }
     if ($validate===false) {
         $_SESSION["error"]="usuario_no_existe";

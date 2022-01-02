@@ -15,6 +15,10 @@
        echo "<script>Error('El Usuario NO Existe','msg_error','p_error')</script>";
        unset($_SESSION["error"]);
     }
+    if (isset($_SESSION["error"]) && $_SESSION["error"]=="usuario_no_administrador") {
+        echo "<script>Error('El Usuario NO es ADMINISTRADOR','msg_error','p_error')</script>";
+        unset($_SESSION["error"]);
+     }
     
     ?>
     

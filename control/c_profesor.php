@@ -8,10 +8,19 @@ if ($validate===2) {
     header("Location:../vista/administrador.php#profe");
     $_SESSION["error"]="profesor_cedula";
     
+    
 }
 else {
-    header("Location:../vista/administrador.php#profe");
-    $_SESSION["completado"]="profesor_registro";
+    if ($_POST["rol"]==1) {
+        $ejecutar->registrarAdministrador("");
+       header("Location:../vista/administrador.php#regprofesor");
+       $_SESSION["completado"]="profesor_registro";
+    }
+    else {
+        header("Location:../vista/administrador.php#profe");
+        $_SESSION["completado"]="profesor_registro";
+    }
+   
     
 }
 ?>
