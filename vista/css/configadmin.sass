@@ -1,0 +1,103 @@
+@font-face
+    font-family: Open Sans
+    src: url(fonts/OpenSans-Regular.ttf)
+
+body
+    margin: 0
+    padding: 0
+    background: rgb(0, 0, 0,0.6)
+    font-family: Open Sans, sans-serif
+
+.password-container
+    height: 300px
+    width: 300px
+    background-color: rgb(240, 240, 240)
+    position: absolute
+    top:40%
+    left:50%
+    transform: translate(-50%,-50%)
+    h3
+        text-align: center
+    form 
+        padding: 20px
+
+label
+    font-size: 18px
+    position: absolute
+    top: 20px
+    color: rgb(138, 136, 136)
+    transition-property: top, font-size
+    transition-timing-function: ease
+    transition-duration: 0.5s
+    user-select: none
+.input-container 
+    position: relative
+input
+    height: 25px
+    border: none
+    width: 98%
+    background-color: transparent
+    border-bottom: 1.9px solid black
+    position: relative
+    z-index: 100
+    outline: none
+    transition-property: border-color
+    transition-duration: .5s
+    transition-timing-function: ease
+    &:focus
+        border-color: rgb(32, 107, 219)
+button 
+    border: none
+    background-color: rgb(61, 133, 206)
+    width: 80%
+    left: 20px
+    top: 15px
+    position: relative
+    cursor: pointer
+    height: 30px
+    color: rgb(230, 230, 230)
+    font-size: 17px
+    border-left: 3px solid
+    border-right: 3px solid
+    transition-duration: .7s
+    transition-property: background, border-color
+    transition-timing-function: ease
+    &:hover
+        background-color: rgb(74, 152, 231)
+        border-color: rgb(226, 135, 50)
+    &::before
+        content: ''
+        border-top: 3px solid transparent
+        width: 2px
+        position: absolute
+        left: 100px
+        top: -2px
+        transition-property: transform, border-color, widht
+        transition-timing-function: ease
+        transition-duration: .5s
+    &:hover::before
+        border-color: rgb(226, 135, 50)
+        transform: scale(104,1)
+
+    &::after
+        content: ''
+        left: 100px
+        bottom: -2px
+        position: absolute
+        border-bottom: 3px solid transparent
+        width: 2px
+        transition-property: width, border-color, transform
+        transition-timing-function: ease
+        transition-duration: .5s
+    &:hover::after
+        border-color: rgb(226, 135, 50)
+        transform: scale(104,1)
+    &:focus
+        border-color: rgb(60, 214, 60)
+    &:focus::before
+        border-color: rgb(60, 214, 60)
+    &:focus::after
+        border-color: rgb(60, 214, 60)    
+        
+        
+        

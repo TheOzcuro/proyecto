@@ -11,10 +11,12 @@ $administrador=$ejecutar->ValidateAdministrador($_POST["usuario"],$_POST["pass"]
     }
     if ($administrador===true) {
         $_SESSION["usuario"]="true";
+        $_SESSION["usuario_nombre"]="true";
         header("Location: ../vista/administrador.php");
     }
     if ($administrador===2) {
         $_SESSION["usuario"]="true";
+        $_SESSION["usuario_cedula"]=$_POST["usuario"];
         header("Location: ../vista/configadmin.php");
     }
     if ($validate===false) {

@@ -1,0 +1,122 @@
+@font-face {
+  font-family: Open Sans;
+  src: url(fonts/OpenSans-Regular.ttf);
+}
+body {
+  margin: 0;
+  padding: 0;
+  background: rgba(0, 0, 0, 0.6);
+  font-family: Open Sans, sans-serif;
+}
+
+.password-container {
+  height: 300px;
+  width: 300px;
+  background-color: #f0f0f0;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.password-container h3 {
+  text-align: center;
+}
+.password-container form {
+  padding: 20px;
+}
+
+label {
+  font-size: 18px;
+  position: absolute;
+  top: 20px;
+  color: #8a8888;
+  transition-property: top, font-size;
+  transition-timing-function: ease;
+  transition-duration: 0.5s;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+.input-container {
+  position: relative;
+}
+
+input {
+  height: 25px;
+  border: none;
+  width: 98%;
+  background-color: transparent;
+  border-bottom: 1.9px solid black;
+  position: relative;
+  z-index: 100;
+  outline: none;
+  transition-property: border-color;
+  transition-duration: 0.5s;
+  transition-timing-function: ease;
+}
+input:focus {
+  border-color: #206bdb;
+}
+
+button {
+  border: none;
+  background-color: #3d85ce;
+  width: 80%;
+  left: 20px;
+  top: 15px;
+  position: relative;
+  cursor: pointer;
+  height: 30px;
+  color: #e6e6e6;
+  font-size: 17px;
+  border-left: 3px solid;
+  border-right: 3px solid;
+  transition-duration: 0.7s;
+  transition-property: background, border-color;
+  transition-timing-function: ease;
+}
+button:hover {
+  background-color: #4a98e7;
+  border-color: #e28732;
+}
+button::before {
+  content: "";
+  border-top: 3px solid transparent;
+  width: 2px;
+  position: absolute;
+  left: 100px;
+  top: -2px;
+  transition-property: transform, border-color, widht;
+  transition-timing-function: ease;
+  transition-duration: 0.5s;
+}
+button:hover::before {
+  border-color: #e28732;
+  transform: scale(104, 1);
+}
+button::after {
+  content: "";
+  left: 100px;
+  bottom: -2px;
+  position: absolute;
+  border-bottom: 3px solid transparent;
+  width: 2px;
+  transition-property: width, border-color, transform;
+  transition-timing-function: ease;
+  transition-duration: 0.5s;
+}
+button:hover::after {
+  border-color: #e28732;
+  transform: scale(104, 1);
+}
+button:focus {
+  border-color: #3cd63c;
+}
+button:focus::before {
+  border-color: #3cd63c;
+}
+button:focus::after {
+  border-color: #3cd63c;
+}/*# sourceMappingURL=configadmin.css.map */
