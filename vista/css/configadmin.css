@@ -24,6 +24,12 @@ body {
 .password-container form {
   padding: 20px;
 }
+.password-container b {
+  color: #c72b23;
+  font-size: 14px;
+  position: absolute;
+  bottom: 25px;
+}
 
 label {
   font-size: 18px;
@@ -88,7 +94,7 @@ button::before {
   position: absolute;
   left: 100px;
   top: -2px;
-  transition-property: transform, border-color, widht;
+  transition-property: transform, width;
   transition-timing-function: ease;
   transition-duration: 0.5s;
 }
@@ -103,7 +109,7 @@ button::after {
   position: absolute;
   border-bottom: 3px solid transparent;
   width: 2px;
-  transition-property: width, border-color, transform;
+  transition-property: width, transform;
   transition-timing-function: ease;
   transition-duration: 0.5s;
 }
@@ -111,12 +117,12 @@ button:hover::after {
   border-color: #e28732;
   transform: scale(104, 1);
 }
-button:focus {
+button:active {
   border-color: #3cd63c;
 }
-button:focus::before {
+button:active::before {
   border-color: #3cd63c;
 }
-button:focus::after {
+button:active::after {
   border-color: #3cd63c;
 }/*# sourceMappingURL=configadmin.css.map */

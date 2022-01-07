@@ -31,6 +31,10 @@ class registry extends mybsd {
 		VALUES ('".$this->cedula."','$contraseña')";
 		return $this->execute($query);
 	}
+	function createPassword($cedula, $contraseña){
+		$query="UPDATE `administrador` SET `contraseña`='$contraseña' WHERE `cedula`='$cedula' ";
+		return $this->execute($query);
+	}
 	function registrarMateria($codigo, $nombre, $tipo){
 		$query="INSERT INTO `materia`(`codigo`, `nombre`, `tipo`)
 		VALUES ('".$codigo."','".$nombre."','".$tipo."')";

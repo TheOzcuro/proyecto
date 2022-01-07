@@ -55,12 +55,47 @@ button
     padding: 5px 0px
     background-color: rgb(32, 107, 219)
     color: rgb(240, 240, 240)
+    position: relative
     cursor: pointer
-    transition-property: background-color, color
+    border-left: 3px solid transparent
+    border-right: 3px solid transparent
+    transition-property: background
     transition-duration: 0.5s
     transition-timing-function: linear
     transition-property: border-color
-    transition-duration: .7s
-    -o-transition-timing-function: ease
     &:hover
-        background-color: rgb(97, 148, 226)
+        background-color: rgb(74, 152, 231)
+        border-color: rgb(226, 135, 50)
+    &::before
+        content: ''
+        border-top: 3px solid transparent
+        width: 2px
+        position: absolute
+        left: 121px
+        top: -2px
+        transition-property: transform, width
+        transition-timing-function: ease
+        transition-duration: .5s
+    &:hover::before
+        border-color: rgb(226, 135, 50)
+        transform: scale(125,1)
+
+    &::after
+        content: ''
+        left: 121px
+        bottom: -2px
+        position: absolute
+        border-bottom: 3px solid transparent
+        width: 2px
+        transition-property: width, transform
+        transition-timing-function: ease
+        transition-duration: .5s
+    &:hover::after
+        border-color: rgb(226, 135, 50)
+        transform: scale(125,1)
+    &:active
+        border-color: rgb(60, 214, 60)
+    &:active::before
+        border-color: rgb(60, 214, 60)
+    &:active::after
+        border-color: rgb(60, 214, 60) 

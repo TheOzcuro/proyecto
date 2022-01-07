@@ -8,7 +8,7 @@ if ($validate===2) {
     header("Location:../vista/administrador.php#profe");
     $_SESSION["error"]="profesor_cedula";
     
-    
+
 }
 else {
     if ($_POST["rol"]==1) {

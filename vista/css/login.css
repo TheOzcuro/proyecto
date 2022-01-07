@@ -73,14 +73,55 @@ button {
   padding: 5px 0px;
   background-color: #206bdb;
   color: #f0f0f0;
+  position: relative;
   cursor: pointer;
-  transition-property: background-color, color;
+  border-left: 3px solid transparent;
+  border-right: 3px solid transparent;
+  transition-property: background;
   transition-duration: 0.5s;
   transition-timing-function: linear;
   transition-property: border-color;
-  transition-duration: 0.7s;
-  -o-transition-timing-function: ease;
 }
 button:hover {
-  background-color: #6194e2;
+  background-color: #4a98e7;
+  border-color: #e28732;
+}
+button::before {
+  content: "";
+  border-top: 3px solid transparent;
+  width: 2px;
+  position: absolute;
+  left: 121px;
+  top: -2px;
+  transition-property: transform, width;
+  transition-timing-function: ease;
+  transition-duration: 0.5s;
+}
+button:hover::before {
+  border-color: #e28732;
+  transform: scale(125, 1);
+}
+button::after {
+  content: "";
+  left: 121px;
+  bottom: -2px;
+  position: absolute;
+  border-bottom: 3px solid transparent;
+  width: 2px;
+  transition-property: width, transform;
+  transition-timing-function: ease;
+  transition-duration: 0.5s;
+}
+button:hover::after {
+  border-color: #e28732;
+  transform: scale(125, 1);
+}
+button:active {
+  border-color: #3cd63c;
+}
+button:active::before {
+  border-color: #3cd63c;
+}
+button:active::after {
+  border-color: #3cd63c;
 }/*# sourceMappingURL=login.css.map */
