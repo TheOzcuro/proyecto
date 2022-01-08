@@ -18,6 +18,10 @@ $administrador=$ejecutar->ValidateAdministrador($_POST["usuario"],$_POST["pass"]
         $_SESSION["usuario_cedula"]=$_POST["usuario"];
         header("Location: ../vista/configadmin.php");
     }
+    if ($administrador===3) {
+        $_SESSION["error"]="error_pass";
+        header("Location: ../vista/login.php");
+    }
     if ($validate===false) {
         $_SESSION["error"]="usuario_no_existe";
         header("Location: ../vista/login.php");

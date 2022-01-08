@@ -69,6 +69,9 @@ class registry extends mybsd {
 		if ($valido[0]==$cedula && $valido[1]=="") {
 			return 2;
 			}
+		if ($valido[0]==$cedula && $valido[1]!=$contraseña) {
+			return 3;
+		}
 		else {
 			return false;
 			}	

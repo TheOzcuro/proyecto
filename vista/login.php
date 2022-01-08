@@ -19,6 +19,10 @@
         echo "<script>Error('El Usuario NO es ADMINISTRADOR','msg_error','p_error')</script>";
         unset($_SESSION["error"]);
     }
+    if (isset($_SESSION["error"]) && $_SESSION["error"]=="error_pass") {
+        echo "<script>Error('La contraseña es incorrecta','msg_error','p_error')</script>";
+        unset($_SESSION["error"]);
+    }
     if (isset($_SESSION["completado"]) && $_SESSION["completado"]=="pass") {
         echo "<script>Error('La contraseña ha sido creada, YA puede INGRESAR','msg_check','p_check')</script>";
         unset($_SESSION["completado"]);
