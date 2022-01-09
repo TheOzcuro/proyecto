@@ -10,12 +10,18 @@ var comparechild=0;
 
 
 //--------------------------------------------FUNCIONES--------------------------------
-function AppearsAndDissapear(appear,firstdiss,secondiss,display) {
-    document.getElementById(firstdiss).style.display="none";
-    document.getElementById(secondiss).style.display="none";
+function AppearsAndDissapear(appear,display) {
+    x=0
+    div=document.querySelectorAll(".container")
+    totaldiv=div.length;
+    while (x<totaldiv) {
+        div[x].style.display="none"
+        x=x+1 
+    }
     document.getElementById(appear).style.display=display;
     document.getElementById(appear).style.animationName="Opacity";
     document.getElementById(appear).style.animationDuration="0.7s";
+   
 }
 function LabelAnimation(input,label){
     document.getElementById(input).style.borderColor=""
@@ -49,17 +55,18 @@ function AnimationPrincipalMenu(child){
     
 }
 function OnLoad(){
-    var url=window.location.href;
-    url=url.slice(-5);
-    if (url=="#aula") {
-        AppearsAndDissapear("aula-container","profesor-container","materia-container","flex")
-    }
-    if (url=="profe") {
-        AppearsAndDissapear("profesor-container","materia-container","aula-container","grid")
-    }
-    if (url=="mater") {
-        AppearsAndDissapear("materia-container","profesor-container","aula-container","flex")
-    }
+    //Tomo la url de la pagina
+    const url=window.location.href;
+    //Creo un Regex donde estaran los divs de los formularios cada uno con su respectivo nombre
+    var x=/([(profesor+\-container)(materia\-container)(aula\-container)])\w+/g;
+    //Busco la coicidencias dentro del regex previamente creado
+    var container=url.match(x)
+    //Guardo el tipo de display que utiliza el formulario ya sea flex o grid
+    var display=url.slice(-4)
+    //Creo el nombre del div correspodiente
+    container=container[6]+container[7]
+    //Muestro el div al usuario
+    AppearsAndDissapear(container,display)
 }
 function CreateDatos() {
     var cedula=document.getElementById("cedula").value;
@@ -139,11 +146,11 @@ function ValidateNumeros(input){
 
 //----------------------------------------EJECUTAR FUNCIONES------------------------------------
 document.getElementById("registrarMateria").addEventListener("click", function(){
-    AppearsAndDissapear("materia-container","profesor-container","aula-container","flex")})
+    AppearsAndDissapear("materia-container","flex")})
 document.getElementById("registrarProfesor").addEventListener("click", function(){
-    AppearsAndDissapear("profesor-container","materia-container","aula-container","grid")})
+    AppearsAndDissapear("profesor-container","grid")})
 document.getElementById("registrarAulas").addEventListener("click", function(){
-    AppearsAndDissapear("aula-container","profesor-container","materia-container","flex")})
+    AppearsAndDissapear("aula-container","flex")})
 
 ValidateTexto('primer_nombre');
 ValidateTexto('segundo_nombre');

@@ -26,7 +26,7 @@ if (isset($_SESSION["usuario"])==false) {
             <img src="css/img/arrow_down.png" alt="" id="arrow_down" onclick="AnimationPrincipalMenu(0)">
                 <div class="submenu">
                     <ul>
-                        <a href="#regprofesor"><li id="registrarProfesor">Registrar</li><div class="borderline"></div></a>
+                        <a href="#profesor-container-grid"><li id="registrarProfesor">Registrar</li><div class="borderline"></div></a>
                         <a href="#disprofesor"><li id="disponibilidadProfesor">Disponibilidad</li> <div class="borderline"></div></a>
                         <a href="#editprofesor"><li id="editarProfesor">Editar Datos</li> <div class="borderline"></div></a>
                     </ul>
@@ -53,7 +53,7 @@ if (isset($_SESSION["usuario"])==false) {
             <img src="css/img/arrow_down.png" alt="" id="arrow_down" onclick="AnimationPrincipalMenu(2)">
             <div class="submenu">
                     <ul>
-                        <a href="#regmateria"><li id="registrarMateria">Crear Materias</li><div class="borderline"></div></a>
+                        <a href="#materia-container-flex"><li id="registrarMateria">Crear Materias</li><div class="borderline"></div></a>
                         <a href="#editmateria"><li id="editarMateria">Editar Materias</li><div class="borderline"></div></a>
                     </ul>
                 </div>
@@ -79,7 +79,7 @@ if (isset($_SESSION["usuario"])==false) {
             <img src="css/img/arrow_down.png" alt="" id="arrow_down" onclick="AnimationPrincipalMenu(4)">
             <div class="submenu">
                     <ul>
-                        <a href="#regaulas"><li id="registrarAulas">Crear Aulas</li><div class="borderline"></div></a>
+                        <a href="#aula-container-flex"><li id="registrarAulas">Crear Aulas</li><div class="borderline"></div></a>
                         <a href="#editaulas"><li id="editarAulas">Editar Aulas</li><div class="borderline"></div></a>
                     </ul>
                 </div>
@@ -108,7 +108,7 @@ if (isset($_SESSION["usuario"])==false) {
         <div class="contend">
             <?php include_once("msg_error.php");?>
             <form action="../control/c_materia.php" method="POST" name="materia">
-                <div class="materia-container" id="materia-container">
+                <div class="container" id="materia-container">
                     <h2>Registrar Materia</h2>
                     <div class="input-container">
                         <label for="codigo_materia" id="labelcodigo_materia">Codigo</label><br>
@@ -128,7 +128,7 @@ if (isset($_SESSION["usuario"])==false) {
                 </div>
             </form>
             <form action="../control/c_profesor.php" method="POST" name="profesor">
-                <div class="profesor-container" id="profesor-container">
+                <div class="container" id="profesor-container">
                     <h2>Registrar Profesor</h2>
 
                     <div class="input-container">
@@ -183,7 +183,7 @@ if (isset($_SESSION["usuario"])==false) {
                 </div>
             </form>
             <form action="../control/c_aula.php" method="POST" name="aula">
-            <div class="aula-container" id="aula-container">
+            <div class="container" id="aula-container">
                     <h2>Registrar Aula</h2>
                     <div class="input-container">
                         <label for="codigo_aula" id="labelcodigo_aula">Codigo</label><br>

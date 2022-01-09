@@ -108,7 +108,7 @@ a:hover > .borderline {
   width: 150px;
 }
 
-.profesor-container {
+#profesor-container {
   display: none;
   grid-template-columns: 250px 250px;
   grid-auto-rows: 70px;
@@ -125,7 +125,7 @@ a:hover > .borderline {
   z-index: 500;
 }
 
-.materia-container, .aula-container {
+#materia-container, #aula-container {
   display: none;
   flex-direction: column;
   background: #fafafa;
@@ -140,7 +140,7 @@ a:hover > .borderline {
   z-index: 500;
 }
 
-.materia-container input, .aula-container input {
+#materia-container input, #aula-container input {
   width: 95%;
 }
 
@@ -161,7 +161,7 @@ input:focus {
   border-color: #206bdb;
 }
 
-.profesor-container select {
+#profesor-container select {
   width: 80%;
   border: none;
   border-bottom: 2px solid rgba(30, 30, 30, 0.8);
@@ -209,7 +209,7 @@ button:hover {
   background: #5e6efc;
 }
 
-.materia-container button {
+#materia-container button {
   margin: auto;
 }
 
