@@ -19,6 +19,11 @@ class registry extends mybsd {
 		$this->direccion=strtoupper($direccion);
 		$this->telefono=$telefono;
 	}
+	function GetName($cedula)
+	{
+		$query="SELECT `primer_nombre`,`primer_apellido` FROM `profesor` WHERE `cedula`=$cedula";
+		return $this->list($this->execute($query));
+	}
 	function registrarProfesor(){
 		$query="INSERT INTO `profesor`(`cedula`, `rol`, `primer_nombre`, 
 		`segundo_nombre`, `primer_apellido`, `segundo_apellido`, `direccion`, `telefono`)
@@ -69,6 +74,9 @@ class registry extends mybsd {
 		if ($valido[0]==$cedula && $valido[1]=="") {
 			return 2;
 			}
+		if ($valido[0]==$cedula && $contraseña=="recovery") {
+			return 2;
+		}
 		if ($valido[0]==$cedula && $valido[1]!=$contraseña) {
 			return 3;
 		}

@@ -40,9 +40,19 @@
             <label for="pass" id="passuser">Contraseña</label><br>
             <input type="password" name="pass" id="pass" onfocus='LabelAnimation("pass","passuser")' onblur='LabelOut("pass","passuser")'></div><br>
             <button onclick="Submit()" type="button">Iniciar Sesion</button>
-            <a href=""><p>¿Has olvidado tu contraseña?</p></a>
+            <a href="#recover" onclick="AppearRecover()"><p>¿Has olvidado tu contraseña?</p></a>
         </div>
     </form>
+    <div class="blackcover">
+        <div class="recover">
+            <h4>Para recuperar su contraseña ingrese su cedula</h4>
+            <div class="input-container">
+            <label for="recover_cedula" id="labelrecover">Ingrese su Cedula</label><br>
+            <input type="text" name="recover_cedula" id="recover_cedula" onfocus='LabelAnimation("recover_cedula","labelrecover")' onblur='LabelOut("recover_cedula","labelrecover")'></div><br>
+            <div class="input-container">
+            <button type="button" class="button-rep" onclick="Recover()">Recuperar</button><button type="button" class="button-clo" onclick="DissapearRecover()">Cerrar</button>
+        </div>
+    </div>
     
 </body>
 <script src="js/login.js"></script>

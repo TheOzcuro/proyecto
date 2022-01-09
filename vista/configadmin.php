@@ -17,6 +17,7 @@ if (isset($_SESSION["usuario_cedula"])==false) {
     <?php 
     include_once("msg_error.php");
     ?>
+    
     <div class="password-container">
         <h3>Crear Contraseña</h3>
         <form action="../control/c_administrador.php" method="POST" name="regpass" id="regpass">
@@ -27,7 +28,7 @@ if (isset($_SESSION["usuario_cedula"])==false) {
         <div class="input-container">
         <div class="input-container">
             <label for="con" id="labelcon">Confirmar Contraseña</label><br>
-            <input type="password" name="con" id="con" onfocus='LabelAnimation("con","labelcon")' onblur='LabelOut("con","labelcon")'><img src="css/img/eye_close.png" alt="" class="eye" id="con_eye"></div><br>
+            <input type="password" name="con" id="con" onfocus='LabelAnimation("con","labelcon")' onblur='LabelOut("con","labelcon")'><img src="css/img/eye_close.png" alt="" class="eye" id="con_eye" onclick="SeePass('con','con_eye')"></div><br>
             <b id="first-pass"></b>
         <div class="input-container">
         <button type="button" id="password-button" onclick="Submit()">Crear Contraseña</button><br>

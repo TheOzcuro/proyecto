@@ -23,6 +23,64 @@ body {
   box-shadow: 20px 15px 30px rgba(30, 30, 30, 0.6);
   padding: 15px 25px;
 }
+.login-container button {
+  border: none;
+  font-size: 17px;
+  padding: 5px 0px;
+  background-color: #206bdb;
+  color: #f0f0f0;
+  position: relative;
+  cursor: pointer;
+  border-left: 3px solid transparent;
+  border-right: 3px solid transparent;
+  transition-property: background;
+  transition-duration: 0.5s;
+  transition-timing-function: linear;
+  transition-property: border-color;
+}
+.login-container button:hover {
+  background-color: #4a98e7;
+  border-color: #e28732;
+}
+.login-container button::before {
+  content: "";
+  border-top: 3px solid transparent;
+  width: 2px;
+  position: absolute;
+  left: 121px;
+  top: -2px;
+  transition-property: transform, width;
+  transition-timing-function: ease;
+  transition-duration: 0.5s;
+}
+.login-container button:hover::before {
+  border-color: #e28732;
+  transform: scale(125, 1);
+}
+.login-container button::after {
+  content: "";
+  left: 121px;
+  bottom: -2px;
+  position: absolute;
+  border-bottom: 3px solid transparent;
+  width: 2px;
+  transition-property: width, transform;
+  transition-timing-function: ease;
+  transition-duration: 0.5s;
+}
+.login-container button:hover::after {
+  border-color: #e28732;
+  transform: scale(125, 1);
+}
+.login-container button:active {
+  border-color: #3cd63c;
+}
+.login-container button:active::before {
+  border-color: #3cd63c;
+}
+.login-container button:active::after {
+  border-color: #3cd63c;
+}
 
 h2 {
   text-align: center;
@@ -67,61 +125,75 @@ input:focus {
   border-color: #206bdb;
 }
 
-button {
-  border: none;
-  font-size: 17px;
-  padding: 5px 0px;
-  background-color: #206bdb;
-  color: #f0f0f0;
+.blackcover {
+  position: absolute;
+  background: rgba(30, 30, 30, 0.6);
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+.blackcover .recover {
   position: relative;
+  width: 350px;
+  height: 200px;
+  padding: 5px 30px;
+  background: #e6e6e6;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-animation-duration: 1s;
+          animation-duration: 1s;
+}
+.blackcover button {
+  border: none;
+  width: 120px;
+  height: 30px;
+  border-radius: 10px;
+  transition-property: background, color;
+  transition-duration: 0.7s;
+  transition-timing-function: ease;
   cursor: pointer;
-  border-left: 3px solid transparent;
-  border-right: 3px solid transparent;
-  transition-property: background;
-  transition-duration: 0.5s;
-  transition-timing-function: linear;
-  transition-property: border-color;
 }
-button:hover {
-  background-color: #4a98e7;
-  border-color: #e28732;
+.blackcover .button-rep {
+  border: 3px solid #206bdb;
+  background: transparent;
 }
-button::before {
-  content: "";
-  border-top: 3px solid transparent;
-  width: 2px;
-  position: absolute;
-  left: 121px;
-  top: -2px;
-  transition-property: transform, width;
-  transition-timing-function: ease;
-  transition-duration: 0.5s;
+.blackcover .button-rep:hover {
+  background: #206bdb;
+  color: #e6e6e6;
 }
-button:hover::before {
-  border-color: #e28732;
-  transform: scale(125, 1);
+.blackcover .button-clo {
+  border: 3px solid red;
+  background: transparent;
+  float: right;
 }
-button::after {
-  content: "";
-  left: 121px;
-  bottom: -2px;
-  position: absolute;
-  border-bottom: 3px solid transparent;
-  width: 2px;
-  transition-property: width, transform;
-  transition-timing-function: ease;
-  transition-duration: 0.5s;
+.blackcover .button-clo:hover {
+  background: red;
+  color: #e6e6e6;
 }
-button:hover::after {
-  border-color: #e28732;
-  transform: scale(125, 1);
+
+@-webkit-keyframes Appear {
+  0% {
+    opacity: 0;
+    top: 30%;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    top: 40%;
+  }
 }
-button:active {
-  border-color: #3cd63c;
-}
-button:active::before {
-  border-color: #3cd63c;
-}
-button:active::after {
-  border-color: #3cd63c;
+
+@keyframes Appear {
+  0% {
+    opacity: 0;
+    top: 30%;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    top: 40%;
+  }
 }/*# sourceMappingURL=login.css.map */

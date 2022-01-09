@@ -23,6 +23,9 @@ body {
   background-image: linear-gradient(to top, #e44848, #1e1e1e 130%);
   grid-column: 1/5;
 }
+.header h2 {
+  color: #e6e6e6;
+}
 
 .contend {
   grid-column: 2/5;

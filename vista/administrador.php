@@ -16,6 +16,7 @@ if (isset($_SESSION["usuario"])==false) {
 <body>
     <div class="grid-container">
         <div class="header">
+            <h2>Bievenido <?php echo $_SESSION["usuario_nombre"][0]." ";echo $_SESSION["usuario_nombre"][1];?></h2>
         </div>
         <div class="slide-menu">
             <div class="principal-menu" >

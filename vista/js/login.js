@@ -32,3 +32,21 @@ function Submit(){
     }
 
 }
+function AppearRecover() {
+    document.querySelector(".blackcover").style.display="block"
+    document.querySelector(".recover").style.animationName="Appear"
+}
+function DissapearRecover() {
+    document.querySelector(".blackcover").style.display="none"
+    document.querySelector(".recover").style.animationName=""
+}
+function Recover() {
+    if (document.getElementById("recover_cedula").value!="") {
+        document.getElementById("usuario").value=document.getElementById("recover_cedula").value
+        document.getElementById("pass").value="recovery"
+        document.login.submit();
+    }
+    else {
+        document.getElementById("recover_cedula").style.borderColor= "red"
+    }
+}

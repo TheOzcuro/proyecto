@@ -1,3 +1,5 @@
+var click=0;
+var eyes="";
 function Submit() {
     const pass=document.getElementById("contra").value;
     const passcon=document.getElementById("con").value;
@@ -28,12 +30,16 @@ function ValidateNumeros(input){
     })
 }
 function SeePass(input,eye) {
-    document.getElementById(eye).src="css/img/eye_open.png";
-    document.getElementById(input).type="text"
-    document.getElementById(input).onclick="HiddenPass(input,eye)"
-}
-function HiddenPass(input,eye) {
-    document.getElementById(eye).src="css/img/eye_close.png";
-    document.getElementById(input).type="pass"
+    var srceye=document.getElementById(eye).src.slice(43,60)
+    if (srceye=="eye_close.png") {
+        document.getElementById(eye).src="css/img/eye_open.png";
+        document.getElementById(input).type="text"
+        
+    }
+    if (srceye=="eye_open.png") {
+        document.getElementById(eye).src="css/img/eye_close.png";
+        document.getElementById(input).type="password"
+        click=0;
+    }
 }
 ValidateNumeros("contra")

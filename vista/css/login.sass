@@ -19,6 +19,56 @@ body
     border-radius: 10px
     box-shadow: 20px 15px 30px rgb(30, 30, 30,0.6)
     padding: 15px 25px
+    button 
+        border: none
+        font-size: 17px
+        padding: 5px 0px
+        background-color: rgb(32, 107, 219)
+        color: rgb(240, 240, 240)
+        position: relative
+        cursor: pointer
+        border-left: 3px solid transparent
+        border-right: 3px solid transparent
+        transition-property: background
+        transition-duration: 0.5s
+        transition-timing-function: linear
+        transition-property: border-color
+        &:hover
+            background-color: rgb(74, 152, 231)
+            border-color: rgb(226, 135, 50)
+        &::before
+            content: ''
+            border-top: 3px solid transparent
+            width: 2px
+            position: absolute
+            left: 121px
+            top: -2px
+            transition-property: transform, width
+            transition-timing-function: ease
+            transition-duration: .5s
+        &:hover::before
+            border-color: rgb(226, 135, 50)
+            transform: scale(125,1)
+
+        &::after
+            content: ''
+            left: 121px
+            bottom: -2px
+            position: absolute
+            border-bottom: 3px solid transparent
+            width: 2px
+            transition-property: width, transform
+            transition-timing-function: ease
+            transition-duration: .5s
+        &:hover::after
+            border-color: rgb(226, 135, 50)
+            transform: scale(125,1)
+        &:active
+            border-color: rgb(60, 214, 60)
+        &:active::before
+            border-color: rgb(60, 214, 60)
+        &:active::after
+            border-color: rgb(60, 214, 60)
 h2
     text-align: center
 
@@ -49,53 +99,49 @@ input
     transition-timing-function: ease
     &:focus
         border-color: rgb(32, 107, 219)
-button 
-    border: none
-    font-size: 17px
-    padding: 5px 0px
-    background-color: rgb(32, 107, 219)
-    color: rgb(240, 240, 240)
-    position: relative
-    cursor: pointer
-    border-left: 3px solid transparent
-    border-right: 3px solid transparent
-    transition-property: background
-    transition-duration: 0.5s
-    transition-timing-function: linear
-    transition-property: border-color
-    &:hover
-        background-color: rgb(74, 152, 231)
-        border-color: rgb(226, 135, 50)
-    &::before
-        content: ''
-        border-top: 3px solid transparent
-        width: 2px
-        position: absolute
-        left: 121px
-        top: -2px
-        transition-property: transform, width
+.blackcover
+    position: absolute
+    background: rgb(30, 30, 30,.6)
+    width: 100%
+    height: 100%
+    display: none
+    .recover
+        position: relative
+        width: 350px
+        height: 200px
+        padding: 5px 30px
+        background: rgb(230, 230, 230)
+        top: 40%
+        left: 50%
+        transform: translate(-50%,-50%)
+        animation-duration: 1s
+    button
+        border: none
+        width: 120px
+        height: 30px
+        border-radius: 10px
+        transition-property: background, color
+        transition-duration: .7s
         transition-timing-function: ease
-        transition-duration: .5s
-    &:hover::before
-        border-color: rgb(226, 135, 50)
-        transform: scale(125,1)
-
-    &::after
-        content: ''
-        left: 121px
-        bottom: -2px
-        position: absolute
-        border-bottom: 3px solid transparent
-        width: 2px
-        transition-property: width, transform
-        transition-timing-function: ease
-        transition-duration: .5s
-    &:hover::after
-        border-color: rgb(226, 135, 50)
-        transform: scale(125,1)
-    &:active
-        border-color: rgb(60, 214, 60)
-    &:active::before
-        border-color: rgb(60, 214, 60)
-    &:active::after
-        border-color: rgb(60, 214, 60) 
+        cursor: pointer
+    .button-rep
+        border:3px solid rgb(32, 107, 219)
+        background: transparent
+        &:hover
+            background: rgb(32, 107, 219)
+            color: rgb(230, 230, 230)
+    .button-clo
+        border:3px solid red
+        background: transparent
+        float: right
+        &:hover
+            background: red
+            color: rgb(230, 230, 230)
+@keyframes Appear 
+    0%
+        opacity: 0
+        top: 30%
+    50%
+        opacity: 1
+    100% 
+        top: 40%
