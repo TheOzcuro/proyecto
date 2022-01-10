@@ -1,0 +1,104 @@
+<form action="../control/c_materia.php" method="POST" name="materia">
+                <div class="container" id="materia-container">
+                    <h2>Registrar Materia</h2>
+                    <div class="input-container">
+                        <label for="codigo_materia" id="labelcodigo_materia">Codigo</label><br>
+                        <input type="text" id="codigo_materia" name="codigo_materia" onfocus="LabelAnimation('codigo_materia','labelcodigo_materia')" onblur="LabelOut('codigo_materia','labelcodigo_materia')" maxlength="11">
+                    </div><br>
+
+                    <div class="input-container">
+                        <label for="nombre_materia" id="labelnombre_materia">Nombre Materia</label><br>
+                        <input type="text" id="nombre_materia" name="nombre_materia" onfocus="LabelAnimation('nombre_materia','labelnombre_materia')" onblur="LabelOut('nombre_materia','labelnombre_materia')" maxlength="30">
+                    </div><br>
+
+                    <div class="input-container">
+                        <label for="tipo_materia" id="labeltipo_materia">Tipo de Materia</label><br>
+                        <input type="text" id="tipo_materia" name="tipo_materia" onfocus="LabelAnimation('tipo_materia','labeltipo_materia')" onblur="LabelOut('tipo_materia','labeltipo_materia')" maxlength="30">
+                    </div><br>
+                    <button type="button" onclick="Submit()">Registrar</button>
+                </div>
+            </form>
+            <form action="../control/c_profesor.php" method="POST" name="profesor">
+                <div class="container" id="profesor-container">
+                    <h2>Registrar Profesor</h2>
+
+                    <div class="input-container">
+                        <label for="cedula" id="labelcedula">Cedula</label><br>
+                        <input type="text" id="cedula" name="cedula" onfocus="LabelAnimation('cedula','labelcedula')" onblur="LabelOut('cedula','labelcedula')" maxlength="11">
+                    </div>
+
+                    <div class="input-container">
+                        <select name="rol" id="rol" onclick="SelectAnimation('rol')">
+                            <option value="">Seleccione el Rol</option>
+                            <option value="1">Administrador</option>
+                            <option value="0">Profesor</option>
+                        </select>
+                    </div>
+
+                    <div class="input-container">
+                        <label for="primer_nombre" id="labelprimer_nombre">Primer Nombre</label><br>
+                        <input type="text" id="primer_nombre" name="primer_nombre" onfocus="LabelAnimation('primer_nombre','labelprimer_nombre')" onblur="LabelOut('primer_nombre','labelprimer_nombre')" maxlength="30">
+                    </div>
+
+                    <div class="input-container">
+                        <label for="segundo_nombre" id="labelsegundo_nombre">Segundo Nombre</label><br>
+                        <input type="text" id="segundo_nombre" name="segundo_nombre"
+                        onfocus="LabelAnimation('segundo_nombre','labelsegundo_nombre')" onblur="LabelOut('segundo_nombre','labelsegundo_nombre')" maxlength="30">
+                    </div>
+
+                    <div class="input-container">
+                        <label for="primer_apellido" id="labelprimer_apellido">Primer Apellido</label><br>
+                        <input type="text" id="primer_apellido" name="primer_apellido"
+                        onfocus="LabelAnimation('primer_apellido','labelprimer_apellido')" onblur="LabelOut('primer_apellido','labelprimer_apellido')" maxlength="30">
+                    </div>
+
+                    <div class="input-container">
+                        <label for="segundo_apellido" id="labelsegundo_apellido">Segundo Apellido</label><br>
+                        <input type="text" id="segundo_apellido" name="segundo_apellido"
+                        onfocus="LabelAnimation('segundo_apellido','labelsegundo_apellido')" onblur="LabelOut('segundo_apellido','labelsegundo_apellido')" maxlength="30">
+                    </div>
+
+                    <div class="input-container">
+                        <label for="direccion" id="labeldireccion">Direccion</label><br>
+                        <input type="text" id="direccion" name="direccion"
+                        onfocus="LabelAnimation('direccion','labeldireccion')" onblur="LabelOut('direccion','labeldireccion')" maxlength="60">
+                    </div>
+
+                    <div class="input-container">
+                        <label for="telefono" id="labeltelefono">Telefono</label><br>
+                        <input type="text" id="telefono" name="telefono"
+                        onfocus="LabelAnimation('telefono','labeltelefono')" onblur="LabelOut('telefono','labeltelefono')" maxlength="11">
+                    </div>
+
+                    <button type="button" onclick="Submit()">Registrar</button>
+                </div>
+            </form>
+            <form action="../control/c_aula.php" method="POST" name="aula">
+            <div class="container" id="aula-container">
+                    <h2>Registrar Aula</h2>
+                    <div class="input-container">
+                        <label for="codigo_aula" id="labelcodigo_aula">Codigo</label><br>
+                        <input type="text" id="codigo_aula" name="codigo_aula" onfocus="LabelAnimation('codigo_aula','labelcodigo_aula')" onblur="LabelOut('codigo_aula','labelcodigo_aula')" maxlength="11">
+                    </div><br>
+
+                    <div class="input-container">
+                        <label for="nombre_aula" id="labelnombre_aula">Nombre Aula</label><br>
+                        <input type="text" id="nombre_aula" name="nombre_aula" onfocus="LabelAnimation('nombre_aula','labelnombre_aula')" onblur="LabelOut('nombre_aula','labelnombre_aula')" maxlength="30">
+                    </div><br>
+                    <button type="button" onclick="Submit()">Registrar</button>
+            </div>
+            </form>
+            <form action="../control/c_carrera.php" method="POST" name="carrera" id="carrera">
+                <div id="carrera-container" class="container">
+                    <h2>Registrar Carrera</h2>
+                    <div class="input-container">
+                        <label for="codigo_carrera" id="labelcodigo_carrera">Codigo</label><br>
+                        <input type="text" id="codigo_carrera" name="codigo_carrera" onfocus="LabelAnimation('codigo_carrera','labelcodigo_carrera')" onblur="LabelOut('codigo_carrera','labelcodigo_carrera')" maxlength="11">
+                    </div><br>
+                    <div class="input-container">
+                        <label for="nombre_carrera" id="labelnombre_carrera">Nombre</label><br>
+                        <input type="text" id="nombre_carrera" name="nombre_carrera" onfocus="LabelAnimation('nombre_carrera','labelnombre_carrera')" onblur="LabelOut('nombre_carrera','labelnombre_carrera')" maxlength="30">
+                    </div><br>
+                    <button type="button" onclick="Submit()">Registrar</button>
+                </div>
+            </form>

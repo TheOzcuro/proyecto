@@ -58,7 +58,7 @@ function OnLoad(){
     //Tomo la url de la pagina
     const url=window.location.href;
     //Creo un Regex donde estaran los divs de los formularios cada uno con su respectivo nombre
-    var x=/([(profesor+\-container)(materia\-container)(aula\-container)])\w+/g;
+    var x=/([(profesor+\-container)(materia\-container)(aula\-container)(carrera\-container)])\w+/g;
     //Busco la coicidencias dentro del regex previamente creado
     var container=url.match(x)
     //Guardo el tipo de display que utiliza el formulario ya sea flex o grid
@@ -82,6 +82,8 @@ function CreateDatos() {
     var tipo_materia=document.getElementById("tipo_materia").value;
     var codigo_aula=document.getElementById("codigo_materia").value;
     var nombre_aula=document.getElementById("nombre_materia").value;
+    var codigo_carrera=document.getElementById("codigo_carrera").value;
+    var nombre_carrera=document.getElementById("nombre_carrera").value;
 }
 function LabelOut(input,label){
     var inputs = document.getElementById(input).value;
@@ -115,13 +117,16 @@ function Submit(){
     if (codigo_aula.value!="" && nombre_aula.value!="") {
         document.aula.submit();
     }
+    if (codigo_carrera.value!="" && nombre_carrera.value!="") {
+        document.carrera.submit();
+    }
     else {
         
     }
     
 }
 function ValidateTexto(input){
-    var x=new RegExp("[A-Za-z ]+")
+    var x=new RegExp("[A-Za-z-ñ]+")
     var inputs=document.getElementById(input)
     inputs.addEventListener("keypress", function(){
         if (x.test(event.key)) {
@@ -142,6 +147,17 @@ function ValidateNumeros(input){
         }
     })
 }
+function ValidateVarchar(input){
+    var x=new RegExp("[A-Za-z0-9-ñ]+")
+    var inputs=document.getElementById(input)
+    inputs.addEventListener("keypress", function(){
+        if (x.test(event.key)) {
+        }
+        else {
+            event.preventDefault();
+        }
+    })
+}
 //--------------------------------------------FUNCIONES--------------------------------
 
 //----------------------------------------EJECUTAR FUNCIONES------------------------------------
@@ -151,6 +167,8 @@ document.getElementById("registrarProfesor").addEventListener("click", function(
     AppearsAndDissapear("profesor-container","grid")})
 document.getElementById("registrarAulas").addEventListener("click", function(){
     AppearsAndDissapear("aula-container","flex")})
+document.getElementById("registrarCarreras").addEventListener("click", function(){
+    AppearsAndDissapear("carrera-container","flex")})
 
 ValidateTexto('primer_nombre');
 ValidateTexto('segundo_nombre');
@@ -158,9 +176,11 @@ ValidateTexto('primer_apellido');
 ValidateTexto('segundo_apellido');
 ValidateTexto('tipo_materia');
 ValidateTexto('nombre_aula');
+ValidateTexto('nombre_carrera');
 ValidateNumeros('cedula');
 ValidateNumeros('telefono');
+ValidateNumeros('codigo_carrera');
 ValidateNumeros('codigo_materia');
-ValidateNumeros('codigo_aula');
+ValidateVarchar('codigo_aula');
 OnLoad();
 //----------------------------------------EJECUTAR FUNCIONES------------------------------------

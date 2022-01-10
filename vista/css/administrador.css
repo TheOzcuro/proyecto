@@ -125,7 +125,7 @@ a:hover > .borderline {
   z-index: 500;
 }
 
-#materia-container, #aula-container {
+#materia-container, #aula-container, #carrera-container {
   display: none;
   flex-direction: column;
   background: #fafafa;
@@ -133,14 +133,14 @@ a:hover > .borderline {
   max-width: 270px;
   padding: 20px 30px;
   position: relative;
-  top: 20%;
-  left: 50%;
-  transform: translate(-50%, 10%);
+  top: 30%;
+  left: 40%;
+  transform: translate(-50%, 30%);
   border-radius: 7px;
   z-index: 500;
 }
 
-#materia-container input, #aula-container input {
+#materia-container input, #aula-container input, #carrera-container input {
   width: 95%;
 }
 

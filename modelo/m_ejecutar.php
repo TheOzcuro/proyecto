@@ -52,6 +52,12 @@ class registry extends mybsd {
 		
 		return $this->execute($query);
 	}
+	function registrarCarrera($codigo, $nombre){
+		$query="INSERT INTO `carrera`(`codigo`, `nombre`)
+		VALUES ('".$codigo."','".$nombre."')";
+		
+		return $this->execute($query);
+	}
     function ValidateLogin($cedula){
 		$query="SELECT `cedula`,`rol` FROM `profesor` WHERE `cedula`=$cedula";
 		$valido=$this->list($this->execute($query));
