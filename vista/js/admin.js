@@ -3,7 +3,6 @@
 var click=0;
 var comparechild=0;
 
-
 // ----------------------------------VARIABLES---------------------------------
 
 
@@ -11,13 +10,7 @@ var comparechild=0;
 
 //--------------------------------------------FUNCIONES--------------------------------
 function AppearsAndDissapear(appear,display) {
-    x=0
-    div=document.querySelectorAll(".container")
-    totaldiv=div.length;
-    while (x<totaldiv) {
-        div[x].style.display="none"
-        x=x+1 
-    }
+    DissapearVarious(".container","none")
     document.getElementById(appear).style.display=display;
     document.getElementById(appear).style.animationName="Opacity";
     document.getElementById(appear).style.animationDuration="0.7s";
@@ -84,6 +77,7 @@ function CreateDatos() {
     var nombre_aula=document.getElementById("nombre_materia").value;
     var codigo_carrera=document.getElementById("codigo_carrera").value;
     var nombre_carrera=document.getElementById("nombre_carrera").value;
+    var buscar_profesor=document.getElementById("buscar_profesor").value;
 }
 function LabelOut(input,label){
     var inputs = document.getElementById(input).value;
@@ -119,6 +113,9 @@ function Submit(){
     }
     if (codigo_carrera.value!="" && nombre_carrera.value!="") {
         document.carrera.submit();
+    }
+    if (buscar_profesor.value!="") {
+        document.find_profesor.submit();
     }
     else {
         
@@ -158,6 +155,57 @@ function ValidateVarchar(input){
         }
     })
 }
+function CheckboxDisabled(input, check) {
+   if (check.checked) {
+    document.getElementById(input).disabled=true;
+   }
+   else {
+    document.getElementById(input).disabled=false;
+   }
+  
+}
+function DissapearVarious(element,display) {
+    x=0
+    div=document.querySelectorAll(element)
+    totaldiv=div.length;
+    while (x<totaldiv) {
+        div[x].style.display=display;
+        x=x+1 
+    }
+}
+function Modificar(container,display,valores) {
+    div=document.getElementById(container);
+    div.style.display=display
+    div.querySelector(".close-icon").style.display="block";
+    checkbox=div.querySelectorAll(".checkbox-edit");
+    input=div.querySelectorAll("input");
+    label=div.querySelectorAll("label");
+    if (container=="profesor-container") {
+        div.querySelector("h2").innerHTML="Editar Datos";
+        div.querySelector("select").disabled=true;
+        div.querySelector("select").value=valores[1];
+        valores.splice(1,1);
+    }
+    x=0
+    y=0
+    l=0
+    totalcheck=checkbox.length;
+    totalinput=input.length;
+    while (x<totalcheck) {
+        checkbox[x].style.display="block";
+        checkbox[x].checked=true;
+        x=x+1 
+    } 
+    while (y<totalinput) {
+        if (input[y].type=="text") {
+            LabelAnimation(input[y].id,label[l].id)
+            input[y].disabled=true
+            input[y].value=valores[l]
+            l=l+1
+        }
+        y=y+1
+    }
+}
 //--------------------------------------------FUNCIONES--------------------------------
 
 //----------------------------------------EJECUTAR FUNCIONES------------------------------------
@@ -169,6 +217,8 @@ document.getElementById("registrarAulas").addEventListener("click", function(){
     AppearsAndDissapear("aula-container","flex")})
 document.getElementById("registrarCarreras").addEventListener("click", function(){
     AppearsAndDissapear("carrera-container","flex")})
+document.getElementById("editarProfesor").addEventListener("click", function(){
+    AppearsAndDissapear("profesor-find","flex")})
 
 ValidateTexto('primer_nombre');
 ValidateTexto('segundo_nombre');

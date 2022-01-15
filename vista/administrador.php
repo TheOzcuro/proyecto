@@ -28,7 +28,7 @@ if (isset($_SESSION["usuario"])==false) {
                     <ul>
                         <a href="#profesor-container-grid"><li id="registrarProfesor">Registrar</li><div class="borderline"></div></a>
                         <a href="#disprofesor"><li id="disponibilidadProfesor">Disponibilidad</li> <div class="borderline"></div></a>
-                        <a href="#editprofesor"><li id="editarProfesor">Editar Datos</li> <div class="borderline"></div></a>
+                        <a href="#profesor-find-flex"><li id="editarProfesor">Editar Datos</li> <div class="borderline"></div></a>
                     </ul>
                 </div>
             </div>
@@ -106,7 +106,8 @@ if (isset($_SESSION["usuario"])==false) {
             </div>
         </div>
         <div class="contend">
-            <?php include_once("msg_error.php");include_once("register-form.php")?>
+            <?php include_once("msg_error.php");include_once("register-form.php");include_once("edit-form.php");
+            ?>
             
         </div>
     </div>
@@ -143,11 +144,42 @@ if (isset($_SESSION["completado"]) && $_SESSION["completado"]=="profesor_registr
     echo "<script>Error('El codigo de carrera que ingreso YA existe','msg_error','p_error')</script>";
     unset($_SESSION["error"]);
  }
+ if (isset($_SESSION["error"]) && $_SESSION["error"]=="nombre_carrera") {
+    echo "<script>Error('El nombre de carrera que ingreso YA existe','msg_error','p_error')</script>";
+    unset($_SESSION["error"]);
+ }
  if (isset($_SESSION["completado"]) && $_SESSION["completado"]=="registro_carrera") {
     echo "<script>Error('La carrera se registro correctamente','msg_check','p_check')</script>";
     unset($_SESSION["completado"]);
      
   }
 ?>
-<script src="js/admin.js"></script>
+
+<script type="text/javascript" src="js/admin.js"></script>
+<script type="text/javascript">
+          
+          <?php
+  
+          if (isset($_SESSION["profesor"]) && $_SESSION["profesor"]!="") {
+              $total=count($_SESSION["profesor"]);
+              $total=$total/2;
+              $x=0;
+              echo "valores=[";
+              while ($x<$total) {
+                  if ($x===7) {
+                      echo "'".$_SESSION["profesor"][$x]."'";
+                  }
+                  else {
+                      echo "'".$_SESSION["profesor"][$x]."'".',';
+                  }
+                  $x=$x+1;
+              }
+              echo "];";
+              echo "Modificar('profesor-container','grid', valores);";
+             
+          }
+          
+          ?>
+        
+      </script>
 </html>

@@ -20,11 +20,12 @@
             </form>
             <form action="../control/c_profesor.php" method="POST" name="profesor">
                 <div class="container" id="profesor-container">
+                    <img src="css/img/close.png" alt="" class="close-icon" id="close-icon-profesor">
                     <h2>Registrar Profesor</h2>
 
                     <div class="input-container">
                         <label for="cedula" id="labelcedula">Cedula</label><br>
-                        <input type="text" id="cedula" name="cedula" onfocus="LabelAnimation('cedula','labelcedula')" onblur="LabelOut('cedula','labelcedula')" maxlength="11">
+                        <input type="text" id="cedula" name="cedula" onfocus="LabelAnimation('cedula','labelcedula')" onblur="LabelOut('cedula','labelcedula')" maxlength="11"><input type="checkbox" class="checkbox-edit checkbox-profesor" onclick="CheckboxDisabled('cedula', this)">
                     </div>
 
                     <div class="input-container">
@@ -33,41 +34,42 @@
                             <option value="1">Administrador</option>
                             <option value="0">Profesor</option>
                         </select>
+                        <input type="checkbox" class="checkbox-edit"  onclick="CheckboxDisabled('rol', this)">
                     </div>
 
                     <div class="input-container">
                         <label for="primer_nombre" id="labelprimer_nombre">Primer Nombre</label><br>
-                        <input type="text" id="primer_nombre" name="primer_nombre" onfocus="LabelAnimation('primer_nombre','labelprimer_nombre')" onblur="LabelOut('primer_nombre','labelprimer_nombre')" maxlength="30">
+                        <input type="text" id="primer_nombre" name="primer_nombre" onfocus="LabelAnimation('primer_nombre','labelprimer_nombre')" onblur="LabelOut('primer_nombre','labelprimer_nombre')" maxlength="30"><input type="checkbox" class="checkbox-edit checkbox-profesor"   onclick="CheckboxDisabled('primer_nombre', this)">
                     </div>
 
                     <div class="input-container">
                         <label for="segundo_nombre" id="labelsegundo_nombre">Segundo Nombre</label><br>
                         <input type="text" id="segundo_nombre" name="segundo_nombre"
-                        onfocus="LabelAnimation('segundo_nombre','labelsegundo_nombre')" onblur="LabelOut('segundo_nombre','labelsegundo_nombre')" maxlength="30">
+                        onfocus="LabelAnimation('segundo_nombre','labelsegundo_nombre')" onblur="LabelOut('segundo_nombre','labelsegundo_nombre')" maxlength="30"><input type="checkbox" class="checkbox-edit checkbox-profesor" onclick="CheckboxDisabled('segundo_nombre', this)">
                     </div>
 
                     <div class="input-container">
                         <label for="primer_apellido" id="labelprimer_apellido">Primer Apellido</label><br>
                         <input type="text" id="primer_apellido" name="primer_apellido"
-                        onfocus="LabelAnimation('primer_apellido','labelprimer_apellido')" onblur="LabelOut('primer_apellido','labelprimer_apellido')" maxlength="30">
+                        onfocus="LabelAnimation('primer_apellido','labelprimer_apellido')" onblur="LabelOut('primer_apellido','labelprimer_apellido')" maxlength="30"><input type="checkbox" class="checkbox-edit checkbox-profesor" onclick="CheckboxDisabled('primer_apellido', this)">
                     </div>
 
                     <div class="input-container">
                         <label for="segundo_apellido" id="labelsegundo_apellido">Segundo Apellido</label><br>
                         <input type="text" id="segundo_apellido" name="segundo_apellido"
-                        onfocus="LabelAnimation('segundo_apellido','labelsegundo_apellido')" onblur="LabelOut('segundo_apellido','labelsegundo_apellido')" maxlength="30">
+                        onfocus="LabelAnimation('segundo_apellido','labelsegundo_apellido')" onblur="LabelOut('segundo_apellido','labelsegundo_apellido')" maxlength="30"><input type="checkbox" class="checkbox-edit" onclick="CheckboxDisabled('segundo_apellido', this)">
                     </div>
 
                     <div class="input-container">
                         <label for="direccion" id="labeldireccion">Direccion</label><br>
                         <input type="text" id="direccion" name="direccion"
-                        onfocus="LabelAnimation('direccion','labeldireccion')" onblur="LabelOut('direccion','labeldireccion')" maxlength="60">
+                        onfocus="LabelAnimation('direccion','labeldireccion')" onblur="LabelOut('direccion','labeldireccion')" maxlength="60"><input type="checkbox" class="checkbox-edit" onclick="CheckboxDisabled('direccion', this)">
                     </div>
 
                     <div class="input-container">
                         <label for="telefono" id="labeltelefono">Telefono</label><br>
                         <input type="text" id="telefono" name="telefono"
-                        onfocus="LabelAnimation('telefono','labeltelefono')" onblur="LabelOut('telefono','labeltelefono')" maxlength="11">
+                        onfocus="LabelAnimation('telefono','labeltelefono')" onblur="LabelOut('telefono','labeltelefono')" maxlength="11"><input type="checkbox" class="checkbox-edit" onclick="CheckboxDisabled('telefono', this)">
                     </div>
 
                     <button type="button" onclick="Submit()">Registrar</button>
@@ -75,6 +77,7 @@
             </form>
             <form action="../control/c_aula.php" method="POST" name="aula">
             <div class="container" id="aula-container">
+                    <img src="css/img/close.png" alt="" class="close-icon" id="close-icon-profesor">
                     <h2>Registrar Aula</h2>
                     <div class="input-container">
                         <label for="codigo_aula" id="labelcodigo_aula">Codigo</label><br>

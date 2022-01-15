@@ -41,22 +41,44 @@ class registry extends mybsd {
 		return $this->execute($query);
 	}
 	function registrarMateria($codigo, $nombre, $tipo){
-		$query="INSERT INTO `materia`(`codigo`, `nombre`, `tipo`)
-		VALUES ('".$codigo."','".$nombre."','".$tipo."')";
+		$query="SELECT * FROM `aula` WHERE `nombre`='$nombre'";
 		
-		return $this->execute($query);
+		$val=$this->CheckResult($this->execute($query));
+		if ($val) {
+			return 3;
+		}
+		else {
+			$query="INSERT INTO `materia`(`codigo`, `nombre`, `tipo`)
+		VALUES ('".$codigo."','".$nombre."','".$tipo."')";
+			return $this->execute($query);
+		}
 	}
 	function registrarAula($codigo, $nombre){
-		$query="INSERT INTO `aula`(`codigo`, `nombre`)
-		VALUES ('".$codigo."','".$nombre."')";
+		$query="SELECT * FROM `aula` WHERE `nombre`='$nombre'";
 		
-		return $this->execute($query);
+		$val=$this->CheckResult($this->execute($query));
+		if ($val) {
+			return 3;
+		}
+		else {
+			$query="INSERT INTO `aula`(`codigo`, `nombre`)
+			VALUES ('".$codigo."','".$nombre."')";
+			return $this->execute($query);
+		}
 	}
 	function registrarCarrera($codigo, $nombre){
-		$query="INSERT INTO `carrera`(`codigo`, `nombre`)
-		VALUES ('".$codigo."','".$nombre."')";
+		$query="SELECT * FROM `carrera` WHERE `nombre`='$nombre'";
 		
-		return $this->execute($query);
+		$val=$this->CheckResult($this->execute($query));
+		if ($val) {
+			return 3;
+		}
+		else {
+			$query="INSERT INTO `carrera`(`codigo`, `nombre`)
+			VALUES ('".$codigo."','".$nombre."')";
+			return $this->execute($query);
+		}
+		
 	}
     function ValidateLogin($cedula){
 		$query="SELECT `cedula`,`rol` FROM `profesor` WHERE `cedula`=$cedula";
@@ -89,6 +111,10 @@ class registry extends mybsd {
 		else {
 			return false;
 			}	
+	}
+	function FindQuery($tabla,$campo,$dato){
+		$query="SELECT * FROM `$tabla` WHERE `$campo`='$dato'";
+		return $this->list($this->execute($query));
 	}
 }
 ?>

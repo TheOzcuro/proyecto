@@ -7,6 +7,10 @@ if ($validate===2) {
     header("Location:../vista/administrador.php#carrera-container-flex");
     $_SESSION["error"]="codigo_carrera";
 }
+if ($validate===3) {
+    header("Location:../vista/administrador.php#carrera-container-flex");
+    $_SESSION["error"]="nombre_carrera";
+}
 else {
     header("Location:../vista/administrador.php#carrera-container-flex");
     $_SESSION["completado"]="registro_carrera";

@@ -33,6 +33,15 @@ body {
   z-index: -100;
 }
 
+.checkbox-edit {
+  display: inline;
+  position: absolute;
+  left: 195px;
+  width: 40px;
+  bottom: 15px;
+  display: none;
+}
+
 .slide-menu {
   grid-column: 1/2;
   width: 200px;
@@ -125,7 +134,7 @@ a:hover > .borderline {
   z-index: 500;
 }
 
-#materia-container, #aula-container, #carrera-container {
+#materia-container, #aula-container, #carrera-container, #profesor-find {
   display: none;
   flex-direction: column;
   background: #fafafa;
@@ -140,8 +149,12 @@ a:hover > .borderline {
   z-index: 500;
 }
 
-#materia-container input, #aula-container input, #carrera-container input {
+#materia-container input, #aula-container input, #carrera-container input, #profesor-find input {
   width: 95%;
+}
+
+#profesor-find h4 {
+  text-align: center;
 }
 
 input {
@@ -209,8 +222,25 @@ button:hover {
   background: #5e6efc;
 }
 
+.close-icon {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  right: 20px;
+  top: 10px;
+  transition-duration: 0.7s;
+  transition-property: ease;
+  transition-property: transform;
+  display: none;
+}
+.close-icon:hover {
+  transform: rotate(180deg);
+}
+
 #materia-container button {
   margin: auto;
+  grid-column: 1;
 }
 
 h2 {
