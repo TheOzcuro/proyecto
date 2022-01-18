@@ -11,12 +11,16 @@ body
 .grid-container
     display: grid
     grid-template-columns: repeat(4,1fr)
-    grid-auto-rows: minmax(100px,auto)
+    grid-template-rows: 80px repeat(3,1fr)
     position: relative
     z-index: -100
+    width: 100vw
+    height: 100vh
 .header 
     background-image: linear-gradient(to top, rgb(228, 72, 72),rgb(30, 30, 30) 130%)
-    grid-column: 1/5
+    grid-column: span 4
+    grid-row: span 1
+    height: 80px
     h2
         color: rgb(230, 230, 230)
 .contend
@@ -32,9 +36,9 @@ body
     display: none
 .slide-menu 
     grid-column: 1/2
+    grid-row: span 4
     width: 200px
     padding: 10px 20px
-    height: 100%
     color: white
     background-image: linear-gradient(to bottom, rgb(228, 72, 72),rgb(30, 30, 30) 130%)
     position: relative
@@ -80,6 +84,9 @@ body
 ul
     list-style: none
 
+#cerrar_sesion 
+    position: absolute
+    bottom: 20px
 .borderline
     background-color: transparent
     transition-property: transform, width, background
@@ -179,22 +186,58 @@ button
     cursor: pointer
     &:hover
         background: rgb(94, 110, 252)
-.close-icon 
-    position: absolute
+.button-edit 
+    grid-column: auto
+    width: 70%
+    margin-left: 20px
+    display: none
+.button-delete
+    background: rgb(235, 61, 30)
+    &:hover
+        background: rgb(230, 89, 65)
+.close-icon
     width: 30px
     height: 30px
-    cursor: pointer
-    right: 20px
-    top: 10px
     transition-duration: .7s
     transition-property: ease
     transition-property: transform
+    display: none
     &:hover
         transform: rotate(180deg)
-    display: none
+.a_img 
+    position: absolute
+    cursor: pointer
+    right: 20px
+    top: 10px
 #materia-container button
     margin: auto
     grid-column: 1
+.container-delete
+    position: absolute
+    background: rgb(30, 30, 30,.5)
+    height: 100%
+    width: 100%
+    display: none
+.delete-window
+    background: rgb(230, 230, 230)
+    display: none
+    position: absolute
+    top: 50%
+    left: 56%
+    width:300px
+    height: 120px
+    transform: translate(-50%,-50%)
+    padding: 15px
+    animation-duration: 1s
+    z-index: 3000
+    button 
+        width: 110px
+        height: 30px
+    button:nth-child(3)
+        background: rgb(216, 47, 47)
+        margin-left: 75px
+        &:hover
+            background: rgb(231, 74, 74)
 h2 
     text-align: center
     grid-column: 1/3
@@ -205,7 +248,14 @@ h2
         transform: scaleX(150)
         width: 1px
         background-color: rgb(240, 238, 238)
-
+@keyframes Appear 
+    0%
+        opacity: 0
+        top: 40%
+    50%
+        opacity: 1
+    100% 
+        top: 50%
 @keyframes Opacity 
 
     0%

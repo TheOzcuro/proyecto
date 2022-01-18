@@ -14,14 +14,18 @@ body {
 .grid-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-auto-rows: minmax(100px, auto);
+  grid-template-rows: 80px repeat(3, 1fr);
   position: relative;
   z-index: -100;
+  width: 100vw;
+  height: 100vh;
 }
 
 .header {
   background-image: linear-gradient(to top, #e44848, #1e1e1e 130%);
-  grid-column: 1/5;
+  grid-column: span 4;
+  grid-row: span 1;
+  height: 80px;
 }
 .header h2 {
   color: #e6e6e6;
@@ -44,9 +48,9 @@ body {
 
 .slide-menu {
   grid-column: 1/2;
+  grid-row: span 4;
   width: 200px;
   padding: 10px 20px;
-  height: 100%;
   color: white;
   background-image: linear-gradient(to bottom, #e44848, #1e1e1e 130%);
   position: relative;
@@ -96,6 +100,11 @@ body {
 
 ul {
   list-style: none;
+}
+
+#cerrar_sesion {
+  position: absolute;
+  bottom: 20px;
 }
 
 .borderline {
@@ -222,13 +231,23 @@ button:hover {
   background: #5e6efc;
 }
 
+.button-edit {
+  grid-column: auto;
+  width: 70%;
+  margin-left: 20px;
+  display: none;
+}
+
+.button-delete {
+  background: #eb3d1e;
+}
+.button-delete:hover {
+  background: #e65941;
+}
+
 .close-icon {
-  position: absolute;
   width: 30px;
   height: 30px;
-  cursor: pointer;
-  right: 20px;
-  top: 10px;
   transition-duration: 0.7s;
   transition-property: ease;
   transition-property: transform;
@@ -238,9 +257,50 @@ button:hover {
   transform: rotate(180deg);
 }
 
+.a_img {
+  position: absolute;
+  cursor: pointer;
+  right: 20px;
+  top: 10px;
+}
+
 #materia-container button {
   margin: auto;
   grid-column: 1;
+}
+
+.container-delete {
+  position: absolute;
+  background: rgba(30, 30, 30, 0.5);
+  height: 100%;
+  width: 100%;
+  display: none;
+}
+
+.delete-window {
+  background: #e6e6e6;
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 56%;
+  width: 300px;
+  height: 120px;
+  transform: translate(-50%, -50%);
+  padding: 15px;
+  -webkit-animation-duration: 1s;
+          animation-duration: 1s;
+  z-index: 3000;
+}
+.delete-window button {
+  width: 110px;
+  height: 30px;
+}
+.delete-window button:nth-child(3) {
+  background: #d82f2f;
+  margin-left: 75px;
+}
+.delete-window button:nth-child(3):hover {
+  background: #e74a4a;
 }
 
 h2 {
@@ -258,6 +318,31 @@ h2 {
   background-color: #f0eeee;
 }
 
+@-webkit-keyframes Appear {
+  0% {
+    opacity: 0;
+    top: 40%;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    top: 50%;
+  }
+}
+
+@keyframes Appear {
+  0% {
+    opacity: 0;
+    top: 40%;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    top: 50%;
+  }
+}
 @-webkit-keyframes Opacity {
   0% {
     opacity: 0;
@@ -266,7 +351,6 @@ h2 {
     opacity: 1;
   }
 }
-
 @keyframes Opacity {
   0% {
     opacity: 0;

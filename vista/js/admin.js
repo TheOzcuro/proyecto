@@ -2,6 +2,11 @@
 //VARIABLES PARA ANIMAR EL MENU LATERAL
 var click=0;
 var comparechild=0;
+var button=[];
+var div_edit="";
+let valores_origin=[];
+
+
 
 // ----------------------------------VARIABLES---------------------------------
 
@@ -59,7 +64,10 @@ function OnLoad(){
     //Creo el nombre del div correspodiente
     container=container[6]+container[7]
     //Muestro el div al usuario
-    AppearsAndDissapear(container,display)
+    if (container!="") {
+        AppearsAndDissapear(container,display)
+    }
+    
 }
 function CreateDatos() {
     var cedula=document.getElementById("cedula").value;
@@ -170,33 +178,93 @@ function DissapearVarious(element,display) {
     totaldiv=div.length;
     while (x<totaldiv) {
         div[x].style.display=display;
-        x=x+1 
+        x=x+1
     }
 }
+function Save() {
+    CreateDatos();
+    var input=div_edit.querySelectorAll("input");
+    if (cedula.value!=valores_origin[0] || 
+        rol.value!=valores_origin[1] || 
+        primer_nombre.value!=valores_origin[2] || 
+        segundo_nombre.value!=valores_origin[3] || 
+        primer_apellido.value!=valores_origin[4] || 
+        segundo_apellido.value!=valores_origin[5] || 
+        direccion.value!=valores_origin[6] || 
+        telefono.value!=valores_origin[7] && 
+        cedula.value!="" && 
+        rol.value!="" && 
+        primer_nombre.value!="" && 
+        segundo_nombre.value!="" && 
+        primer_apellido.value!="" && 
+        segundo_apellido.value!="" && 
+        direccion.value!="" && 
+        telefono.value!="") {
+        for (let index = 0; index < input.length; index++) {
+            input[index].disabled=false;
+            
+        }
+        div_edit.querySelector("select").disabled=false;
+        document.querySelector("#profesor").querySelector(".input-update").value=valores_origin[0];
+        //document.profesor.submit();
+    }
+    else {
+        console.log("no esta funcionando mi pana");
+    }
+}
+function Delete(form) {
+    document.querySelector(form).querySelector(".input-delete").value=valores_origin[0];
+    document.querySelector(form).submit();
+}
 function Modificar(container,display,valores) {
-    div=document.getElementById(container);
-    div.style.display=display
-    div.querySelector(".close-icon").style.display="block";
-    checkbox=div.querySelectorAll(".checkbox-edit");
-    input=div.querySelectorAll("input");
-    label=div.querySelectorAll("label");
+     div_edit=document.getElementById(container);
+     AppearsAndDissapear(div_edit.id,display)
+     div_edit.querySelector("h2").innerHTML="Editar Datos";
+     div_edit.querySelector(".close-icon").style.display="block";
+    //---Hacer aparecer los botones correspondientes
+    button=div_edit.querySelectorAll("button");
+    button[0].style.display="none";
+    button[1].style.display="block";
+    button[2].style.display="block";
+    //-----------------------------------------------
+
+    //Se guardan en variables los elementos que vamos a utilizar
+    var checkbox=div_edit.querySelectorAll(".checkbox-edit");
+
+    //-----Se verifica que el div seleccionado sea el de profesor
     if (container=="profesor-container") {
-        div.querySelector("h2").innerHTML="Editar Datos";
-        div.querySelector("select").disabled=true;
-        div.querySelector("select").value=valores[1];
+        //Se procede a desactivar el select y darle los valores previamente buscados
+        div_edit.querySelector("select").disabled=true;
+        div_edit.querySelector("select").value=valores[1];
+        //Se elimina un valor en especifico de el array de valores para evitar incovenientes
+        for (let index = 0; index < valores.length; index++) {
+            valores_origin.push(valores[index]);
+            
+        }
         valores.splice(1,1);
     }
+
+    //----Contadores para el while
+    //--- x para las checkbox
     x=0
-    y=0
-    l=0
+     //--- y para los inputs
+     y=0
+     //--- l para los label
+     l=0
+    //---contadores para los while
+
+
     totalcheck=checkbox.length;
-    totalinput=input.length;
     while (x<totalcheck) {
         checkbox[x].style.display="block";
         checkbox[x].checked=true;
         x=x+1 
-    } 
-    while (y<totalinput) {
+    }
+    
+     var input=div_edit.querySelectorAll("input");
+     var label=div_edit.querySelectorAll("label");
+     totalinput=input.length;
+     while (y<totalinput) {
         if (input[y].type=="text") {
             LabelAnimation(input[y].id,label[l].id)
             input[y].disabled=true
@@ -205,19 +273,88 @@ function Modificar(container,display,valores) {
         }
         y=y+1
     }
+   
+}
+function Close() {
+    DissapearVarious(".checkbox-edit","none")
+    button[0].style.display="block";
+    button[1].style.display="none";
+    button[2].style.display="none";
+    var input=div_edit.querySelectorAll("input");
+    var label=div_edit.querySelectorAll("label");
+    totalinput=input.length;
+    y=0;
+    l=0;
+    while (y<totalinput) {
+        if (input[y].type=="text") {
+            input[y].disabled=false
+            input[y].value=""
+           document.getElementById(label[l].id).style.top = "20px";
+            document.getElementById(label[l].id).style.fontSize = "18px";
+            l=l+1
+        }
+        y=y+1
+    }
+    if (div_edit.id=="profesor-container") {
+        div_edit.querySelector("h2").innerHTML="Registrar Profesor"
+        div_edit.querySelector("select").value="";
+        div_edit.querySelector("select").disabled=false;
+        AppearsAndDissapear("profesor-find","flex")
+    }
+    if (div_edit.id=="materia-container") {
+        div_edit.querySelector("h2").innerHTML="Registrar Materia"
+    }
+    if (div_edit.id=="aula-container") {
+        div_edit.querySelector("h2").innerHTML="Registrar Aula"
+    }
+    if (div_edit.id=="carrera-container") {
+        div_edit.querySelector("h2").innerHTML="Registrar Carrera"
+    }
+    div_edit.querySelector(".close-icon").style.display="none"
+    document.getElementById("buscar_profesor").value=""
+}
+function DisplayDelete(display, form) {
+    if (display=="block") {
+        document.querySelector(".container-delete").style.display=display
+        document.querySelector(".delete-window").style.display=display
+        document.querySelector(".delete-window").style.animationName="Appear"
+        document.getElementById("yes-delete").addEventListener("click", function(){
+            Delete(form)})
+        
+    }
+    else {
+        document.querySelector(".container-delete").style.display=display
+        document.querySelector(".delete-window").style.display=display
+    }
+   
 }
 //--------------------------------------------FUNCIONES--------------------------------
 
 //----------------------------------------EJECUTAR FUNCIONES------------------------------------
 document.getElementById("registrarMateria").addEventListener("click", function(){
+    if (div_edit!="") {
+        Close()
+    }
     AppearsAndDissapear("materia-container","flex")})
 document.getElementById("registrarProfesor").addEventListener("click", function(){
+    if (div_edit!="") {
+        Close()
+    }
     AppearsAndDissapear("profesor-container","grid")})
 document.getElementById("registrarAulas").addEventListener("click", function(){
+    if (div_edit!="") {
+        Close()
+    }
     AppearsAndDissapear("aula-container","flex")})
 document.getElementById("registrarCarreras").addEventListener("click", function(){
+    if (div_edit!="") {
+        Close()
+    }
     AppearsAndDissapear("carrera-container","flex")})
 document.getElementById("editarProfesor").addEventListener("click", function(){
+    if (div_edit!="") {
+        Close()
+    }
     AppearsAndDissapear("profesor-find","flex")})
 
 ValidateTexto('primer_nombre');

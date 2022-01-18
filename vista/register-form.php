@@ -1,3 +1,4 @@
+
 <form action="../control/c_materia.php" method="POST" name="materia">
                 <div class="container" id="materia-container">
                     <h2>Registrar Materia</h2>
@@ -18,9 +19,11 @@
                     <button type="button" onclick="Submit()">Registrar</button>
                 </div>
             </form>
-            <form action="../control/c_profesor.php" method="POST" name="profesor">
+            <form action="../control/c_profesor.php" method="POST" name="profesor" id="profesor">
+                <input type="text" class="input-update" id="update" name="update-profesor" hidden>
+                <input type="text" class="input-delete" id="delete" name="delete-profesor" hidden>
                 <div class="container" id="profesor-container">
-                    <img src="css/img/close.png" alt="" class="close-icon" id="close-icon-profesor">
+                    <a href="#profesor-find-flex" class="a_img"><img src="css/img/close.png" alt="" class="close-icon" id="close-icon-profesor" onclick="Close()"></a>
                     <h2>Registrar Profesor</h2>
 
                     <div class="input-container">
@@ -73,6 +76,8 @@
                     </div>
 
                     <button type="button" onclick="Submit()">Registrar</button>
+                    <button type="button" onclick="Save()" class="button-edit button-update" id="update">Guardar</button>
+                    <button type="button" onclick="DisplayDelete('block','#profesor')" class="button-edit button-delete" id="delete">Eliminar</button>
                 </div>
             </form>
             <form action="../control/c_aula.php" method="POST" name="aula">

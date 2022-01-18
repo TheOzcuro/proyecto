@@ -114,7 +114,21 @@ class registry extends mybsd {
 	}
 	function FindQuery($tabla,$campo,$dato){
 		$query="SELECT * FROM `$tabla` WHERE `$campo`='$dato'";
-		return $this->list($this->execute($query));
+		$list=$this->list($this->execute($query));
+		if (count($list)==0) {
+			return 2;
+		}
+		else {
+			return $list;
+		}
+	}
+	function UpdateTable($cedula,$tabla) {
+		$query="UPDATE `$tabla` SET `cedula`='$this->cedula', `rol`='$this->rol', `primer_nombre`='$this->primer_nombre', `segundo_nombre`='$this->segundo_nombre', `primer_apellido`='$this->primer_apellido', `segundo_apellido`='$this->segundo_apellido', `direccion`='$this->direccion', `telefono`='$this->telefono' WHERE `cedula`=$cedula";
+		return $this->execute($query);
+	}
+	function DeleteTable($tabla, $campo, $dato) {
+		$query="DELETE FROM `$tabla` WHERE `$campo`='$dato'";
+		return $this->execute($query);
 	}
 }
 ?>

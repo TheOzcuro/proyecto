@@ -14,6 +14,15 @@ if (isset($_SESSION["usuario"])==false) {
     <title>Administrador</title>
 </head>
 <body>
+    <div class="container-delete" onclick="DisplayDelete('none')">
+    </div>
+        <div class="delete-window">
+            <h4>¿Esta seguro que desea eliminar estos datos?</h4>
+            <button class="delete" id="yes-delete">Si
+            </button>
+            <button class="delete" onclick="DisplayDelete('none')">No</button>
+        </div>
+    
     <div class="grid-container">
         <div class="header">
             <h2>Bievenido <?php echo $_SESSION["usuario_nombre"][0]." ";echo $_SESSION["usuario_nombre"][1];?></h2>
@@ -98,7 +107,7 @@ if (isset($_SESSION["usuario"])==false) {
                     </ul>
                 </div>
             </div>
-            <div class="principal-menu">
+            <div class="principal-menu" id="cerrar_sesion">
                 <div class="h4-container">
                 <a href="logout.php"><h4>Cerrar Sesion</h4></a>
                 </div>
@@ -108,7 +117,7 @@ if (isset($_SESSION["usuario"])==false) {
         <div class="contend">
             <?php include_once("msg_error.php");include_once("register-form.php");include_once("edit-form.php");
             ?>
-            
+
         </div>
     </div>
 </body>
@@ -153,6 +162,20 @@ if (isset($_SESSION["completado"]) && $_SESSION["completado"]=="profesor_registr
     unset($_SESSION["completado"]);
      
   }
+  if (isset($_SESSION["error"]) && $_SESSION["error"]=="profesor_find") {
+    echo "<script>Error('La cedula que ingreso NO existe','msg_error','p_error')</script>";
+    unset($_SESSION["error"]);
+ }
+ if (isset($_SESSION["completado"]) && $_SESSION["completado"]=="profesor_update") {
+    echo "<script>Error('Los datos fueron actualizados correctamente','msg_check','p_check')</script>";
+    unset($_SESSION["completado"]);
+     
+  }
+  if (isset($_SESSION["completado"]) && $_SESSION["completado"]=="delete") {
+    echo "<script>Error('Los datos fueron eliminados','msg_check','p_check')</script>";
+    unset($_SESSION["completado"]);
+     
+  }
 ?>
 
 <script type="text/javascript" src="js/admin.js"></script>
@@ -160,22 +183,28 @@ if (isset($_SESSION["completado"]) && $_SESSION["completado"]=="profesor_registr
           
           <?php
   
-          if (isset($_SESSION["profesor"]) && $_SESSION["profesor"]!="") {
-              $total=count($_SESSION["profesor"]);
+          if (isset($_SESSION["update"]) && $_SESSION["update"]!="") {
+              $total=count($_SESSION["update"]);
               $total=$total/2;
               $x=0;
               echo "valores=[";
               while ($x<$total) {
                   if ($x===7) {
-                      echo "'".$_SESSION["profesor"][$x]."'";
+                      echo "'".$_SESSION["update"][$x]."'";
                   }
                   else {
-                      echo "'".$_SESSION["profesor"][$x]."'".',';
+                      echo "'".$_SESSION["update"][$x]."'".',';
                   }
                   $x=$x+1;
               }
               echo "];";
-              echo "Modificar('profesor-container','grid', valores);";
+              if ($_SESSION["container"]==="profesor-container") {
+                echo "Modificar('".$_SESSION["container"]."','grid', valores);";
+              }
+              else {
+                echo "Modificar('".$_SESSION["container"]."','flex', valores);";
+              }
+              unset($_SESSION["update"]);
              
           }
           
