@@ -37,15 +37,6 @@ body {
   z-index: -100;
 }
 
-.checkbox-edit {
-  display: inline;
-  position: absolute;
-  left: 195px;
-  width: 40px;
-  bottom: 15px;
-  display: none;
-}
-
 .slide-menu {
   grid-column: 1/2;
   grid-row: span 4;
@@ -143,7 +134,7 @@ a:hover > .borderline {
   z-index: 500;
 }
 
-#materia-container, #aula-container, #carrera-container, #profesor-find {
+#materia-container, #aula-container, #carrera-container, #profesor-find, #materia-find, #aula-find {
   display: none;
   flex-direction: column;
   background: #fafafa;
@@ -158,12 +149,8 @@ a:hover > .borderline {
   z-index: 500;
 }
 
-#materia-container input, #aula-container input, #carrera-container input, #profesor-find input {
+#materia-container input, #aula-container input, #carrera-container input, #profesor-find input, #materia-find input, #aula-find input {
   width: 95%;
-}
-
-#profesor-find h4 {
-  text-align: center;
 }
 
 input {
@@ -234,7 +221,7 @@ button:hover {
 .button-edit {
   grid-column: auto;
   width: 70%;
-  margin-left: 20px;
+  margin: auto;
   display: none;
 }
 
@@ -316,6 +303,19 @@ h2 {
   transform: scaleX(150);
   width: 1px;
   background-color: #f0eeee;
+}
+
+.checkbox-edit {
+  position: absolute;
+  left: 195px;
+  width: 40px !important;
+  bottom: 15px;
+  display: none;
+}
+
+.checkbox-materia {
+  left: 255px;
+  bottom: -5px;
 }
 
 @-webkit-keyframes Appear {

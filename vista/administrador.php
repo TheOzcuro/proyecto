@@ -63,7 +63,7 @@ if (isset($_SESSION["usuario"])==false) {
             <div class="submenu">
                     <ul>
                         <a href="#materia-container-flex"><li id="registrarMateria">Crear Materias</li><div class="borderline"></div></a>
-                        <a href="#editmateria"><li id="editarMateria">Editar Materias</li><div class="borderline"></div></a>
+                        <a href="#materia-find-flex"><li id="editarMateria">Editar Materias</li><div class="borderline"></div></a>
                     </ul>
                 </div>
             </div>
@@ -89,7 +89,7 @@ if (isset($_SESSION["usuario"])==false) {
             <div class="submenu">
                     <ul>
                         <a href="#aula-container-flex"><li id="registrarAulas">Crear Aulas</li><div class="borderline"></div></a>
-                        <a href="#editaulas"><li id="editarAulas">Editar Aulas</li><div class="borderline"></div></a>
+                        <a href="#aula-find-flex"><li id="editarAulas">Editar Aulas</li><div class="borderline"></div></a>
                     </ul>
                 </div>
             </div>
@@ -122,59 +122,14 @@ if (isset($_SESSION["usuario"])==false) {
     </div>
 </body>
 <?php 
-if (isset($_SESSION["error"]) && $_SESSION["error"]=="profesor_cedula") {
-    echo "<script>Error('La cedula que ingreso YA existe','msg_error','p_error')</script>";
+if (isset($_SESSION["error"]) && $_SESSION["error"]!="") {
+    echo "<script>Error('".$_SESSION["error"]."','msg_error','p_error')</script>";
     unset($_SESSION["error"]);
 }
-if (isset($_SESSION["completado"]) && $_SESSION["completado"]=="profesor_registro") {
-    echo "<script>Error('El profesor se registro correctamente','msg_check','p_check')</script>";
+if (isset($_SESSION["completado"]) && $_SESSION["completado"]!="") {
+    echo "<script>Error('".$_SESSION["completado"]."','msg_check','p_check')</script>";
     unset($_SESSION["completado"]);
-    
- }
- if (isset($_SESSION["error"]) && $_SESSION["error"]=="codigo_aula") {
-    echo "<script>Error('El codigo de aula que ingreso YA existe','msg_error','p_error')</script>";
-    unset($_SESSION["error"]);
- }
- if (isset($_SESSION["completado"]) && $_SESSION["completado"]=="aula_registro") {
-    echo "<script>Error('El aula se registro correctamente','msg_check','p_check')</script>";
-    unset($_SESSION["completado"]);
-     
-  }
-  if (isset($_SESSION["error"]) && $_SESSION["error"]=="codigo_materia") {
-    echo "<script>Error('El codigo de materia que ingreso YA existe','msg_error','p_error')</script>";
-    unset($_SESSION["error"]);
- }
- if (isset($_SESSION["completado"]) && $_SESSION["completado"]=="registro_materia") {
-    echo "<script>Error('La materia se registro correctamente','msg_check','p_check')</script>";
-    unset($_SESSION["completado"]);
-     
-  }
-  if (isset($_SESSION["error"]) && $_SESSION["error"]=="codigo_carrera") {
-    echo "<script>Error('El codigo de carrera que ingreso YA existe','msg_error','p_error')</script>";
-    unset($_SESSION["error"]);
- }
- if (isset($_SESSION["error"]) && $_SESSION["error"]=="nombre_carrera") {
-    echo "<script>Error('El nombre de carrera que ingreso YA existe','msg_error','p_error')</script>";
-    unset($_SESSION["error"]);
- }
- if (isset($_SESSION["completado"]) && $_SESSION["completado"]=="registro_carrera") {
-    echo "<script>Error('La carrera se registro correctamente','msg_check','p_check')</script>";
-    unset($_SESSION["completado"]);
-     
-  }
-  if (isset($_SESSION["error"]) && $_SESSION["error"]=="profesor_find") {
-    echo "<script>Error('La cedula que ingreso NO existe','msg_error','p_error')</script>";
-    unset($_SESSION["error"]);
- }
- if (isset($_SESSION["completado"]) && $_SESSION["completado"]=="profesor_update") {
-    echo "<script>Error('Los datos fueron actualizados correctamente','msg_check','p_check')</script>";
-    unset($_SESSION["completado"]);
-     
-  }
-  if (isset($_SESSION["completado"]) && $_SESSION["completado"]=="delete") {
-    echo "<script>Error('Los datos fueron eliminados','msg_check','p_check')</script>";
-    unset($_SESSION["completado"]);
-     
+        
   }
 ?>
 
@@ -204,6 +159,7 @@ if (isset($_SESSION["completado"]) && $_SESSION["completado"]=="profesor_registr
               else {
                 echo "Modificar('".$_SESSION["container"]."','flex', valores);";
               }
+              unset($_SESSION["container"]);
               unset($_SESSION["update"]);
              
           }

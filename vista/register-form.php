@@ -1,22 +1,28 @@
 
-<form action="../control/c_materia.php" method="POST" name="materia">
+<form action="../control/c_materia.php" method="POST" name="materia" id="materia">
+                <input type="text" class="input-update" id="update" name="update" hidden>
+                <input type="text" class="input-delete" id="delete" name="delete" hidden>
                 <div class="container" id="materia-container">
+                <a href="#materia-find-flex" class="a_img"><img src="css/img/close.png" alt="" class="close-icon" id="close-icon-profesor" onclick="Close()"></a>
+                    
                     <h2>Registrar Materia</h2>
                     <div class="input-container">
                         <label for="codigo_materia" id="labelcodigo_materia">Codigo</label><br>
-                        <input type="text" id="codigo_materia" name="codigo_materia" onfocus="LabelAnimation('codigo_materia','labelcodigo_materia')" onblur="LabelOut('codigo_materia','labelcodigo_materia')" maxlength="11">
+                        <input type="text" id="codigo_materia" name="codigo_materia" onfocus="LabelAnimation('codigo_materia','labelcodigo_materia')" onblur="LabelOut('codigo_materia','labelcodigo_materia')" maxlength="11"><input type="checkbox" class="checkbox-edit checkbox-materia"   onclick="CheckboxDisabled('codigo_materia', this)">
                     </div><br>
 
                     <div class="input-container">
                         <label for="nombre_materia" id="labelnombre_materia">Nombre Materia</label><br>
-                        <input type="text" id="nombre_materia" name="nombre_materia" onfocus="LabelAnimation('nombre_materia','labelnombre_materia')" onblur="LabelOut('nombre_materia','labelnombre_materia')" maxlength="30">
+                        <input type="text" id="nombre_materia" name="nombre_materia" onfocus="LabelAnimation('nombre_materia','labelnombre_materia')" onblur="LabelOut('nombre_materia','labelnombre_materia')" maxlength="30"><input type="checkbox" class="checkbox-edit checkbox-materia"   onclick="CheckboxDisabled('nombre_materia', this)">
                     </div><br>
 
                     <div class="input-container">
                         <label for="tipo_materia" id="labeltipo_materia">Tipo de Materia</label><br>
-                        <input type="text" id="tipo_materia" name="tipo_materia" onfocus="LabelAnimation('tipo_materia','labeltipo_materia')" onblur="LabelOut('tipo_materia','labeltipo_materia')" maxlength="30">
+                        <input type="text" id="tipo_materia" name="tipo_materia" onfocus="LabelAnimation('tipo_materia','labeltipo_materia')" onblur="LabelOut('tipo_materia','labeltipo_materia')" maxlength="30"><input type="checkbox" class="checkbox-edit checkbox-materia"   onclick="CheckboxDisabled('tipo_materia', this)">
                     </div><br>
                     <button type="button" onclick="Submit()">Registrar</button>
+                    <button type="button" onclick="Save('materia')" class="button-edit button-update">Guardar</button><br>
+                    <button type="button" onclick="DisplayDelete('block','#materia')" class="button-edit button-delete">Eliminar</button>
                 </div>
             </form>
             <form action="../control/c_profesor.php" method="POST" name="profesor" id="profesor">
@@ -76,24 +82,28 @@
                     </div>
 
                     <button type="button" onclick="Submit()">Registrar</button>
-                    <button type="button" onclick="Save()" class="button-edit button-update" id="update">Guardar</button>
-                    <button type="button" onclick="DisplayDelete('block','#profesor')" class="button-edit button-delete" id="delete">Eliminar</button>
+                    <button type="button" onclick="Save('profesor')" class="button-edit button-update">Guardar</button>
+                    <button type="button" onclick="DisplayDelete('block','#profesor')" class="button-edit button-delete">Eliminar</button>
                 </div>
             </form>
-            <form action="../control/c_aula.php" method="POST" name="aula">
+            <form action="../control/c_aula.php" method="POST" name="aula" id="aula">
+            <input type="text" class="input-update" id="update" name="update" hidden>
+            <input type="text" class="input-delete" id="delete" name="delete" hidden>
             <div class="container" id="aula-container">
-                    <img src="css/img/close.png" alt="" class="close-icon" id="close-icon-profesor">
+                    <a href="#profesor-find-flex" class="a_img"><img src="css/img/close.png" alt="" class="close-icon" id="close-icon-profesor" onclick="Close()"></a>
                     <h2>Registrar Aula</h2>
                     <div class="input-container">
                         <label for="codigo_aula" id="labelcodigo_aula">Codigo</label><br>
-                        <input type="text" id="codigo_aula" name="codigo_aula" onfocus="LabelAnimation('codigo_aula','labelcodigo_aula')" onblur="LabelOut('codigo_aula','labelcodigo_aula')" maxlength="11">
+                        <input type="text" id="codigo_aula" name="codigo_aula" onfocus="LabelAnimation('codigo_aula','labelcodigo_aula')" onblur="LabelOut('codigo_aula','labelcodigo_aula')" maxlength="11"><input type="checkbox" class="checkbox-edit checkbox-materia" onclick="CheckboxDisabled('codigo_aula', this)">
                     </div><br>
 
                     <div class="input-container">
                         <label for="nombre_aula" id="labelnombre_aula">Nombre Aula</label><br>
-                        <input type="text" id="nombre_aula" name="nombre_aula" onfocus="LabelAnimation('nombre_aula','labelnombre_aula')" onblur="LabelOut('nombre_aula','labelnombre_aula')" maxlength="30">
+                        <input type="text" id="nombre_aula" name="nombre_aula" onfocus="LabelAnimation('nombre_aula','labelnombre_aula')" onblur="LabelOut('nombre_aula','labelnombre_aula')" maxlength="30"><input type="checkbox" class="checkbox-edit checkbox-materia"  onclick="CheckboxDisabled('nombre_aula', this)">
                     </div><br>
                     <button type="button" onclick="Submit()">Registrar</button>
+                    <button type="button" onclick="Save('aula')" class="button-edit button-update">Guardar</button><br>
+                    <button type="button" onclick="DisplayDelete('block','#aula')" class="button-edit button-delete">Eliminar</button>
             </div>
             </form>
             <form action="../control/c_carrera.php" method="POST" name="carrera" id="carrera">

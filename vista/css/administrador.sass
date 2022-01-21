@@ -27,13 +27,7 @@ body
     grid-column: 2/5
     position: relative
     z-index: -100
-.checkbox-edit
-    display: inline
-    position: absolute
-    left: 195px
-    width: 40px
-    bottom: 15px
-    display: none
+
 .slide-menu 
     grid-column: 1/2
     grid-row: span 4
@@ -118,7 +112,7 @@ a
     transform: translate(-50%, 10%)
     border-radius: 7px
     z-index: 500
-#materia-container, #aula-container, #carrera-container, #profesor-find
+#materia-container, #aula-container, #carrera-container, #profesor-find, #materia-find, #aula-find
     display: none
     flex-direction: column
     background: rgb(250, 250, 250)
@@ -131,11 +125,8 @@ a
     transform: translate(-50%, 30%)
     border-radius: 7px
     z-index: 500
-#materia-container input, #aula-container input, #carrera-container input, #profesor-find input
+#materia-container input, #aula-container input, #carrera-container input, #profesor-find input, #materia-find input, #aula-find input
     width: 95%
-#profesor-find
-    h4
-        text-align: center
 input
     height: 25px
     outline: none
@@ -189,7 +180,7 @@ button
 .button-edit 
     grid-column: auto
     width: 70%
-    margin-left: 20px
+    margin: auto
     display: none
 .button-delete
     background: rgb(235, 61, 30)
@@ -248,6 +239,15 @@ h2
         transform: scaleX(150)
         width: 1px
         background-color: rgb(240, 238, 238)
+.checkbox-edit
+    position: absolute
+    left: 195px
+    width: 40px !important
+    bottom: 15px
+    display: none
+.checkbox-materia
+    left: 255px
+    bottom: -5px
 @keyframes Appear 
     0%
         opacity: 0

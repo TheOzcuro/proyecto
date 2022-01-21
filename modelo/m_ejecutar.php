@@ -122,9 +122,42 @@ class registry extends mybsd {
 			return $list;
 		}
 	}
-	function UpdateTable($cedula,$tabla) {
-		$query="UPDATE `$tabla` SET `cedula`='$this->cedula', `rol`='$this->rol', `primer_nombre`='$this->primer_nombre', `segundo_nombre`='$this->segundo_nombre', `primer_apellido`='$this->primer_apellido', `segundo_apellido`='$this->segundo_apellido', `direccion`='$this->direccion', `telefono`='$this->telefono' WHERE `cedula`=$cedula";
+	function UpdateTableProfesor($cedula) {
+		$query="UPDATE `profesor` SET `cedula`='$this->cedula', `rol`='$this->rol', `primer_nombre`='$this->primer_nombre', `segundo_nombre`='$this->segundo_nombre', `primer_apellido`='$this->primer_apellido', `segundo_apellido`='$this->segundo_apellido', `direccion`='$this->direccion', `telefono`='$this->telefono' WHERE `cedula`=$cedula";
 		return $this->execute($query);
+	}
+	function UpdateTableAdmin($cedula, $origin_cedula)
+	{
+		$query="UPDATE `administrador` SET `cedula`='$cedula' WHERE `cedula`='$origin_cedula' ";
+		return $this->execute($query);
+	}
+	function UpdateTableMateria($codigo,$nombre,$tipo,$original_codigo)
+	{
+		$query="SELECT * FROM `materia` WHERE `nombre`='$nombre'";
+		
+		$val=$this->CheckResult($this->execute($query));
+		if ($val) {
+			return 3;
+		}
+		else {
+			$query="UPDATE `materia` SET `codigo`='$codigo', `nombre`='$nombre', `tipo`='$tipo' WHERE `codigo`='$original_codigo'";
+			return $this->execute($query);
+		}
+		
+	}
+	function UpdateTableAula($codigo,$nombre,$original_codigo)
+	{
+		$query="SELECT * FROM `aula` WHERE `nombre`='$nombre'";
+		
+		$val=$this->CheckResult($this->execute($query));
+		if ($val) {
+			return 3;
+		}
+		else {
+			$query="UPDATE `aula` SET `codigo`='$codigo', `nombre`='$nombre' WHERE `codigo`='$original_codigo'";
+			return $this->execute($query);
+		}
+		
 	}
 	function DeleteTable($tabla, $campo, $dato) {
 		$query="DELETE FROM `$tabla` WHERE `$campo`='$dato'";

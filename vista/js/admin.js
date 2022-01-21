@@ -86,6 +86,7 @@ function CreateDatos() {
     var codigo_carrera=document.getElementById("codigo_carrera").value;
     var nombre_carrera=document.getElementById("nombre_carrera").value;
     var buscar_profesor=document.getElementById("buscar_profesor").value;
+    var buscar_materia=document.getElementById("buscar_materia").value;
 }
 function LabelOut(input,label){
     var inputs = document.getElementById(input).value;
@@ -125,6 +126,12 @@ function Submit(){
     if (buscar_profesor.value!="") {
         document.find_profesor.submit();
     }
+    if (buscar_materia.value!="") {
+        document.find_materia.submit();
+    }
+    if (buscar_aula.value!="") {
+        document.find_aula.submit();
+    }
     else {
         
     }
@@ -153,7 +160,7 @@ function ValidateNumeros(input){
     })
 }
 function ValidateVarchar(input){
-    var x=new RegExp("[A-Za-z0-9-ñ]+")
+    var x=new RegExp("[A-Za-z0-9-ñ ]+")
     var inputs=document.getElementById(input)
     inputs.addEventListener("keypress", function(){
         if (x.test(event.key)) {
@@ -181,35 +188,41 @@ function DissapearVarious(element,display) {
         x=x+1
     }
 }
-function Save() {
-    CreateDatos();
-    var input=div_edit.querySelectorAll("input");
-    if (cedula.value!=valores_origin[0] || 
-        rol.value!=valores_origin[1] || 
-        primer_nombre.value!=valores_origin[2] || 
-        segundo_nombre.value!=valores_origin[3] || 
-        primer_apellido.value!=valores_origin[4] || 
-        segundo_apellido.value!=valores_origin[5] || 
-        direccion.value!=valores_origin[6] || 
-        telefono.value!=valores_origin[7] && 
-        cedula.value!="" && 
-        rol.value!="" && 
-        primer_nombre.value!="" && 
-        segundo_nombre.value!="" && 
-        primer_apellido.value!="" && 
-        segundo_apellido.value!="" && 
-        direccion.value!="" && 
-        telefono.value!="") {
+function Save(form) {
+    var input=div_edit.querySelectorAll("input[type=text]");
+    var valideTrue=false;
+    var valideFalse="";
+    for (let index = 0; index < input.length; index++) {
+        if (input[index].value!=valores[index] && input[index].value!="") {
+            valideTrue=true;
+        }
+        if( input[index].value=="") {
+            valideFalse="false"
+        }
+    }
+    if (div_edit.id=="profesor-container") {
+        select=div_edit.querySelector("select");
+        if (select.value!=valores_origin[1] && select.value!="") {
+            valideTrue=true
+        }
+        if (select.value=="") {
+            valideFalse="false"
+        }
+    }
+    if (valideTrue==true && valideFalse=="") {
+        console.log("funciono")
+        if (div_edit.id=="profesor-container") {
+            div_edit.querySelector("select").disabled=false;
+        }
         for (let index = 0; index < input.length; index++) {
             input[index].disabled=false;
             
         }
-        div_edit.querySelector("select").disabled=false;
-        document.querySelector("#profesor").querySelector(".input-update").value=valores_origin[0];
-        //document.profesor.submit();
+        document.querySelector("#"+form).querySelector(".input-update").value=valores_origin[0];
+        document.querySelector("#"+form).submit();
     }
     else {
-        console.log("no esta funcionando mi pana");
+        console.log("error")
     }
 }
 function Delete(form) {
@@ -226,6 +239,10 @@ function Modificar(container,display,valores) {
     button[0].style.display="none";
     button[1].style.display="block";
     button[2].style.display="block";
+    for (let index = 0; index < valores.length; index++) {
+        valores_origin.push(valores[index]);
+        
+    }
     //-----------------------------------------------
 
     //Se guardan en variables los elementos que vamos a utilizar
@@ -237,10 +254,7 @@ function Modificar(container,display,valores) {
         div_edit.querySelector("select").disabled=true;
         div_edit.querySelector("select").value=valores[1];
         //Se elimina un valor en especifico de el array de valores para evitar incovenientes
-        for (let index = 0; index < valores.length; index++) {
-            valores_origin.push(valores[index]);
-            
-        }
+        
         valores.splice(1,1);
     }
 
@@ -302,7 +316,8 @@ function Close() {
         AppearsAndDissapear("profesor-find","flex")
     }
     if (div_edit.id=="materia-container") {
-        div_edit.querySelector("h2").innerHTML="Registrar Materia"
+        div_edit.querySelector("h2").innerHTML="Registrar Materia";
+        AppearsAndDissapear("materia-find","flex");
     }
     if (div_edit.id=="aula-container") {
         div_edit.querySelector("h2").innerHTML="Registrar Aula"
@@ -336,33 +351,48 @@ document.getElementById("registrarMateria").addEventListener("click", function()
         Close()
     }
     AppearsAndDissapear("materia-container","flex")})
+
 document.getElementById("registrarProfesor").addEventListener("click", function(){
     if (div_edit!="") {
         Close()
     }
     AppearsAndDissapear("profesor-container","grid")})
+
 document.getElementById("registrarAulas").addEventListener("click", function(){
     if (div_edit!="") {
         Close()
     }
     AppearsAndDissapear("aula-container","flex")})
+
 document.getElementById("registrarCarreras").addEventListener("click", function(){
     if (div_edit!="") {
         Close()
     }
     AppearsAndDissapear("carrera-container","flex")})
+
 document.getElementById("editarProfesor").addEventListener("click", function(){
     if (div_edit!="") {
         Close()
     }
     AppearsAndDissapear("profesor-find","flex")})
 
+document.getElementById("editarMateria").addEventListener("click", function(){
+     if (div_edit!="") {
+         Close()
+    }
+    AppearsAndDissapear("materia-find","flex")})
+
+document.getElementById("editarAulas").addEventListener("click", function(){
+    if (div_edit!="") {
+        Close()
+    }
+    AppearsAndDissapear("aula-find","flex")})
 ValidateTexto('primer_nombre');
 ValidateTexto('segundo_nombre');
 ValidateTexto('primer_apellido');
 ValidateTexto('segundo_apellido');
 ValidateTexto('tipo_materia');
-ValidateTexto('nombre_aula');
+ValidateVarchar('nombre_aula');
 ValidateTexto('nombre_carrera');
 ValidateNumeros('cedula');
 ValidateNumeros('telefono');
