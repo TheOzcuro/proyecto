@@ -5,7 +5,7 @@ var comparechild=0;
 var button=[];
 var div_edit="";
 let valores_origin=[];
-
+var input_checkbox=""
 
 
 // ----------------------------------VARIABLES---------------------------------
@@ -69,25 +69,7 @@ function OnLoad(){
     }
     
 }
-function CreateDatos() {
-    var cedula=document.getElementById("cedula").value;
-    var rol=document.getElementById("rol").value;
-    var primer_nombre=document.getElementById("primer_nombre").value;
-    var segundo_nombre=document.getElementById("segundo_nombre").value;
-    var primer_apellido=document.getElementById("primer_apellido").value;
-    var segundo_apellido=document.getElementById("segundo_apellido").value;
-    var direccion=document.getElementById("direccion").value;
-    var telefono=document.getElementById("telefono").value;
-    var codigo_materia=document.getElementById("codigo_materia").value;
-    var nombre_materia=document.getElementById("nombre_materia").value;
-    var tipo_materia=document.getElementById("tipo_materia").value;
-    var codigo_aula=document.getElementById("codigo_materia").value;
-    var nombre_aula=document.getElementById("nombre_materia").value;
-    var codigo_carrera=document.getElementById("codigo_carrera").value;
-    var nombre_carrera=document.getElementById("nombre_carrera").value;
-    var buscar_profesor=document.getElementById("buscar_profesor").value;
-    var buscar_materia=document.getElementById("buscar_materia").value;
-}
+
 function LabelOut(input,label){
     var inputs = document.getElementById(input).value;
     if (inputs=="") {
@@ -109,33 +91,27 @@ function SelectAnimation(select){
     }
     
 }
-function Submit(){
-    CreateDatos()
-    if (cedula.value!="" && rol.value!="" && primer_nombre.value!="" && segundo_nombre.value!="" && primer_apellido.value!="" && segundo_apellido.value!="" && direccion.value!="" && telefono.value!="") {
-        document.profesor.submit();
-    }
-    if (codigo_materia.value!="" && nombre_materia.value!="" && tipo_materia.value!="") {
-        document.materia.submit();
-    }
-    if (codigo_aula.value!="" && nombre_aula.value!="") {
-        document.aula.submit();
-    }
-    if (codigo_carrera.value!="" && nombre_carrera.value!="") {
-        document.carrera.submit();
-    }
-    if (buscar_profesor.value!="") {
-        document.find_profesor.submit();
-    }
-    if (buscar_materia.value!="") {
-        document.find_materia.submit();
-    }
-    if (buscar_aula.value!="") {
-        document.find_aula.submit();
-    }
-    else {
-        
-    }
-    
+function Submit(form){
+   var div=document.getElementById(form).querySelector("div");
+   var input=div.querySelectorAll("input[type=text]");
+   var valide=true;
+   for (let index = 0; index < input.length; index++) {
+       if (input[index].id=="segundo_nombre" || input[index].id=="segundo_apellido") {
+           
+       }
+       else {
+            if (input[index].value=="") {
+            valide=false;
+ 
+         }
+       }
+      
+       
+   }
+   console.log(valide);
+   if (valide) {
+       document.getElementById(form).submit();
+   }
 }
 function ValidateTexto(input){
     var x=new RegExp("[A-Za-z-ñ]+")
@@ -171,11 +147,15 @@ function ValidateVarchar(input){
     })
 }
 function CheckboxDisabled(input, check) {
+var input=document.getElementById(input);
    if (check.checked) {
-    document.getElementById(input).disabled=true;
+    input.disabled=true;
+    input.value=input_checkbox;
    }
    else {
-    document.getElementById(input).disabled=false;
+    input.disabled=false;
+    input_checkbox=input.value;
+    input.value=""
    }
   
 }
@@ -190,15 +170,21 @@ function DissapearVarious(element,display) {
 }
 function Save(form) {
     var input=div_edit.querySelectorAll("input[type=text]");
-    var valideTrue=false;
+    var valideTrue=true;
     var valideFalse="";
     for (let index = 0; index < input.length; index++) {
-        if (input[index].value!=valores[index] && input[index].value!="") {
-            valideTrue=true;
+        if (input[index].id=="segundo_nombre" || input[index].id=="segundo_apellido") {
+           
         }
-        if( input[index].value=="") {
-            valideFalse="false"
+        else {
+            if (input[index].value==valores[index] && input[index].value=="") {
+                valideTrue=false;
+            }
+            if( input[index].value=="") {
+                valideFalse="false"
+            }
         }
+       
     }
     if (div_edit.id=="profesor-container") {
         select=div_edit.querySelector("select");
@@ -387,13 +373,18 @@ document.getElementById("editarAulas").addEventListener("click", function(){
         Close()
     }
     AppearsAndDissapear("aula-find","flex")})
+document.getElementById("editarCarreras").addEventListener("click", function(){
+    if (div_edit!="") {
+        Close()
+    }
+    AppearsAndDissapear("carrera-find","flex")})
 ValidateTexto('primer_nombre');
 ValidateTexto('segundo_nombre');
 ValidateTexto('primer_apellido');
 ValidateTexto('segundo_apellido');
 ValidateTexto('tipo_materia');
 ValidateVarchar('nombre_aula');
-ValidateTexto('nombre_carrera');
+ValidateVarchar('nombre_carrera');
 ValidateNumeros('cedula');
 ValidateNumeros('telefono');
 ValidateNumeros('codigo_carrera');

@@ -76,13 +76,13 @@ if (isset($_SESSION["usuario"])==false) {
             <div class="submenu">
                     <ul>
                         <a href="#carrera-container-flex"><li id="registrarCarreras">Crear Carreras</li><div class="borderline"></div></a>
-                        <a href="#editcarreras"><li id="editarCarreras">Editar Carreras</li><div class="borderline"></div></a>
+                        <a href="#carrera-find-flex"><li id="editarCarreras">Editar Carreras</li><div class="borderline"></div></a>
                     </ul>
                 </div>
             </div>
             <div class="principal-menu">
             <div class="h4-container" onclick="AnimationPrincipalMenu(4)">
-                <h4>Control Aulas</h4>
+                <h4>Aulas</h4>
             </div>
             
             <img src="css/img/arrow_down.png" alt="" id="arrow_down" onclick="AnimationPrincipalMenu(4)">

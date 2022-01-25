@@ -2,7 +2,6 @@
 session_start();
 include_once("../modelo/m_ejecutar.php");
 $ejecutar= new registry();
-echo $_POST["update"];
 if (isset($_POST["buscar_aula"]) && $_POST["buscar_aula"]!="") {
     $validate=$ejecutar->FindQuery("aula","codigo", $_POST["buscar_aula"]);
     if ($validate===2) {

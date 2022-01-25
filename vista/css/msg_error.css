@@ -1,13 +1,13 @@
 .msg_error img, .msg_check img {
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
 }
 
 .msg_error {
   border: solid 5px #dc3c32;
   border-radius: 4px;
   padding: 15px;
-  max-width: 400px;
+  max-width: 300px;
   position: absolute;
   background: #f0f0f0;
   transition-property: left, right;
@@ -22,7 +22,7 @@
   border: solid 5px #32dc40;
   border-radius: 4px;
   padding: 15px;
-  max-width: 400px;
+  max-width: 300px;
   position: absolute;
   background: #f0f0f0;
   transition-property: left, right;
@@ -37,10 +37,10 @@
   display: inline;
   width: auto;
   position: relative;
-  top: -13px;
+  top: -5px;
   left: 5px;
   color: #323232;
-  font-size: 20px;
+  font-size: 17px;
 }
 
 .msg_error p {

@@ -27,10 +27,10 @@
             <h2>Iniciar Sesion</h2>
             <div class="input-container">
             <label for="usuario" id="labeluser">Usuario</label><br>
-            <input type="text" name="usuario" id="usuario" onfocus='LabelAnimation("usuario","labeluser")' onblur='LabelOut("usuario","labeluser")'></div><br>
+            <input type="text" name="usuario" id="usuario" onfocus='LabelAnimation("usuario","labeluser")' onblur='LabelOut("usuario","labeluser")' maxlength="12"></div><br>
             <div class="input-container">
             <label for="pass" id="passuser">Contraseña</label><br>
-            <input type="password" name="pass" id="pass" onfocus='LabelAnimation("pass","passuser")' onblur='LabelOut("pass","passuser")'></div><br>
+            <input type="password" name="pass" id="pass" onfocus='LabelAnimation("pass","passuser")' onblur='LabelOut("pass","passuser")'  maxlength="30"></div><br>
             <button onclick="Submit()" type="button">Iniciar Sesion</button>
             <a href="#recover" onclick="AppearRecover()"><p>¿Has olvidado tu contraseña?</p></a>
         </div>

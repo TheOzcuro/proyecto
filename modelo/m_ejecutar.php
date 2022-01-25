@@ -41,7 +41,9 @@ class registry extends mybsd {
 		return $this->execute($query);
 	}
 	function registrarMateria($codigo, $nombre, $tipo){
-		$query="SELECT * FROM `aula` WHERE `nombre`='$nombre'";
+		$nombre=strtoupper($nombre);
+		$tipo=strtoupper($tipo);
+		$query="SELECT * FROM `materia` WHERE `nombre`='$nombre'";
 		
 		$val=$this->CheckResult($this->execute($query));
 		if ($val) {
@@ -54,6 +56,7 @@ class registry extends mybsd {
 		}
 	}
 	function registrarAula($codigo, $nombre){
+		$nombre=strtoupper($nombre);
 		$query="SELECT * FROM `aula` WHERE `nombre`='$nombre'";
 		
 		$val=$this->CheckResult($this->execute($query));
@@ -62,11 +65,12 @@ class registry extends mybsd {
 		}
 		else {
 			$query="INSERT INTO `aula`(`codigo`, `nombre`)
-			VALUES ('".$codigo."','".$nombre."')";
+			VALUES ('".$codigo."','".strtoupper($nombre)."')";
 			return $this->execute($query);
 		}
 	}
 	function registrarCarrera($codigo, $nombre){
+		$nombre=strtoupper($nombre);
 		$query="SELECT * FROM `carrera` WHERE `nombre`='$nombre'";
 		
 		$val=$this->CheckResult($this->execute($query));
@@ -75,7 +79,7 @@ class registry extends mybsd {
 		}
 		else {
 			$query="INSERT INTO `carrera`(`codigo`, `nombre`)
-			VALUES ('".$codigo."','".$nombre."')";
+			VALUES ('".$codigo."','".strtoupper($nombre)."')";
 			return $this->execute($query);
 		}
 		
@@ -133,6 +137,8 @@ class registry extends mybsd {
 	}
 	function UpdateTableMateria($codigo,$nombre,$tipo,$original_codigo)
 	{
+		$nombre=strtoupper($nombre);
+		$tipo=strtoupper($tipo);
 		$query="SELECT * FROM `materia` WHERE `nombre`='$nombre'";
 		
 		$val=$this->CheckResult($this->execute($query));
@@ -147,14 +153,32 @@ class registry extends mybsd {
 	}
 	function UpdateTableAula($codigo,$nombre,$original_codigo)
 	{
-		$query="SELECT * FROM `aula` WHERE `nombre`='$nombre'";
+		$nombre=strtoupper($nombre);
+		$query="SELECT * FROM `aula` WHERE `nombre`='strtoupper($nombre)'";
 		
 		$val=$this->CheckResult($this->execute($query));
 		if ($val) {
 			return 3;
 		}
 		else {
+			
 			$query="UPDATE `aula` SET `codigo`='$codigo', `nombre`='$nombre' WHERE `codigo`='$original_codigo'";
+			return $this->execute($query);
+		}
+		
+	}
+	function UpdateTableCarrera($codigo,$nombre,$original_codigo)
+	{
+		$nombre=strtoupper($nombre);
+		$query="SELECT * FROM `carrera` WHERE `nombre`='$nombre'";
+		
+		$val=$this->CheckResult($this->execute($query));
+		if ($val) {
+			return 3;
+		}
+		else {
+			
+			$query="UPDATE `carrera` SET `codigo`='$codigo', `nombre`='$nombre' WHERE `codigo`='$original_codigo'";
 			return $this->execute($query);
 		}
 		

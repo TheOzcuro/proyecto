@@ -20,7 +20,7 @@
                         <label for="tipo_materia" id="labeltipo_materia">Tipo de Materia</label><br>
                         <input type="text" id="tipo_materia" name="tipo_materia" onfocus="LabelAnimation('tipo_materia','labeltipo_materia')" onblur="LabelOut('tipo_materia','labeltipo_materia')" maxlength="30"><input type="checkbox" class="checkbox-edit checkbox-materia"   onclick="CheckboxDisabled('tipo_materia', this)">
                     </div><br>
-                    <button type="button" onclick="Submit()">Registrar</button>
+                    <button type="button" onclick="Submit('materia')">Registrar</button>
                     <button type="button" onclick="Save('materia')" class="button-edit button-update">Guardar</button><br>
                     <button type="button" onclick="DisplayDelete('block','#materia')" class="button-edit button-delete">Eliminar</button>
                 </div>
@@ -33,13 +33,13 @@
                     <h2>Registrar Profesor</h2>
 
                     <div class="input-container">
-                        <label for="cedula" id="labelcedula">Cedula</label><br>
+                        <label for="cedula" id="labelcedula">Cedula <b style="color:red;">*</b></label><br>
                         <input type="text" id="cedula" name="cedula" onfocus="LabelAnimation('cedula','labelcedula')" onblur="LabelOut('cedula','labelcedula')" maxlength="11"><input type="checkbox" class="checkbox-edit checkbox-profesor" onclick="CheckboxDisabled('cedula', this)">
                     </div>
 
                     <div class="input-container">
                         <select name="rol" id="rol" onclick="SelectAnimation('rol')">
-                            <option value="">Seleccione el Rol</option>
+                            <option value="">Seleccione el Rol <b style="color:red;">*</b></option>
                             <option value="1">Administrador</option>
                             <option value="0">Profesor</option>
                         </select>
@@ -47,7 +47,7 @@
                     </div>
 
                     <div class="input-container">
-                        <label for="primer_nombre" id="labelprimer_nombre">Primer Nombre</label><br>
+                        <label for="primer_nombre" id="labelprimer_nombre">Primer Nombre <b style="color:red;">*</b></label><br>
                         <input type="text" id="primer_nombre" name="primer_nombre" onfocus="LabelAnimation('primer_nombre','labelprimer_nombre')" onblur="LabelOut('primer_nombre','labelprimer_nombre')" maxlength="30"><input type="checkbox" class="checkbox-edit checkbox-profesor"   onclick="CheckboxDisabled('primer_nombre', this)">
                     </div>
 
@@ -58,7 +58,7 @@
                     </div>
 
                     <div class="input-container">
-                        <label for="primer_apellido" id="labelprimer_apellido">Primer Apellido</label><br>
+                        <label for="primer_apellido" id="labelprimer_apellido">Primer Apellido <b style="color:red;">*</b></label><br>
                         <input type="text" id="primer_apellido" name="primer_apellido"
                         onfocus="LabelAnimation('primer_apellido','labelprimer_apellido')" onblur="LabelOut('primer_apellido','labelprimer_apellido')" maxlength="30"><input type="checkbox" class="checkbox-edit checkbox-profesor" onclick="CheckboxDisabled('primer_apellido', this)">
                     </div>
@@ -70,18 +70,18 @@
                     </div>
 
                     <div class="input-container">
-                        <label for="direccion" id="labeldireccion">Direccion</label><br>
+                        <label for="direccion" id="labeldireccion">Direccion <b style="color:red;">*</b></label><br>
                         <input type="text" id="direccion" name="direccion"
                         onfocus="LabelAnimation('direccion','labeldireccion')" onblur="LabelOut('direccion','labeldireccion')" maxlength="60"><input type="checkbox" class="checkbox-edit" onclick="CheckboxDisabled('direccion', this)">
                     </div>
 
                     <div class="input-container">
-                        <label for="telefono" id="labeltelefono">Telefono</label><br>
+                        <label for="telefono" id="labeltelefono">Telefono <b style="color:red;">*</b></label><br>
                         <input type="text" id="telefono" name="telefono"
                         onfocus="LabelAnimation('telefono','labeltelefono')" onblur="LabelOut('telefono','labeltelefono')" maxlength="11"><input type="checkbox" class="checkbox-edit" onclick="CheckboxDisabled('telefono', this)">
                     </div>
 
-                    <button type="button" onclick="Submit()">Registrar</button>
+                    <button type="button" onclick="Submit('profesor')">Registrar</button>
                     <button type="button" onclick="Save('profesor')" class="button-edit button-update">Guardar</button>
                     <button type="button" onclick="DisplayDelete('block','#profesor')" class="button-edit button-delete">Eliminar</button>
                 </div>
@@ -101,22 +101,28 @@
                         <label for="nombre_aula" id="labelnombre_aula">Nombre Aula</label><br>
                         <input type="text" id="nombre_aula" name="nombre_aula" onfocus="LabelAnimation('nombre_aula','labelnombre_aula')" onblur="LabelOut('nombre_aula','labelnombre_aula')" maxlength="30"><input type="checkbox" class="checkbox-edit checkbox-materia"  onclick="CheckboxDisabled('nombre_aula', this)">
                     </div><br>
-                    <button type="button" onclick="Submit()">Registrar</button>
+                    <button type="button" onclick="Submit('aula')">Registrar</button>
                     <button type="button" onclick="Save('aula')" class="button-edit button-update">Guardar</button><br>
                     <button type="button" onclick="DisplayDelete('block','#aula')" class="button-edit button-delete">Eliminar</button>
             </div>
             </form>
             <form action="../control/c_carrera.php" method="POST" name="carrera" id="carrera">
+            <input type="text" class="input-update" id="update" name="update" hidden>
+                <input type="text" class="input-delete" id="delete" name="delete" hidden>
                 <div id="carrera-container" class="container">
+                    <a href="#profesor-find-flex" class="a_img"><img src="css/img/close.png" alt="" class="close-icon" id="close-icon-profesor" onclick="Close()"></a>
                     <h2>Registrar Carrera</h2>
                     <div class="input-container">
+                    
                         <label for="codigo_carrera" id="labelcodigo_carrera">Codigo</label><br>
-                        <input type="text" id="codigo_carrera" name="codigo_carrera" onfocus="LabelAnimation('codigo_carrera','labelcodigo_carrera')" onblur="LabelOut('codigo_carrera','labelcodigo_carrera')" maxlength="11">
+                        <input type="text" id="codigo_carrera" name="codigo_carrera" onfocus="LabelAnimation('codigo_carrera','labelcodigo_carrera')" onblur="LabelOut('codigo_carrera','labelcodigo_carrera')" maxlength="11"><input type="checkbox" class="checkbox-edit checkbox-materia"  onclick="CheckboxDisabled('coduigo_materia', this)">
                     </div><br>
                     <div class="input-container">
                         <label for="nombre_carrera" id="labelnombre_carrera">Nombre</label><br>
-                        <input type="text" id="nombre_carrera" name="nombre_carrera" onfocus="LabelAnimation('nombre_carrera','labelnombre_carrera')" onblur="LabelOut('nombre_carrera','labelnombre_carrera')" maxlength="30">
+                        <input type="text" id="nombre_carrera" name="nombre_carrera" onfocus="LabelAnimation('nombre_carrera','labelnombre_carrera')" onblur="LabelOut('nombre_carrera','labelnombre_carrera')" maxlength="30"><input type="checkbox" class="checkbox-edit checkbox-materia"  onclick="CheckboxDisabled('nombre_carrera', this)">
                     </div><br>
-                    <button type="button" onclick="Submit()">Registrar</button>
+                    <button type="button" onclick="Submit('carrera')">Registrar</button>
+                    <button type="button" onclick="Save('carrera')" class="button-edit button-update">Guardar</button><br>
+                    <button type="button" onclick="DisplayDelete('block','#carrera')" class="button-edit button-delete">Eliminar</button>
                 </div>
             </form>
