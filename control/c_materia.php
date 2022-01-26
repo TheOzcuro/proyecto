@@ -23,7 +23,7 @@ else if (isset($_POST["update"]) && $_POST["update"]!="") {
         $_SESSION["container"]="materia-container";
         header("Location:../vista/administrador.php#materia-find-flex");
     }
-    if ($validate===2) {
+    else if ($validate===2) {
         $_SESSION["error"]="El codigo de materia que ingreso ya existe";
         $_SESSION["update"]=$ejecutar->FindQuery("materia", "codigo", $_POST["update"]);
         $_SESSION["container"]="materia-container";
@@ -48,7 +48,7 @@ else{
         $_SESSION["error"]="El codigo de materia que ingreso ya existe";
         
     }
-    if ($validate===3) {
+    else if ($validate===3) {
         header("Location:../vista/administrador.php#materia-container-flex");
         $_SESSION["error"]="El nombre de materia que ingreso ya existe";
     }

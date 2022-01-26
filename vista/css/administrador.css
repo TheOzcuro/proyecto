@@ -174,7 +174,7 @@ input:focus {
   border-color: #206bdb;
 }
 
-#profesor-container select {
+#profesor-container select, #tipo_materia {
   width: 80%;
   border: none;
   border-bottom: 2px solid rgba(30, 30, 30, 0.8);
@@ -184,6 +184,10 @@ input:focus {
   transition-property: border-color;
   transition-duration: 0.7s;
   -o-transition-timing-function: ease;
+}
+
+#tipo_materia {
+  width: 97%;
 }
 
 .input-container {

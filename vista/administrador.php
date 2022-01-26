@@ -13,7 +13,7 @@ if (isset($_SESSION["usuario"])==false) {
     <link rel="stylesheet" href="css/administrador.css">
     <title>Administrador</title>
 </head>
-<body>
+<body onload="LabelInput()">
     <div class="container-delete" onclick="DisplayDelete('none')">
     </div>
         <div class="delete-window">

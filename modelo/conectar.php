@@ -41,7 +41,7 @@
                 return False;
             }
             else {
-                return True;
+                return mysqli_num_rows($sql);
             }
         }
     }

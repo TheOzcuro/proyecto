@@ -42,11 +42,10 @@ class registry extends mybsd {
 	}
 	function registrarMateria($codigo, $nombre, $tipo){
 		$nombre=strtoupper($nombre);
-		$tipo=strtoupper($tipo);
 		$query="SELECT * FROM `materia` WHERE `nombre`='$nombre'";
 		
 		$val=$this->CheckResult($this->execute($query));
-		if ($val) {
+		if ($val==1) {
 			return 3;
 		}
 		else {
@@ -60,7 +59,7 @@ class registry extends mybsd {
 		$query="SELECT * FROM `aula` WHERE `nombre`='$nombre'";
 		
 		$val=$this->CheckResult($this->execute($query));
-		if ($val) {
+		if ($val==1) {
 			return 3;
 		}
 		else {
@@ -74,7 +73,7 @@ class registry extends mybsd {
 		$query="SELECT * FROM `carrera` WHERE `nombre`='$nombre'";
 		
 		$val=$this->CheckResult($this->execute($query));
-		if ($val) {
+		if ($val==1) {
 			return 3;
 		}
 		else {
@@ -138,11 +137,11 @@ class registry extends mybsd {
 	function UpdateTableMateria($codigo,$nombre,$tipo,$original_codigo)
 	{
 		$nombre=strtoupper($nombre);
-		$tipo=strtoupper($tipo);
 		$query="SELECT * FROM `materia` WHERE `nombre`='$nombre'";
 		
 		$val=$this->CheckResult($this->execute($query));
-		if ($val) {
+		
+		if ($val==1) {
 			return 3;
 		}
 		else {
@@ -154,10 +153,10 @@ class registry extends mybsd {
 	function UpdateTableAula($codigo,$nombre,$original_codigo)
 	{
 		$nombre=strtoupper($nombre);
-		$query="SELECT * FROM `aula` WHERE `nombre`='strtoupper($nombre)'";
+		$query="SELECT * FROM `aula` WHERE `nombre`='$nombre'";
 		
 		$val=$this->CheckResult($this->execute($query));
-		if ($val) {
+		if ($val==1) {
 			return 3;
 		}
 		else {
@@ -173,7 +172,7 @@ class registry extends mybsd {
 		$query="SELECT * FROM `carrera` WHERE `nombre`='$nombre'";
 		
 		$val=$this->CheckResult($this->execute($query));
-		if ($val) {
+		if ($val==1) {
 			return 3;
 		}
 		else {

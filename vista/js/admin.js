@@ -5,7 +5,6 @@ var comparechild=0;
 var button=[];
 var div_edit="";
 let valores_origin=[];
-var input_checkbox=""
 
 
 // ----------------------------------VARIABLES---------------------------------
@@ -22,9 +21,10 @@ function AppearsAndDissapear(appear,display) {
    
 }
 function LabelAnimation(input,label){
-    document.getElementById(input).style.borderColor=""
-    document.getElementById(label).style.top = "1px";
-    document.getElementById(label).style.fontSize = "15px";
+        document.getElementById(input).style.borderColor=""
+        document.getElementById(label).style.top = "1px";
+        document.getElementById(label).style.fontSize = "15px";
+       
 }
 function AnimationPrincipalMenu(child){
     click=click+1;
@@ -69,7 +69,21 @@ function OnLoad(){
     }
     
 }
-
+function LabelInput() {
+     //--- y para los inputs
+     y=0
+     //--- l para los label
+     l=0
+     var input=document.querySelectorAll(".input-label");
+     var label=document.querySelectorAll("label");
+     totalinput=input.length;
+     while (y<totalinput) {
+         if (input[y].value!="") {
+             LabelAnimation(input[y].id,label[y].id)
+         }
+         y=y+1
+     }
+}
 function LabelOut(input,label){
     var inputs = document.getElementById(input).value;
     if (inputs=="") {
@@ -150,14 +164,24 @@ function CheckboxDisabled(input, check) {
 var input=document.getElementById(input);
    if (check.checked) {
     input.disabled=true;
-    input.value=input_checkbox;
+    input.style.borderColor=""
+    input.value=valores[CountInput(input)];
+    LabelInput();
    }
    else {
     input.disabled=false;
-    input_checkbox=input.value;
     input.value=""
    }
   
+}
+function CountInput(input) {
+    input_count=div_edit.querySelectorAll(".input");
+    for (let index = 0; index < input_count.length; index++) {
+       if (input_count[index].id==input.id) {
+            return index
+       }
+        
+    }
 }
 function DissapearVarious(element,display) {
     x=0
@@ -169,42 +193,30 @@ function DissapearVarious(element,display) {
     }
 }
 function Save(form) {
-    var input=div_edit.querySelectorAll("input[type=text]");
-    var valideTrue=true;
+    var input=div_edit.querySelectorAll(".input");
+    var valideTrue=false;
     var valideFalse="";
     for (let index = 0; index < input.length; index++) {
         if (input[index].id=="segundo_nombre" || input[index].id=="segundo_apellido") {
            
         }
         else {
-            if (input[index].value==valores[index] && input[index].value=="") {
-                valideTrue=false;
+            if (input[index].value!=valores[index] && input[index].value!="") {
+                valideTrue=true;
             }
             if( input[index].value=="") {
-                valideFalse="false"
+                valideFalse="false";
             }
         }
        
     }
-    if (div_edit.id=="profesor-container") {
-        select=div_edit.querySelector("select");
-        if (select.value!=valores_origin[1] && select.value!="") {
-            valideTrue=true
-        }
-        if (select.value=="") {
-            valideFalse="false"
-        }
-    }
     if (valideTrue==true && valideFalse=="") {
         console.log("funciono")
-        if (div_edit.id=="profesor-container") {
-            div_edit.querySelector("select").disabled=false;
-        }
         for (let index = 0; index < input.length; index++) {
             input[index].disabled=false;
             
         }
-        document.querySelector("#"+form).querySelector(".input-update").value=valores_origin[0];
+        document.querySelector("#"+form).querySelector(".input-update").value=valores[0];
         document.querySelector("#"+form).submit();
     }
     else {
@@ -212,7 +224,7 @@ function Save(form) {
     }
 }
 function Delete(form) {
-    document.querySelector(form).querySelector(".input-delete").value=valores_origin[0];
+    document.querySelector(form).querySelector(".input-delete").value=valores[0];
     document.querySelector(form).submit();
 }
 function Modificar(container,display,valores) {
@@ -225,80 +237,41 @@ function Modificar(container,display,valores) {
     button[0].style.display="none";
     button[1].style.display="block";
     button[2].style.display="block";
-    for (let index = 0; index < valores.length; index++) {
-        valores_origin.push(valores[index]);
-        
-    }
     //-----------------------------------------------
 
     //Se guardan en variables los elementos que vamos a utilizar
     var checkbox=div_edit.querySelectorAll(".checkbox-edit");
-
-    //-----Se verifica que el div seleccionado sea el de profesor
-    if (container=="profesor-container") {
-        //Se procede a desactivar el select y darle los valores previamente buscados
-        div_edit.querySelector("select").disabled=true;
-        div_edit.querySelector("select").value=valores[1];
-        //Se elimina un valor en especifico de el array de valores para evitar incovenientes
-        
-        valores.splice(1,1);
-    }
-
     //----Contadores para el while
     //--- x para las checkbox
-    x=0
-     //--- y para los inputs
-     y=0
-     //--- l para los label
-     l=0
-    //---contadores para los while
-
-
-    totalcheck=checkbox.length;
-    while (x<totalcheck) {
-        checkbox[x].style.display="block";
-        checkbox[x].checked=true;
-        x=x+1 
-    }
-    
-     var input=div_edit.querySelectorAll("input");
-     var label=div_edit.querySelectorAll("label");
-     totalinput=input.length;
-     while (y<totalinput) {
-        if (input[y].type=="text") {
-            LabelAnimation(input[y].id,label[l].id)
-            input[y].disabled=true
-            input[y].value=valores[l]
-            l=l+1
-        }
-        y=y+1
-    }
-   
+   for (let index = 0; index < checkbox.length; index++) {
+        checkbox[index].style.display="block";
+        checkbox[index].checked=true;
+   }
+    var input=div_edit.querySelectorAll(".input");
+  
+    for (let index = 0; index < input.length; index++) {
+            input[index].disabled=true
+            input[index].value=valores[index]
+         
+     }
 }
 function Close() {
     DissapearVarious(".checkbox-edit","none")
     button[0].style.display="block";
     button[1].style.display="none";
     button[2].style.display="none";
-    var input=div_edit.querySelectorAll("input");
+    var input=div_edit.querySelectorAll(".input");
     var label=div_edit.querySelectorAll("label");
-    totalinput=input.length;
-    y=0;
-    l=0;
-    while (y<totalinput) {
-        if (input[y].type=="text") {
-            input[y].disabled=false
-            input[y].value=""
-           document.getElementById(label[l].id).style.top = "20px";
-            document.getElementById(label[l].id).style.fontSize = "18px";
-            l=l+1
-        }
-        y=y+1
+    for (let index = 0; index < input.length; index++) {
+        input[index].disabled=false
+        input[index].value=""
+    }
+    for (let index = 0; index < label.length; index++) {
+        label[index].style.top="20px";
+        label[index].style.fontSize="18px";
     }
     if (div_edit.id=="profesor-container") {
         div_edit.querySelector("h2").innerHTML="Registrar Profesor"
-        div_edit.querySelector("select").value="";
-        div_edit.querySelector("select").disabled=false;
         AppearsAndDissapear("profesor-find","flex")
     }
     if (div_edit.id=="materia-container") {
@@ -307,9 +280,11 @@ function Close() {
     }
     if (div_edit.id=="aula-container") {
         div_edit.querySelector("h2").innerHTML="Registrar Aula"
+        AppearsAndDissapear("aula-find","flex");
     }
     if (div_edit.id=="carrera-container") {
         div_edit.querySelector("h2").innerHTML="Registrar Carrera"
+        AppearsAndDissapear("carrera-find","flex");
     }
     div_edit.querySelector(".close-icon").style.display="none"
     document.getElementById("buscar_profesor").value=""
