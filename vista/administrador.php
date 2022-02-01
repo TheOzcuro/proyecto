@@ -101,7 +101,7 @@ if (isset($_SESSION["usuario"])==false) {
             <img src="css/img/arrow_down.png" alt="" id="arrow_down" onclick="AnimationPrincipalMenu(5)">
             <div class="submenu">
                     <ul>
-                        <a href=""><li>Iniciar Lapso Academico</li><div class="borderline"></div></a>
+                        <a href="#lapso-container-grid"><li id="crearLapso">Crear Lapso Academico</li><div class="borderline"></div></a>
                         <a href=""><li>Inserte Texto</li><div class="borderline"></div></a>
                         <a href=""><li>Inserte Texto</li><div class="borderline"></div></a>
                     </ul>

@@ -304,6 +304,52 @@ function DisplayDelete(display, form) {
     }
    
 }
+function Search(input,div) {
+    var input, filter, span, i;
+    input = document.getElementById(input);
+    filter = input.value.toUpperCase();
+    div = document.getElementById(div);
+    span = div.getElementsByTagName("span");
+    for (i = 0; i < span.length; i++) {
+      txtValue = span[i].textContent || span[i].innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        span[i].style.display = "";
+      } else {
+        span[i].style.display = "none";
+      }
+    }
+}
+function AddValueMateria(input, span) {
+    span=span.textContent || span.innerText;
+    document.getElementById(input).value=span;
+    LabelInput();
+}
+function AddAndRemove(div,div_add,input,input_add) {
+    //VARIABLES
+    var input_add=document.getElementById(input_add)
+    var input=document.getElementById(input);
+    var span_add=document.createElement("span");
+    var div=document.getElementById(div);
+    var div_add=document.getElementById(div_add);
+    var span=div.querySelectorAll("span");
+    //VARIABLES
+    if (input!="") {
+        for (let index = 0; index < span.length; index++) {
+        if (span[index].innerText==input.value.toUpperCase()) {
+            input_add.value=input.value.toUpperCase();
+            span_add.innerHTML=input.value.toUpperCase();
+            span_add.onclick=function () {AddValueMateria(input_add.id, this)}
+            span[index].remove();
+            div_add.appendChild(span_add)
+            input.value=""
+            LabelInput();
+            Search(input.id,div.id)
+        }
+        }
+        
+    }
+    
+}
 //--------------------------------------------FUNCIONES--------------------------------
 
 //----------------------------------------EJECUTAR FUNCIONES------------------------------------
@@ -353,6 +399,46 @@ document.getElementById("editarCarreras").addEventListener("click", function(){
         Close()
     }
     AppearsAndDissapear("carrera-find","flex")})
+document.getElementById("crearLapso").addEventListener("click", function(){
+    if (div_edit!="") {
+           Close()
+    }
+
+    AppearsAndDissapear("lapso-container","grid")})
+document.getElementById("materias").addEventListener("click", function(){
+    document.querySelector("#materias_drop").style.display="flex"})
+
+document.getElementById("materias_add").addEventListener("click", function(){
+    document.querySelector("#materias_add_drop").style.display="flex"})
+
+document.getElementById("carreras").addEventListener("click", function(){
+    document.querySelector("#carreras_drop").style.display="flex"})
+    
+document.getElementById("carreras_add").addEventListener("click", function(){
+    document.querySelector("#carreras_add_drop").style.display="flex"})
+
+document.addEventListener('mouseup', function(e) {
+    var input = document.getElementById('materias');
+    var input2= document.getElementById('materias_add')
+    var input3= document.getElementById('carreras');
+    var input4= document.getElementById('carreras_add')
+    if (!input.contains(e.target)) {
+        document.getElementById("materias_drop").style.display = 'none';
+        input.style.border=""
+    }
+    if (!input2.contains(e.target)) {
+        document.getElementById("materias_add_drop").style.display = 'none';
+        input2.style.border=""
+    }
+    if (!input3.contains(e.target)) {
+        document.getElementById("carreras_drop").style.display = 'none';
+        input3.style.border=""
+    }
+    if (!input4.contains(e.target)) {
+        document.getElementById("carreras_add_drop").style.display = 'none';
+        input4.style.border=""
+    }
+});
 ValidateTexto('primer_nombre');
 ValidateTexto('segundo_nombre');
 ValidateTexto('primer_apellido');

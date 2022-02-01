@@ -24,6 +24,12 @@ class registry extends mybsd {
 		$query="SELECT `primer_nombre`,`primer_apellido` FROM `profesor` WHERE `cedula`=$cedula";
 		return $this->list($this->execute($query));
 	}
+	function GetAll($tabla)
+	{
+			$query="SELECT * FROM $tabla";
+			return $this->ListAll($this->execute($query));
+		
+	}
 	function registrarProfesor(){
 		$query="INSERT INTO `profesor`(`cedula`, `rol`, `primer_nombre`, 
 		`segundo_nombre`, `primer_apellido`, `segundo_apellido`, `direccion`, `telefono`)
@@ -36,8 +42,8 @@ class registry extends mybsd {
 		VALUES ('".$this->cedula."','$contraseña')";
 		return $this->execute($query);
 	}
-	function createPassword($cedula, $contraseña){
-		$query="UPDATE `administrador` SET `contraseña`='$contraseña' WHERE `cedula`='$cedula' ";
+	function createPassword($cedula, $contrasena){
+		$query="UPDATE `administrador` SET `contrasena`='$contrasena' WHERE `cedula`='$cedula' ";
 		return $this->execute($query);
 	}
 	function registrarMateria($codigo, $nombre, $tipo){
@@ -97,7 +103,7 @@ class registry extends mybsd {
 			}	
 	}
 	function ValidateAdministrador($cedula, $contraseña){
-		$query="SELECT `cedula`,`contraseña` FROM `administrador` WHERE `cedula`=$cedula";
+		$query="SELECT `cedula`,`contrasena` FROM `administrador` WHERE `cedula`=$cedula";
 		$valido=$this->list($this->execute($query));
 		if ($valido[0]==$cedula && $valido[1]==$contraseña) {
 			return true;

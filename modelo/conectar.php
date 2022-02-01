@@ -34,7 +34,11 @@
 	    {
 		return mysqli_fetch_array($sql);
 	    }
-
+        protected function ListAll($sql)
+        {
+            $array = mysqli_fetch_all($sql, MYSQLI_ASSOC);
+           return $array;
+        }
         function CheckResult($sql)
         {
             if(mysqli_num_rows($sql)==0) {

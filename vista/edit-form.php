@@ -1,5 +1,5 @@
     <form action="../control/c_profesor.php" method="POST" name="find_profesor" id="find_profesor">
-        <div id="profesor-find" class="container">
+        <div id="profesor-find" class="container container-flex">
         <h4 style="text-align:center;">Introduzca la cedula del profesor que desea editar</h4>
         <div class="input-container">
             <label for="buscar_profesor" id="labelbuscar_profesor">Cedula</label><br>
@@ -9,7 +9,7 @@
         </div>
     </form>
     <form action="../control/c_materia.php" method="POST" name="find_materia" id="find_materia">
-        <div id="materia-find" class="container">
+        <div id="materia-find" class="container container-flex">
         <h4 style="text-align:center;">Introduzca el codigo de la materia que desea editar</h4>
         <div class="input-container">
             <label for="buscar_materia" id="labelbuscar_materia">Codigo</label><br>
@@ -19,7 +19,7 @@
         </div>
     </form>
     <form action="../control/c_aula.php" method="POST" name="find_aula" id="find_aula">
-        <div id="aula-find" class="container">
+        <div id="aula-find" class="container container-flex">
         <h4 style="text-align:center;">Introduzca el codigo del aula que desea editar</h4>
         <div class="input-container">
             <label for="buscar_aula" id="labelbuscar_aula">Codigo</label><br>
@@ -29,7 +29,7 @@
         </div>
     </form>
     <form action="../control/c_carrera.php" method="POST" name="find_carrera" id="find_carrera">
-        <div id="carrera-find" class="container">
+        <div id="carrera-find" class="container container-flex">
         <h4 style="text-align:center;">Introduzca el codigo de la carrera que desea editar</h4>
         <div class="input-container">
             <label for="buscar_carrera" id="labelbuscar_carrera">Codigo</label><br>
