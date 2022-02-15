@@ -91,7 +91,7 @@ function SelectValidation() {
         
     }
     else if (campo=='PRIMER_NOMBRE' || campo=='SEGUNDO_NOMBRE' || campo=='PRIMER_APELLIDO' || campo=='SEGUNDO_APELIDO'
-            || campo=='ROL') {
+            || campo=='ROL' || campo=='TIPO') {
         input.removeEventListener("keypress",KeyNumeros)
         input.removeEventListener("keypress",KeyTexto)
         input.removeEventListener("keypress",KeyVarchar)
@@ -111,7 +111,23 @@ function findHistorial() {
     var dato=document.getElementById('buscar_historial').value.toUpperCase() ;
     var campo=document.getElementById('campo').value;
     if (dato!="") {
-        refresh(1,'',dato,campo);
+
+        if (dato=="PROFESOR" && campo=="ROL") {
+            refresh(1,'',"0",campo);
+        }
+        else if (dato=="ADMINISTRADOR" && campo=="ROL") {
+            refresh(1,'',"1",campo);
+        }
+        else if (dato=="MULTIDICIPLINARIA" && campo=='TIPO') {
+            refresh(1,'',"1",campo);
+        }
+        else if (dato=="DICIPLINARIA" && campo=='TIPO'){
+            refresh(1,'',"0",campo);
+        }
+        else {
+            refresh(1,'',dato,campo);
+        }
+        
     }
   
 }

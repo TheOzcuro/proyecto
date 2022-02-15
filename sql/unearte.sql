@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 31-01-2022 a las 23:23:11
+-- Tiempo de generación: 15-02-2022 a las 01:21:22
 -- Versión del servidor: 8.0.21
 -- Versión de PHP: 7.3.21
 
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `administrador` (
   `contrasena` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   PRIMARY KEY (`codigo`),
   UNIQUE KEY `cedula` (`cedula`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `administrador`
@@ -44,8 +44,7 @@ CREATE TABLE IF NOT EXISTS `administrador` (
 
 INSERT INTO `administrador` (`codigo`, `cedula`, `contrasena`) VALUES
 (1, 9372683, '152560loco'),
-(5, 11716900, ''),
-(6, 3, '');
+(7, 3, '');
 
 -- --------------------------------------------------------
 
@@ -65,8 +64,9 @@ CREATE TABLE IF NOT EXISTS `aula` (
 --
 
 INSERT INTO `aula` (`codigo`, `nombre`) VALUES
-(10, 'SIMON RODRIGUEZ'),
-(12, 'artes plastiscas');
+(11, 'SIMON RODRIGUEZ'),
+(12, 'artes plastiscas'),
+(9000, 'OVER');
 
 -- --------------------------------------------------------
 
@@ -86,8 +86,12 @@ CREATE TABLE IF NOT EXISTS `carrera` (
 --
 
 INSERT INTO `carrera` (`codigo`, `nombre`) VALUES
-(1515, 'INGENIERIA ELECTRICA'),
-(1414, 'AGRONOMIA');
+(1313, 'INGENIERIA ELECTRICA'),
+(1414, 'AGRONOMIA'),
+(11, 'AY VALE'),
+(100, 'SERGIO'),
+(90, 'TUMAMA'),
+(1000, 'AYDIOSMIO');
 
 -- --------------------------------------------------------
 
@@ -151,11 +155,10 @@ CREATE TABLE IF NOT EXISTS `materia` (
 --
 
 INSERT INTO `materia` (`codigo`, `nombre`, `tipo`) VALUES
-(80, 'MUSICA', '0'),
-(1616, 'ARTES', '1'),
+(83, 'MUSIC', '0'),
+(1616, 'ARTE', '1'),
 (90, 'MATEMATICA 2', '0'),
-(1515, 'DEPORTE', '0'),
-(1000, 'HISTORIA CONTEMPORANEA', '0');
+(1515, 'DEPORTE', '0');
 
 -- --------------------------------------------------------
 
@@ -166,7 +169,7 @@ INSERT INTO `materia` (`codigo`, `nombre`, `tipo`) VALUES
 DROP TABLE IF EXISTS `profesor`;
 CREATE TABLE IF NOT EXISTS `profesor` (
   `cedula` int NOT NULL,
-  `rol` varchar(1) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `rol` varchar(1) COLLATE utf8_spanish_ci DEFAULT NULL,
   `primer_nombre` varchar(60) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `segundo_nombre` varchar(60) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `primer_apellido` varchar(60) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
@@ -181,11 +184,12 @@ CREATE TABLE IF NOT EXISTS `profesor` (
 --
 
 INSERT INTO `profesor` (`cedula`, `rol`, `primer_nombre`, `segundo_nombre`, `primer_apellido`, `segundo_apellido`, `direccion`, `telefono`) VALUES
-(1, '0', 'ADSADSA', 'DSADSAD', 'DADSA', 'DSADSA', 'DADSADSA', '0000000'),
-(11716900, '0', 'JOSE', 'ALEXI', 'RAMIREZ', 'RIVAS', 'TUCACA 7-27', '04141118100'),
-(9372683, '1', 'NIRETCIA', 'INMACULADA', 'RAMIREZ', 'VALERO', 'CASA CON PAREDES ', '04161309806'),
-(3, '0', 'ANAL', 'UFF', 'PROFESOR', 'SUCRE', 'DSADASDSADSA', '000000000'),
-(12121212, '0', 'ANTONIO', '', 'HERNANDEZ', '', 'CAMBURITO CALLE 7', '04141118100');
+(11716900, '0', 'WILLIREX', 'ALEXI', 'RAMIREZ', 'RIVAS', 'TUCACA 7-27', '04141118100'),
+(9372683, '1', 'NIRETCIA', 'INMACULADA', 'RAMIREZ', 'VALERO', 'CASA CON PAREDES', '04161309806'),
+(3, '1', 'CULO', 'AAAANOVALE', 'ALVAREZ', 'TUMAMA', 'DSADASDSADSA', '000000000'),
+(12121212, '0', 'AAAAVAINA', '', 'HERNANDEZ', '', 'CAMBURITO CALLE 7', '04141118100'),
+(27460860, '0', 'SERGIO', 'BIENMARICO', 'BLANCO', 'CULO', 'DONDE VIVEN LOS RICOS Y MARIGUANOS Y VAINAS MAS QUE PUTO LA PUTA MADRE', '6969696969'),
+(29824977, '0', 'MANUEL', '', 'DELGADO', '', 'A DOS CASAS DEL BARRIL DEL CHAVO', '04145555555');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
