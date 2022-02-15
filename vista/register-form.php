@@ -2,40 +2,43 @@
 <form action="../control/c_materia.php" method="POST" name="materia" id="materia">
                 <input type="text" class="input-update" id="update" name="update" hidden>
                 <input type="text" class="input-delete" id="delete" name="delete" hidden>
+                <input type="text" class="input-url" id="url" name="url" hidden>
                 <div class="container container-flex" id="materia-container">
-                <a href="#materia-find-flex" class="a_img"><img src="css/img/close.png" alt="" class="close-icon" id="close-icon-profesor" onclick="Close()"></a>
+                <a class="a_img"><img src="css/img/close.png" alt="" class="close-icon" id="close-icon-profesor" onclick="Close()"></a>
                     
-                    <h2>Registrar Materia</h2>
+                    <h2>Unidad Curricular</h2>
                     <div class="input-container">
                         <label for="codigo_materia" id="labelcodigo_materia">Codigo</label><br>
                         <input type="text" id="codigo_materia" name="codigo_materia" onfocus="LabelAnimation('codigo_materia','labelcodigo_materia')" onblur="LabelOut('codigo_materia','labelcodigo_materia')" maxlength="11" class="input input-label">
                         <input type="checkbox" class="checkbox-edit checkbox-materia"   onclick="CheckboxDisabled('codigo_materia', this)">
-                    </div><br>
+                    </div>
 
                     <div class="input-container">
                         <label for="nombre_materia" id="labelnombre_materia">Nombre Materia</label><br>
                         <input type="text" id="nombre_materia" name="nombre_materia" onfocus="LabelAnimation('nombre_materia','labelnombre_materia')" onblur="LabelOut('nombre_materia','labelnombre_materia')" maxlength="30" class="input input-label">
                         <input type="checkbox" class="checkbox-edit checkbox-materia"   onclick="CheckboxDisabled('nombre_materia', this)">
-                    </div><br>
+                    </div>
 
                     <div class="input-container">
                         <select name="tipo_materia" id="tipo_materia" onclick="SelectAnimation('rol')" class="input">
-                            <option value="">Seleccione el Tipo</option>
+                            <option value="">Tipo</option>
                             <option value="0">Diciplinaria</option>
                             <option value="1">Multidiciplinaria</option>
                         </select><input type="checkbox" class="checkbox-edit checkbox-materia"   onclick="CheckboxDisabled('tipo_materia', this)">
-                    </div><br>
+                    </div>
                     <button type="button" onclick="Submit('materia')">Registrar</button>
-                    <button type="button" onclick="Save('materia')" class="button-edit button-update">Guardar</button><br>
-                    <button type="button" onclick="DisplayDelete('block','#materia')" class="button-edit button-delete">Eliminar</button>
+                    <button type="button" onclick="DisplayDelete('flex','#materia-find','#materia')" style="grid-column:2/3;">Buscar</button>
+                    <button type="button" onclick="Save('materia')" class="button-edit button-update">Guardar</button>
+                    <button type="button" onclick="DisplayDelete('block','.delete-window','#materia')" class="button-edit button-delete" style="grid-column:2/3;">Eliminar</button>
                 </div>
             </form>
             <form action="../control/c_profesor.php" method="POST" name="profesor" id="profesor">
                 <input type="text" class="input-update" id="update" name="update-profesor" hidden>
                 <input type="text" class="input-delete" id="delete" name="delete-profesor" hidden>
+                <input type="text" class="input-url" id="url" name="url" hidden>
                 <div class="container" id="profesor-container">
-                    <a href="#profesor-find-flex" class="a_img"><img src="css/img/close.png" alt="" class="close-icon" id="close-icon-profesor" onclick="Close()"></a>
-                    <h2>Registrar Profesor</h2>
+                    <a class="a_img"><img src="css/img/close.png" alt="" class="close-icon" id="close-icon-profesor" onclick="Close()"></a>
+                    <h2>Profesor</h2>
 
                     <div class="input-container">
                         <label for="cedula" id="labelcedula">Cedula <b style="color:red;">*</b></label><br>
@@ -45,7 +48,7 @@
 
                     <div class="input-container">
                         <select name="rol" id="rol" onclick="SelectAnimation('rol')" class="input">
-                            <option value="">Seleccione el Rol <b style="color:red;">*</b></option>
+                            <option value="">Rol<b style="color:red;">*</b></option>
                             <option value="1">Administrador</option>
                             <option value="0">Profesor</option>
                         </select>
@@ -93,39 +96,43 @@
                         <input type="checkbox" class="checkbox-edit" onclick="CheckboxDisabled('telefono', this)" >
                     </div>
 
-                    <button type="button" onclick="Submit('profesor')">Registrar</button>
+                    <button type="button" onclick="Submit('profesor')" class>Registrar</button>
+                    <button type="button" onclick="DisplayDelete('flex','#profesor-find','#profesor')" class="button-find">Buscar</button>
                     <button type="button" onclick="Save('profesor')" class="button-edit button-update">Guardar</button>
-                    <button type="button" onclick="DisplayDelete('block','#profesor')" class="button-edit button-delete">Eliminar</button>
+                    <button type="button" onclick="DisplayDelete('block','.delete-window','#profesor')" class="button-edit button-delete">Eliminar</button>
                 </div>
             </form>
             <form action="../control/c_aula.php" method="POST" name="aula" id="aula">
             <input type="text" class="input-update" id="update" name="update" hidden>
             <input type="text" class="input-delete" id="delete" name="delete" hidden>
+            <input type="text" class="input-url" id="url" name="url" hidden>
             <div class="container container-flex" id="aula-container">
-                    <a href="#profesor-find-flex" class="a_img"><img src="css/img/close.png" alt="" class="close-icon" id="close-icon-profesor" onclick="Close()"></a>
-                    <h2>Registrar Aula</h2>
+                    <a class="a_img"><img src="css/img/close.png" alt="" class="close-icon" id="close-icon-profesor" onclick="Close()"></a>
+                    <h2> Aula</h2>
                     <div class="input-container">
                         <label for="codigo_aula" id="labelcodigo_aula">Codigo</label><br>
                         <input type="text" id="codigo_aula" name="codigo_aula" onfocus="LabelAnimation('codigo_aula','labelcodigo_aula')" onblur="LabelOut('codigo_aula','labelcodigo_aula')" maxlength="11" class="input input-label">
                         <input type="checkbox" class="checkbox-edit checkbox-materia" onclick="CheckboxDisabled('codigo_aula', this)">
-                    </div><br>
+                    </div>
 
                     <div class="input-container">
                         <label for="nombre_aula" id="labelnombre_aula">Nombre Aula</label><br>
                         <input type="text" id="nombre_aula" name="nombre_aula" onfocus="LabelAnimation('nombre_aula','labelnombre_aula')" onblur="LabelOut('nombre_aula','labelnombre_aula')" maxlength="30" class="input input-label">
                         <input type="checkbox" class="checkbox-edit checkbox-materia"  onclick="CheckboxDisabled('nombre_aula', this)">
-                    </div><br>
+                    </div>
                     <button type="button" onclick="Submit('aula')">Registrar</button>
-                    <button type="button" onclick="Save('aula')" class="button-edit button-update">Guardar</button><br>
-                    <button type="button" onclick="DisplayDelete('block','#aula')" class="button-edit button-delete">Eliminar</button>
+                    <button type="button" onclick="DisplayDelete('flex','#aula-find','#aula')">Buscar</button>
+                    <button type="button" onclick="Save('aula')" class="button-edit button-update">Guardar</button>
+                    <button type="button" onclick="DisplayDelete('block','.delete-window','#aula')" class="button-edit button-delete">Eliminar</button>
             </div>
             </form>
             <form action="../control/c_carrera.php" method="POST" name="carrera" id="carrera">
-            <input type="text" class="input-update" id="update" name="update" hidden>
+                <input type="text" class="input-update" id="update" name="update" hidden>
                 <input type="text" class="input-delete" id="delete" name="delete" hidden>
+                <input type="text" class="input-url" id="url" name="url" hidden>
                 <div id="carrera-container" class="container container-flex">
-                    <a href="#profesor-find-flex" class="a_img"><img src="css/img/close.png" alt="" class="close-icon" id="close-icon-profesor" onclick="Close()"></a>
-                    <h2>Registrar Carrera</h2>
+                    <a class="a_img"><img src="css/img/close.png" alt="" class="close-icon" id="close-icon-profesor" onclick="Close()"></a>
+                    <h2>Carrera</h2>
                     <div class="input-container">
                     
                         <label for="codigo_carrera" id="labelcodigo_carrera">Codigo</label><br>
@@ -133,21 +140,22 @@
                         <input type="text" id="codigo_carrera" name="codigo_carrera" onfocus="LabelAnimation('codigo_carrera','labelcodigo_carrera')" onblur="LabelOut('codigo_carrera','labelcodigo_carrera')" maxlength="11" class="input input-label">
                         
                         <input type="checkbox" class="checkbox-edit checkbox-materia"  onclick="CheckboxDisabled('codigo_carrera', this)">
-                    </div><br>
+                    </div>
                     <div class="input-container">
                         <label for="nombre_carrera" id="labelnombre_carrera">Nombre</label><br>
                         <input type="text" id="nombre_carrera" name="nombre_carrera" onfocus="LabelAnimation('nombre_carrera','labelnombre_carrera')" onblur="LabelOut('nombre_carrera','labelnombre_carrera')" maxlength="30" class="input input-label">
                         <input type="checkbox" class="checkbox-edit checkbox-materia"  onclick="CheckboxDisabled('nombre_carrera', this)">
-                    </div><br>
+                    </div>
                     <button type="button" onclick="Submit('carrera')">Registrar</button>
-                    <button type="button" onclick="Save('carrera')" class="button-edit button-update">Guardar</button><br>
-                    <button type="button" onclick="DisplayDelete('block','#carrera')" class="button-edit button-delete">Eliminar</button>
+                    <button type="button" onclick="DisplayDelete('flex','#carrera-find','#carrera')">Buscar</button>
+                    <button type="button" onclick="Save('carrera')" class="button-edit button-update">Guardar</button>
+                    <button type="button" onclick="DisplayDelete('block','.delete-window','#carrera')" class="button-edit button-delete">Eliminar</button>
                 </div>
             </form>
             <form action="../control/c_carrera.php" method="POST" name="lapso_academico" id="lapso_academico">
             <input type="text" class="input-update" id="update" name="update" hidden>
                 <input type="text" class="input-delete" id="delete" name="delete" hidden>
-                <div id="lapso-container" class="container container-flex">
+                <div id="lapso-container" class="container">
                     <a href="#profesor-find-flex" class="a_img"><img src="css/img/close.png" alt="" class="close-icon" id="close-icon-profesor" onclick="Close()"></a>
                     <h2>Crear Lapso</h2>
                     <div class="input-container">
@@ -184,7 +192,7 @@
                             $list=GetColumns("materia");
                             $totalarray=count($list);
                             for ($i=0; $i < $totalarray; $i++) { 
-                                echo "<span value='".$list[$i]['codigo']."'". "onclick="."AddValueMateria('materias',this)".">".$list[$i]["nombre"]."</span>";
+                                echo "<span value='".$list[$i][0]."'". "onclick="."AddValueMateria('materias',this)".">".$list[$i][1]."</span>";
                             }
                         ?>
                         </div>
@@ -209,7 +217,7 @@
                             $list=GetColumns("carrera");
                             $totalarray=count($list);
                             for ($i=0; $i < $totalarray; $i++) { 
-                                echo "<span value=".$list[$i]["codigo"]." onclick="."AddValueMateria('carreras',this)".">".$list[$i]["nombre"]."</span>";
+                                echo "<span value=".$list[$i][0]." onclick="."AddValueMateria('carreras',this)".">".$list[$i][1]."</span>";
                             }
                         ?>
                         </div>

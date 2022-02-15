@@ -1,0 +1,112 @@
+.buscar-historial-container {
+  display: flex;
+  flex-direction: row;
+  width: 50%;
+  padding: 15px 10px;
+  position: absolute;
+  top: 10px;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+}
+.buscar-historial-container input {
+  width: 200px;
+}
+.buscar-historial-container button {
+  width: 100px;
+  height: 30px;
+  margin-top: 20px;
+  margin-left: 20px;
+}
+.buscar-historial-container select {
+  margin-left: 20px;
+  margin-top: 20px;
+  height: 30px;
+}
+.buscar-historial-container #back {
+  background: #df3e21;
+}
+.buscar-historial-container #back:hover {
+  background: #f1735d;
+}
+
+.historial {
+  -webkit-animation-duration: 1s;
+          animation-duration: 1s;
+}
+
+.listar-container {
+  grid-auto-rows: 60px;
+  box-sizing: border-box;
+  position: absolute;
+  top: 100px;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+}
+.listar-container button {
+  width: 70px;
+  margin: 5px;
+  font-size: 1vw;
+}
+.listar-container div {
+  box-sizing: border-box;
+  justify-content: center;
+  align-content: center;
+  text-align: center;
+  border-left: 2px solid black;
+  border-right: 2px solid black;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  font-size: 0.9vw;
+  padding: 7px;
+  min-width: auto;
+  overflow: hidden;
+  max-width: 180px;
+  background: #fafafa;
+}
+.listar-container .title {
+  background: #695ff8;
+  font-size: 0.9vw;
+  color: white;
+  line-height: 50px;
+}
+
+.paginacion {
+  position: absolute;
+  top: 260%;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  width: 200px;
+}
+.paginacion .select {
+  background: #5edf69;
+}
+.paginacion span {
+  cursor: pointer;
+  margin: 5px;
+  padding: 4px;
+  border-radius: 7px;
+}
+
+@-webkit-keyframes Appear {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes Appear {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}/*# sourceMappingURL=listar.css.map */

@@ -4,8 +4,7 @@ var click=0;
 var comparechild=0;
 var button=[];
 var div_edit="";
-let valores_origin=[];
-
+var container_url="";
 
 // ----------------------------------VARIABLES---------------------------------
 
@@ -13,6 +12,7 @@ let valores_origin=[];
 
 
 //--------------------------------------------FUNCIONES--------------------------------
+
 function AppearsAndDissapear(appear,display) {
     DissapearVarious(".container","none")
     document.getElementById(appear).style.display=display;
@@ -52,7 +52,8 @@ function AnimationPrincipalMenu(child){
     comparechild=child
     
 }
-function OnLoad(){
+
+function OnLoad(active){
     //Tomo la url de la pagina
     const url=window.location.href;
     //Creo un Regex donde estaran los divs de los formularios cada uno con su respectivo nombre
@@ -64,10 +65,10 @@ function OnLoad(){
     //Creo el nombre del div correspodiente
     container=container[6]+container[7]
     //Muestro el div al usuario
-    if (container!="") {
+    container_url=container+"-"+display;
+    if (container!="" && active!="active") {
         AppearsAndDissapear(container,display)
     }
-    
 }
 function LabelInput() {
      //--- y para los inputs
@@ -107,7 +108,7 @@ function SelectAnimation(select){
 }
 function Submit(form){
    var div=document.getElementById(form).querySelector("div");
-   var input=div.querySelectorAll("input[type=text]");
+   var input=div.querySelectorAll(".input");
    var valide=true;
    for (let index = 0; index < input.length; index++) {
        if (input[index].id=="segundo_nombre" || input[index].id=="segundo_apellido") {
@@ -124,56 +125,50 @@ function Submit(form){
    }
    console.log(valide);
    if (valide) {
-       document.getElementById(form).submit();
+        OnLoad("active")
+        document.getElementById(form).querySelector(".input-url").value=container_url;
+        document.getElementById(form).submit();
    }
+}
+function KeyTexto() {
+    var x=new RegExp("[A-Za-z-ñ]+")
+    if (x.test(event.key)) {
+    }
+    else {
+        event.preventDefault();
+    }
+}
+function KeyNumeros() {
+    var x=new RegExp("[0-9]+")
+    if (x.test(event.key)) {
+    }
+    else {
+        event.preventDefault();
+    }
+}
+function KeyVarchar() {
+    var x=new RegExp("[A-Za-z0-9-ñ ]+")
+    if (x.test(event.key)) {
+    }
+    else {
+        event.preventDefault();
+    }
 }
 function ValidateTexto(input){
-    var x=new RegExp("[A-Za-z-ñ]+")
     var inputs=document.getElementById(input)
-    inputs.addEventListener("keypress", function(){
-        if (x.test(event.key)) {
-        }
-        else {
-            event.preventDefault();
-        }
-    })
+    inputs.addEventListener("keypress", KeyTexto)
+    
 }
 function ValidateNumeros(input){
-    var x=new RegExp("[0-9]+")
+    
     var inputs=document.getElementById(input)
-    inputs.addEventListener("keypress", function(){
-        if (x.test(event.key)) {
-        }
-        else {
-            event.preventDefault();
-        }
-    })
+    inputs.addEventListener("keypress", KeyNumeros)
 }
 function ValidateVarchar(input){
-    var x=new RegExp("[A-Za-z0-9-ñ ]+")
     var inputs=document.getElementById(input)
-    inputs.addEventListener("keypress", function(){
-        if (x.test(event.key)) {
-        }
-        else {
-            event.preventDefault();
-        }
-    })
+    inputs.addEventListener("keypress", KeyVarchar)
 }
-function CheckboxDisabled(input, check) {
-var input=document.getElementById(input);
-   if (check.checked) {
-    input.disabled=true;
-    input.style.borderColor=""
-    input.value=valores[CountInput(input)];
-    LabelInput();
-   }
-   else {
-    input.disabled=false;
-    input.value=""
-   }
-  
-}
+
 function CountInput(input) {
     input_count=div_edit.querySelectorAll(".input");
     for (let index = 0; index < input_count.length; index++) {
@@ -192,118 +187,8 @@ function DissapearVarious(element,display) {
         x=x+1
     }
 }
-function Save(form) {
-    var input=div_edit.querySelectorAll(".input");
-    var valideTrue=false;
-    var valideFalse="";
-    for (let index = 0; index < input.length; index++) {
-        if (input[index].id=="segundo_nombre" || input[index].id=="segundo_apellido") {
-           
-        }
-        else {
-            if (input[index].value!=valores[index] && input[index].value!="") {
-                valideTrue=true;
-            }
-            if( input[index].value=="") {
-                valideFalse="false";
-            }
-        }
-       
-    }
-    if (valideTrue==true && valideFalse=="") {
-        console.log("funciono")
-        for (let index = 0; index < input.length; index++) {
-            input[index].disabled=false;
-            
-        }
-        document.querySelector("#"+form).querySelector(".input-update").value=valores[0];
-        document.querySelector("#"+form).submit();
-    }
-    else {
-        console.log("error")
-    }
-}
-function Delete(form) {
-    document.querySelector(form).querySelector(".input-delete").value=valores[0];
-    document.querySelector(form).submit();
-}
-function Modificar(container,display,valores) {
-     div_edit=document.getElementById(container);
-     AppearsAndDissapear(div_edit.id,display)
-     div_edit.querySelector("h2").innerHTML="Editar Datos";
-     div_edit.querySelector(".close-icon").style.display="block";
-    //---Hacer aparecer los botones correspondientes
-    button=div_edit.querySelectorAll("button");
-    button[0].style.display="none";
-    button[1].style.display="block";
-    button[2].style.display="block";
-    //-----------------------------------------------
 
-    //Se guardan en variables los elementos que vamos a utilizar
-    var checkbox=div_edit.querySelectorAll(".checkbox-edit");
-    //----Contadores para el while
-    //--- x para las checkbox
-   for (let index = 0; index < checkbox.length; index++) {
-        checkbox[index].style.display="block";
-        checkbox[index].checked=true;
-   }
-    var input=div_edit.querySelectorAll(".input");
-  
-    for (let index = 0; index < input.length; index++) {
-            input[index].disabled=true
-            input[index].value=valores[index]
-         
-     }
-}
-function Close() {
-    DissapearVarious(".checkbox-edit","none")
-    button[0].style.display="block";
-    button[1].style.display="none";
-    button[2].style.display="none";
-    var input=div_edit.querySelectorAll(".input");
-    var label=div_edit.querySelectorAll("label");
-    for (let index = 0; index < input.length; index++) {
-        input[index].disabled=false
-        input[index].value=""
-    }
-    for (let index = 0; index < label.length; index++) {
-        label[index].style.top="20px";
-        label[index].style.fontSize="18px";
-    }
-    if (div_edit.id=="profesor-container") {
-        div_edit.querySelector("h2").innerHTML="Registrar Profesor"
-        AppearsAndDissapear("profesor-find","flex")
-    }
-    if (div_edit.id=="materia-container") {
-        div_edit.querySelector("h2").innerHTML="Registrar Materia";
-        AppearsAndDissapear("materia-find","flex");
-    }
-    if (div_edit.id=="aula-container") {
-        div_edit.querySelector("h2").innerHTML="Registrar Aula"
-        AppearsAndDissapear("aula-find","flex");
-    }
-    if (div_edit.id=="carrera-container") {
-        div_edit.querySelector("h2").innerHTML="Registrar Carrera"
-        AppearsAndDissapear("carrera-find","flex");
-    }
-    div_edit.querySelector(".close-icon").style.display="none"
-    document.getElementById("buscar_profesor").value=""
-}
-function DisplayDelete(display, form) {
-    if (display=="block") {
-        document.querySelector(".container-delete").style.display=display
-        document.querySelector(".delete-window").style.display=display
-        document.querySelector(".delete-window").style.animationName="Appear"
-        document.getElementById("yes-delete").addEventListener("click", function(){
-            Delete(form)})
-        
-    }
-    else {
-        document.querySelector(".container-delete").style.display=display
-        document.querySelector(".delete-window").style.display=display
-    }
-   
-}
+
 function Search(input,div) {
     var input, filter, span, i;
     input = document.getElementById(input);
@@ -340,8 +225,10 @@ function AddAndRemove(div,div_add,input,input_add) {
             span_add.innerHTML=input.value.toUpperCase();
             span_add.onclick=function () {AddValueMateria(input_add.id, this)}
             span[index].remove();
-            div_add.appendChild(span_add)
-            input.value=""
+            div_add.appendChild(span_add);
+            add.push(span[index].getAttribute('value'));
+            console.log(add);
+            input.value="";
             LabelInput();
             Search(input.id,div.id)
         }
@@ -357,7 +244,7 @@ document.getElementById("registrarMateria").addEventListener("click", function()
     if (div_edit!="") {
         Close()
     }
-    AppearsAndDissapear("materia-container","flex")})
+    AppearsAndDissapear("materia-container","grid")})
 
 document.getElementById("registrarProfesor").addEventListener("click", function(){
     if (div_edit!="") {
@@ -369,42 +256,60 @@ document.getElementById("registrarAulas").addEventListener("click", function(){
     if (div_edit!="") {
         Close()
     }
-    AppearsAndDissapear("aula-container","flex")})
+    AppearsAndDissapear("aula-container","grid")})
 
 document.getElementById("registrarCarreras").addEventListener("click", function(){
     if (div_edit!="") {
         Close()
     }
-    AppearsAndDissapear("carrera-container","flex")})
+    AppearsAndDissapear("carrera-container","grid")})
 
-document.getElementById("editarProfesor").addEventListener("click", function(){
-    if (div_edit!="") {
-        Close()
-    }
-    AppearsAndDissapear("profesor-find","flex")})
-
-document.getElementById("editarMateria").addEventListener("click", function(){
-     if (div_edit!="") {
-         Close()
-    }
-    AppearsAndDissapear("materia-find","flex")})
-
-document.getElementById("editarAulas").addEventListener("click", function(){
-    if (div_edit!="") {
-        Close()
-    }
-    AppearsAndDissapear("aula-find","flex")})
-document.getElementById("editarCarreras").addEventListener("click", function(){
-    if (div_edit!="") {
-        Close()
-    }
-    AppearsAndDissapear("carrera-find","flex")})
 document.getElementById("crearLapso").addEventListener("click", function(){
     if (div_edit!="") {
            Close()
     }
 
     AppearsAndDissapear("lapso-container","grid")})
+document.getElementById("historialProfesor").addEventListener("click", function(){
+if (div_edit!="") {
+     Close()
+    }
+    DissapearVarious('.container','none');
+    refresh(1,'profesor')
+    
+})
+document.getElementById("historialMateria").addEventListener("click", function(){
+    if (div_edit!="") {
+         Close()
+        }
+    refresh(1,'materia')
+    setTimeout(() => {
+        AppearsAndDissapear("materia-historial","block");
+    }, 200);
+
+})
+document.getElementById("historialCarreras").addEventListener("click", function(){
+    if (div_edit!="") {
+         Close()
+        }
+    refresh(1,'carrera')
+    setTimeout(() => {
+        AppearsAndDissapear("carrera-historial","block");
+    }, 200);
+
+})
+document.getElementById("historialAulas").addEventListener("click", function(){
+    if (div_edit!="") {
+         Close()
+        }
+    refresh(1,'aula')
+    setTimeout(() => {
+        AppearsAndDissapear("aula-historial","block");
+    }, 200);
+
+})
+
+    
 document.getElementById("materias").addEventListener("click", function(){
     document.querySelector("#materias_drop").style.display="flex"})
 
@@ -448,8 +353,8 @@ ValidateVarchar('nombre_aula');
 ValidateVarchar('nombre_carrera');
 ValidateNumeros('cedula');
 ValidateNumeros('telefono');
-ValidateNumeros('codigo_carrera');
-ValidateNumeros('codigo_materia');
+ValidateVarchar('codigo_carrera');
+ValidateVarchar('codigo_materia');
 ValidateVarchar('codigo_aula');
 OnLoad();
 //----------------------------------------EJECUTAR FUNCIONES------------------------------------

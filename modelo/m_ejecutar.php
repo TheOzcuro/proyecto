@@ -25,10 +25,15 @@ class registry extends mybsd {
 		return $this->list($this->execute($query));
 	}
 	function GetAll($tabla)
-	{
+	{		
 			$query="SELECT * FROM $tabla";
-			return $this->ListAll($this->execute($query));
+			return $this->ListAll($this->execute($query), MYSQLI_NUM);
 		
+	}
+	function GetFindQuery($tabla,$dato,$campo)
+	{
+		$query="SELECT * FROM `$tabla` WHERE `$campo` LIKE '%$dato%'";
+		return $this->ListAll($this->execute($query), MYSQLI_NUM);
 	}
 	function registrarProfesor(){
 		$query="INSERT INTO `profesor`(`cedula`, `rol`, `primer_nombre`, 
@@ -37,9 +42,9 @@ class registry extends mybsd {
 		
 		return $this->execute($query);
 	}
-	function registrarAdministrador($contraseña){
-		$query="INSERT INTO `administrador`(`cedula`,`contraseña`)
-		VALUES ('".$this->cedula."','$contraseña')";
+	function registrarAdministrador($contrasena){
+		$query="INSERT INTO `administrador`(`cedula`,`contrasena`)
+		VALUES ('".$this->cedula."','$contrasena')";
 		return $this->execute($query);
 	}
 	function createPassword($cedula, $contrasena){
@@ -147,7 +152,7 @@ class registry extends mybsd {
 		
 		$val=$this->CheckResult($this->execute($query));
 		
-		if ($val==1) {
+		if ($val==1 && $codigo==$original_codigo) {
 			return 3;
 		}
 		else {
@@ -160,14 +165,15 @@ class registry extends mybsd {
 	{
 		$nombre=strtoupper($nombre);
 		$query="SELECT * FROM `aula` WHERE `nombre`='$nombre'";
-		
 		$val=$this->CheckResult($this->execute($query));
-		if ($val==1) {
+		if ($val==1 && $codigo==$original_codigo) {
 			return 3;
 		}
 		else {
 			
-			$query="UPDATE `aula` SET `codigo`='$codigo', `nombre`='$nombre' WHERE `codigo`='$original_codigo'";
+			$query="UPDATE `aula` SET 
+					`codigo`='$codigo', `nombre`='$nombre' 
+					WHERE `codigo`='$original_codigo'";
 			return $this->execute($query);
 		}
 		
@@ -175,10 +181,11 @@ class registry extends mybsd {
 	function UpdateTableCarrera($codigo,$nombre,$original_codigo)
 	{
 		$nombre=strtoupper($nombre);
-		$query="SELECT * FROM `carrera` WHERE `nombre`='$nombre'";
+		$query="SELECT * FROM `carrera` 
+				WHERE `nombre`='$nombre'";
 		
 		$val=$this->CheckResult($this->execute($query));
-		if ($val==1) {
+		if ($val==1 && $codigo==$original_codigo) {
 			return 3;
 		}
 		else {
@@ -191,6 +198,12 @@ class registry extends mybsd {
 	function DeleteTable($tabla, $campo, $dato) {
 		$query="DELETE FROM `$tabla` WHERE `$campo`='$dato'";
 		return $this->execute($query);
+	}
+	function TakeColumnNames($tabla) {
+		$query="SELECT `COLUMN_NAME` 
+		FROM `INFORMATION_SCHEMA`.`COLUMNS` 
+		WHERE `TABLE_NAME`='$tabla' ORDER BY ORDINAL_POSITION";
+		return $this->ListAll($this->execute($query), MYSQLI_ASSOC);
 	}
 }
 ?>

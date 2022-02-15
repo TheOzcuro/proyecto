@@ -14,14 +14,17 @@ if (isset($_SESSION["usuario"])==false) {
     <title>Administrador</title>
 </head>
 <body onload="LabelInput()">
-    <div class="container-delete" onclick="DisplayDelete('none')">
-    </div>
+        <div class="blackcover">
+        </div>
+        <?php include_once("edit-form.php");
+            ?>
         <div class="delete-window">
             <h4>¿Esta seguro que desea eliminar estos datos?</h4>
             <button class="delete" id="yes-delete">Si
             </button>
-            <button class="delete" onclick="DisplayDelete('none')">No</button>
+            <button class="delete" onclick="DisplayDelete('none','.delete-window')">No</button>
         </div>
+        
     
     <div class="grid-container">
         <div class="header">
@@ -36,74 +39,74 @@ if (isset($_SESSION["usuario"])==false) {
                 <div class="submenu">
                     <ul>
                         <a href="#profesor-container-grid"><li id="registrarProfesor">Registrar</li><div class="borderline"></div></a>
+                        <a href="#profesor-historial-grid"><li id="historialProfesor">Historial</li><div class="borderline"></div></a>
                         <a href="#disprofesor"><li id="disponibilidadProfesor">Disponibilidad</li> <div class="borderline"></div></a>
-                        <a href="#profesor-find-flex"><li id="editarProfesor">Editar Datos</li> <div class="borderline"></div></a>
                     </ul>
                 </div>
             </div>
             <div class="principal-menu">
             <div class="h4-container" onclick="AnimationPrincipalMenu(1)">
-                <h4>Horario</h4>
+                <h4>Unidad Curricular</h4>
             </div>
-            
             <img src="css/img/arrow_down.png" alt="" id="arrow_down" onclick="AnimationPrincipalMenu(1)">
             <div class="submenu">
                     <ul>
-                        <a href="#reghorario"><li id="registrarHorario">Crear Horario</li><div class="borderline"></div></a>
-                        <a href="#edithorario"><li id="editarHorario">Editar Horario</li><div class="borderline"></div></a>
-                        <a href="#imphorario"><li id="ImprimirHorario">Imprimir</li><div class="borderline"></div></a>
+                        <a href="#materia-container-grid"><li id="registrarMateria">Crear/Buscar</li><div class="borderline"></div></a>
+                        <a href="#materia-historial-grid"><li id="historialMateria">Historial</li><div class="borderline"></div></a>
                     </ul>
                 </div>
             </div>
             <div class="principal-menu">
             <div class="h4-container" onclick="AnimationPrincipalMenu(2)">
-                <h4>Materias</h4>
-            </div>
+                <h4>PNF</h4>
+            </div> 
+            
             <img src="css/img/arrow_down.png" alt="" id="arrow_down" onclick="AnimationPrincipalMenu(2)">
             <div class="submenu">
                     <ul>
-                        <a href="#materia-container-flex"><li id="registrarMateria">Crear Materias</li><div class="borderline"></div></a>
-                        <a href="#materia-find-flex"><li id="editarMateria">Editar Materias</li><div class="borderline"></div></a>
+                        <a href="#carrera-container-grid"><li id="registrarCarreras">Crear/Buscar</li><div class="borderline"></div></a>
+                        <a href="#carrera-historial-grid"><li id="historialCarreras">Historial</li><div class="borderline"></div></a>
                     </ul>
                 </div>
             </div>
             <div class="principal-menu">
             <div class="h4-container" onclick="AnimationPrincipalMenu(3)">
-                <h4>Carreras</h4>
-            </div> 
+                <h4>Aula</h4>
+            </div>
             
             <img src="css/img/arrow_down.png" alt="" id="arrow_down" onclick="AnimationPrincipalMenu(3)">
             <div class="submenu">
                     <ul>
-                        <a href="#carrera-container-flex"><li id="registrarCarreras">Crear Carreras</li><div class="borderline"></div></a>
-                        <a href="#carrera-find-flex"><li id="editarCarreras">Editar Carreras</li><div class="borderline"></div></a>
+                        <a href="#aula-container-grid"><li id="registrarAulas">Crear/Buscar</li><div class="borderline"></div></a>
+                        <a href="#aula-historial-grid"><li id="historialAulas">Historial</li><div class="borderline"></div></a>
                     </ul>
                 </div>
             </div>
             <div class="principal-menu">
+            
             <div class="h4-container" onclick="AnimationPrincipalMenu(4)">
-                <h4>Aulas</h4>
-            </div>
-            
-            <img src="css/img/arrow_down.png" alt="" id="arrow_down" onclick="AnimationPrincipalMenu(4)">
-            <div class="submenu">
-                    <ul>
-                        <a href="#aula-container-flex"><li id="registrarAulas">Crear Aulas</li><div class="borderline"></div></a>
-                        <a href="#aula-find-flex"><li id="editarAulas">Editar Aulas</li><div class="borderline"></div></a>
-                    </ul>
-                </div>
-            </div>
-            <div class="principal-menu">
-            
-            <div class="h4-container" onclick="AnimationPrincipalMenu(5)">
                 <h4>Lapso Academico</h4>
             </div>
-            <img src="css/img/arrow_down.png" alt="" id="arrow_down" onclick="AnimationPrincipalMenu(5)">
+            <img src="css/img/arrow_down.png" alt="" id="arrow_down" onclick="AnimationPrincipalMenu(4)">
             <div class="submenu">
                     <ul>
                         <a href="#lapso-container-grid"><li id="crearLapso">Crear Lapso Academico</li><div class="borderline"></div></a>
                         <a href=""><li>Inserte Texto</li><div class="borderline"></div></a>
                         <a href=""><li>Inserte Texto</li><div class="borderline"></div></a>
+                    </ul>
+                </div>
+            </div>
+            <div class="principal-menu">
+            <div class="h4-container" onclick="AnimationPrincipalMenu(5)">
+                <h4>Horario</h4>
+            </div>
+            
+            <img src="css/img/arrow_down.png" alt="" id="arrow_down" onclick="AnimationPrincipalMenu(5)">
+            <div class="submenu">
+                    <ul>
+                        <a href="#reghorario"><li id="registrarHorario">Crear</li><div class="borderline"></div></a>
+                        <a href="#edithorario"><li id="editarHorario">Editar</li><div class="borderline"></div></a>
+                        <a href="#imphorario"><li id="ImprimirHorario">Imprimir</li><div class="borderline"></div></a>
                     </ul>
                 </div>
             </div>
@@ -114,10 +117,12 @@ if (isset($_SESSION["usuario"])==false) {
                
             </div>
         </div>
-        <div class="contend">
-            <?php include_once("msg_error.php");include_once("register-form.php");include_once("edit-form.php");
+        
+        <div class="contend" id='contend'>
+            <?php include_once("msg_error.php");include_once("register-form.php"); 
+        
             ?>
-
+            <div id='refresh'></div>
         </div>
     </div>
 </body>
@@ -133,7 +138,10 @@ if (isset($_SESSION["completado"]) && $_SESSION["completado"]!="") {
   }
 ?>
 
+<script type="text/javascript" src="js/jquery-3.6.0.js"></script>
 <script type="text/javascript" src="js/admin.js"></script>
+<script type="text/javascript" src="js/admin-edit.js"></script>
+<script type="text/javascript" src="js/listar.js"></script>
 <script type="text/javascript">
           
           <?php
@@ -153,18 +161,11 @@ if (isset($_SESSION["completado"]) && $_SESSION["completado"]!="") {
                   $x=$x+1;
               }
               echo "];";
-              if ($_SESSION["container"]==="profesor-container") {
                 echo "Modificar('".$_SESSION["container"]."','grid', valores);";
-              }
-              else {
-                echo "Modificar('".$_SESSION["container"]."','flex', valores);";
-              }
               unset($_SESSION["container"]);
               unset($_SESSION["update"]);
              
           }
-          
           ?>
-        
       </script>
 </html>

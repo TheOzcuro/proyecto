@@ -17,7 +17,7 @@ body
     width: 100vw
     height: 100vh
 .header 
-    background-image: linear-gradient(to top, rgb(228, 72, 72),rgb(30, 30, 30) 130%)
+    background-image: linear-gradient(to top, rgb(121, 42, 51),rgb(30, 30, 30) 140%)
     grid-column: span 4
     grid-row: span 1
     height: 80px
@@ -34,7 +34,7 @@ body
     width: 200px
     padding: 10px 20px
     color: white
-    background-image: linear-gradient(to bottom, rgb(228, 72, 72),rgb(30, 30, 30) 130%)
+    background-image: linear-gradient(to bottom, rgb(121, 42, 51),rgb(30, 30, 30) 140%)
     position: relative
     z-index: -2
     .principal-menu 
@@ -113,6 +113,10 @@ a
     transform: translate(-50%, 10%)
     border-radius: 7px
     z-index: 500
+    button 
+        align-self: center
+        justify-self: center
+        margin-left: 27px
     input 
         justify-self: center
 #lapso-container
@@ -122,7 +126,9 @@ a
     grid-gap:30px 30px
     background: rgb(250, 250, 250)
     box-shadow: 50px 30px 50px rgb(30, 30, 30,0.6)
-    max-width: 680px
+    max-width: 690px
+    box-sizing: border-box
+    padding: 20px
     position: relative
     height: 420px
     top: 20%
@@ -179,10 +185,11 @@ a
         grid-column: 1/ span 3
 .container-flex
     display: none
-    flex-direction: column
+    grid-template-rows: repeat(4,70px)
+    grid-template-columns: 1fr 1fr
     background: rgb(250, 250, 250)
     box-shadow: 50px 30px 50px rgb(30, 30, 30,0.6)
-    max-width: 270px
+    max-width: 250px
     padding: 20px 30px
     position: relative
     top: 30%
@@ -190,8 +197,17 @@ a
     transform: translate(-50%, 30%)
     border-radius: 7px
     z-index: 500
-.container-flex input
-    width: 95%
+    .input-container
+        width: 100%
+        grid-column: 1/3
+    .input 
+        width: 96%
+    button 
+        font-size: 18px
+        width: 70%
+        
+
+        
 input
     height: 25px
     outline: none
@@ -230,7 +246,6 @@ label
     transition-duration: 0.5s
     user-select: none
 button
-    grid-column: 1/3
     width: 60%
     height: 40px
     margin: auto
@@ -270,12 +285,27 @@ button
 #materia-container button
     margin: auto
     grid-column: 1
-.container-delete
+.blackcover
     position: absolute
     background: rgb(30, 30, 30,.5)
     height: 100%
     width: 100%
     display: none
+.container-edit 
+    background: rgb(250, 250, 250)
+    display: none
+    flex-direction: column
+    position: absolute
+    top: 50%
+    left: 56%
+    width:270px
+    height: 200px
+    transform: translate(-50%,-50%)
+    padding: 15px
+    animation-duration: 1s
+    z-index: 3000
+    input 
+        width: 98%
 .delete-window
     background: rgb(230, 230, 230)
     display: none
@@ -314,8 +344,8 @@ h2
     display: none
     cursor: pointer
 .checkbox-materia
-    left: 255px
-    bottom: -5px
+    left: 240px
+    
 @keyframes Appear 
     0%
         opacity: 0

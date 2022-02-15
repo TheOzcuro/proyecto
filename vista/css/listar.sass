@@ -1,0 +1,83 @@
+.buscar-historial-container
+    display: flex
+    flex-direction: row
+    width: 50%
+    padding: 15px 10px
+    position: absolute
+    top: 10px
+    left: 0
+    right: 0
+    margin-left: auto
+    margin-right: auto
+    
+    input 
+        width: 200px
+    button
+        width:100px
+        height: 30px
+        margin-top: 20px
+        margin-left: 20px
+    select
+        margin-left: 20px
+        margin-top: 20px
+        height: 30px 
+    #back 
+        background: rgb(223, 62, 33)
+        &:hover
+            background: rgb(241, 115, 93)
+.historial 
+    animation-duration: 1s
+.listar-container
+    grid-auto-rows: 60px
+    box-sizing: border-box
+    position: absolute
+    top: 100px
+    left: 0
+    right: 0
+    margin-left: auto
+    margin-right: auto
+    button 
+        width: 70px
+        margin: 5px
+        font-size: 1vw
+
+    div 
+        box-sizing: border-box
+        justify-content: center
+        align-content: center
+        text-align: center
+        border-left: 2px solid black
+        border-right: 2px solid black
+        border-top: 1px solid black
+        border-bottom: 1px solid black
+        font-size: .9vw
+        padding: 7px
+        min-width: auto
+        overflow: hidden
+        max-width: 180px
+        background: rgb(250, 250, 250)
+    .title
+        background: rgb(105, 95, 248)
+        font-size:  .9vw
+        color: white
+        line-height: 50px
+.paginacion 
+    position: absolute
+    top: 260%
+    left: 0
+    right: 0
+    margin-left: auto
+    margin-right: auto
+    width: 200px
+    .select 
+        background:#5edf69
+    span 
+        cursor: pointer
+        margin: 5px
+        padding: 4px
+        border-radius: 7px
+@keyframes Appear 
+    0%
+        opacity: 0
+    100% 
+        opacity: 1

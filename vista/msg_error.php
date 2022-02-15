@@ -8,7 +8,17 @@
     <div class="msg_check" id="msg_check">
         <img src="css/img/img_check.png" alt=""><h2>Operacion Realizada!</h2>
         <p id="p_check"></p>
+        <?php 
+        if (isset($_SESSION["link"]) && $_SESSION["link"]!="") {
+        ?>
+        <span>Para ver lo que acaba de registra haga click </span><a href="<?php echo $_SESSION["link"]?>" style="color:red;">AQUI</a>
+        <?php
+        unset($_SESSION["link"]);
+         }
+        ?>
     </div>
 </div>
 
-<script src="js/msg_error.js"></script>
+<script src="js/msg_error.js">
+
+</script>

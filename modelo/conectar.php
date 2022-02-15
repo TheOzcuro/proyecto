@@ -34,9 +34,11 @@
 	    {
 		return mysqli_fetch_array($sql);
 	    }
-        protected function ListAll($sql)
+        protected function ListAll($sql, $type)
         {
-            $array = mysqli_fetch_all($sql, MYSQLI_ASSOC);
+            //MYSQLI_ASSOC
+            //MYSQLI_NUM (this is default)
+            $array = mysqli_fetch_all($sql, $type);
            return $array;
         }
         function CheckResult($sql)
