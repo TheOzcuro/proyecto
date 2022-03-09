@@ -1,11 +1,13 @@
 
-function CheckboxDisabled(input, check) {
+function CheckboxDisabled(input, check, type) {
     var input=document.getElementById(input);
        if (check.checked) {
         input.disabled=true;
         input.style.borderColor=""
-        input.value=valores[CountInput(input)];
-        LabelInput();
+        if (type!="active") {
+            input.value=valores[CountInput(input)];
+            LabelInput();
+        }
        }
        else {
         input.disabled=false;
@@ -46,6 +48,38 @@ function Save(form) {
             console.log("error")
         }
     }
+function SavePensum(form) {
+    var valideTrue=false;
+    var valideFalse="";
+    form=document.querySelector(form);
+    console.log(valores)
+    for (let index = 0; index < add_array.length; index++) {
+        if (add_array[index]!=valores[index+1]) {
+            valideTrue=true
+            valideFalse="";
+        }
+        else {
+            valideFalse="false";
+        }
+    }
+    if (form.querySelector('.principal_input').value!=valores[0] && form.querySelector('.principal_input').value!="") {
+        
+        valideTrue=true
+        valideFalse="";
+        
+    }
+
+    if (valideTrue=true && valideFalse=="") {
+       form.querySelector(".input-update").value=valores[0];
+        OnLoad("active");
+        form.querySelector(".input-url").value=container_url;
+        form.querySelector('.principal_input').disabled=false;
+        form.submit();
+    }
+    else {
+        console.log("error")
+    }
+}
 function Delete(form,valor) {
         if (valores!="") {
             document.querySelector(form).querySelector(".input-delete").value=valores[0];
@@ -92,15 +126,20 @@ function Close() {
         button[1].style.display="block";
         button[2].style.display="none";
         button[3].style.display="none";
-        var input=div_edit.querySelectorAll(".input");
+        var input=div_edit.querySelectorAll("input");
         var label=div_edit.querySelectorAll("label");
         for (let index = 0; index < input.length; index++) {
             input[index].disabled=false
             input[index].value=""
         }
+        document.getElementById('materias').disabled=false;
+        document.getElementById('materias_add').disabled=false;
         for (let index = 0; index < label.length; index++) {
-            label[index].style.top="20px";
-            label[index].style.fontSize="18px";
+            if (div_edit.id!="lapso_academico-container") {
+                label[index].style.top="20px";
+                label[index].style.fontSize="18px";
+            }
+            
         }
         if (div_edit.id=="profesor-container") {
             div_edit.querySelector("h2").innerHTML="Profesor"
@@ -114,9 +153,14 @@ function Close() {
         if (div_edit.id=="carrera-container") {
             div_edit.querySelector("h2").innerHTML="Carrera"
         }
+        if (div_edit.id=="pensum-container" || div_edit.id=="oferta-container") {
+            ClearSpan();
+            span_array=[];
+        }
         OnLoad();
         div_edit.querySelector(".close-icon").style.display="none"
         document.getElementById("buscar_profesor").value=""
+        div_edit="";
     }
 function DisplayDelete(display,div,form,valor) {
         document.querySelector(".blackcover").addEventListener("click", function(){

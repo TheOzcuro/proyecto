@@ -43,3 +43,36 @@
         <button type="button"  onclick="Submit('find_carrera')" style="text-align:center;">Buscar</button>
         </div>
     </form>
+    <form action="../control/c_pensum.php" method="POST" name="find_pensum" id="find_pensum">
+        <input type="text" class="input-url" id="url" name="url" hidden>
+        <div id="pensum-find" class="container container-edit">
+        <h4 style="text-align:center;">Introduzca el nombre de la carrera</h4>
+        <div class="input-container">
+            <label for="buscar_pensum" id="labelbuscar_pensum">Nombre</label><br>
+            <input type="text" id="buscar_pensum" name="buscar_pensum" onfocus="LabelAnimation('buscar_pensum','labelbuscar_pensum')" onblur="LabelOut('buscar_pensum','labelbuscar_pensum')" maxlength="30" class="input-label input">
+        </div><br>
+        <button type="button"  onclick="Submit('find_pensum')" style="text-align:center;">Buscar</button>
+        </div>
+    </form>
+    <form action="../control/c_lapso_academico.php" method="POST" name="find_lapso" id="find_lapso">
+        <input type="text" class="input-url" id="url" name="url" hidden>
+        <div id="lapso-find" class="container container-edit">
+        <h4 style="text-align:center;">Introduzca el trayecto del lapso</h4>
+        <div class="input-container">
+            <label for="buscar_lapso" id="labelbuscar_lapso">Trayecto</label><br>
+            <input type="text" id="buscar_lapso" name="buscar_lapso" onfocus="LabelAnimation('buscar_lapso','labelbuscar_lapso')" onblur="LabelOut('buscar_lapso','labelbuscar_lapso')" maxlength="30" class="input-label input">
+        </div><br>
+        <button type="button"  onclick="Submit('find_lapso')" style="text-align:center;">Buscar</button>
+        </div>
+    </form>
+    <form action="../control/c_oferta.php" method="POST" name="find_oferta" id="find_oferta">
+        <input type="text" class="input-url" id="url" name="url" hidden>
+        <div id="oferta-find" class="container container-edit">
+        <h4 style="text-align:center;">Introduzca el trayecto del lapso</h4>
+        <div class="input-container">
+            <label for="buscar_oferta" id="labelbuscar_oferta">Trayecto</label><br>
+            <input type="text" id="buscar_oferta" name="buscar_oferta" onfocus="LabelAnimation('buscar_oferta','labelbuscar_oferta')" onblur="LabelOut('buscar_oferta','labelbuscar_oferta')" maxlength="30" class="input-label input">
+        </div><br>
+        <button type="button"  onclick="Submit('find_oferta')" style="text-align:center;">Buscar</button>
+        </div>
+    </form>

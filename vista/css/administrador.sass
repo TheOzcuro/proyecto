@@ -107,7 +107,7 @@ a
     max-width: 480px
     min-width: 450px
     padding: 20px 0px 20px 40px
-    position: relative
+    position: absolute
     top: 20%
     left: 40%
     transform: translate(-50%, 10%)
@@ -119,23 +119,35 @@ a
         margin-left: 27px
     input 
         justify-self: center
-#lapso-container
+#lapso_academico-container
     display: none
     grid-template-columns: repeat(3,1fr)
-    grid-auto-rows: repeat(6,50px)
-    grid-gap:30px 30px
+    grid-auto-rows: repeat(3,50px)
     background: rgb(250, 250, 250)
+    grid-gap: 10px
     box-shadow: 50px 30px 50px rgb(30, 30, 30,0.6)
-    max-width: 690px
+    max-width: 590px
     box-sizing: border-box
     padding: 20px
-    position: relative
-    height: 420px
+    position: absolute
     top: 20%
     left: 45%
     transform: translate(-50%, 10%)
     border-radius: 7px
     z-index: 500
+    .checkbox-edit
+        left: 135px
+        bottom: -3px
+    button 
+        margin-top: 20px
+    h2
+        grid-column: 1/4    
+    
+#pensum-container, #oferta-container
+
+    max-width: 300px
+    padding-left: 40px
+    padding-right: 40px
     .dropdown
         margin-top: 1px
         display: none
@@ -152,21 +164,20 @@ a
             width: 94%
             &:hover
                 background: rgb(164, 211, 255)
-        
+      
     .checkbox-edit
-        bottom: -1px
-        left: 185px
-    .checkbox-lapso
-        left: 230px
+        left: -40px
     .checkbox-add
-        left: 280px
+        bottom: -5px
+    /*.checkbox-lapso
+    /*    left: 230px
         
     img
         width: 30px
         height: 30px
         cursor: pointer
         position: absolute
-        right: -22px
+        right: -15px
         transition-property: transform
         transition-timing-function: ease
         transition-duration: .5s
@@ -177,24 +188,24 @@ a
     input, select
         width: 90%
     .input-add
-        grid-column: 2/4
-        width: 70%
         align-self: center
         justify-self: center
+    .input-container
+         grid-column: 1/4
     button 
-        grid-column: 1/ span 3
+        margin-top: 20px
 .container-flex
     display: none
     grid-template-rows: repeat(4,70px)
     grid-template-columns: 1fr 1fr
     background: rgb(250, 250, 250)
     box-shadow: 50px 30px 50px rgb(30, 30, 30,0.6)
-    max-width: 250px
+    width: 250px
     padding: 20px 30px
-    position: relative
+    position: absolute
     top: 30%
     left: 40%
-    transform: translate(-50%, 30%)
+    transform: translate(-50%, 10%)
     border-radius: 7px
     z-index: 500
     .input-container
@@ -345,6 +356,22 @@ h2
     cursor: pointer
 .checkbox-materia
     left: 240px
+.back-option
+    padding: 7px
+    font-size: 14px
+    background: rgb(73, 87, 214)
+    color: white
+    display: none
+    position: absolute
+    top: 10px
+    left: -20px
+    cursor: pointer
+    border-radius: 3px
+    transition-duration: .5s
+    transition-property: background
+    transition-timing-function: ease
+    &:hover
+        background: rgb(94, 110, 252)
     
 @keyframes Appear 
     0%

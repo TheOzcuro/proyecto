@@ -4,11 +4,13 @@ include_once("../control/c_listar.php");
 $tabla=$_GET["tabla"] ?? '';
 $campo=$_GET["campo"] ?? '';
 $dato=$_GET["dato"] ?? '';
+
 function CreateTable($table,$campo,$dato) {
   if (empty($_GET["page"]) && isset($_GET["page"])==false) {
     $page=1;
     
   }
+
   else {
     if (isset($_SESSION["pagina"])) {
       $page=$_SESSION["pagina"];
@@ -18,9 +20,9 @@ function CreateTable($table,$campo,$dato) {
       
     }
   }
- 
   //Variable con los nombres de la tabla
   $name=GetAll($table);
+ 
   //Datos de las columnas de las tabla
   $lista=History($table,$campo,$dato);
   //Desde donde empezara a contar
@@ -31,6 +33,7 @@ function CreateTable($table,$campo,$dato) {
   $width=$namecount*105;
   //se calcula el total de pagina
   $totalpage=ceil(count($lista)/2);
+ 
   //Si el numero de elementos sobrepasa a 5 se crean las variables
   if (count($lista)>2) {
     $numero_items=2*$page;
@@ -39,8 +42,9 @@ function CreateTable($table,$campo,$dato) {
   else {
     $numero_items=count($lista);
   }
+    //El div donde estara la tabla
   echo "<div id='$table-historial' class='container historial' style='animation-name=Appear'>";
-  //El div donde estara la tabla
+  //el formulario de busqueda para los datos de la tabla
   echo "<div class='buscar-historial-container' style='display: flex;flex-direction: row;width: 50%;padding: 15px 10px;position: absolute;top: 10px;left: 0;right: 0;margin-left: auto;margin-right: auto;'>
   <div class='input-container'>
 
@@ -50,18 +54,30 @@ function CreateTable($table,$campo,$dato) {
 
   </div>
   <select name='campo' id='campo' style='margin-left:20px;margin-top:20px;height:30px;' onclick='SelectValidation()'>";
-  for ($i=0; $i < count($name); $i++) {
-    echo "<option value=".strtoupper($name[$i]["COLUMN_NAME"]).">".strtoupper($name[$i]["COLUMN_NAME"]);
+  //Para crear el select con los nombres de cada columna de la tabla para mas comodidad para buscar
+  //Confirmamos si la tabla es pensum para darle un comportamiento diferente a la de las otras tablas para evitar incovenientes
+  if ($table=="pensum" || $table=="oferta") {
+    echo "<option value=".strtoupper($name[1]["COLUMN_NAME"]).">".strtoupper($name[1]["COLUMN_NAME"]);
     echo "</option>";
-    
   }
+  //Si no es igual a pensum se ejecuta como normalmente lo haria
+  else {
+    for ($i=0; $i < count($name); $i++) {
+      echo "<option value=".strtoupper($name[$i]["COLUMN_NAME"]).">".strtoupper($name[$i]["COLUMN_NAME"]);
+      echo "</option>";
+      
+    }
+  }
+  //Se cierra el select
   echo "</select>";
+  //Se crea el boton que ejecutara el buscar de la tabla
   echo "<button id='button_historial' type='button' onclick='findHistorial()' style='width:100px;height: 30px;margin-top: 20px;margin-left: 20px;'>Buscar</button>";
+  //Si se hizo una busqueda aparecer un boton que pondra la tabla como estaba originalmente
   if ($campo!="undefined") {
     echo "<button id='back' type='button' onclick='refresh(1,``,`undefined`,`undefined`)' style='width:100px;height: 30px;margin-top: 20px;margin-left: 20px;'>Volver</button>";
   }
  echo "</div>";
-  echo "<div class='listar-container' style='display:none;width:".$width."px;grid-template-columns:repeat(".$namecount.",auto);' onload='TableName()'>";
+  echo "<div class='listar-container' style='display:none;width:".$width."px;grid-template-columns:repeat(".$namecount.",auto);'>";
   //Se crean las columnas con los nombres
   for ($i=0; $i < count($name); $i++) {
     echo "<div class='title'>".strtoupper($name[$i]["COLUMN_NAME"])."</div>";
@@ -74,11 +90,68 @@ function CreateTable($table,$campo,$dato) {
       break;
     }
     else {
-      for ($i=0; $i < count($lista[0]); $i++) { 
-        echo "<div class='".$name[$i]["COLUMN_NAME"]." f-".$index."' value=".$lista[$index][$i].">".$lista[$index][$i]."</div>";
+      //Se verifica si la tabla es la pensum para decirle que aparezca los datos de una forma especifica
+      if($table==="pensum") {
+        
+          echo "<div class='".$name[0]["COLUMN_NAME"]." f-".$index."' value=".$lista[$index][0].">".$lista[$index][0]."</div>";
+          echo "<div class='".$name[1]["COLUMN_NAME"]." f-".$index."' value=".$lista[$index][1].">".$lista[$index][2]."</div>";
+          echo "<div class='".$name[2]["COLUMN_NAME"]." f-".$index."' >";
+          $x=4;
+          //for donde se agregan todas las materias al mismo div para mas comodidad para el usuario
+          for ($i=3; $i < count($lista[$index]); $i=$i+2) { 
+            echo "<span id=".$lista[$index][$i].">".$lista[$index][$x]."  </span>";
+            $x=$x+2;
+          }
+          echo "</div>";
+    }
+      else if($table==="oferta") {
+      
+        echo "<div class='".$name[0]["COLUMN_NAME"]." f-".$index."' value=".$lista[$index][0].">".$lista[$index][0]."</div>";
+        echo "<div class='".$name[1]["COLUMN_NAME"]." f-".$index."' value=".$lista[$index][1].">".$lista[$index][1]."</div>";
+        echo "<div class='".$name[2]["COLUMN_NAME"]." f-".$index."' >";
+        $x=3;
+        for ($i=2; $i < count($lista[$index]); $i=$i+2) { 
+          echo "<span id=".$lista[$index][$i].">".$lista[$index][$x]."  </span>";
+          $x=$x+2;
+        }
+        echo "</div>";
+    }
+      else {
+        //For para ingresar los datos en los div de la fila
+        for ($i=0; $i < count($lista[0]); $i++) { 
+          //Transformar los valores de la tabla del profesor en algo mas agradable y entendible para el usuario
+          if ($table==="profesor" && $i===1) {
+            if ($lista[$index][$i]==="0") {
+              echo "<div class='".$name[$i]["COLUMN_NAME"]." f-".$index."' value=".$lista[$index][$i].">PROFESOR</div>";
+            }
+            else if($lista[$index][$i]==="1") {
+              echo "<div class='".$name[$i]["COLUMN_NAME"]." f-".$index."' value=".$lista[$index][$i].">ADMINISTRADOR</div>";
+            }
+          }
+          //Transformar los valores de la tabla de materia en algo mas agradable y entendible para el usuario
+          else if ($table==="materia" && $i===2) {
+            if ($lista[$index][$i]==="0") {
+              echo "<div class='".$name[$i]["COLUMN_NAME"]." f-".$index."' value=".$lista[$index][$i].">DICIPLINARIA</div>";
+            }
+            else if($lista[$index][$i]==="1") {
+              echo "<div class='".$name[$i]["COLUMN_NAME"]." f-".$index."' value=".$lista[$index][$i].">MULTIDICIPLINARIA</div>";
+            }
+          }
+          
+          else {
+            echo "<div class='".$name[$i]["COLUMN_NAME"]." f-".$index."' value=".$lista[$index][$i].">".$lista[$index][$i]."</div>";
+          }
+         
+        }
       }
+      
       print_r("<button onclick='ActiveModificar(`.f-".$index."`,`$table-container`)'>Modificar</button>");
-      echo "<button onclick='DisplayDelete(`block`,`.delete-window`,`#$table`,`".$lista[$index][0]."`)'>Eliminar</button>";
+      if ($table=="pensum" || $table=="oferta") {
+        echo "<button onclick='DisplayDelete(`block`,`.delete-window`,`#$table`,`".$lista[$index][1]."`)'>Eliminar</button>";
+      }
+      else {
+        echo "<button onclick='DisplayDelete(`block`,`.delete-window`,`#$table`,`".$lista[$index][0]."`)'>Eliminar</button>";
+      }
       $index=$index+1;
       }
   }
@@ -89,7 +162,13 @@ function CreateTable($table,$campo,$dato) {
   echo "</div>";
   //Se crea la paginacion
   if ($totalpage>1) {
-    echo "<div class='paginacion'>";
+    echo "<div class='paginacion' style='position: absolute;
+    top: 260%;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 200px;'>";
     for ($i=1; $i <= $totalpage; $i++) {
       if ($i==$page) {
         echo "<span class='select'>$i</span>";

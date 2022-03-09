@@ -20,12 +20,13 @@
         protected function execute($sql)
 	    {
 		$this->connection();
-		if (!mysqli_query( $this->connection, $sql )) {
+        $val=mysqli_query( $this->connection, $sql );
+		if (!$val) {
 			return 2;
 			//echo "Error: " . $sql . "<br>" . $this->conexion->error;
 		}
 		else {
-			 return mysqli_query( $this->connection, $sql );
+			 return $val;
 
 		}
 		

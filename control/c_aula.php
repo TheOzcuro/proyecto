@@ -54,7 +54,7 @@ else if (isset($_POST["update"]) && $_POST["update"]!=""){
 else if (isset($_POST["delete"]) && $_POST["delete"]!=""){
     $ejecutar->DeleteTable("aula","codigo",$_POST["delete"]);
     $_SESSION["completado"]="Los datos fueron eliminados correctamente";
-    header("Location: ../vista/administrador.php#aula-container-grid");
+    header("Location:../vista/administrador.php#$url");
 }
 else {
     $validate=$ejecutar->registrarAula($_POST["codigo_aula"],$_POST["nombre_aula"]);

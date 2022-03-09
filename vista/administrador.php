@@ -25,6 +25,7 @@ if (isset($_SESSION["usuario"])==false) {
             <button class="delete" onclick="DisplayDelete('none','.delete-window')">No</button>
         </div>
         
+        
     
     <div class="grid-container">
         <div class="header">
@@ -90,9 +91,9 @@ if (isset($_SESSION["usuario"])==false) {
             <img src="css/img/arrow_down.png" alt="" id="arrow_down" onclick="AnimationPrincipalMenu(4)">
             <div class="submenu">
                     <ul>
-                        <a href="#lapso-container-grid"><li id="crearLapso">Crear Lapso Academico</li><div class="borderline"></div></a>
-                        <a href=""><li>Inserte Texto</li><div class="borderline"></div></a>
-                        <a href=""><li>Inserte Texto</li><div class="borderline"></div></a>
+                        <a href="#lapso_academico-container-grid"><li id="crearLapso">Crear</li><div class="borderline"></div></a>
+                        <a href="#pensum-container-grid"><li id='crearPensum'>PENSUM</li><div class="borderline"></div></a>
+                        <a href="#oferta-container-grid"><li id='crearOferta'>Oferta Academica</li><div class="borderline"></div></a>
                     </ul>
                 </div>
             </div>
@@ -119,6 +120,8 @@ if (isset($_SESSION["usuario"])==false) {
         </div>
         
         <div class="contend" id='contend'>
+         <div class='back-option' id='register_back' onclick='BackOption(this)'>Ir al Registro</div>
+        <div class='back-option' id='history_back' onclick='BackOption(this)'>Ir al Historial</div>
             <?php include_once("msg_error.php");include_once("register-form.php"); 
         
             ?>
@@ -150,21 +153,44 @@ if (isset($_SESSION["completado"]) && $_SESSION["completado"]!="") {
               $total=count($_SESSION["update"]);
               $total=$total/2;
               $x=0;
-              echo "valores=[";
-              while ($x<$total) {
-                  if ($x===7) {
-                      echo "'".$_SESSION["update"][$x]."'";
-                  }
-                  else {
-                      echo "'".$_SESSION["update"][$x]."'".',';
-                  }
-                  $x=$x+1;
+              if ($_SESSION["container"]=="pensum-container") {
+                $x=2;
+                echo "arrayPensum=[";
+                while ($x<count($_SESSION["update"][0])) {
+                    echo "'".$_SESSION["update"][0][$x]."'".',';
+                    $x=$x+1;
+                }
+                echo "];";
+                echo "ModificarPensum(arrayPensum,`".$_SESSION['container']."`);";
+                
+                }
+              else if ($_SESSION["container"]=="oferta-container") {
+                    $x=1;
+                    echo "arrayOferta=[";
+                    while ($x<count($_SESSION["update"][0])) {
+                        echo "'".$_SESSION["update"][0][$x]."'".',';
+                        $x=$x+1;
+                    }
+                    echo "];";
+                    echo "ModificarPensum(arrayOferta,`".$_SESSION['container']."`);";
+                    
+                    }
+              else {
+                echo "valores=[";
+                while ($x<$total) {
+                    if ($x===7) {
+                        echo "'".$_SESSION["update"][$x]."'";
+                    }
+                    else {
+                        echo "'".$_SESSION["update"][$x]."'".',';
+                    }
+                    $x=$x+1;
+                }
+                echo "];";
+                  echo "Modificar('".$_SESSION["container"]."','grid', valores);";
               }
-              echo "];";
-                echo "Modificar('".$_SESSION["container"]."','grid', valores);";
-              unset($_SESSION["container"]);
-              unset($_SESSION["update"]);
-             
+             unset($_SESSION["container"]);
+             unset($_SESSION["update"]);
           }
           ?>
       </script>
