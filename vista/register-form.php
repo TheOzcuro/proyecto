@@ -1,4 +1,4 @@
-
+<div></div>
 <form action="../control/c_materia.php" method="POST" name="materia" id="materia">
                 <input type="text" class="input-update" id="update" name="update" hidden>
                 <input type="text" class="input-delete" id="delete" name="delete" hidden>
