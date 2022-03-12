@@ -301,6 +301,79 @@
                     <button type="button" onclick="DisplayDelete('block','.delete-window','#oferta')" class="button-edit button-delete">Eliminar</button>
                 </div>
             </form>
+            <form action="../control/c_disponibilidad.php" method="POST" name="disponibilidad" id="disponibilidad">
+                <input type="text" class="input-update" id="update" name="update" hidden>
+                <input type="text" class="input-delete" id="delete" name="delete" hidden>
+                <input type="text" class="input-url" id="url" name="url" hidden>
+                <div id="disponibilidad-container" class="container" style='display:none;'>
+                    <a class="a_img"><img src="css/img/close.png" alt="" class="close-icon" id="close-icon-profesor" onclick="Close()"></a>
+                    <h2>Disponibilidad</h2>
+                    <div class="input-container">
+                        <label for="cedula_dis" id="labelcedula_dis">Cedula</label><br>
+                        <input type="text" id="cedula_dis" name="cedula_dis" onfocus="LabelAnimation('cedula_dis','labelcedula_dis')" onblur="LabelOut('cedula_dis','labelcedula_dis')" maxlength="11" class="input input-label">
+                        <input type="checkbox" class="checkbox-edit checkbox-materia"  onclick="CheckboxDisabled('codigo_carrera', this)">
+                    </div>
+                    <div class="input-container">
+                        <label for="nombre_carrera" id="labelnombre_carrera">Nombre</label><br>
+                        <input type="text" id="nombre_carrera" name="nombre_carrera" onfocus="LabelAnimation('nombre_carrera','labelnombre_carrera')" onblur="LabelOut('nombre_carrera','labelnombre_carrera')" maxlength="30" class="input input-label">
+                        <input type="checkbox" class="checkbox-edit checkbox-materia"  onclick="CheckboxDisabled('nombre_carrera', this)">
+                    </div>
+                    <div class="input-container">
+                        <label for="contratacion_dis" id="labelcontratacion_dis">Contratacion</label><br>
+                        <input type="text" id="contratacion_dis" name="contratacion_dis" onfocus="LabelAnimation('contratacion_dis','labelcontratacion_dis')" onblur="LabelOut('contratacion_dis','labelcontratacion_dis')" maxlength="30" class="input input-label">
+                        <input type="checkbox" class="checkbox-edit checkbox-materia"  onclick="CheckboxDisabled('nombre_carrera', this)">
+                    </div>
+                    <div class="input-container">
+                        <select name="dias" id="dias">
+                            <option value="">Dia</option>
+                            <option value="1">LUNES</option>
+                            <option value="2">MARTES</option>
+                            <option value="3">MIERCOLES</option>
+                            <option value="4">JUEVES</option>
+                            <option value="5">VIERNES</option>
+                        </select>
+                    </div>
+                    <?php 
+                   
+                    ?>
+                    <div class="input-container" id="input-carreras" style='margin-bottom:60px;'>
+                        <label for="lapso" id="labebloques">Bloques</label><br>
+                        <input type="text" id="bloques" name="bloques" onfocus="LabelAnimation('bloques','labebloques')" onblur="LabelOut('bloques','labebloques')" maxlength="30" class="input-label principal_input" onkeyup="Search('bloques','bloques_drop')">
+                        <input type="checkbox" class="checkbox-edit"  onclick="CheckboxDisabled('lapso', this)">
+                        <img src="css/img/add.png" alt="" onclick="AddAndRemove('bloques_drop','bloques_add_drop','bloques','bloques_add','add', 'disponibilidad-container')">
+                        <div class="dropdown" id="bloques_drop">
+                        <?php
+                             $hora="07:00";
+                             $hora2="07:45";
+                            for ($i=1; $i <= 20; $i++) { 
+                                echo "<span id=B$i onclick=AddValueMateria('bloques',this)>BLOQUE ".$i." $hora-$hora2</span>";
+                                $nuevahora=strtotime($hora)+strtotime("00:45");
+                                $hora=date('H:i', $nuevahora);
+                                $nuevahora2=strtotime($hora2)+strtotime("00:45");
+                                $hora2=date('H:i', $nuevahora2);
+                            }
+                        ?>
+                    </div>
+                    </div>
+                    <div class="input-container  input-add" style='grid-column: span 3/;'>
+                        <label for="bloques_add" id="labelbloques_add">Bloques Añadidos</label><br>
+                    <input type="text" id="bloques_add" name="bloques_add" onfocus="LabelAnimation('bloques_add','labelbloques_add')" onblur="LabelOut('bloques_add','labelbloques_add')" maxlength="30" class="input-label input_add" onkeyup="Search('bloques_add','bloques_add_drop')">
+                    
+                        <img src="css/img/menos.png" alt="" onclick="AddAndRemove('bloques_add_drop','bloques_drop','bloques_add','bloques','del', 'disponibilidad-container')">
+                        <input type="text" id="add" name="add" class='input' hidden>
+                        <input type="checkbox" class="checkbox-edit checkbox-add"  onclick="CheckboxDisabled('carreras_add', this, 'active')">
+                        
+                        <div class="dropdown drop_add" id="bloques_add_drop">
+                    
+                    </div>
+                    </div>
+                    <br>
+                    <button type="button" onclick="Submit('carrera')">Registrar</button>
+                    <button type="button" onclick="DisplayDelete('flex','#carrera-find','#carrera')">Buscar</button>
+                    <button type="button" onclick="Save('carrera')" class="button-edit button-update">Guardar</button>
+                    <button type="button" onclick="DisplayDelete('block','.delete-window','#carrera')" class="button-edit button-delete">Eliminar</button>
+                </div>
+            </form>
             <form action="../control/c_lapso_academico.php" method="POST" name="lapso_academico" id="lapso_academico">
             <input type="text" class="input-update" id="update" name="update" hidden>
                 <input type="text" class="input-delete" id="delete" name="delete" hidden>

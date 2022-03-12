@@ -17,9 +17,9 @@ var add_array=[]
 
 function AppearsAndDissapear(appear,display) {
     DissapearVarious(".container","none")
-    document.getElementById(appear).style.display=display;
-    document.getElementById(appear).style.animationName="Opacity";
-    document.getElementById(appear).style.animationDuration="0.7s";
+        document.getElementById(appear).style.display=display;
+        document.getElementById(appear).style.animationName="Opacity";
+        document.getElementById(appear).style.animationDuration="0.7s";
    
 }
 function LabelAnimation(input,label){
@@ -81,10 +81,15 @@ function OnLoad(active){
     var container=url.match(x)
     //Guardo el tipo de display que utiliza el formulario ya sea flex o grid
     var display=url.slice(-4)
+    if (container.length>6) {
+        container=container[6]+container[7];
+    }
+    else {
+        container="";
+    }
     //Creo el nombre del div correspodiente
-    container=container[6]+container[7];
-
     //Muestro el div al usuario
+    
     container_url=container+"-"+display;
     array=container_url.split("-");
     if (array[1]=="container") {
@@ -93,7 +98,7 @@ function OnLoad(active){
     else if (array[1]=="historial") {
         document.getElementById('register_back').style.display="inline";
     }
-    if (container!="" && active!="active") {
+    if (container!="" && active!="active" && array[1]!="historial") {
         AppearsAndDissapear(container,display)
     }
 }
@@ -264,10 +269,11 @@ function AddAndRemove(div,div_add,input,input_add, type, container) {
         
     }
     container_add=container;
-    //VARIABLES
+   
     if (input!="") {
         for (let index = 0; index < span.length; index++) {
         if (span[index].innerText==input.value.toUpperCase()) {
+            console.log(span[index].id)
             input_add.value=input.value.toUpperCase();
             span_add.innerHTML=input.value.toUpperCase();
             span_add.onclick=function () {AddValueMateria(input_add.id, this)}
@@ -439,6 +445,10 @@ document.getElementById("carreras_add").addEventListener("click", function(){
     document.querySelector("#carreras_add_drop").style.display="flex"})
 document.getElementById("lapso").addEventListener("click", function(){
         document.querySelector("#lapso_drop").style.display="flex"})
+document.getElementById("bloques").addEventListener("click", function(){
+        document.querySelector("#bloques_drop").style.display="flex"})
+document.getElementById("bloques_add").addEventListener("click", function(){
+        document.querySelector("#bloques_add_drop").style.display="flex"})
 
 document.addEventListener('mouseup', function(e) {
     var input = document.getElementById('materias');
@@ -447,6 +457,8 @@ document.addEventListener('mouseup', function(e) {
     var input4= document.getElementById('carreras_add');
     var input5= document.getElementById('carrera_oferta');
     var input6= document.getElementById('lapso');
+    var input7= document.getElementById('bloques');
+    var input8= document.getElementById('bloques_add');
     if (!input.contains(e.target)) {
         document.getElementById("materias_drop").style.display = 'none';
         input.style.border=""
@@ -466,11 +478,19 @@ document.addEventListener('mouseup', function(e) {
     }
     if (!input5.contains(e.target)) {
         document.getElementById("carreras_oferta_drop").style.display = 'none';
-        input4.style.border=""
+        input5.style.border=""
     }
     if (!input6.contains(e.target)) {
         document.getElementById("lapso_drop").style.display = 'none';
-        input4.style.border=""
+        input6.style.border=""
+    }
+    if (!input7.contains(e.target)) {
+        document.getElementById("bloques_drop").style.display = 'none';
+        input7.style.border=""
+    }
+    if (!input8.contains(e.target)) {
+        document.getElementById("bloques_add_drop").style.display = 'none';
+        input8.style.border=""
     }
     
 });
