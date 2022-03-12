@@ -16,6 +16,21 @@ if (isset($_SESSION["usuario"])==false) {
 <body onload="LabelInput()">
         <div class="blackcover">
         </div>
+        <div class="container-flex" id="contratacion-container">
+            <h2>Contratacion</h2>
+            <div style='grid-column:1/3;'>
+                <h4>Tipo de Contratacion</h4>
+                <div id="div_contratacion" class="div_container"></div>
+            </div>
+            <div style='grid-column:1/3;'>
+                <h4>Categoria</h4>
+                <div id="div_categoria"  class="div_container"></div>
+            </div>
+            <div style='grid-column:1/3;'>
+                <h4>Dedicacion</h4>
+                <div id="div_dedicacion"  class="div_container"></div>
+            </div>
+        </div>
         <?php include_once("edit-form.php");
             ?>
         <div class="delete-window">
@@ -178,7 +193,7 @@ if (isset($_SESSION["completado"]) && $_SESSION["completado"]!="") {
               else {
                 echo "valores=[";
                 while ($x<$total) {
-                    if ($x===7) {
+                    if ($x===$total) {
                         echo "'".$_SESSION["update"][$x]."'";
                     }
                     else {

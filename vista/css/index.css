@@ -6,6 +6,10 @@ body {
   padding: 0;
   margin: 0;
   font-family: Open Sans, sans-serif;
+  background-image: url("img/unearte.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
 }
 
 .grid-container {
@@ -71,10 +75,6 @@ a:hover > .test-1 {
   width: 0.1px;
   text-align: center;
   margin: auto;
-}
-
-.content img {
-  width: 100%;
 }
 
 .parrafo {

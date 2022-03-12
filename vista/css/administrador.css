@@ -117,6 +117,17 @@ a:hover > .borderline {
   width: 150px;
 }
 
+.div_container {
+  margin-top: -17px;
+}
+
+#contratacion-container {
+  top: 20%;
+  left: 60%;
+  transform: translate(-50%, 10%);
+  height: 310px;
+}
+
 #profesor-container {
   display: none;
   grid-template-columns: 1fr 1fr;
@@ -124,13 +135,13 @@ a:hover > .borderline {
   grid-gap: 10px;
   background: #fafafa;
   box-shadow: 50px 30px 50px rgba(30, 30, 30, 0.6);
-  max-width: 480px;
-  min-width: 450px;
+  max-width: 520px;
+  min-width: 480px;
   padding: 20px 0px 20px 40px;
   position: absolute;
   top: 20%;
   left: 40%;
-  transform: translate(-50%, 10%);
+  transform: translate(-50%, -7%);
   border-radius: 7px;
   z-index: 500;
 }
@@ -372,6 +383,7 @@ button:hover {
   height: 100%;
   width: 100%;
   display: none;
+  z-index: 100;
 }
 
 .container-edit {

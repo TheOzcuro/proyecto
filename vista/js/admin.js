@@ -54,6 +54,23 @@ function AnimationPrincipalMenu(child){
     comparechild=child
     
 }
+function ShowContratacion(contratacion,categoria,dedicacion) {
+    document.getElementById('tipo_contratacion').value=contratacion;
+    document.getElementById('categoria').value=categoria;
+    document.getElementById('dedicacion').value=dedicacion;
+    document.getElementById('div_contratacion').innerHTML=$("#tipo_contratacion option:selected").text();
+    document.getElementById('div_categoria').innerHTML=$("#categoria option:selected").text();
+    document.getElementById('div_dedicacion').innerHTML=$("#dedicacion option:selected").text();
+    document.getElementById('tipo_contratacion').value="";
+    document.getElementById('categoria').value="";
+    document.getElementById('dedicacion').value="";
+    document.querySelector(".blackcover").addEventListener("click", function(){
+        document.getElementById('contratacion-container').style.display='none';
+        document.querySelector('.blackcover').style.display='none';
+    })
+    document.querySelector(".blackcover").style.display='block';
+    document.getElementById('contratacion-container').style.display='grid';
+}
 
 function OnLoad(active){
     //Tomo la url de la pagina

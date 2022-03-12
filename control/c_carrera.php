@@ -47,7 +47,7 @@ else if (isset($_POST["update"]) && $_POST["update"]!=""){
         $_SESSION["completado"]="Los datos fueron actualizados correctamente";
         $_SESSION["container"]="carrera-container";
         $_SESSION["update"]=$ejecutar->FindQuery("carrera","codigo", $_POST["codigo_carrera"]);
-        hheader("Location:../vista/administrador.php#$url");
+        header("Location:../vista/administrador.php#$url");
     }
 }
 else if (isset($_POST["delete"]) && $_POST["delete"]!=""){

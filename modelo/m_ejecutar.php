@@ -9,7 +9,7 @@ class registry extends mybsd {
 	protected $primer_apellido;
     protected $segundo_apellido;
     protected $rol;
-	function setDatos($cedula, $rol, $primer_nombre, $segundo_nombre, $primer_apellido, $segundo_apellido, $direccion, $telefono){
+	function setDatos($cedula, $rol, $primer_nombre, $segundo_nombre, $primer_apellido, $segundo_apellido, $direccion, $telefono, $contratacion, $categoria, $dedicacion){
 		$this->cedula=$cedula;
         $this->rol=$rol;
 		$this->primer_nombre=strtoupper($primer_nombre);
@@ -18,6 +18,9 @@ class registry extends mybsd {
         $this->segundo_apellido=strtoupper($segundo_apellido);
 		$this->direccion=strtoupper($direccion);
 		$this->telefono=$telefono;
+		$this->contratacion=$contratacion;
+		$this->categoria=$categoria;
+		$this->dedicacion=$dedicacion;
 	}
 	function GetName($cedula)
 	{
@@ -124,9 +127,8 @@ class registry extends mybsd {
 	}
 	function registrarProfesor(){
 		$query="INSERT INTO `profesor`(`cedula`, `rol`, `primer_nombre`, 
-		`segundo_nombre`, `primer_apellido`, `segundo_apellido`, `direccion`, `telefono`)
-		VALUES ('".$this->cedula."','".$this->rol."','".$this->primer_nombre."','".$this->segundo_nombre."','".$this->primer_apellido."','".$this->segundo_apellido."','".$this->direccion."','".$this->telefono."')";
-		
+		`segundo_nombre`, `primer_apellido`, `segundo_apellido`, `direccion`, `telefono`, `contratacion`, `categoria`, `dedicacion`)
+		VALUES ('".$this->cedula."','".$this->rol."','".$this->primer_nombre."','".$this->segundo_nombre."','".$this->primer_apellido."','".$this->segundo_apellido."','".$this->direccion."','".$this->telefono."','".$this->contratacion."','".$this->categoria."','".$this->dedicacion."')";
 		return $this->execute($query);
 	}
 	function registrarAdministrador($contrasena){
@@ -256,7 +258,7 @@ class registry extends mybsd {
 		}
 	}
 	function UpdateTableProfesor($cedula) {
-		$query="UPDATE `profesor` SET `cedula`='$this->cedula', `rol`='$this->rol', `primer_nombre`='$this->primer_nombre', `segundo_nombre`='$this->segundo_nombre', `primer_apellido`='$this->primer_apellido', `segundo_apellido`='$this->segundo_apellido', `direccion`='$this->direccion', `telefono`='$this->telefono' WHERE `cedula`=$cedula";
+		$query="UPDATE `profesor` SET `cedula`='$this->cedula', `rol`='$this->rol', `primer_nombre`='$this->primer_nombre', `segundo_nombre`='$this->segundo_nombre', `primer_apellido`='$this->primer_apellido', `segundo_apellido`='$this->segundo_apellido', `direccion`='$this->direccion', `telefono`='$this->telefono', `contratacion`='$this->contratacion', `categoria`='$this->categoria', `dedicacion`='$this->dedicacion' WHERE `cedula`=$cedula";
 		return $this->execute($query);
 	}
 	function UpdateTableAdmin($cedula, $origin_cedula)

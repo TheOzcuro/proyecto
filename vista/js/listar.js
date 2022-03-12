@@ -22,10 +22,18 @@ function ActiveModificar(fila,container) {
             else if (filas[index].innerText=="ADMINISTRADOR" || filas[index].innerText=="MULTIDICIPLINARIA") {
                 valores.push('1');
             }
+            else if (index==8 && container=="profesor-container"){
+                    var x=filas[index].getAttribute('id')
+                    var contratacion=x.split(" ")
+                    for (let index = 0; index < contratacion.length; index++) {
+                        valores.push(contratacion[index]);
+                        
+                    }
+            }
             else {
                 valores.push(filas[index].innerText);
             }
-        
+                
         }
         if (container!="") {
             Modificar(container,"grid",valores);

@@ -33,7 +33,8 @@ function CreateTable($table,$campo,$dato) {
   $width=$namecount*105;
   //se calcula el total de pagina
   $totalpage=ceil(count($lista)/2);
- 
+
+  $count_lista=count($lista[0]);
   //Si el numero de elementos sobrepasa a 5 se crean las variables
   if (count($lista)>2) {
     $numero_items=2*$page;
@@ -42,6 +43,12 @@ function CreateTable($table,$campo,$dato) {
   else {
     $numero_items=count($lista);
   }
+  if ($table=="profesor") {
+    $namecount=11;
+    $count_lista=8;
+    $width=$namecount*105;
+  }
+  
     //El div donde estara la tabla
   echo "<div id='$table-historial' class='container historial' style='animation-name=Appear'>";
   //el formulario de busqueda para los datos de la tabla
@@ -77,13 +84,20 @@ function CreateTable($table,$campo,$dato) {
     echo "<button id='back' type='button' onclick='refresh(1,``,`undefined`,`undefined`)' style='width:100px;height: 30px;margin-top: 20px;margin-left: 20px;'>Volver</button>";
   }
  echo "</div>";
-  echo "<div class='listar-container' style='display:none;width:".$width."px;grid-template-columns:repeat(".$namecount.",auto);'>";
+  echo "<div class='listar-container' style='display:none;width:".$width."px;grid-template-columns:repeat(".$namecount.",auto);left:-200px;'>";
   //Se crean las columnas con los nombres
   for ($i=0; $i < count($name); $i++) {
     echo "<div class='title'>".strtoupper($name[$i]["COLUMN_NAME"])."</div>";
+    if ($i==7) {
+      break;
+    }
   }
+
   echo "<span></span>";
   echo "<span></span>";
+  if ($table=="profesor") {
+    echo "<span></span>";
+  }
   //Se crean las filas con los datos de la tabla
   while ($index < $numero_items) {
     if (empty($lista[$index])) {
@@ -118,7 +132,7 @@ function CreateTable($table,$campo,$dato) {
     }
       else {
         //For para ingresar los datos en los div de la fila
-        for ($i=0; $i < count($lista[0]); $i++) { 
+        for ($i=0; $i < $count_lista; $i++) { 
           //Transformar los valores de la tabla del profesor en algo mas agradable y entendible para el usuario
           if ($table==="profesor" && $i===1) {
             if ($lista[$index][$i]==="0") {
@@ -139,6 +153,9 @@ function CreateTable($table,$campo,$dato) {
           }
           
           else {
+            if ($i==9) {
+              echo "<div></div>";
+            }
             echo "<div class='".$name[$i]["COLUMN_NAME"]." f-".$index."' value=".$lista[$index][$i].">".$lista[$index][$i]."</div>";
           }
          
@@ -151,6 +168,9 @@ function CreateTable($table,$campo,$dato) {
       }
       else {
         echo "<button onclick='DisplayDelete(`block`,`.delete-window`,`#$table`,`".$lista[$index][0]."`)'>Eliminar</button>";
+      }
+      if ($table=="profesor") {
+        echo "<button class='f-".$index."' id='".$lista[$index][8]." ".$lista[$index][9]." ".$lista[$index][10]."' onclick='ShowContratacion(`".$lista[$index][8]."`,`".$lista[$index][9]."`,`".$lista[$index][10]."`)'>Mostrar Mas</button>";
       }
       $index=$index+1;
       }

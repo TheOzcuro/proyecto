@@ -12,7 +12,7 @@ if (isset($_POST["buscar_aula"]) && $_POST["buscar_aula"]!="") {
     else {
         $_SESSION["update"]=$validate;
         $_SESSION["container"]="aula-container";
-        header("Location:../vista/administrador.php#$url");
+        header("Location:../vista/administrador.php#aula-container-grid");
      }
 }
 if (isset($_GET["buscar_aula"]) && $_GET["buscar_aula"]!="") {

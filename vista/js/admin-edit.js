@@ -20,8 +20,16 @@ function Save(form) {
         var valideTrue=false;
         var valideFalse="";
         for (let index = 0; index < input.length; index++) {
-            if (input[index].id=="segundo_nombre" || input[index].id=="segundo_apellido") {
-                valideTrue=true;
+            if (input[index].id=="segundo_nombre") {
+                if (input[index].value!=valores[index]) {
+                    valideTrue=true;
+               };
+            }
+            else if (input[index].id=="segundo_apellido") {
+               if (input[index].value!=valores[index]) {
+                    valideTrue=true;
+               };
+               
             }
             else {
                 if (input[index].value!=valores[index] && input[index].value!="") {
@@ -92,6 +100,7 @@ function Delete(form,valor) {
         document.querySelector(form).submit();
     }
 function Modificar(container,display,valores) {
+
          div_edit=document.getElementById(container);
          AppearsAndDissapear(div_edit.id,display)
          div_edit.querySelector("h2").innerHTML="Editar Datos";

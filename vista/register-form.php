@@ -1,4 +1,4 @@
-<div></div>
+
 <form action="../control/c_materia.php" method="POST" name="materia" id="materia">
                 <input type="text" class="input-update" id="update" name="update" hidden>
                 <input type="text" class="input-delete" id="delete" name="delete" hidden>
@@ -57,35 +57,34 @@
 
                     <div class="input-container">
                         <label for="primer_nombre" id="labelprimer_nombre">Primer Nombre <b style="color:red;">*</b></label><br>
-                        <input type="text" id="primer_nombre" name="primer_nombre" onfocus="LabelAnimation('primer_nombre','labelprimer_nombre')" onblur="LabelOut('primer_nombre','labelprimer_nombre')" maxlength="30" class="input input-label">
+                        <input type="text" id="primer_nombre" name="primer_nombre" onfocus="LabelAnimation('primer_nombre','labelprimer_nombre')" onblur="LabelOut('primer_nombre','labelprimer_nombre')" maxlength="20" class="input input-label">
                         <input type="checkbox" class="checkbox-edit checkbox-profesor"   onclick="CheckboxDisabled('primer_nombre', this)">
                     </div>
 
                     <div class="input-container">
                         <label for="segundo_nombre" id="labelsegundo_nombre">Segundo Nombre</label><br>
                         <input type="text" id="segundo_nombre" name="segundo_nombre"
-                        onfocus="LabelAnimation('segundo_nombre','labelsegundo_nombre')" onblur="LabelOut('segundo_nombre','labelsegundo_nombre')" maxlength="30" class="input input-label">
+                        onfocus="LabelAnimation('segundo_nombre','labelsegundo_nombre')" onblur="LabelOut('segundo_nombre','labelsegundo_nombre')" maxlength="20" class="input input-label">
                         <input type="checkbox" class="checkbox-edit checkbox-profesor" onclick="CheckboxDisabled('segundo_nombre', this)">
                     </div>
 
                     <div class="input-container">
                         <label for="primer_apellido" id="labelprimer_apellido">Primer Apellido <b style="color:red;">*</b></label><br>
                         <input type="text" id="primer_apellido" name="primer_apellido"
-                        onfocus="LabelAnimation('primer_apellido','labelprimer_apellido')" onblur="LabelOut('primer_apellido','labelprimer_apellido')" maxlength="30" class="input input-label">
+                        onfocus="LabelAnimation('primer_apellido','labelprimer_apellido')" onblur="LabelOut('primer_apellido','labelprimer_apellido')" maxlength="20" class="input input-label">
                         <input type="checkbox" class="checkbox-edit checkbox-profesor" onclick="CheckboxDisabled('primer_apellido', this)">
                     </div>
 
                     <div class="input-container">
                         <label for="segundo_apellido" id="labelsegundo_apellido">Segundo Apellido</label><br>
                         <input type="text" id="segundo_apellido" name="segundo_apellido"
-                        onfocus="LabelAnimation('segundo_apellido','labelsegundo_apellido')" onblur="LabelOut('segundo_apellido','labelsegundo_apellido')" maxlength="30" class="input input-label">
+                        onfocus="LabelAnimation('segundo_apellido','labelsegundo_apellido')" onblur="LabelOut('segundo_apellido','labelsegundo_apellido')" maxlength="20" class="input input-label">
                         <input type="checkbox" class="checkbox-edit" onclick="CheckboxDisabled('segundo_apellido', this)">
                     </div>
-
                     <div class="input-container">
                         <label for="direccion" id="labeldireccion">Direccion <b style="color:red;">*</b></label><br>
                         <input type="text" id="direccion" name="direccion"
-                        onfocus="LabelAnimation('direccion','labeldireccion')" onblur="LabelOut('direccion','labeldireccion')" maxlength="60" class="input input-label">
+                        onfocus="LabelAnimation('direccion','labeldireccion')" onblur="LabelOut('direccion','labeldireccion')" maxlength="50" class="input input-label">
                         <input type="checkbox" class="checkbox-edit" onclick="CheckboxDisabled('direccion', this)">
                     </div>
 
@@ -95,7 +94,37 @@
                         onfocus="LabelAnimation('telefono','labeltelefono')" onblur="LabelOut('telefono','labeltelefono')" maxlength="11" class="input input-label">
                         <input type="checkbox" class="checkbox-edit" onclick="CheckboxDisabled('telefono', this)" >
                     </div>
-
+                    <div class="input-container">
+                        <select name="tipo_contratacion" id="tipo_contratacion" onclick="SelectAnimation('tipo_contratacion')" class="input">
+                            <option value="">Contratacion<b style="color:red;">*</b></option>
+                            <option value="1">Tiempo Inderteminado</option>
+                            <option value="2">Tiempo Determinado</option>
+                            <option value="3">Ordinario</option>
+                         </select>
+                        <input type="checkbox" class="checkbox-edit"  onclick="CheckboxDisabled('tipo_contratacion', this)">
+                     </div>
+                    <div class="input-container">
+                        <select name="categoria" id="categoria" onclick="SelectAnimation('categoria')" class="input">
+                            <option value="">Categoria<b style="color:red;">*</b></option>
+                            <option value="1">Auxiliar Docente I</option>
+                            <option value="2">Auxiliar Docente II</option>
+                            <option value="3">Auxiliar Docente III</option>
+                            <option value="4">Instructor</option>
+                            <option value="5">Asistente</option>
+                            <option value="6">Asesor</option>
+                            <option value="7">Agregado</option>
+                        </select>
+                        <input type="checkbox" class="checkbox-edit"  onclick="CheckboxDisabled('categoria', this)">
+                    </div>
+                    <div class="input-container">
+                        <select name="dedicacion" id="dedicacion" onclick="SelectAnimation('dedicacion')" class="input">
+                            <option value="">Dedicacion<b style="color:red;">*</b></option>
+                            <option value="1">Tiempo Convencional</option>
+                            <option value="2">Medio Tiempo</option>
+                            <option value="3">Tiempo Completo</option>
+                        </select>
+                        <input type="checkbox" class="checkbox-edit"  onclick="CheckboxDisabled('dedicacion', this)">
+                    </div><br>
                     <button type="button" onclick="Submit('profesor')" class>Registrar</button>
                     <button type="button" onclick="DisplayDelete('flex','#profesor-find','#profesor')" class="button-find">Buscar</button>
                     <button type="button" onclick="Save('profesor')" class="button-edit button-update">Guardar</button>
