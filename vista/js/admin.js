@@ -20,6 +20,7 @@ function AppearsAndDissapear(appear,display) {
         document.getElementById(appear).style.display=display;
         document.getElementById(appear).style.animationName="Opacity";
         document.getElementById(appear).style.animationDuration="0.7s";
+        
    
 }
 function LabelAnimation(input,label){
@@ -76,30 +77,33 @@ function OnLoad(active){
     //Tomo la url de la pagina
     const url=window.location.href;
     //Creo un Regex donde estaran los divs de los formularios cada uno con su respectivo nombre
-    var x=/([(profesor+\-container)(materia\-container)(aula\-container)(carrera\-container)(lapso_academico\-container)])\w+/g;
+    var x=/#.*\w+/g;
     //Busco la coicidencias dentro del regex previamente creado
     var container=url.match(x)
-    //Guardo el tipo de display que utiliza el formulario ya sea flex o grid
-    var display=url.slice(-4)
-    if (container.length>6) {
-        container=container[6]+container[7];
-    }
-    else {
+    if (container==null) {
         container="";
     }
+    else{
+      container=container[0].substring(1);
+      array=container.split("-")
+      
+    }
+    //Guardo el tipo de display que utiliza el formulario ya sea flex o grid
+    //var display=url.slice(-4)
     //Creo el nombre del div correspodiente
     //Muestro el div al usuario
     
-    container_url=container+"-"+display;
-    array=container_url.split("-");
+    container_url=array[0]+"-"+array[1];
+    console.log(array);
+    console.log(container_url);
     if (array[1]=="container") {
         document.getElementById('history_back').style.display="inline";
     }
     else if (array[1]=="historial") {
         document.getElementById('register_back').style.display="inline";
     }
-    if (container!="" && active!="active" && array[1]!="historial") {
-        AppearsAndDissapear(container,display)
+    if (container!="" && active!="active") {
+        AppearsAndDissapear(container_url, "grid")
     }
 }
 function ValidateDate() {
@@ -316,6 +320,7 @@ function AddAndRemove(div,div_add,input,input_add, type, container) {
 function BackOption(div){
         OnLoad("active")
         array=container_url.split("-")
+        console.log(array);
         container=array[0]
         if (div.id=="history_back") {
             document.getElementById(div.id).style.display="none";

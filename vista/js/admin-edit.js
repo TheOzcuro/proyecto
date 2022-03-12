@@ -95,8 +95,9 @@ function Delete(form,valor) {
        else if (valor!="") {
             document.querySelector(form).querySelector(".input-delete").value=valor;
         }
-        OnLoad();
+        OnLoad("active");
         document.querySelector(form).querySelector(".input-url").value=container_url;
+        console.log(document.querySelector(form).querySelector(".input-url").value)
         document.querySelector(form).submit();
     }
 function Modificar(container,display,valores) {
