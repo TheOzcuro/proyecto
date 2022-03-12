@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 09-03-2022 a las 02:11:33
+-- Tiempo de generación: 12-03-2022 a las 02:46:00
 -- Versión del servidor: 8.0.21
 -- Versión de PHP: 7.3.21
 
@@ -66,7 +66,9 @@ CREATE TABLE IF NOT EXISTS `aula` (
 INSERT INTO `aula` (`codigo`, `nombre`) VALUES
 ('11', 'SIMON RODRIGUEZ'),
 ('12', 'artes plastiscas'),
-('9000', 'OVER');
+('9000', 'OVER'),
+('sexo', 'AJA'),
+('aydiosmio', 'PUTAMADRE');
 
 -- --------------------------------------------------------
 
@@ -91,7 +93,56 @@ INSERT INTO `carrera` (`codigo`, `nombre`) VALUES
 ('11', 'AY VALE'),
 ('100', 'SERGIO'),
 ('90', 'TUMAMA'),
-('1000', 'AYDIOSMIO');
+('1000', 'AYDIOSMIO'),
+('', '');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `categoria`
+--
+
+DROP TABLE IF EXISTS `categoria`;
+CREATE TABLE IF NOT EXISTS `categoria` (
+  `codigo` int NOT NULL,
+  `nombre` varchar(40) COLLATE utf8_spanish_ci NOT NULL,
+  PRIMARY KEY (`codigo`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `categoria`
+--
+
+INSERT INTO `categoria` (`codigo`, `nombre`) VALUES
+(1, 'Auxiliar Docente I'),
+(2, 'Auxiliar Docente II'),
+(3, 'Auxiliar Docente III'),
+(4, 'Instructor'),
+(5, 'Asistente'),
+(6, 'Asesor'),
+(7, 'Agregado');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `dedicacion`
+--
+
+DROP TABLE IF EXISTS `dedicacion`;
+CREATE TABLE IF NOT EXISTS `dedicacion` (
+  `codigo` int NOT NULL,
+  `nombre` varchar(40) COLLATE utf8_spanish_ci NOT NULL,
+  PRIMARY KEY (`codigo`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `dedicacion`
+--
+
+INSERT INTO `dedicacion` (`codigo`, `nombre`) VALUES
+(1, 'Tiempo Convencional'),
+(2, 'Medio Tiempo'),
+(3, 'Tiempo Completo');
 
 -- --------------------------------------------------------
 
@@ -137,7 +188,9 @@ INSERT INTO `materia` (`codigo`, `nombre`, `tipo`) VALUES
 ('83', 'MUSIC', '0'),
 ('1616', 'ARTE', '1'),
 ('90', 'MATEMATICA 2', '0'),
-('1515', 'DEPORTE', '0');
+('1515', 'DEPORTE', '0'),
+('sexo', 'AJA', '0'),
+('enshel', 'TEAMO', '0');
 
 -- --------------------------------------------------------
 
@@ -206,6 +259,9 @@ CREATE TABLE IF NOT EXISTS `profesor` (
   `segundo_apellido` varchar(60) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `direccion` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `telefono` char(11) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `contratacion` int NOT NULL,
+  `categoria` int NOT NULL,
+  `dedicacion` int NOT NULL,
   PRIMARY KEY (`cedula`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
@@ -213,14 +269,37 @@ CREATE TABLE IF NOT EXISTS `profesor` (
 -- Volcado de datos para la tabla `profesor`
 --
 
-INSERT INTO `profesor` (`cedula`, `rol`, `primer_nombre`, `segundo_nombre`, `primer_apellido`, `segundo_apellido`, `direccion`, `telefono`) VALUES
-(1213132, '0', 'INSER', 'INTO', 'PROFESOR', 'VALUES', 'AYDIOS', '00000000000'),
-(11716900, '0', 'WILLIREX', 'ALEXI', 'RAMIREZ', 'RIVAS', 'TUCACA 7-27', '04141118100'),
-(9372683, '1', 'NIRETCIA', 'INMACULADA', 'RAMIREZ', 'VALERO', 'CASA CON PAREDES', '04161309806'),
-(3, '1', 'CULO', 'AAAANOVALE', 'ALVAREZ', 'TUMAMA', 'DSADASDSADSA', '000000000'),
-(12121212, '0', 'AAAAVAINA', '', 'HERNANDEZ', '', 'CAMBURITO CALLE 7', '04141118100'),
-(27460860, '0', 'SERGIO', 'BIENMARICO', 'BLANCO', 'CULO', 'DONDE VIVEN LOS RICOS Y MARIGUANOS Y VAINAS MAS QUE PUTO LA PUTA MADRE', '6969696969'),
-(29824977, '0', 'MANUEL', '', 'DELGADO', '', 'A DOS CASAS DEL BARRIL DEL CHAVO', '04145555555');
+INSERT INTO `profesor` (`cedula`, `rol`, `primer_nombre`, `segundo_nombre`, `primer_apellido`, `segundo_apellido`, `direccion`, `telefono`, `contratacion`, `categoria`, `dedicacion`) VALUES
+(1213132, '0', 'INSER', 'INTO', 'PROFESOR', 'VALUES', 'AYDIOS', '00000000000', 0, 0, 0),
+(11716900, '0', 'WILLIREX', 'ALEXI', 'RAMIREZ', 'RIVAS', 'TUCACA 7-27', '04141118100', 0, 0, 0),
+(9372683, '1', 'NIRETCIA', 'INMACULADA', 'RAMIREZ', 'VALERO', 'CASA CON PAREDES', '04161309806', 0, 0, 0),
+(3, '1', 'CULO', 'AAAANOVALE', 'ALVAREZ', 'TUMAMA', 'DSADASDSADSA', '000000000', 0, 0, 0),
+(12121212, '0', 'AAAAVAINA', '', 'HERNANDEZ', '', 'CAMBURITO CALLE 7', '04141118100', 0, 0, 0),
+(27460860, '0', 'SERGIO', 'BIENMARICO', 'BLANCO', 'CULO', 'DONDE VIVEN LOS RICOS Y MARIGUANOS Y VAINAS MAS QUE PUTO LA PUTA MADRE', '6969696969', 0, 0, 0),
+(29824977, '0', 'MANUEL', '', 'DELGADO', '', 'A DOS CASAS DEL BARRIL DEL CHAVO', '04145555555', 0, 0, 0),
+(1515614651, '0', 'DASDASDASDSADASD', '', 'SADSADSADSA', '', 'DSADASDASDASDAS', '1416516516', 2, 3, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tcontratacion`
+--
+
+DROP TABLE IF EXISTS `tcontratacion`;
+CREATE TABLE IF NOT EXISTS `tcontratacion` (
+  `codigo` int NOT NULL,
+  `tcontratacion` varchar(40) COLLATE utf8_spanish_ci NOT NULL,
+  PRIMARY KEY (`codigo`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `tcontratacion`
+--
+
+INSERT INTO `tcontratacion` (`codigo`, `tcontratacion`) VALUES
+(1, 'Tiempo Inderteminado'),
+(2, 'Tiempo Determinado'),
+(3, 'Ordinario');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
