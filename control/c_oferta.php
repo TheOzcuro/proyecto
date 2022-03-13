@@ -50,12 +50,14 @@ else if (isset($_POST["update"]) && $_POST["update"]!=""){
         $delete=$ejecutar->FindQuery("lapso_academico","trayecto",$_POST["update"]);
         $ejecutar->DeleteTable("oferta","lapso_academico",$delete[0]);
         $array=explode(",",$_POST["add"]);
-        for ($i=0; $i < count($array); $i++) { 
-            $validate=$ejecutar->registrarOferta($_POST["lapso"],$array[$i]);
+        if ($_POST["add"]!="") {
+            for ($i=0; $i < count($array); $i++) { 
+                $validate=$ejecutar->registrarOferta($_POST["lapso"],$array[$i]);
+            }
+            $_SESSION["update"]=$ejecutar->GetAllOferta($_POST["lapso"]);
         }
         $_SESSION["completado"]="Los datos fueron actualizados correctamente";
         $_SESSION["container"]="oferta-container";
-        $_SESSION["update"]=$ejecutar->GetAllOferta($_POST["lapso"]);
         header("Location:../vista/administrador.php#$url");
         
     }

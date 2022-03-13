@@ -51,12 +51,14 @@ else if (isset($_POST["update"]) && $_POST["update"]!=""){
         $delete=$ejecutar->FindQuery("carrera","nombre",$_POST["update"]);
         $ejecutar->DeleteTable("pensum","pnf",$delete[0]);
         $array=explode(",",$_POST["add"]);
-        for ($i=0; $i < count($array); $i++) { 
-            $validate=$ejecutar->registrarPensum($_POST["carreras"],$array[$i]);
+        if ($_POST["add"]!="") {
+            for ($i=0; $i < count($array); $i++) { 
+                $validate=$ejecutar->registrarPensum($_POST["carreras"],$array[$i]);
+            }
+            $_SESSION["update"]=$ejecutar->GetAllPensum($_POST["carreras"]);
         }
         $_SESSION["completado"]="Los datos fueron actualizados correctamente";
         $_SESSION["container"]="pensum-container";
-        $_SESSION["update"]=$ejecutar->GetAllPensum($_POST["carreras"]);
         header("Location:../vista/administrador.php#$url");
         
     }
