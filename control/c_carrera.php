@@ -29,10 +29,11 @@ else if (isset($_GET["buscar_carrera"]) && $_GET["buscar_carrera"]!="") {
 }
 else if (isset($_POST["update"]) && $_POST["update"]!=""){
     $dato=$ejecutar->FindQuery("carrera","nombre",$_POST["nombre_carrera"]);
-    if ($dato[1]==$_POST["nombre_carrera"] || $dato===2) {
+    $dato_origin=$ejecutar->FindQuery("carrera","codigo",$_POST["update"]);
+    if ($dato[1]==$dato_origin[1] || $dato===2) {
         $validate=$ejecutar->UpdateTableCarrera($_POST["codigo_carrera"], $_POST["nombre_carrera"], $_POST["update"]);
     }
-    if ($dato[1]!=$_POST["nombre_carrera"] && $dato!==2) {
+    if ($dato[1]!=$dato_origin[1] && $dato!==2) {
        $validate=3;
     }
     if ($validate===3) {

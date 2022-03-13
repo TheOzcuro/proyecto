@@ -29,24 +29,25 @@ else if (isset($_GET["buscar_lapso"]) && $_GET["buscar_lapso"]!="") {
 }
 else if (isset($_POST["update"]) && $_POST["update"]!=""){
     $dato=$ejecutar->FindQuery("lapso_academico","trayecto", $_POST["trayecto"]);
-    if ($dato[0]==$_POST["trayecto"] || $dato===2) {
+    $dato_origin=$ejecutar->FindQuery("lapso_academico","trayecto", $_POST["update"]);
+    if ($dato[0]==$dato_origin[0] || $dato===2) {
         $validate=$ejecutar->UpdateTableLapso($_POST["trayecto"], $_POST["fecha_inicio"], $_POST["fecha_final"], $_POST["update"]);
     }
-    if ($dato[0]!=$_POST["trayecto"] && $dato!==2) {
+    if ($dato[0]!=$dato_origin[0] && $dato!==2) {
        $validate=3;
     }
    
     if ($validate===3) {
         $_SESSION["error"]="El nombre de lapso que ingreso ya existe";
         $_SESSION["container"]="lapso_academico-container";
-        $_SESSION["update"]=$ejecutar->FindQuery("lapso_academico","trayecto", $_POST["trayecto"]);
+        $_SESSION["update"]=$ejecutar->FindQuery("lapso_academico","trayecto", $_POST["update"]);
         header("Location:../vista/administrador.php#$url");
 
     }
     else if ($validate===2) {
         $_SESSION["error"]="El nombre de lapso que ingreso ya existe";
         $_SESSION["container"]="lapso_academico-container";
-        $_SESSION["update"]=$ejecutar->FindQuery("lapso_academico","trayecto", $_POST["trayecto"]);
+        $_SESSION["update"]=$ejecutar->FindQuery("lapso_academico","trayecto", $_POST["update"]);
         header("Location:../vista/administrador.php#$url");
     }
     else {
@@ -55,7 +56,7 @@ else if (isset($_POST["update"]) && $_POST["update"]!=""){
         }
         $_SESSION["completado"]="Los datos fueron actualizados correctamente";
         $_SESSION["container"]="lapso_academico-container";
-        $_SESSION["update"]=$ejecutar->FindQuery("lapso_academico","trayecto", $_POST["trayecto"]);
+        $_SESSION["update"]=$ejecutar->FindQuery("lapso_academico","trayecto", $_POST["update"]);
         header("Location:../vista/administrador.php#$url");
     }
 }

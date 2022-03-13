@@ -29,12 +29,12 @@ if (isset($_GET["buscar_aula"]) && $_GET["buscar_aula"]!="") {
 }
 
 else if (isset($_POST["update"]) && $_POST["update"]!=""){
-    
     $dato=$ejecutar->FindQuery("aula","nombre",$_POST["nombre_aula"]);
-    if ($dato[1]==$_POST["nombre_aula"] || $dato==2) {
+    $dato_origin=$ejecutar->FindQuery("aula","codigo",$_POST["update"]);
+    if ($dato[1]==$dato_origin[1] || $dato===2) {
         $validate=$ejecutar->UpdateTableAula($_POST["codigo_aula"], $_POST["nombre_aula"], $_POST["update"]);
     }
-    if ($dato[1]!=$_POST["nombre_aula"] && $dato!==2) {
+    if ($dato[1]!=$dato_origin[1] && $dato!==2) {
        $validate=3;
     }
     if ($validate===3) {

@@ -31,10 +31,11 @@ if (isset($_GET["buscar_materia"]) && $_GET["buscar_materia"]!="") {
 }
 else if (isset($_POST["update"]) && $_POST["update"]!="") {
     $dato=$ejecutar->FindQuery("materia","nombre",$_POST["nombre_materia"]);
-    if ($dato[1]==$_POST["nombre_materia"] || $dato==2) {
+    $dato_origin=$ejecutar->FindQuery("materia","codigo",$_POST["update"]);
+    if ($dato[1]==$dato_origin[1] || $dato===2) {
         $validate=$ejecutar->UpdateTableMateria($_POST["codigo_materia"],$_POST["nombre_materia"],$_POST["tipo_materia"],$_POST["update"]);
     }
-    if ($dato[1]!=$_POST["nombre_materia"] && $dato!==2) {
+    if ($dato[1]!=$dato_origin[1] && $dato!==2) {
        $validate=3;
     }
     if ($validate===3) {

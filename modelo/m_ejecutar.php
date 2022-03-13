@@ -240,6 +240,7 @@ class registry extends mybsd {
 			}	
 	}
 	function FindQuery($tabla,$campo,$dato){
+		$dato=strtoupper($dato);
 		$query="SELECT * FROM `$tabla` WHERE `$campo`='$dato'";
 		$list=$this->list($this->execute($query));
 		if (count($list)==0) {
