@@ -46,6 +46,9 @@ function ActiveModificar(fila,container) {
 function ClearSpan() {
     drop_add=div_edit.querySelector(".drop_add");
     drop=div_edit.querySelector(".drop");
+    input_add=div_edit.querySelector('.input_add');
+    input_added=div_edit.querySelector('.input_added');
+    principal_input=div_edit.querySelector('.principal_input');
     span_materias=drop.querySelectorAll("span");
     span_add_materias=drop_add.querySelectorAll("span");
     for (let index = 0; index < span_materias.length; index++) {
@@ -60,16 +63,20 @@ function ClearSpan() {
         drop.appendChild(span);
         
     }
+    
     if (span_add_materias[0]!="") {
         for (let index = 0; index < span_add_materias.length; index++) {
             span_add_materias[index].remove();
         }
     }
+    principal_input.disabled=false;
+    input_added.disabled=false;
+    input_add.disabled=false;
 }
 function ModificarPensum(lista, container){
     add_array=[];
     valores=[];
-    div=document.getElementById(container)
+    div=document.getElementById(container);
     drop=div.querySelector(".drop");
     drop_add=div.querySelector(".drop_add");
     input_add=div.querySelector('.input_add');
@@ -81,22 +88,22 @@ function ModificarPensum(lista, container){
     }
     ClearSpan();
     valores.push(lista[0])
-    for (let index = 1; index < lista.length; index++) {
-        if (isNaN(lista[index])) {
+    var id=1
+    for (let index = 2; index < lista.length;) {
             span_add=document.createElement("span");
             span_add.innerHTML=lista[index];
             span_add.onclick=function () {AddValueMateria(input_add.id, this)}
-            span_add.id=lista[index-1];
-            add_array.push(lista[index-1]);
-            valores.push(lista[index-1]);
+            span_add.id=lista[id];
+            add_array.push(lista[id]);
+            valores.push(lista[id]);
             drop_add.appendChild(span_add);
-        }
-       
+            id=id+2;
+            index=index+2;
     }
     for (let index = 0, i=1; index < span_array.length; index++) {
-        
+       
         if (span_array[index].id==lista[i]) {
-            $('#'+span_array[index].id).remove();
+            $('#'+drop.id).find('#'+span_array[index].id).remove();
             index=-1;
             i=i+2;
         }  

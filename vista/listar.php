@@ -32,14 +32,17 @@ function CreateTable($table,$campo,$dato) {
   //El tamaño de largo que tendra el div
   $width=$namecount*105;
   //se calcula el total de pagina
-  $totalpage=ceil(count($lista)/2);
-
-  $count_lista=count($lista[0]);
-  //Si el numero de elementos sobrepasa a 5 se crean las variables
-  if (count($lista)>2) {
-    $numero_items=2*$page;
-    $index=$numero_items-2;
+  $totalpage=ceil(count($lista)/6);
+  if (!empty($lista)) {
+    $count_lista=count($lista[0]);
   }
+  
+  //Si el numero de elementos sobrepasa a 5 se crean las variables
+  if (count($lista)>6) {
+    $numero_items=6*$page;
+    $index=$numero_items-6;
+  }
+
   else {
     $numero_items=count($lista);
   }
@@ -48,7 +51,6 @@ function CreateTable($table,$campo,$dato) {
     $count_lista=8;
     $width=$namecount*105;
   }
-  
     //El div donde estara la tabla
   echo "<div id='$table-historial' class='container historial' style='animation-name=Appear'>";
   //el formulario de busqueda para los datos de la tabla
@@ -84,7 +86,12 @@ function CreateTable($table,$campo,$dato) {
     echo "<button id='back' type='button' onclick='refresh(1,``,`undefined`,`undefined`)' style='width:100px;height: 30px;margin-top: 20px;margin-left: 20px;'>Volver</button>";
   }
  echo "</div>";
-  echo "<div class='listar-container' style='display:none;width:".$width."px;grid-template-columns:repeat(".$namecount.",auto);left:-200px;'>";
+  if ($table=="profesor") {
+    echo "<div class='listar-container' style='display:none;width:".$width."px;grid-template-columns:repeat(".$namecount.",auto);left:45%;'>";
+  }
+  else {
+    echo "<div class='listar-container' style='display:none;width:".$width."px;grid-template-columns:repeat(".$namecount.",auto);'>";
+  }
   //Se crean las columnas con los nombres
   for ($i=0; $i < count($name); $i++) {
     echo "<div class='title'>".strtoupper($name[$i]["COLUMN_NAME"])."</div>";
@@ -156,7 +163,7 @@ function CreateTable($table,$campo,$dato) {
             if ($i==9) {
               echo "<div></div>";
             }
-            echo "<div class='".$name[$i]["COLUMN_NAME"]." f-".$index."' value=".$lista[$index][$i].">".$lista[$index][$i]."</div>";
+            echo "<div class='".$name[$i]["COLUMN_NAME"]." f-".$index."' value=".$lista[$index][$i]." title='".$lista[$index][$i]."'>".$lista[$index][$i]."</div>";
           }
          
         }

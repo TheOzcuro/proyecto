@@ -184,18 +184,10 @@ class registry extends mybsd {
 		
 	}
 	function registrarLapso($trayecto, $fecha_inicio, $fecha_final){
-		$nombre=strtoupper($trayecto);
-		$query="SELECT * FROM `lapso_academico` WHERE `trayecto`='$trayecto'";
-		
-		$val=$this->CheckResult($this->execute($query));
-		if ($val==1) {
-			return 3;
-		}
-		else {
+			$trayecto=strtoupper($trayecto);
 			$query="INSERT INTO `lapso_academico`(`trayecto`, `fecha_inicio`, `fecha_final`)
 			VALUES ('".strtoupper($trayecto)."','$fecha_inicio','$fecha_final')";
 			return $this->execute($query);
-		}
 		
 	}
 	function registrarPensum($carrera, $unidad){
@@ -266,58 +258,54 @@ class registry extends mybsd {
 		$query="UPDATE `administrador` SET `cedula`='$cedula' WHERE `cedula`='$origin_cedula' ";
 		return $this->execute($query);
 	}
-	function UpdateTableMateria($codigo,$nombre,$tipo,$original_codigo)
+	function UpdateTableMateria($codigo,$nombre_origin,$tipo,$original_codigo)
 	{
-		$nombre=strtoupper($nombre);
-		$query="SELECT * FROM `materia` WHERE `nombre`='$nombre'";
-		
-		$val=$this->CheckResult($this->execute($query));
-		
-		if ($val==1 && $codigo==$original_codigo) {
-			return 3;
-		}
-		else {
-			$query="UPDATE `materia` SET `codigo`='$codigo', `nombre`='$nombre', `tipo`='$tipo' WHERE `codigo`='$original_codigo'";
+		$nombre=strtoupper($nombre_origin);
+		$query="UPDATE `materia` SET `codigo`='$codigo', `nombre`='$nombre', `tipo`='$tipo' WHERE `codigo`='$original_codigo'";
 			return $this->execute($query);
-		}
 		
 	}
 	function UpdateTableAula($codigo,$nombre,$original_codigo)
 	{
 		$nombre=strtoupper($nombre);
-		$query="SELECT * FROM `aula` WHERE `nombre`='$nombre'";
-		$val=$this->CheckResult($this->execute($query));
-		if ($val==1 && $codigo==$original_codigo) {
-			return 3;
-		}
-		else {
-			
 			$query="UPDATE `aula` SET 
 					`codigo`='$codigo', `nombre`='$nombre' 
 					WHERE `codigo`='$original_codigo'";
 			return $this->execute($query);
-		}
 		
 	}
 	function UpdateTableCarrera($codigo,$nombre,$original_codigo)
 	{
-		$nombre=strtoupper($nombre);
-		$query="SELECT * FROM `carrera` 
-				WHERE `nombre`='$nombre'";
-		
-		$val=$this->CheckResult($this->execute($query));
-		if ($val==1 && $codigo==$original_codigo) {
-			return 3;
-		}
-		else {
-			
+			$nombre=strtoupper($nombre);
 			$query="UPDATE `carrera` SET `codigo`='$codigo', `nombre`='$nombre' WHERE `codigo`='$original_codigo'";
 			return $this->execute($query);
-		}
-		
+	
+	}
+	function UpdateTableCarreraPensum($codigo_origin,$codigo_nuevo)
+	{
+		$query="UPDATE `pensum` SET `pnf`='$codigo_nuevo' WHERE `pnf`='$codigo_origin'";
+		return $this->execute($query);
+	}
+	function UpdateTableMateriasPensum($codigo_origin,$codigo_nuevo)
+	{
+		$query="UPDATE `pensum` SET `unidad_curricular`='$codigo_nuevo' WHERE `unidad_curricular`='$codigo_origin'";
+		return $this->execute($query);
+	}
+	function UpdateTableLapsoOferta($codigo_origin,$codigo_nuevo)
+	{
+		$codigo_origin=strtoupper($codigo_origin);
+		$codigo_nuevo=strtoupper($codigo_nuevo);
+		$query="UPDATE `oferta` SET `lapso_academico`='$codigo_nuevo' WHERE `lapso_academico`='$codigo_origin'";
+		return $this->execute($query);
+	}
+	function UpdateTableCarrerasOferta($codigo_origin,$codigo_nuevo)
+	{
+		$query="UPDATE `oferta` SET `pnf`='$codigo_nuevo' WHERE `pnf`='$codigo_origin'";
+		return $this->execute($query);
 	}
 	function UpdateTableLapso($trayecto,$fecha_inicio,$fecha_final, $trayecto_origin)
 	{
+		$trayecto=strtoupper($trayecto);
 			$query="UPDATE `lapso_academico` SET `trayecto`='$trayecto',`fecha_inicio`='$fecha_inicio',`fecha_final`='$fecha_final' WHERE `trayecto`='$trayecto_origin'";
 			return $this->execute($query);
 		

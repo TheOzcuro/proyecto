@@ -48,7 +48,6 @@ else if (isset($_POST["update"]) && $_POST["update"]!=""){
         
     }
     else {
-        
         $delete=$ejecutar->FindQuery("carrera","nombre",$_POST["update"]);
         $ejecutar->DeleteTable("pensum","pnf",$delete[0]);
         $array=explode(",",$_POST["add"]);

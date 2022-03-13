@@ -30,7 +30,13 @@ if (isset($_GET["buscar_materia"]) && $_GET["buscar_materia"]!="") {
     }
 }
 else if (isset($_POST["update"]) && $_POST["update"]!="") {
-    $validate=$ejecutar->UpdateTableMateria($_POST["codigo_materia"],$_POST["nombre_materia"],$_POST["tipo_materia"],$_POST["update"]);
+    $dato=$ejecutar->FindQuery("materia","nombre",$_POST["nombre_materia"]);
+    if ($dato[1]==$_POST["nombre_materia"]) {
+        $validate=$ejecutar->UpdateTableMateria($_POST["codigo_materia"],$_POST["nombre_materia"],$_POST["tipo_materia"],$_POST["update"]);
+    }
+    if ($dato[1]!=$_POST["nombre_materia"]) {
+       $validate=3;
+    }
     if ($validate===3) {
         $_SESSION["error"]="El nombre de materia que ingreso ya existe";
         $_SESSION["update"]=$ejecutar->FindQuery("materia", "codigo", $_POST["update"]);
@@ -44,6 +50,9 @@ else if (isset($_POST["update"]) && $_POST["update"]!="") {
         header("Location:../vista/administrador.php#$url");
     }
     else {
+        if ($_POST["codigo_materia"]!=$_POST["update"]) {
+            $ejecutar->UpdateTableMateriasPensum($_POST["update"],$_POST["codigo_materia"]);
+        }
         $_SESSION["update"]=$ejecutar->FindQuery("materia", "codigo", $_POST["codigo_materia"]);
         $_SESSION["container"]="materia-container";
         $_SESSION["completado"]="Los datos de la materia han sido actualizados";
@@ -51,6 +60,7 @@ else if (isset($_POST["update"]) && $_POST["update"]!="") {
     }
 }
 else if (isset($_POST["delete"]) && $_POST["delete"]!="") {
+    $ejecutar->DeleteTable("oferta","unidad_curricular",$_POST["delete"]);
     $ejecutar->DeleteTable("materia","codigo",$_POST["delete"]);
     $_SESSION["completado"]="Los datos fueron eliminados";
     header("Location:../vista/administrador.php#$url");

@@ -42,7 +42,7 @@
 
                     <div class="input-container">
                         <label for="cedula" id="labelcedula">Cedula <b style="color:red;">*</b></label><br>
-                        <input type="text" id="cedula" name="cedula" onfocus="LabelAnimation('cedula','labelcedula')" onblur="LabelOut('cedula','labelcedula')" maxlength="11" class="input input-label">
+                        <input type="text" id="cedula" name="cedula" onfocus="LabelAnimation('cedula','labelcedula')" onblur="LabelOut('cedula','labelcedula')" maxlength="10" class="input input-label">
                         <input type="checkbox" class="checkbox-edit checkbox-profesor" onclick="CheckboxDisabled('cedula', this)">
                     </div>
 
@@ -262,7 +262,7 @@
                     </div>
                     <div class="input-container">
                         <label for="carrera" id="labelcar">Carreras</label><br>
-                        <input type="text" id="carrera_oferta" name="carrera_oferta" onfocus="LabelAnimation('carrera_oferta','labelcar')" onblur="LabelOut('carrera_oferta','labelcar')" maxlength="30" class="input-label input_added" onkeyup="Search('carrera_oferta','carreras_oferta_drop')">
+                        <input type="text" id="carrera_oferta" name="carrera_oferta" onfocus="LabelAnimation('carrera_oferta','labelcar')" onblur="LabelOut('carrera_oferta','labelcar')" maxlength="30" class="input-label input_added" onkeyup="Search('carrera_oferta','carreras_oferta_drop')" autocomplete="off">
                         <img src="css/img/add.png" alt="" onclick="AddAndRemove('carreras_oferta_drop','carreras_add_drop','carrera_oferta','carreras_add','add', 'oferta-container')">
                         <input type="checkbox" class="checkbox-edit checkbox-lapso"  onclick="CheckboxDisabled('carrera_oferta', this,'active')">
 
@@ -281,7 +281,7 @@
                     </div>
                     <div class="input-container  input-add">
                         <label for="carreras_add" id="labelcarreras_add">Carreras Añadidas</label><br>
-                    <input type="text" id="carreras_add" name="carreras_add" onfocus="LabelAnimation('carreras_add','labelcarreras_add')" onblur="LabelOut('carreras_add','labelcarreras_add')" maxlength="30" class="input-label input_add" onkeyup="Search('carreras_add','carreras_add_drop')">
+                    <input type="text" id="carreras_add" name="carreras_add" onfocus="LabelAnimation('carreras_add','labelcarreras_add')" onblur="LabelOut('carreras_add','labelcarreras_add')" maxlength="30" class="input-label input_add" onkeyup="Search('carreras_add','carreras_add_drop')" autocomplete="off">
                         <img src="css/img/menos.png" alt="" onclick="AddAndRemove('carreras_add_drop','carreras_oferta_drop','carreras_add','carrera_oferta','del', 'oferta-container')">
                         <input type="text" id="add" name="add" class='input' hidden>
                         <input type="checkbox" class="checkbox-edit checkbox-add"  onclick="CheckboxDisabled('carreras_add', this, 'active')">
@@ -338,7 +338,7 @@
                     ?>
                     <div class="input-container" id="input-carreras" style='margin-bottom:60px;'>
                         <label for="lapso" id="labebloques">Bloques</label><br>
-                        <input type="text" id="bloques" name="bloques" onfocus="LabelAnimation('bloques','labebloques')" onblur="LabelOut('bloques','labebloques')" maxlength="30" class="input-label principal_input" onkeyup="Search('bloques','bloques_drop')">
+                        <input type="text" id="bloques" name="bloques" onfocus="LabelAnimation('bloques','labebloques')" onblur="LabelOut('bloques','labebloques')" maxlength="30" class="input-label principal_input" onkeyup="Search('bloques','bloques_drop')" autocomplete="off">
                         <input type="checkbox" class="checkbox-edit"  onclick="CheckboxDisabled('lapso', this)">
                         <img src="css/img/add.png" alt="" onclick="AddAndRemove('bloques_drop','bloques_add_drop','bloques','bloques_add','add', 'disponibilidad-container')">
                         <div class="dropdown" id="bloques_drop">
@@ -357,7 +357,7 @@
                     </div>
                     <div class="input-container  input-add" style='grid-column: span 3/;'>
                         <label for="bloques_add" id="labelbloques_add">Bloques Añadidos</label><br>
-                    <input type="text" id="bloques_add" name="bloques_add" onfocus="LabelAnimation('bloques_add','labelbloques_add')" onblur="LabelOut('bloques_add','labelbloques_add')" maxlength="30" class="input-label input_add" onkeyup="Search('bloques_add','bloques_add_drop')">
+                    <input type="text" id="bloques_add" name="bloques_add" onfocus="LabelAnimation('bloques_add','labelbloques_add')" onblur="LabelOut('bloques_add','labelbloques_add')" maxlength="30" class="input-label input_add" onkeyup="Search('bloques_add','bloques_add_drop')" autocomplete="off">
                     
                         <img src="css/img/menos.png" alt="" onclick="AddAndRemove('bloques_add_drop','bloques_drop','bloques_add','bloques','del', 'disponibilidad-container')">
                         <input type="text" id="add" name="add" class='input' hidden>
@@ -401,7 +401,7 @@
                     </div>
                     <button type="button" onclick="Submit('lapso_academico')" style='grid-column:1/2;'>Crear</button>
                     <button type="button" onclick="DisplayDelete('flex','#lapso-find','#lapso_academico')" style='grid-column:3/4;'>Buscar</button>
-                    <button type="button" onclick="SavePensum()" class="button-edit button-update">Guardar</button><br>
+                    <button type="button" onclick="Save('lapso_academico')" class="button-edit button-update">Guardar</button><br>
                     <button type="button" onclick="DisplayDelete('block','#lapso_academico')" class="button-edit button-delete">Eliminar</button>
                 </div>
             </form>

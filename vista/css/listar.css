@@ -40,11 +40,11 @@
   grid-auto-rows: 60px;
   box-sizing: border-box;
   position: absolute;
-  top: 100px;
-  left: 0;
-  right: -100px;
   margin-left: auto;
   margin-right: auto;
+  top: 100px;
+  left: 50%;
+  transform: translate(-50%, 0%);
 }
 .listar-container button {
   width: 70px;
@@ -56,9 +56,6 @@
   justify-content: center;
   align-content: center;
   text-align: center;
-  border-left: 2px solid black;
-  border-right: 2px solid black;
-  border-top: 1px solid black;
   border-bottom: 1px solid black;
   font-size: 0.9vw;
   padding: 7px;
@@ -69,8 +66,10 @@
 }
 .listar-container .title {
   background: #695ff8;
+  border-top: 1px solid black;
   font-size: 0.9vw;
   color: white;
+  font-size: 12px;
   line-height: 50px;
 }
 

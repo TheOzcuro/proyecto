@@ -59,8 +59,8 @@ function Save(form) {
 function SavePensum(form) {
     var valideTrue=false;
     var valideFalse="";
+    console.log(form);
     form=document.querySelector(form);
-    console.log(valores)
     for (let index = 0; index < add_array.length; index++) {
         if (add_array[index]!=valores[index+1]) {
             valideTrue=true
@@ -70,11 +70,10 @@ function SavePensum(form) {
             valideFalse="false";
         }
     }
+    
     if (form.querySelector('.principal_input').value!=valores[0] && form.querySelector('.principal_input').value!="") {
-        
         valideTrue=true
         valideFalse="";
-        
     }
 
     if (valideTrue=true && valideFalse=="") {
@@ -136,7 +135,7 @@ function Close() {
         button[1].style.display="block";
         button[2].style.display="none";
         button[3].style.display="none";
-        var input=div_edit.querySelectorAll("input");
+        var input=div_edit.querySelectorAll(".input");
         var label=div_edit.querySelectorAll("label");
         for (let index = 0; index < input.length; index++) {
             input[index].disabled=false

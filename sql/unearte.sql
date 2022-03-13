@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 12-03-2022 a las 02:46:00
+-- Tiempo de generación: 13-03-2022 a las 17:12:47
 -- Versión del servidor: 8.0.21
 -- Versión de PHP: 7.3.21
 
@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS `aula` (
 --
 
 INSERT INTO `aula` (`codigo`, `nombre`) VALUES
-('11', 'SIMON RODRIGUEZ'),
+('puta', 'BURGUER'),
 ('12', 'artes plastiscas'),
 ('9000', 'OVER'),
 ('sexo', 'AJA'),
@@ -88,13 +88,14 @@ CREATE TABLE IF NOT EXISTS `carrera` (
 --
 
 INSERT INTO `carrera` (`codigo`, `nombre`) VALUES
-('1313', 'INGENIERIA ELECTRICA'),
-('1414', 'AGRONOMIA'),
-('11', 'AY VALE'),
+('2121', 'INGENIERIA ELECTRICA'),
+('1515', 'AGRONOMIA'),
 ('100', 'SERGIO'),
 ('90', 'TUMAMA'),
-('1000', 'AYDIOSMIO'),
-('', '');
+('dadasd', '333333333333'),
+('sexo', 'LA PELICULA'),
+('aaaaaaa', 'AAAAAAAAAAAA'),
+('1414', 'ENSHEL');
 
 -- --------------------------------------------------------
 
@@ -163,8 +164,8 @@ CREATE TABLE IF NOT EXISTS `lapso_academico` (
 --
 
 INSERT INTO `lapso_academico` (`trayecto`, `fecha_inicio`, `fecha_final`) VALUES
-('2020-II', '2022-02-19', '2022-03-13'),
-('2021-II', '2022-03-02', '2022-03-23');
+('2021-II', '2022-02-19', '2022-03-13'),
+('2023-II', '2022-03-05', '2022-03-23');
 
 -- --------------------------------------------------------
 
@@ -185,12 +186,11 @@ CREATE TABLE IF NOT EXISTS `materia` (
 --
 
 INSERT INTO `materia` (`codigo`, `nombre`, `tipo`) VALUES
-('83', 'MUSIC', '0'),
-('1616', 'ARTE', '1'),
+('84', 'MUSIC', '0'),
+('1717', 'ARTE', '1'),
 ('90', 'MATEMATICA 2', '0'),
 ('1515', 'DEPORTE', '0'),
-('sexo', 'AJA', '0'),
-('enshel', 'TEAMO', '0');
+('sexo', 'AJA', '0');
 
 -- --------------------------------------------------------
 
@@ -204,19 +204,18 @@ CREATE TABLE IF NOT EXISTS `oferta` (
   `lapso_academico` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
   `pnf` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   PRIMARY KEY (`codigo`)
-) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=32 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `oferta`
 --
 
 INSERT INTO `oferta` (`codigo`, `lapso_academico`, `pnf`) VALUES
-(13, '2021-II', '1414'),
-(12, '2021-II', '1313'),
-(11, '2021-II', '11'),
-(14, '2020-II', '1313'),
-(15, '2020-II', '1414'),
-(16, '2020-II', '11');
+(31, '2023-II', '1414'),
+(28, '2021-II', '2121'),
+(29, '2021-II', 'dadasd'),
+(30, '2023-II', 'sexo'),
+(27, '2021-II', '1515');
 
 -- --------------------------------------------------------
 
@@ -230,18 +229,16 @@ CREATE TABLE IF NOT EXISTS `pensum` (
   `pnf` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
   `unidad_curricular` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
   PRIMARY KEY (`codigo`)
-) ENGINE=MyISAM AUTO_INCREMENT=256 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=271 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `pensum`
 --
 
 INSERT INTO `pensum` (`codigo`, `pnf`, `unidad_curricular`) VALUES
-(249, '1414', '1616'),
-(250, '1414', '1515'),
-(255, '1313', '1616'),
-(254, '1313', '83'),
-(253, '1313', '90');
+(270, '2121', 'sexo'),
+(269, '2121', '84'),
+(268, '2121', '1717');
 
 -- --------------------------------------------------------
 
@@ -270,14 +267,13 @@ CREATE TABLE IF NOT EXISTS `profesor` (
 --
 
 INSERT INTO `profesor` (`cedula`, `rol`, `primer_nombre`, `segundo_nombre`, `primer_apellido`, `segundo_apellido`, `direccion`, `telefono`, `contratacion`, `categoria`, `dedicacion`) VALUES
-(1213132, '0', 'INSER', 'INTO', 'PROFESOR', 'VALUES', 'AYDIOS', '00000000000', 0, 0, 0),
-(11716900, '0', 'WILLIREX', 'ALEXI', 'RAMIREZ', 'RIVAS', 'TUCACA 7-27', '04141118100', 0, 0, 0),
-(9372683, '1', 'NIRETCIA', 'INMACULADA', 'RAMIREZ', 'VALERO', 'CASA CON PAREDES', '04161309806', 0, 0, 0),
-(3, '1', 'CULO', 'AAAANOVALE', 'ALVAREZ', 'TUMAMA', 'DSADASDSADSA', '000000000', 0, 0, 0),
-(12121212, '0', 'AAAAVAINA', '', 'HERNANDEZ', '', 'CAMBURITO CALLE 7', '04141118100', 0, 0, 0),
-(27460860, '0', 'SERGIO', 'BIENMARICO', 'BLANCO', 'CULO', 'DONDE VIVEN LOS RICOS Y MARIGUANOS Y VAINAS MAS QUE PUTO LA PUTA MADRE', '6969696969', 0, 0, 0),
-(29824977, '0', 'MANUEL', '', 'DELGADO', '', 'A DOS CASAS DEL BARRIL DEL CHAVO', '04145555555', 0, 0, 0),
-(1515614651, '0', 'DASDASDASDSADASD', '', 'SADSADSADSA', '', 'DSADASDASDASDAS', '1416516516', 2, 3, 2);
+(1213132, '0', 'INSER', 'INTO', '0', 'VALUES', 'AYDIOS', '00000000000', 2, 4, 3),
+(11716900, '0', 'WILLIREX', 'ALEXI', 'RAMIREZ', 'RIVAS', 'TUCACA 7-27', '04141118100', 2, 1, 1),
+(9372683, '1', 'NIRETCIA', 'INMACULADA', 'RAMIREZ', 'VALERO', 'CASA CON PAREDES', '04161309806', 1, 4, 2),
+(3, '1', 'CULO', 'AAAANOVALE', 'ALVAREZ', 'TUMAMA', 'DSADASDSADSA', '000000000', 2, 5, 3),
+(12121212, '0', 'AAAAVAINA', '', 'HERNANDEZ', '', 'CAMBURITO CALLE 7', '04141118100', 1, 5, 1),
+(27460860, '0', 'SERGIO', 'BIENMARICO', 'BLANCO', 'CULO', 'DONDE VIVEN LOS RICOS Y MARIGUANOS Y VAINAS MAS QUE PUTO LA PUTA MADRE', '6969696969', 2, 6, 3),
+(29824977, '0', 'MANUEL', '', 'DELGADO', '', 'A DOS CASAS DEL BARRIL DEL CHAVO', '04145555555', 2, 7, 3);
 
 -- --------------------------------------------------------
 

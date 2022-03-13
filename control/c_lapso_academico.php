@@ -29,28 +29,31 @@ else if (isset($_GET["buscar_lapso"]) && $_GET["buscar_lapso"]!="") {
 }
 else if (isset($_POST["update"]) && $_POST["update"]!=""){
     $validate=$ejecutar->UpdateTableLapso($_POST["trayecto"], $_POST["fecha_inicio"], $_POST["fecha_final"], $_POST["update"]);
-
     if ($validate===3) {
         $_SESSION["error"]="El nombre de lapso que ingreso ya existe";
         $_SESSION["container"]="lapso_academico-container";
-        $_SESSION["update"]=$ejecutar->FindQuery("lapso_academico","trayecto", $_POST["update"]);
+        $_SESSION["update"]=$ejecutar->FindQuery("lapso_academico","trayecto", $_POST["trayecto"]);
         header("Location:../vista/administrador.php#$url");
 
     }
     else if ($validate===2) {
         $_SESSION["error"]="El nombre de lapso que ingreso ya existe";
         $_SESSION["container"]="lapso_academico-container";
-        $_SESSION["update"]=$ejecutar->FindQuery("lapso_academico","trayecto", $_POST["update"]);
+        $_SESSION["update"]=$ejecutar->FindQuery("lapso_academico","trayecto", $_POST["trayecto"]);
         header("Location:../vista/administrador.php#$url");
     }
     else {
+        if ($_POST["trayecto"]!=$_POST["update"]) {
+            $ejecutar->UpdateTableLapsoOferta($_POST["update"],$_POST["trayecto"]);
+        }
         $_SESSION["completado"]="Los datos fueron actualizados correctamente";
         $_SESSION["container"]="lapso_academico-container";
-        $_SESSION["update"]=$ejecutar->FindQuery("lapso_academico","trayecto", $_POST["update"]);
+        $_SESSION["update"]=$ejecutar->FindQuery("lapso_academico","trayecto", $_POST["trayecto"]);
         header("Location:../vista/administrador.php#$url");
     }
 }
 else if (isset($_POST["delete"]) && $_POST["delete"]!=""){
+    $ejecutar->DeleteTable("oferta","lapso_academico",$_POST["delete"]);
     $ejecutar->DeleteTable("lapso_academico","trayecto",$_POST["delete"]);
     $_SESSION["completado"]="Los datos fueron eliminados correctamente";
     header("Location:../vista/administrador.php#$url");
@@ -69,6 +72,7 @@ else {
     else {
         header("Location:../vista/administrador.php#$url");
         $_SESSION["completado"]="El lapso se creo correctamente";
+        $_SESSION["update"]=$ejecutar->FindQuery("lapso_academico","trayecto", $_POST["trayecto"]);
         $_SESSION["link"]="../control/c_lapso_academico.php?buscar_lapso=".$_POST["trayecto"];
     }
 }

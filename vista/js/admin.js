@@ -94,8 +94,6 @@ function OnLoad(active){
     //Muestro el div al usuario
     
     container_url=array[0]+"-"+array[1];
-    console.log(array);
-    console.log(container_url);
     if (array[1]=="container") {
         document.getElementById('history_back').style.display="inline";
     }

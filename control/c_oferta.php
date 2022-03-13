@@ -4,7 +4,8 @@ include_once("../modelo/m_ejecutar.php");
 $ejecutar= new registry();
 $url=$_POST["url"];
 if (isset($_POST["buscar_oferta"]) && $_POST["buscar_oferta"]!="") {
-    $dato=$ejecutar->GetAllPensum($_POST["buscar_oferta"]);
+    $dato=$ejecutar->GetAllOferta($_POST["buscar_oferta"]);
+    print_r($_POST["buscar_oferta"]);
     if (count($dato)==0) {
        $_SESSION["error"]="El nombre que ingreso no existe";
        header("Location:../vista/administrador.php#$url");
@@ -16,8 +17,8 @@ if (isset($_POST["buscar_oferta"]) && $_POST["buscar_oferta"]!="") {
      }
 }
 else if (isset($_GET["buscar_oferta"]) && $_GET["buscar_oferta"]!="") {
-    $dato=$ejecutar->GetAllPensum($_GET["buscar_oferta"]);
-    if ($validate===2) {
+    $dato=$ejecutar->GetAllOferta($_GET["buscar_oferta"]);
+    if (count($dato)==0) {
        $_SESSION["error"]="El nombre que ingreso no existe";
        header("Location:../vista/administrador.php#oferta-container-grid");
     }
@@ -60,7 +61,7 @@ else if (isset($_POST["update"]) && $_POST["update"]!=""){
     }
 }
 else if (isset($_POST["delete"]) && $_POST["delete"]!=""){
-    $ejecutar->DeleteTable("pensum","pnf",$_POST["delete"]);
+    $ejecutar->DeleteTable("oferta","lapso_academico",$_POST["delete"]);
     $_SESSION["completado"]="Los datos fueron eliminados correctamente";
     header("Location:../vista/administrador.php#$url");
 }
@@ -83,7 +84,7 @@ else {
         }
         header("Location:../vista/administrador.php#$url");
         $_SESSION["completado"]="La carrera se agrego correctamente";
-        $_SESSION["link"]="../control/c_pensum.php?buscar_pensum=".$dato[0];
+        $_SESSION["link"]="../control/c_oferta.php?buscar_oferta=".$dato[0];
     }
 }
 ?>

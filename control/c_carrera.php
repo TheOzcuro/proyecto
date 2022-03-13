@@ -28,14 +28,18 @@ else if (isset($_GET["buscar_carrera"]) && $_GET["buscar_carrera"]!="") {
      }
 }
 else if (isset($_POST["update"]) && $_POST["update"]!=""){
-    $validate=$ejecutar->UpdateTableCarrera($_POST["codigo_carrera"], $_POST["nombre_carrera"], $_POST["update"]);
-    
+    $dato=$ejecutar->FindQuery("carrera","nombre",$_POST["nombre_carrera"]);
+    if ($dato[1]==$_POST["nombre_carrera"]) {
+        $validate=$ejecutar->UpdateTableCarrera($_POST["codigo_carrera"], $_POST["nombre_carrera"], $_POST["update"]);
+    }
+    if ($dato[1]!=$_POST["nombre_carrera"]) {
+       $validate=3;
+    }
     if ($validate===3) {
         $_SESSION["error"]="El nombre de carrera que ingreso ya existe";
         $_SESSION["container"]="carrera-container";
         $_SESSION["update"]=$ejecutar->FindQuery("carrera","codigo", $_POST["update"]);
         header("Location:../vista/administrador.php#$url");
-
     }
     else if ($validate===2) {
         $_SESSION["error"]="El codigo de carrera que ingreso ya existe";
@@ -44,6 +48,10 @@ else if (isset($_POST["update"]) && $_POST["update"]!=""){
         header("Location:../vista/administrador.php#$url");
     }
     else {
+        if ($_POST["codigo_carrera"]!=$_POST["update"]) {
+            $ejecutar->UpdateTableCarreraPensum($_POST["update"],$_POST["codigo_carrera"]);
+            $ejecutar->UpdateTableCarrerasOferta($_POST["update"],$_POST["codigo_carrera"]);
+        }
         $_SESSION["completado"]="Los datos fueron actualizados correctamente";
         $_SESSION["container"]="carrera-container";
         $_SESSION["update"]=$ejecutar->FindQuery("carrera","codigo", $_POST["codigo_carrera"]);
@@ -51,6 +59,8 @@ else if (isset($_POST["update"]) && $_POST["update"]!=""){
     }
 }
 else if (isset($_POST["delete"]) && $_POST["delete"]!=""){
+    $ejecutar->DeleteTable("pensum","pnf",$_POST["delete"]);
+    $ejecutar->DeleteTable("oferta","pnf",$_POST["delete"]);
     $ejecutar->DeleteTable("carrera","codigo",$_POST["delete"]);
     $_SESSION["completado"]="Los datos fueron eliminados correctamente";
     header("Location:../vista/administrador.php#$url");
