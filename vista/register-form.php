@@ -246,7 +246,7 @@
                     <h2>Oferta Academica</h2>
                     <div class="input-container" id="input-carreras">
                         <label for="lapso" id="labelapso">Trayecto</label><br>
-                        <input type="text" id="lapso" name="lapso" onfocus="LabelAnimation('lapso','labelapso')" onblur="LabelOut('lapso','labelapso')" maxlength="30" class="input input-label principal_input">
+                        <input type="text" id="lapso" name="lapso" onfocus="LabelAnimation('lapso','labelapso')" onblur="LabelOut('lapso','labelapso')" maxlength="30" class="input input-label principal_input" autocomplete="off">
                         <input type="checkbox" class="checkbox-edit"  onclick="CheckboxDisabled('lapso', this)">
                         <div class="dropdown" id="lapso_drop">
                         <?php 

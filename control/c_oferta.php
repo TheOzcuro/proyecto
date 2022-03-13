@@ -68,14 +68,14 @@ else if (isset($_POST["delete"]) && $_POST["delete"]!=""){
 
 else {
     $dato=$ejecutar->FindQuery("lapso_academico","trayecto",$_POST["lapso"]);
-    $validate=$ejecutar->FindQuery("oferta","pnf",$dato[0]);
+    $validate=$ejecutar->GetAllOferta($_POST["lapso"]);
     if ($dato===2) {
         header("Location:../vista/administrador.php#$url");
-        $_SESSION["error"]="La carrera que ingreso no existe";
+        $_SESSION["error"]="El trayecto que ingreso no existe";
     }
-    else if (count($validate)>3) {
+    else if (count($validate)>0) {
         header("Location:../vista/administrador.php#$url");
-        $_SESSION["error"]="La carrera que ingreso ya existe";
+        $_SESSION["error"]="El trayecto que ingreso ya existe";
     }
     else {
         $array=explode(",",$_POST["add"]);

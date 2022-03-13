@@ -19,20 +19,20 @@ else if (isset($_GET["buscar_lapso"]) && $_GET["buscar_lapso"]!="") {
     $validate=$ejecutar->FindQuery("lapso_academico","trayecto", $_POST["buscar_lapso"]);
     if ($validate===2) {
        $_SESSION["error"]="El codigo que ingreso no existe";
-       header("Location:../vista/administrador.php#lapso-container-grid");
+       header("Location:../vista/administrador.php#lapso_academico-container-grid");
     }
     else {
         $_SESSION["update"]=$validate;
         $_SESSION["container"]="lapso_academico-container";
-        header("Location:../vista/administrador.php#lapso-container-grid");
+        header("Location:../vista/administrador.php#lapso_academico-container-grid");
      }
 }
 else if (isset($_POST["update"]) && $_POST["update"]!=""){
     $dato=$ejecutar->FindQuery("lapso_academico","trayecto", $_POST["trayecto"]);
-    if ($dato[1]==$_POST["nombre_carrera"] || $dato===2) {
+    if ($dato[0]==$_POST["trayecto"] || $dato===2) {
         $validate=$ejecutar->UpdateTableLapso($_POST["trayecto"], $_POST["fecha_inicio"], $_POST["fecha_final"], $_POST["update"]);
     }
-    if ($dato[1]!=$_POST["nombre_carrera"] && $dato!==2) {
+    if ($dato[0]!=$_POST["trayecto"] && $dato!==2) {
        $validate=3;
     }
    

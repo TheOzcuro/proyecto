@@ -160,6 +160,7 @@ function Submit(form){
        }
        else {
             if (input[index].value=="") {
+            input[index].style.borderColor='red'
             console.log(input[index].id)
             valide=false;
             }
@@ -172,6 +173,9 @@ function Submit(form){
         OnLoad("active")
         document.getElementById(form).querySelector(".input-url").value=container_url;
         document.getElementById(form).submit();
+   }
+   else {
+    Error("Parece que algunos datos estan vacios o son erroneos","msg_error","p_error")
    }
 }
 function KeyTexto() {
