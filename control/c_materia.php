@@ -31,10 +31,10 @@ if (isset($_GET["buscar_materia"]) && $_GET["buscar_materia"]!="") {
 }
 else if (isset($_POST["update"]) && $_POST["update"]!="") {
     $dato=$ejecutar->FindQuery("materia","nombre",$_POST["nombre_materia"]);
-    if ($dato[1]==$_POST["nombre_materia"]) {
+    if ($dato[1]==$_POST["nombre_materia"] || $dato==2) {
         $validate=$ejecutar->UpdateTableMateria($_POST["codigo_materia"],$_POST["nombre_materia"],$_POST["tipo_materia"],$_POST["update"]);
     }
-    if ($dato[1]!=$_POST["nombre_materia"]) {
+    if ($dato[1]!=$_POST["nombre_materia"] && $dato!==2) {
        $validate=3;
     }
     if ($validate===3) {
@@ -66,13 +66,14 @@ else if (isset($_POST["delete"]) && $_POST["delete"]!="") {
     header("Location:../vista/administrador.php#$url");
 }
 else{
+    $dato=$ejecutar->FindQuery("materia","nombre",$_POST["nombre_materia"]);
     $validate=$ejecutar->registrarMateria($_POST["codigo_materia"],$_POST["nombre_materia"],$_POST["tipo_materia"]);
     if ($validate===2) {
         header("Location:../vista/administrador.php#$url");
         $_SESSION["error"]="El codigo de materia que ingreso ya existe";
         
     }
-    else if ($validate===3) {
+    else if ($dato!==2) {
         header("Location:../vista/administrador.php#$url");
         $_SESSION["error"]="El nombre de materia que ingreso ya existe";
     }

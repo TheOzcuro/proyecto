@@ -29,10 +29,10 @@ else if (isset($_GET["buscar_carrera"]) && $_GET["buscar_carrera"]!="") {
 }
 else if (isset($_POST["update"]) && $_POST["update"]!=""){
     $dato=$ejecutar->FindQuery("carrera","nombre",$_POST["nombre_carrera"]);
-    if ($dato[1]==$_POST["nombre_carrera"]) {
+    if ($dato[1]==$_POST["nombre_carrera"] || $dato===2) {
         $validate=$ejecutar->UpdateTableCarrera($_POST["codigo_carrera"], $_POST["nombre_carrera"], $_POST["update"]);
     }
-    if ($dato[1]!=$_POST["nombre_carrera"]) {
+    if ($dato[1]!=$_POST["nombre_carrera"] && $dato!==2) {
        $validate=3;
     }
     if ($validate===3) {
@@ -67,12 +67,13 @@ else if (isset($_POST["delete"]) && $_POST["delete"]!=""){
 }
 
 else {
+    $dato=$ejecutar->FindQuery("carrera","nombre",$_POST["nombre_carrera"]);
     $validate=$ejecutar->registrarCarrera($_POST["codigo_carrera"],$_POST["nombre_carrera"]);
     if ($validate===2) {
         header("Location:../vista/administrador.php#$url");
         $_SESSION["error"]="El codigo de carrera que ingreso ya existe";
     }
-    else if ($validate===3) {
+    else if ($dato!==2) {
         header("Location:../vista/administrador.php#$url");
         $_SESSION["error"]="El nombre de carrera que ingreso ya existe";
     }

@@ -190,7 +190,7 @@
                     <h2>Pensum</h2>
                     <div class="input-container" id="input-carreras">
                         <label for="carreras" id="labelcarreras">Carreras</label><br>
-                        <input type="text" id="carreras" name="carreras" onfocus="LabelAnimation('carreras','labelcarreras')" onblur="LabelOut('carreras','labelcarreras')" maxlength="30" class="input input-label principal_input" onkeyup="Search('carreras','carreras_drop')">
+                        <input type="text" id="carreras" name="carreras" onfocus="LabelAnimation('carreras','labelcarreras')" onblur="LabelOut('carreras','labelcarreras')" maxlength="30" class="input input-label principal_input" onkeyup="Search('carreras','carreras_drop')" autocomplete="off">
                         <input type="checkbox" class="checkbox-edit"  onclick="CheckboxDisabled('carreras', this)">
                         <div class="dropdown" id="carreras_drop">
                         <?php 
@@ -206,7 +206,7 @@
                     </div>
                     <div class="input-container">
                         <label for="materias" id="labelmaterias">Materias</label><br>
-                        <input type="text" id="materias" name="materias" onfocus="LabelAnimation('materias','labelmaterias')" onblur="LabelOut('materias','labelmaterias')" maxlength="30" class="input-label input_added" onkeyup="Search('materias','materias_drop')">
+                        <input type="text" id="materias" name="materias" onfocus="LabelAnimation('materias','labelmaterias')" onblur="LabelOut('materias','labelmaterias')" maxlength="30" class="input-label input_added" onkeyup="Search('materias','materias_drop')" autocomplete="off">
                         <img src="css/img/add.png" alt="" onclick="AddAndRemove('materias_drop','materias_add_drop','materias','materias_add','add','pensum-container')">
                         <input type="checkbox" class="checkbox-edit checkbox-lapso"  onclick="CheckboxDisabled('materias', this,'active')">
 
@@ -225,7 +225,7 @@
                     </div>
                     <div class="input-container input-add">
                         <label for="materias_add" id="labelmaterias_add">Materias Añadidas</label><br>
-                        <input type="text" id="materias_add" name="materias_add" onfocus="LabelAnimation('materias_add','labelmaterias_add')" onblur="LabelOut('materias_add','labelmaterias_add')" maxlength="30" class="input-label input_add" onkeyup="Search('materias_add','materias_add_drop')">
+                        <input type="text" id="materias_add" name="materias_add" onfocus="LabelAnimation('materias_add','labelmaterias_add')" onblur="LabelOut('materias_add','labelmaterias_add')" maxlength="30" class="input-label input_add" onkeyup="Search('materias_add','materias_add_drop')" autocomplete="off">
                         <img src="css/img/menos.png" alt="" onclick="AddAndRemove('materias_add_drop','materias_drop','materias_add','materias','del','pensum-container')">
                         <input type="checkbox" class="checkbox-edit checkbox-add"  onclick="CheckboxDisabled('materias_add', this,'active')">
                         <input type="text" id="add" name="add" class='input' hidden>

@@ -31,10 +31,10 @@ if (isset($_GET["buscar_aula"]) && $_GET["buscar_aula"]!="") {
 else if (isset($_POST["update"]) && $_POST["update"]!=""){
     
     $dato=$ejecutar->FindQuery("aula","nombre",$_POST["nombre_aula"]);
-    if ($dato[1]==$_POST["nombre_aula"]) {
+    if ($dato[1]==$_POST["nombre_aula"] || $dato==2) {
         $validate=$ejecutar->UpdateTableAula($_POST["codigo_aula"], $_POST["nombre_aula"], $_POST["update"]);
     }
-    if ($dato[1]!=$_POST["nombre_aula"]) {
+    if ($dato[1]!=$_POST["nombre_aula"] && $dato!==2) {
        $validate=3;
     }
     if ($validate===3) {
@@ -63,13 +63,14 @@ else if (isset($_POST["delete"]) && $_POST["delete"]!=""){
     header("Location:../vista/administrador.php#$url");
 }
 else {
+    $dato=$ejecutar->FindQuery("aula","nombre",$_POST["nombre_aula"]);
     $validate=$ejecutar->registrarAula($_POST["codigo_aula"],$_POST["nombre_aula"]);
     if ($validate===2) {
         header("Location:../vista/administrador.php#$url");
         $_SESSION["error"]="El codigo de aula que ingreso ya existe";
         
     }
-    if ($validate===3) {
+    if ($dato!==3) {
         header("Location:../vista/administrador.php#$url");
         $_SESSION["error"]="El nombre de aula que ingreso ya existe";
     }

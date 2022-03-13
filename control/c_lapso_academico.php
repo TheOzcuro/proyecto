@@ -28,7 +28,14 @@ else if (isset($_GET["buscar_lapso"]) && $_GET["buscar_lapso"]!="") {
      }
 }
 else if (isset($_POST["update"]) && $_POST["update"]!=""){
-    $validate=$ejecutar->UpdateTableLapso($_POST["trayecto"], $_POST["fecha_inicio"], $_POST["fecha_final"], $_POST["update"]);
+    $dato=$ejecutar->FindQuery("lapso_academico","trayecto", $_POST["trayecto"]);
+    if ($dato[1]==$_POST["nombre_carrera"] || $dato===2) {
+        $validate=$ejecutar->UpdateTableLapso($_POST["trayecto"], $_POST["fecha_inicio"], $_POST["fecha_final"], $_POST["update"]);
+    }
+    if ($dato[1]!=$_POST["nombre_carrera"] && $dato!==2) {
+       $validate=3;
+    }
+   
     if ($validate===3) {
         $_SESSION["error"]="El nombre de lapso que ingreso ya existe";
         $_SESSION["container"]="lapso_academico-container";
@@ -60,12 +67,13 @@ else if (isset($_POST["delete"]) && $_POST["delete"]!=""){
 }
 
 else {
+    $dato=$ejecutar->FindQuery("lapso_academico","trayecto", $_POST["trayecto"]);
     $validate=$ejecutar->registrarLapso($_POST["trayecto"],$_POST["fecha_inicio"],$_POST["fecha_final"]);
     if ($validate===2) {
         header("Location:../vista/administrador.php#$url");
         $_SESSION["error"]="El trayecto de lapso que ingreso ya existe";
     }
-    else if ($validate===3) {
+    else if ($dato!==2) {
         header("Location:../vista/administrador.php#$url");
         $_SESSION["error"]="El trayecto de lapso que ingreso ya existe";
     }
