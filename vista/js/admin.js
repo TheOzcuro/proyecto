@@ -62,9 +62,17 @@ function ShowContratacion(contratacion,categoria,dedicacion) {
     document.getElementById('div_contratacion').innerHTML=$("#tipo_contratacion option:selected").text();
     document.getElementById('div_categoria').innerHTML=$("#categoria option:selected").text();
     document.getElementById('div_dedicacion').innerHTML=$("#dedicacion option:selected").text();
-    document.getElementById('tipo_contratacion').value="";
-    document.getElementById('categoria').value="";
-    document.getElementById('dedicacion').value="";
+    if (valores!="") {
+        document.getElementById('tipo_contratacion').value=valores[8];
+        document.getElementById('categoria').value=valores[9];
+        document.getElementById('dedicacion').value=valores[10];
+    }
+    else {
+        document.getElementById('tipo_contratacion').value="";
+        document.getElementById('categoria').value="";
+        document.getElementById('dedicacion').value="";
+    }
+    
     document.querySelector(".blackcover").addEventListener("click", function(){
         document.getElementById('contratacion-container').style.display='none';
         document.querySelector('.blackcover').style.display='none';
@@ -107,6 +115,7 @@ function OnLoad(active){
 function ValidateDate() {
     var date_inicio=document.getElementById('fecha_inicio').value;
     var date_final=document.getElementById('fecha_final').value;
+    console.log(date_final<date_inicio)
     array_inicio=date_inicio.split("-");
     array_final=date_final.split("-");
     if (date_final<date_inicio && date_final!="") {
@@ -154,6 +163,7 @@ function Submit(form){
    var div=document.getElementById(form).querySelector("div");
    var input=div.querySelectorAll(".input");
    var valide=true;
+   ValidateDate();
    for (let index = 0; index < input.length; index++) {
        if (input[index].id=="segundo_nombre" || input[index].id=="segundo_apellido") {
            

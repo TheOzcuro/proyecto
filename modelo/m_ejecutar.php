@@ -243,7 +243,7 @@ class registry extends mybsd {
 		$dato=strtoupper($dato);
 		$query="SELECT * FROM `$tabla` WHERE `$campo`='$dato'";
 		$list=$this->list($this->execute($query));
-		if (count($list)==0) {
+		if ($list=="") {
 			return 2;
 		}
 		else {

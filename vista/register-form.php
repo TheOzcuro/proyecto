@@ -396,13 +396,13 @@
                     </div>
                     <div class="input-container">
                         <label for="lapso" id="labellapso" style='top:-1px;font-size:17px;'>Fecha de Final</label><br>
-                        <input type="date" id="fecha_final" name="fecha_final" maxlength="30" class="input">
+                        <input type="date" id="fecha_final" name="fecha_final" maxlength="30" class="input" onblur='ValidateDate()'>
                         <input type="checkbox" class="checkbox-edit checkbox-materia"  onclick="CheckboxDisabled('fecha_final', this)">
                     </div>
                     <button type="button" onclick="Submit('lapso_academico')" style='grid-column:1/2;'>Crear</button>
                     <button type="button" onclick="DisplayDelete('flex','#lapso-find','#lapso_academico')" style='grid-column:3/4;'>Buscar</button>
                     <button type="button" onclick="Save('lapso_academico')" class="button-edit button-update">Guardar</button><br>
-                    <button type="button" onclick="DisplayDelete('block','#lapso_academico')" class="button-edit button-delete">Eliminar</button>
+                    <button type="button" onclick="DisplayDelete('block','.delete-window','#lapso_academico')" class="button-edit button-delete">Eliminar</button>
                 </div>
             </form>
             

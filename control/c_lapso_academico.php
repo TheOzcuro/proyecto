@@ -4,7 +4,7 @@ include_once("../modelo/m_ejecutar.php");
 $ejecutar= new registry();
 $url=$_POST["url"];
 if (isset($_POST["buscar_lapso"]) && $_POST["buscar_lapso"]!="") {
-    $validate=$ejecutar->FindQuery("lapso_academico","trayecto", $_POST["buscar_lapso"]);
+    echo $validate=$ejecutar->FindQuery("lapso_academico","trayecto", $_POST["buscar_lapso"]);
     if ($validate===2) {
        $_SESSION["error"]="El codigo que ingreso no existe";
        header("Location:../vista/administrador.php#$url");
@@ -16,7 +16,7 @@ if (isset($_POST["buscar_lapso"]) && $_POST["buscar_lapso"]!="") {
      }
 }
 else if (isset($_GET["buscar_lapso"]) && $_GET["buscar_lapso"]!="") {
-    $validate=$ejecutar->FindQuery("lapso_academico","trayecto", $_POST["buscar_lapso"]);
+    $validate=$ejecutar->FindQuery("lapso_academico","trayecto", $_GET["buscar_lapso"]);
     if ($validate===2) {
        $_SESSION["error"]="El codigo que ingreso no existe";
        header("Location:../vista/administrador.php#lapso_academico-container-grid");
@@ -40,14 +40,14 @@ else if (isset($_POST["update"]) && $_POST["update"]!=""){
     if ($validate===3) {
         $_SESSION["error"]="El nombre de lapso que ingreso ya existe";
         $_SESSION["container"]="lapso_academico-container";
-        $_SESSION["update"]=$ejecutar->FindQuery("lapso_academico","trayecto", $_POST["update"]);
+        $_SESSION["update"]=$ejecutar->FindQuery("lapso_academico","trayecto", $_POST["trayecto"]);
         header("Location:../vista/administrador.php#$url");
 
     }
     else if ($validate===2) {
         $_SESSION["error"]="El nombre de lapso que ingreso ya existe";
         $_SESSION["container"]="lapso_academico-container";
-        $_SESSION["update"]=$ejecutar->FindQuery("lapso_academico","trayecto", $_POST["update"]);
+        $_SESSION["update"]=$ejecutar->FindQuery("lapso_academico","trayecto", $_POST["trayecto"]);
         header("Location:../vista/administrador.php#$url");
     }
     else {
@@ -56,7 +56,7 @@ else if (isset($_POST["update"]) && $_POST["update"]!=""){
         }
         $_SESSION["completado"]="Los datos fueron actualizados correctamente";
         $_SESSION["container"]="lapso_academico-container";
-        $_SESSION["update"]=$ejecutar->FindQuery("lapso_academico","trayecto", $_POST["update"]);
+        $_SESSION["update"]=$ejecutar->FindQuery("lapso_academico","trayecto", $_POST["trayecto"]);
         header("Location:../vista/administrador.php#$url");
     }
 }

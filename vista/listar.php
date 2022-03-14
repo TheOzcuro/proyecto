@@ -28,7 +28,13 @@ function CreateTable($table,$campo,$dato) {
   //Desde donde empezara a contar
   $index=0;
   //El numero total de columnas mas el boton de modificar y eliminar
-  $namecount=count($name)+2;
+  if (count($lista)>0) {
+    $namecount=count($name)+2;
+  }
+  else {
+    $namecount=count($name);
+  }
+  
   //El tamaño de largo que tendra el div
   $width=$namecount*105;
   //se calcula el total de pagina
@@ -99,12 +105,13 @@ function CreateTable($table,$campo,$dato) {
       break;
     }
   }
-
+  if (count($lista)>0) {
   echo "<span></span>";
   echo "<span></span>";
   if ($table=="profesor") {
     echo "<span></span>";
   }
+}
   //Se crean las filas con los datos de la tabla
   while ($index < $numero_items) {
     if (empty($lista[$index])) {
@@ -183,7 +190,7 @@ function CreateTable($table,$campo,$dato) {
       }
   }
   if (count($lista)==0) {
-    $namecount=$namecount-1;
+    $namecount=$namecount+1;
     echo "<div style='grid-column:1/$namecount;max-width:".$width."px;font-size:20px;' id='no_found'>No se encontro resultados</div>";
   }
   echo "</div>";

@@ -70,14 +70,14 @@ else {
         $_SESSION["error"]="El codigo de aula que ingreso ya existe";
         
     }
-    if ($dato!==3) {
+    if ($dato!==2) {
         header("Location:../vista/administrador.php#$url");
         $_SESSION["error"]="El nombre de aula que ingreso ya existe";
     }
     else {
         header("Location:../vista/administrador.php#$url");
         $_SESSION["completado"]="El aula se registro correctamente";
-        $_SESSION["link"]="../control/c_carrera.php?buscar_aula=".$_POST["codigo_aula"];
+        $_SESSION["link"]="../control/c_aula.php?buscar_aula=".$_POST["codigo_aula"];
     }
 }
 

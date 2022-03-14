@@ -19,6 +19,7 @@ function Save(form) {
         var input=div_edit.querySelectorAll(".input");
         var valideTrue=false;
         var valideFalse="";
+        ValidateDate();
         for (let index = 0; index < input.length; index++) {
             if (input[index].id=="segundo_nombre") {
                 if (input[index].value!=valores[index]) {
