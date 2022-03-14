@@ -11,6 +11,11 @@ function GetCarreras()
     $ejecutar= new registry();
    return $ejecutar->GetCarrerasPensum();
 }
+function GetCarrerasOferta()
+{
+    $ejecutar=new registry();
+    return $ejecutar->GetCarrerasOferta();
+}
 function GetLapso()
 {
     $ejecutar= new registry();

@@ -40,14 +40,14 @@ else if (isset($_POST["update"]) && $_POST["update"]!=""){
     if ($validate===3) {
         $_SESSION["error"]="El nombre de lapso que ingreso ya existe";
         $_SESSION["container"]="lapso_academico-container";
-        $_SESSION["update"]=$ejecutar->FindQuery("lapso_academico","trayecto", $_POST["trayecto"]);
+        $_SESSION["update"]=$ejecutar->FindQuery("lapso_academico","trayecto", $_POST["update"]);
         header("Location:../vista/administrador.php#$url");
 
     }
     else if ($validate===2) {
         $_SESSION["error"]="El nombre de lapso que ingreso ya existe";
         $_SESSION["container"]="lapso_academico-container";
-        $_SESSION["update"]=$ejecutar->FindQuery("lapso_academico","trayecto", $_POST["trayecto"]);
+        $_SESSION["update"]=$ejecutar->FindQuery("lapso_academico","trayecto", $_POST["update"]);
         header("Location:../vista/administrador.php#$url");
     }
     else {

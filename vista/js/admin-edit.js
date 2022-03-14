@@ -37,6 +37,7 @@ function Save(form) {
                     valideTrue=true;
                 }
                 if( input[index].value=="") {
+                    input[index].style.borderColor='red'
                     valideFalse="false";
                 }
             }
@@ -54,6 +55,7 @@ function Save(form) {
             document.querySelector("#"+form).submit();
         }
         else {
+            Error("Parece que algunos datos estan vacios o son erroneos","msg_error","p_error")
             console.log("error")
         }
     }

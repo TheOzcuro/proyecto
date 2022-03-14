@@ -11,7 +11,6 @@ function History($tabla,$campo,$dato)
 {
     $ejecutar= new registry();
     if ($campo!="undefined" && $tabla!="pensum" && $tabla!="oferta") {
-        
         return $ejecutar->GetFindQuery($tabla,$campo,$dato);
     }
     if ($tabla=="pensum") {

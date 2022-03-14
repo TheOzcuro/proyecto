@@ -168,7 +168,7 @@ function refresh(page,tabla,campo,dato) {
                 SelectValidation();
             }, 100);
             setTimeout(() => {
-                document.querySelector(".listar-container").style.display="grid";
+                $(".listar-container").css("display", "grid");
             }, 300);
         }
     }, 200);

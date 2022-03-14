@@ -271,7 +271,7 @@
                         <?php 
                             include_once("../control/c_function.php");
                             $list=[];
-                            $list=GetColumns("carrera");
+                            $list=GetCarrerasOferta();
                             $totalarray=count($list);
                             for ($i=0; $i < $totalarray; $i++) { 
                                 echo "<span id='".$list[$i][0]."'". "onclick="."AddValueMateria('carrera_oferta',this)".">".$list[$i][1]."</span>";

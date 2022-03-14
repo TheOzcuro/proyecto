@@ -93,7 +93,7 @@ function CreateTable($table,$campo,$dato) {
   }
  echo "</div>";
   if ($table=="profesor") {
-    echo "<div class='listar-container' style='display:none;width:".$width."px;grid-template-columns:repeat(".$namecount.",auto);left:45%;'>";
+    echo "<div class='listar-container' id='teacher' style='display:none;width:".$width."px;grid-template-columns:repeat(".$namecount.",auto);left:45%;'>";
   }
   else {
     echo "<div class='listar-container' style='display:none;width:".$width."px;grid-template-columns:repeat(".$namecount.",auto);'>";

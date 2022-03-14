@@ -171,7 +171,6 @@ function Submit(form){
        else {
             if (input[index].value=="") {
             input[index].style.borderColor='red'
-            console.log(input[index].id)
             valide=false;
             }
        }
