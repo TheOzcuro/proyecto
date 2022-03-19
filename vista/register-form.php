@@ -47,15 +47,6 @@
                     </div>
 
                     <div class="input-container">
-                        <select name="rol" id="rol" onclick="SelectAnimation('rol')" class="input">
-                            <option value="">Rol<b style="color:red;">*</b></option>
-                            <option value="1">Administrador</option>
-                            <option value="0">Profesor</option>
-                        </select>
-                        <input type="checkbox" class="checkbox-edit"  onclick="CheckboxDisabled('rol', this)">
-                    </div>
-
-                    <div class="input-container">
                         <label for="primer_nombre" id="labelprimer_nombre">Primer Nombre <b style="color:red;">*</b></label><br>
                         <input type="text" id="primer_nombre" name="primer_nombre" onfocus="LabelAnimation('primer_nombre','labelprimer_nombre')" onblur="LabelOut('primer_nombre','labelprimer_nombre')" maxlength="20" class="input input-label">
                         <input type="checkbox" class="checkbox-edit checkbox-profesor"   onclick="CheckboxDisabled('primer_nombre', this)">
@@ -83,16 +74,47 @@
                     </div>
                     <div class="input-container">
                         <label for="direccion" id="labeldireccion">Direccion <b style="color:red;">*</b></label><br>
-                        <input type="text" id="direccion" name="direccion"
-                        onfocus="LabelAnimation('direccion','labeldireccion')" onblur="LabelOut('direccion','labeldireccion')" maxlength="50" class="input input-label">
+                        <textarea type="text" id="direccion" name="direccion"
+                        onfocus="LabelAnimation('direccion','labeldireccion')" onblur="LabelOut('direccion','labeldireccion')" maxlength="60" class="input input-label" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'></textarea>
                         <input type="checkbox" class="checkbox-edit" onclick="CheckboxDisabled('direccion', this)">
                     </div>
 
                     <div class="input-container">
-                        <label for="telefono" id="labeltelefono">Telefono <b style="color:red;">*</b></label><br>
+                        <label for="telefono" id="labeltelefono">Telefono</label><br>
                         <input type="text" id="telefono" name="telefono"
                         onfocus="LabelAnimation('telefono','labeltelefono')" onblur="LabelOut('telefono','labeltelefono')" maxlength="11" class="input input-label">
                         <input type="checkbox" class="checkbox-edit" onclick="CheckboxDisabled('telefono', this)" >
+                    </div>
+                    <div class="input-container">
+                        <label for="telefono_fijo" id="labeltelefono_fijo">Telefono Fijo</label><br>
+                        <input type="text" id="telefono_fijo" name="telefono_fijo"
+                        onfocus="LabelAnimation('telefono_fijo','labeltelefono_fijo')" onblur="LabelOut('telefono_fijo','labeltelefono_fijo')" maxlength="11" class="input input-label">
+                        <input type="checkbox" class="checkbox-edit" onclick="CheckboxDisabled('telefono_fijo', this)" >
+                    </div>
+                    <div class="input-container">
+                        <label for="correo" id="labelcorreo">Correo <b style="color:red;">*</b></label><br>
+                        <textarea type="text" id="correo" name="correo" onfocus="LabelAnimation('correo','labelcorreo')" onblur="LabelOut('correo','labelcorreo')" maxlength="50" class="input input-label" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'></textarea>
+                        <input type="checkbox" class="checkbox-edit" onclick="CheckboxDisabled('correo', this)" >
+                    </div>
+                    <div class="input-container">
+                        <label for="titulo" id="labeltitulo">Titulo</label><br>
+                        <input type="text" id="titulo" name="titulo"
+                        onfocus="LabelAnimation('titulo','labeltitulo')" onblur="LabelOut('titulo','labeltitulo')" maxlength="30" class="input input-label">
+                        <input type="checkbox" class="checkbox-edit" onclick="CheckboxDisabled('titulo', this)" >
+                    </div>
+                    <div class="input-container">
+                        <label for="oficio" id="labeloficio">Oficio <b style="color:red;">*</b></label><br>
+                        <input type="text" id="oficio" name="oficio"
+                        onfocus="LabelAnimation('oficio','labeloficio')" onblur="LabelOut('oficio','labeloficio')" maxlength="30" class="input input-label">
+                        <input type="checkbox" class="checkbox-edit" onclick="CheckboxDisabled('oficio', this)" >
+                    </div>
+                    <div class="input-container">
+                        <select name="rol" id="rol" onclick="SelectAnimation('rol')" class="input">
+                            <option value="">Rol<b style="color:red;">*</b></option>
+                            <option value="1">Administrador</option>
+                            <option value="0">Profesor</option>
+                        </select>
+                        <input type="checkbox" class="checkbox-edit"  onclick="CheckboxDisabled('rol', this)">
                     </div>
                     <div class="input-container">
                         <select name="tipo_contratacion" id="tipo_contratacion" onclick="SelectAnimation('tipo_contratacion')" class="input">
@@ -124,11 +146,11 @@
                             <option value="3">Tiempo Completo</option>
                         </select>
                         <input type="checkbox" class="checkbox-edit"  onclick="CheckboxDisabled('dedicacion', this)">
-                    </div><br>
+                    </div>
                     <button type="button" onclick="Submit('profesor')" class>Registrar</button>
-                    <button type="button" onclick="DisplayDelete('flex','#profesor-find','#profesor')" class="button-find">Buscar</button>
+                    <button type="button" onclick="DisplayDelete('flex','#profesor-find','#profesor')" class="button-find" style='grid-column:3/4;'>Buscar</button>
                     <button type="button" onclick="Save('profesor')" class="button-edit button-update">Guardar</button>
-                    <button type="button" onclick="DisplayDelete('block','.delete-window','#profesor')" class="button-edit button-delete">Eliminar</button>
+                    <button type="button" onclick="DisplayDelete('block','.delete-window','#profesor')" class="button-edit button-delete" style='grid-column:3/4;'>Eliminar</button>
                 </div>
             </form>
             <form action="../control/c_aula.php" method="POST" name="aula" id="aula">

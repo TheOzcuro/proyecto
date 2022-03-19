@@ -61,12 +61,38 @@ function CreateTable($table,$campo,$dato) {
   echo "<div id='$table-historial' class='container historial' style='animation-name=Appear'>";
   //el formulario de busqueda para los datos de la tabla
   echo "<div class='buscar-historial-container' style='display: flex;flex-direction: row;width: 50%;padding: 15px 10px;position: absolute;top: 10px;left: 0;right: 0;margin-left: auto;margin-right: auto;'>
-  <div class='input-container'>
+  <div class='input-container' id='input_buscar'>
 
-    <label for='buscar_historial' id='labelbuscar_historial'>Buscar...</label><br>
+    <label for='buscar_historial' id='labelbuscar_historial' class='find_inputs'>Buscar...</label><br>
 
-    <input type='text' id='buscar_historial' name='codigo_materia' onfocus='LabelAnimation(`buscar_historial`,`labelbuscar_historial`)' onblur='LabelOut(`buscar_historial`,`labelbuscar_historial`)' maxlength='50' class='input input-label' style='width:200px;'>
-
+    <input type='text' id='buscar_historial' name='codigo_materia' onfocus='LabelAnimation(`buscar_historial`,`labelbuscar_historial`)' onblur='LabelOut(`buscar_historial`,`labelbuscar_historial`)' maxlength='50' class='input input-label find_inputs' style='width:200px;'>
+    <select name='rol_buscar' id='rol_buscar' onclick='SelectAnimation(`rol_buscar`)' style='display:none; margin-bottom: 10px;' class='find_inputs'>
+        <option value=''>Rol<b style='color:red;'>*</b></option>
+        <option value='1'>Administrador</option>
+        <option value='0'>Profesor</option>
+    </select>
+    <select name='contratacion_buscar' id='contratacion_buscar' onclick='SelectAnimation(`contratacion_buscar`)' style='display:none; margin-bottom: 30px;' class='find_inputs'>
+        <option value=''>Contratacion<b style='color:red;'>*</b></option>
+        <option value='1'>Tiempo Inderteminado</option>
+        <option value='2'>Tiempo Determinado</option>
+        <option value='3'>Ordinario</option>
+    </select>
+    <select name='categoria_buscar' id='categoria_buscar' onclick='SelectAnimation(`categoria`)' style='display:none;margin-bottom: 10px;' class='find_inputs'>
+        <option value=''>Categoria<b style='color:red;'>*</b></option>
+        <option value='1'>Auxiliar Docente I</option>
+        <option value='2'>Auxiliar Docente II</option>
+        <option value='3'>Auxiliar Docente III</option>
+        <option value='4'>Instructor</option>
+        <option value='5'>Asistente</option>
+        <option value='6'>Asesor</option>
+        <option value='7'>Agregado</option>
+    </select>
+    <select name='dedicacion_buscar' id='dedicacion_buscar' onclick='SelectAnimation(`dedicacion_buscar`)' style='display:none;margin-bottom: 10px;' class='find_inputs'>
+        <option value=''>Dedicacion<b style='color:red;'>*</b></option>
+        <option value='1'>Tiempo Convencional</option>
+        <option value='2'>Medio Tiempo</option>
+        <option value='3'>Tiempo Completo</option>
+    </select>
   </div>
   <select name='campo' id='campo' style='margin-left:20px;margin-top:20px;height:30px;' onclick='SelectValidation()'>";
   //Para crear el select con los nombres de cada columna de la tabla para mas comodidad para buscar
@@ -148,16 +174,8 @@ function CreateTable($table,$campo,$dato) {
         //For para ingresar los datos en los div de la fila
         for ($i=0; $i < $count_lista; $i++) { 
           //Transformar los valores de la tabla del profesor en algo mas agradable y entendible para el usuario
-          if ($table==="profesor" && $i===1) {
-            if ($lista[$index][$i]==="0") {
-              echo "<div class='".$name[$i]["COLUMN_NAME"]." f-".$index."' value=".$lista[$index][$i].">PROFESOR</div>";
-            }
-            else if($lista[$index][$i]==="1") {
-              echo "<div class='".$name[$i]["COLUMN_NAME"]." f-".$index."' value=".$lista[$index][$i].">ADMINISTRADOR</div>";
-            }
-          }
           //Transformar los valores de la tabla de materia en algo mas agradable y entendible para el usuario
-          else if ($table==="materia" && $i===2) {
+          if ($table==="materia" && $i===2) {
             if ($lista[$index][$i]==="0") {
               echo "<div class='".$name[$i]["COLUMN_NAME"]." f-".$index."' value=".$lista[$index][$i].">DICIPLINARIA</div>";
             }
@@ -184,7 +202,8 @@ function CreateTable($table,$campo,$dato) {
         echo "<button onclick='DisplayDelete(`block`,`.delete-window`,`#$table`,`".$lista[$index][0]."`)'>Eliminar</button>";
       }
       if ($table=="profesor") {
-        echo "<button class='f-".$index."' id='".$lista[$index][8]." ".$lista[$index][9]." ".$lista[$index][10]."' onclick='ShowContratacion(`".$lista[$index][8]."`,`".$lista[$index][9]."`,`".$lista[$index][10]."`)'>Mostrar Mas</button>";
+        echo "<button onclick='ShowContratacion(`".$lista[$index][8]."`,`".$lista[$index][9]."`,`".$lista[$index][10]."`,`".$lista[$index][11]."`,`".$lista[$index][12]."`,`".$lista[$index][13]."`,`".$lista[$index][14]."`)'>Mostrar Mas</button>";
+        echo "<input type='hidden' class='f-".$index."' value='".$lista[$index][8]."/".$lista[$index][9]."/".$lista[$index][10]."/".$lista[$index][11]."/".$lista[$index][12]."/".$lista[$index][13]."/".$lista[$index][14]."/".$lista[$index][15]."/".$lista[$index][16]."/".$lista[$index][17]."'>";
       }
       $index=$index+1;
       }

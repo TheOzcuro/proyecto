@@ -22,13 +22,14 @@ function ActiveModificar(fila,container) {
             else if (filas[index].innerText=="ADMINISTRADOR" || filas[index].innerText=="MULTIDICIPLINARIA") {
                 valores.push('1');
             }
-            else if (index==8 && container=="profesor-container"){
-                    var x=filas[index].getAttribute('id')
-                    var contratacion=x.split(" ")
-                    for (let index = 0; index < contratacion.length; index++) {
-                        valores.push(contratacion[index]);
-                        
+            else if (index==5 && container=="profesor-container"){
+
+                    var x=filas[8].value;
+                    var values=x.split("/")
+                    for (let index = 0; index < values.length; index++) {
+                        valores.push(values[index]);
                     }
+                    break
             }
             else {
                 valores.push(filas[index].innerText);
@@ -36,6 +37,7 @@ function ActiveModificar(fila,container) {
                 
         }
         if (container!="") {
+            console.log(valores);
             Modificar(container,"grid",valores);
             LabelInput();
         }
@@ -163,6 +165,9 @@ function refresh(page,tabla,campo,dato) {
                 localStorage.setItem('campo',campo);
                 localStorage.setItem('dato',dato);
             }
+            console.log(tabla);
+            console.log(campo);
+            console.log(dato);
             $('#refresh').load('listar.php?page='+page+'&tabla='+tabla+'&campo='+campo+'&dato='+dato);
             setTimeout(() => {
                 SelectValidation();
@@ -178,42 +183,82 @@ function refresh(page,tabla,campo,dato) {
 function SelectValidation() {
     var campo=document.getElementById('campo').value;
     var input=document.getElementById('buscar_historial');
+    const div=document.getElementById('input_buscar');
     if (campo=='CEDULA' || campo=='TELEFONO') {
         input.removeEventListener("keypress",KeyNumeros)
         input.removeEventListener("keypress",KeyTexto)
         input.removeEventListener("keypress",KeyVarchar)
         ValidateNumeros('buscar_historial');
-        
+        DissapearVarious('.find_inputs','none')
+        document.getElementById("buscar_historial").style.display="block";
+        document.getElementById("labelbuscar_historial").style.display="block";
+    }
+    else if (campo=="CONTRATACION") {
+        DissapearVarious('.find_inputs','none')
+        document.getElementById('contratacion_buscar').style.display="block";
+    }
+    else if (campo=="DEDICACION") {
+        DissapearVarious('.find_inputs','none')
+        document.getElementById('dedicacion_buscar').style.display="block";
+    }
+    else if (campo=="CATEGORIA") {
+        DissapearVarious('.find_inputs','none')
+        document.getElementById('categoria_buscar').style.display="block";
+    }
+    else if (campo=="ROL") {
+        DissapearVarious('.find_inputs','none')
+        document.getElementById('rol_buscar').style.display="block";
     }
     else if (campo=='PRIMER_NOMBRE' || campo=='SEGUNDO_NOMBRE' || campo=='PRIMER_APELLIDO' || campo=='SEGUNDO_APELIDO'
             || campo=='ROL' || campo=='TIPO') {
         input.removeEventListener("keypress",KeyNumeros)
         input.removeEventListener("keypress",KeyTexto)
         input.removeEventListener("keypress",KeyVarchar)
+        DissapearVarious('.find_inputs','none')
+        document.getElementById("buscar_historial").style.display="block";
+        document.getElementById("labelbuscar_historial").style.display="block";
         ValidateTexto('buscar_historial');
         
+    }
+    else if (campo=="CORREO") {
+        input.removeEventListener("keypress",KeyNumeros)
+        input.removeEventListener("keypress",KeyTexto)
+        input.removeEventListener("keypress",KeyVarchar)
+        DissapearVarious('.find_inputs','none')
+        document.getElementById("buscar_historial").style.display="block";
+        document.getElementById("labelbuscar_historial").style.display="block";
     }
     else {
         input.removeEventListener("keypress",KeyNumeros)
         input.removeEventListener("keypress",KeyTexto)
         input.removeEventListener("keypress",KeyVarchar)
+        DissapearVarious('.find_inputs','none')
+        document.getElementById("buscar_historial").style.display="block";
+        document.getElementById("labelbuscar_historial").style.display="block";
         ValidateVarchar('buscar_historial');
         
     }
     input.value=""
 }
 function findHistorial() {
-    var dato=document.getElementById('buscar_historial').value.toUpperCase() ;
     var campo=document.getElementById('campo').value;
+    if (campo=="ROL") {
+        var dato=document.getElementById('rol_buscar').value;
+    }
+    else if(campo=="CONTRATACION") {
+        var dato=document.getElementById('contratacion_buscar').value;
+    }
+    else if(campo=="CATEGORIA") {
+        var dato=document.getElementById('categoria_buscar').value;
+    }
+    else if(campo=="DEDICACION") {
+        var dato=document.getElementById('dedicacion_buscar').value;
+    }
+    else {
+        var dato=document.getElementById('buscar_historial').value.toUpperCase();
+    }
     if (dato!="") {
-
-        if (dato=="PROFESOR" && campo=="ROL") {
-            refresh(1,'',"0",campo);
-        }
-        else if (dato=="ADMINISTRADOR" && campo=="ROL") {
-            refresh(1,'',"1",campo);
-        }
-        else if (dato=="MULTIDICIPLINARIA" && campo=='TIPO') {
+        if (dato=="MULTIDICIPLINARIA" && campo=='TIPO') {
             refresh(1,'',"1",campo);
         }
         else if (dato=="DICIPLINARIA" && campo=='TIPO'){

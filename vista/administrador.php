@@ -17,19 +17,36 @@ if (isset($_SESSION["usuario"])==false) {
         <div class="blackcover">
         </div>
         <div class="container-flex" id="contratacion-container">
-            <h2>Contratacion</h2>
+            <h2>Detalles</h2>
             <div style='grid-column:1/3;'>
-                <h4>Tipo de Contratacion</h4>
-                <div id="div_contratacion" class="div_container"></div>
+                <h4>Titulo</h4>
+                <div id="div_titulo"  class="div_container"></div>
+            </div>
+            <div style='grid-column:1/2;'>
+                <h4>Oficio</h4>
+                <div id="div_oficio"  class="div_container"></div>
+            </div>
+            <div style='grid-column:2/3;'>
+                <h4>Rol</h4>
+                <div id="div_rol"  class="div_container"></div>
             </div>
             <div style='grid-column:1/3;'>
-                <h4>Categoria</h4>
-                <div id="div_categoria"  class="div_container"></div>
+                <h4>Correo</h4>
+                <div id="div_correo" class="div_container"></div>
             </div>
             <div style='grid-column:1/3;'>
-                <h4>Dedicacion</h4>
-                <div id="div_dedicacion"  class="div_container"></div>
+                <h4>Direccion</h4>
+                <div id="div_direccion" class="div_container"></div>
             </div>
+            <div style='grid-column:1/2;'>
+                <h4>Telefono</h4>
+                <div id="div_telefono"  class="div_container"></div>
+            </div>
+            <div style='grid-column:2/3;'>
+                <h4>Telefono Fijo</h4>
+                <div id="div_telefono_fijo"  class="div_container"></div>
+            </div>
+           
         </div>
         <?php include_once("edit-form.php");
             ?>
@@ -190,6 +207,26 @@ if (isset($_SESSION["completado"]) && $_SESSION["completado"]!="") {
                     echo "ModificarPensum(arrayOferta,`".$_SESSION['container']."`);";
                     
                     }
+              else if ($_SESSION["container"]=="profesor-container") {
+                    echo "valores=[";
+                    while ($x<$total) {
+                        if ($x==5) {
+                            $x=$x+3;
+                        }
+                        if ($x==14) {
+                            echo "'".$_SESSION["update"][14]."'".',';
+                            echo "'".$_SESSION["update"][5]."'".',';
+                            echo "'".$_SESSION["update"][6]."'".',';
+                            echo "'".$_SESSION["update"][7]."'";
+                        }
+                        else {
+                            echo "'".$_SESSION["update"][$x]."'".',';
+                        }
+                    $x=$x+1;
+                    }
+                    echo "];";
+                  echo "Modificar('".$_SESSION["container"]."','grid', valores);";
+              }
               else {
                 echo "valores=[";
                 while ($x<$total) {

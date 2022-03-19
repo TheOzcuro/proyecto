@@ -9,7 +9,7 @@ class registry extends mybsd {
 	protected $primer_apellido;
     protected $segundo_apellido;
     protected $rol;
-	function setDatos($cedula, $rol, $primer_nombre, $segundo_nombre, $primer_apellido, $segundo_apellido, $direccion, $telefono, $contratacion, $categoria, $dedicacion){
+	function setDatos($cedula, $rol, $primer_nombre, $segundo_nombre, $primer_apellido, $segundo_apellido, $direccion, $telefono, $contratacion, $categoria, $dedicacion, $telefono_fijo, $correo, $titulo, $oficio){
 		$this->cedula=$cedula;
         $this->rol=$rol;
 		$this->primer_nombre=strtoupper($primer_nombre);
@@ -21,11 +21,34 @@ class registry extends mybsd {
 		$this->contratacion=$contratacion;
 		$this->categoria=$categoria;
 		$this->dedicacion=$dedicacion;
+		$this->titulo=strtoupper($titulo);
+        $this->oficio=strtoupper($oficio);
+        $this->telefono_fijo=$telefono_fijo;
+		$this->correo=$correo;
 	}
 	function GetName($cedula)
 	{
 		$query="SELECT `primer_nombre`,`primer_apellido` FROM `profesor` WHERE `cedula`=$cedula";
 		return $this->list($this->execute($query));
+	}
+	function GetAllProfesor($buscar,$campo) 
+	{
+		if ($buscar=="") {
+			$query="SELECT profesor.cedula, profesor.primer_nombre, profesor.segundo_nombre, profesor.primer_apellido,  profesor.segundo_apellido, tcontratacion.tcontratacion, categoria.nombre, dedicacion.nombre,profesor.direccion, profesor.telefono, profesor.telefono_fijo, profesor.correo, profesor.titulo, profesor.oficio,  profesor.rol, tcontratacion.codigo, categoria.codigo, dedicacion.codigo FROM `profesor`,`tcontratacion`,`dedicacion`,`categoria` WHERE profesor.contratacion=tcontratacion.codigo AND profesor.categoria=categoria.codigo AND profesor.dedicacion=dedicacion.codigo ORDER BY contratacion DESC";
+			return $this->ListAll($this->execute($query), MYSQLI_NUM);
+		}
+		else {
+			$query="SELECT profesor.cedula, profesor.primer_nombre, profesor.segundo_nombre, profesor.primer_apellido,  
+			profesor.segundo_apellido, tcontratacion.tcontratacion, categoria.nombre, dedicacion.nombre,profesor.direccion, 
+			profesor.telefono, profesor.telefono_fijo, profesor.correo, profesor.titulo, profesor.oficio, profesor.rol, 
+			tcontratacion.codigo, categoria.codigo, dedicacion.codigo  
+			FROM `profesor`,`tcontratacion`,`dedicacion`,`categoria` 
+			WHERE profesor.contratacion=tcontratacion.codigo 
+			AND profesor.categoria=categoria.codigo 
+			AND profesor.dedicacion=dedicacion.codigo 
+			AND profesor.$campo LIKE '%$buscar%' ORDER BY contratacion DESC";
+			return $this->ListAll($this->execute($query), MYSQLI_NUM);
+		}
 	}
 	function GetAll($tabla)
 	{		
@@ -125,15 +148,15 @@ class registry extends mybsd {
 			  }
 		   return $f_array;
 	}
-	function GetFindQuery($tabla,$dato,$campo)
+function GetFindQuery($tabla,$dato,$campo)
 	{
 		$query="SELECT * FROM `$tabla` WHERE `$campo` LIKE '%$dato%'";
 		return $this->ListAll($this->execute($query), MYSQLI_NUM);
 	}
 	function registrarProfesor(){
 		$query="INSERT INTO `profesor`(`cedula`, `rol`, `primer_nombre`, 
-		`segundo_nombre`, `primer_apellido`, `segundo_apellido`, `direccion`, `telefono`, `contratacion`, `categoria`, `dedicacion`)
-		VALUES ('".$this->cedula."','".$this->rol."','".$this->primer_nombre."','".$this->segundo_nombre."','".$this->primer_apellido."','".$this->segundo_apellido."','".$this->direccion."','".$this->telefono."','".$this->contratacion."','".$this->categoria."','".$this->dedicacion."')";
+		`segundo_nombre`, `primer_apellido`, `segundo_apellido`, `direccion`, `telefono`, `telefono_fijo`, `contratacion`, `categoria`, `dedicacion`, `correo`, `titulo`, `oficio`)
+		VALUES ('".$this->cedula."','".$this->rol."','".$this->primer_nombre."','".$this->segundo_nombre."','".$this->primer_apellido."','".$this->segundo_apellido."','".$this->direccion."','".$this->telefono."','".$this->telefono_fijo."','".$this->contratacion."','".$this->categoria."','".$this->dedicacion."','".$this->correo."','".$this->titulo."','".$this->oficio."')";
 		return $this->execute($query);
 	}
 	function registrarAdministrador($contrasena){
@@ -256,7 +279,7 @@ class registry extends mybsd {
 		}
 	}
 	function UpdateTableProfesor($cedula) {
-		$query="UPDATE `profesor` SET `cedula`='$this->cedula', `rol`='$this->rol', `primer_nombre`='$this->primer_nombre', `segundo_nombre`='$this->segundo_nombre', `primer_apellido`='$this->primer_apellido', `segundo_apellido`='$this->segundo_apellido', `direccion`='$this->direccion', `telefono`='$this->telefono', `contratacion`='$this->contratacion', `categoria`='$this->categoria', `dedicacion`='$this->dedicacion' WHERE `cedula`=$cedula";
+		$query="UPDATE `profesor` SET `cedula`='$this->cedula', `rol`='$this->rol', `primer_nombre`='$this->primer_nombre', `segundo_nombre`='$this->segundo_nombre', `primer_apellido`='$this->primer_apellido', `segundo_apellido`='$this->segundo_apellido', `direccion`='$this->direccion', `telefono`='$this->telefono', `telefono_fijo`='$this->telefono_fijo', `correo`='$this->correo', `titulo`='$this->titulo', `oficio`='$this->oficio',`contratacion`='$this->contratacion', `categoria`='$this->categoria', `dedicacion`='$this->dedicacion' WHERE `cedula`=$cedula";
 		return $this->execute($query);
 	}
 	function UpdateTableAdmin($cedula, $origin_cedula)

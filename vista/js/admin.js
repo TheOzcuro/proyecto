@@ -6,7 +6,8 @@ var button=[];
 var div_edit="";
 var container_url="";
 var container_add="";
-var add_array=[]
+var add_array=[];
+var email=/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
 // ----------------------------------VARIABLES---------------------------------
 
@@ -20,8 +21,9 @@ function AppearsAndDissapear(appear,display) {
         document.getElementById(appear).style.display=display;
         document.getElementById(appear).style.animationName="Opacity";
         document.getElementById(appear).style.animationDuration="0.7s";
-        
-   
+}
+function ValidateEmail(input) {
+    console.log(input);
 }
 function LabelAnimation(input,label){
         document.getElementById(input).style.borderColor=""
@@ -55,13 +57,29 @@ function AnimationPrincipalMenu(child){
     comparechild=child
     
 }
-function ShowContratacion(contratacion,categoria,dedicacion) {
+function ShowContratacion(direccion,telefono,telefono_fijo,correo,titulo,oficio,rol) {
+    /*
     document.getElementById('tipo_contratacion').value=contratacion;
     document.getElementById('categoria').value=categoria;
     document.getElementById('dedicacion').value=dedicacion;
     document.getElementById('div_contratacion').innerHTML=$("#tipo_contratacion option:selected").text();
     document.getElementById('div_categoria').innerHTML=$("#categoria option:selected").text();
     document.getElementById('div_dedicacion').innerHTML=$("#dedicacion option:selected").text();
+    */
+    document.getElementById('div_direccion').innerText=direccion;
+    document.getElementById('div_telefono').innerText=telefono;
+    document.getElementById('div_telefono_fijo').innerText=telefono_fijo;
+    document.getElementById('div_correo').innerText=correo;
+    document.getElementById('div_titulo').innerText=titulo;
+    document.getElementById('div_oficio').innerText=oficio;
+    if (rol==0) {
+        document.getElementById('div_rol').innerText="Profesor";
+    }
+    if (rol==1) {
+        document.getElementById('div_rol').innerText="Administrador";
+    }
+    
+   document.getAnimations
     if (valores!="") {
         document.getElementById('tipo_contratacion').value=valores[8];
         document.getElementById('categoria').value=valores[9];
@@ -165,7 +183,8 @@ function Submit(form){
    var valide=true;
    ValidateDate();
    for (let index = 0; index < input.length; index++) {
-       if (input[index].id=="segundo_nombre" || input[index].id=="segundo_apellido") {
+       if (input[index].id=="segundo_nombre" || input[index].id=="segundo_apellido" || input[index].id=="telefono" ||
+            input[index].id=="telefono_fijo" || input[index].id=="titulo") {
            
        }
        else {
@@ -173,12 +192,19 @@ function Submit(form){
             input[index].style.borderColor='red'
             valide=false;
             }
+            if (input[index].id=='correo') {
+                if (email.test(input[index].value)==false) {
+                 document.getElementById('correo').style.borderColor="red";
+                 valide=false;
+                }
+            }
        }
       
        
    }
    console.log(valide);
    if (valide) {
+       console.log("funciono");
         OnLoad("active")
         document.getElementById(form).querySelector(".input-url").value=container_url;
         document.getElementById(form).submit();
@@ -189,6 +215,14 @@ function Submit(form){
 }
 function KeyTexto() {
     var x=new RegExp("[A-Za-z-ñ]+")
+    if (x.test(event.key)) {
+    }
+    else {
+        event.preventDefault();
+    }
+}
+function KeyEmail() {
+    var x=new RegExp("[A-Za-z0-9-ñ-.@_]+")
     if (x.test(event.key)) {
     }
     else {
@@ -214,6 +248,9 @@ function KeyVarchar() {
 function ValidateTexto(input){
     var inputs=document.getElementById(input)
     inputs.addEventListener("keypress", KeyTexto)
+    
+}
+function ValidateEmail(params) {
     
 }
 function ValidateNumeros(input){
@@ -443,6 +480,13 @@ document.getElementById("historialAulas").addEventListener("click", function(){
     document.getElementById('register_back').style.display='inline';
 })
 
+document.getElementById("correo").addEventListener("blur", function(){
+    var valor=document.getElementById('correo').value
+    if (email.test(valor)==false) {
+        document.getElementById('correo').style.borderColor="red";
+        Error("El correo es invalido por favor Verifique","msg_error","p_error")
+    }
+})
 
 document.getElementById("materias").addEventListener("click", function(){
     document.querySelector("#materias_drop").style.display="flex"})
@@ -519,10 +563,13 @@ ValidateVarchar('nombre_aula');
 ValidateVarchar('nombre_carrera');
 ValidateNumeros('cedula');
 ValidateNumeros('telefono');
+ValidateNumeros('telefono_fijo');
 ValidateVarchar('codigo_carrera');
 ValidateVarchar('codigo_materia');
 ValidateVarchar('codigo_aula');
 ValidateVarchar('trayecto');
+ValidateVarchar('titulo');
+ValidateVarchar('oficio');
 ValidateVarchar('buscar_pensum');
 OnLoad();
 //----------------------------------------EJECUTAR FUNCIONES------------------------------------

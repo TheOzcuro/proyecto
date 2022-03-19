@@ -32,6 +32,28 @@ function Save(form) {
                };
                
             }
+            else if (input[index].id=="telefono") {
+                if (input[index].value!=valores[index]) {
+                    valideTrue=true;
+               };
+            }
+            else if (input[index].id=="telefono_fijo") {
+               if (input[index].value!=valores[index]) {
+                    valideTrue=true;
+               };
+               
+            }
+            else if (input[index].id=="titulo") {
+                if (input[index].value!=valores[index]) {
+                    valideTrue=true;
+               };
+            }
+            else if (input[index].id=="telefono_fijo") {
+               if (input[index].value!=valores[index]) {
+                    valideTrue=true;
+               };
+               
+            }
             else {
                 if (input[index].value!=valores[index] && input[index].value!="") {
                     valideTrue=true;

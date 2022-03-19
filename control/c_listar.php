@@ -10,7 +10,7 @@ function GetAll($tabla)
 function History($tabla,$campo,$dato)
 {
     $ejecutar= new registry();
-    if ($campo!="undefined" && $tabla!="pensum" && $tabla!="oferta") {
+    if ($campo!="undefined" && $tabla!="pensum" && $tabla!="oferta" && $tabla!="profesor") {
         return $ejecutar->GetFindQuery($tabla,$campo,$dato);
     }
     if ($tabla=="pensum") {
@@ -32,6 +32,14 @@ function History($tabla,$campo,$dato)
             return $ejecutar->GetAllOferta("");
         }
        
+    }
+    if ($tabla=="profesor") {
+        if ($campo!="undefined"){
+            return $ejecutar->GetAllProfesor($campo,$dato);
+        }
+        else {
+            return $ejecutar->GetAllProfesor("","");
+        }
     }
     //GetAllOferta
     else {

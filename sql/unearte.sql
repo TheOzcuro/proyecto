@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 14-03-2022 a las 18:30:58
+-- Tiempo de generación: 19-03-2022 a las 02:24:52
 -- Versión del servidor: 8.0.21
 -- Versión de PHP: 7.3.21
 
@@ -43,9 +43,7 @@ CREATE TABLE IF NOT EXISTS `administrador` (
 --
 
 INSERT INTO `administrador` (`codigo`, `cedula`, `contrasena`) VALUES
-(1, 9372683, '152560loco'),
-(8, 27414575, '152560loco'),
-(7, 4, '');
+(1, 9372683, '152560loco');
 
 -- --------------------------------------------------------
 
@@ -89,7 +87,7 @@ CREATE TABLE IF NOT EXISTS `carrera` (
 
 INSERT INTO `carrera` (`codigo`, `nombre`) VALUES
 ('2121', 'INGENIERIA EN AZUCAR'),
-('1515', 'DANZA ARTISTICA'),
+('1515', 'DANSA'),
 ('102', 'ARTES PLASTICAS'),
 ('70', 'PROGRAMACION');
 
@@ -200,14 +198,14 @@ CREATE TABLE IF NOT EXISTS `oferta` (
   `lapso_academico` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
   `pnf` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   PRIMARY KEY (`codigo`)
-) ENGINE=MyISAM AUTO_INCREMENT=46 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=47 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `oferta`
 --
 
 INSERT INTO `oferta` (`codigo`, `lapso_academico`, `pnf`) VALUES
-(45, '90', '2121');
+(46, '1100', '2121');
 
 -- --------------------------------------------------------
 
@@ -239,16 +237,20 @@ INSERT INTO `pensum` (`codigo`, `pnf`, `unidad_curricular`) VALUES
 DROP TABLE IF EXISTS `profesor`;
 CREATE TABLE IF NOT EXISTS `profesor` (
   `cedula` int NOT NULL,
-  `rol` varchar(1) COLLATE utf8_spanish_ci DEFAULT NULL,
   `primer_nombre` varchar(60) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `segundo_nombre` varchar(60) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `primer_apellido` varchar(60) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `segundo_apellido` varchar(60) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  `direccion` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  `telefono` char(11) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `contratacion` int NOT NULL,
   `categoria` int NOT NULL,
   `dedicacion` int NOT NULL,
+  `direccion` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `telefono` char(11) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `telefono_fijo` char(11) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `correo` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `titulo` varchar(40) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `oficio` varchar(40) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `rol` varchar(1) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
   PRIMARY KEY (`cedula`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
@@ -256,8 +258,10 @@ CREATE TABLE IF NOT EXISTS `profesor` (
 -- Volcado de datos para la tabla `profesor`
 --
 
-INSERT INTO `profesor` (`cedula`, `rol`, `primer_nombre`, `segundo_nombre`, `primer_apellido`, `segundo_apellido`, `direccion`, `telefono`, `contratacion`, `categoria`, `dedicacion`) VALUES
-(9372683, '1', 'NIRETCIA', 'INMACULADA', 'RAMIREZ', 'VALERO', 'URB CAMBURITO', '04161309806', 1, 4, 2);
+INSERT INTO `profesor` (`cedula`, `primer_nombre`, `segundo_nombre`, `primer_apellido`, `segundo_apellido`, `contratacion`, `categoria`, `dedicacion`, `direccion`, `telefono`, `telefono_fijo`, `correo`, `titulo`, `oficio`, `rol`) VALUES
+(9372683, 'NIRETCIA', 'INMACULADA', 'RAMIREZ', 'VALERO', 3, 5, 1, 'CAMBURITO', '04147965415', '02556659105', 'perro@gmail.com', 'BACHILLER', 'MUSICO', '1'),
+(11716900, 'JONATHAN', 'SEXO', 'RAMIREZ', '', 2, 3, 3, 'URB CAMBURITO, CALLE 7, CASA 7-24', '04167577138', '0255669105', 'jonathan@gmail.com', 'MASTER EN SEXO', 'PLANIFICADOR DE ORGIAS', '0'),
+(27414575, 'MARTIN', 'PEREZ', 'ROJAS', 'PASTOR', 1, 6, 2, 'EN LAS PALMAS', '04125719342', '02314242113', 'sexo@gmail.com', 'ESCUELA PRIMARIA', 'DAR MAMADAS', '0');
 
 -- --------------------------------------------------------
 

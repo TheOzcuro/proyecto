@@ -30,18 +30,35 @@ else if (isset($_GET["buscar_profesor"]) && $_GET["buscar_profesor"]!="") {
 
 }
 else if (isset($_POST["update-profesor"]) && $_POST["update-profesor"]!="") {
-    $ejecutar->setDatos($_POST["cedula"],$_POST["rol"],$_POST["primer_nombre"],$_POST["segundo_nombre"],$_POST["primer_apellido"],$_POST["segundo_apellido"],$_POST["direccion"], $_POST["telefono"], $_POST["tipo_contratacion"], $_POST["categoria"], $_POST["dedicacion"]);
-     $validate=$ejecutar->UpdateTableProfesor($_POST["update-profesor"]);
-     if ($validate===2) {
+    $dato=$ejecutar->FindQuery('profesor','correo',$_POST["correo"]);
+    $dato_origin=$ejecutar->FindQuery("profesor","cedula",$_POST["update-profesor"]);
+    if ($dato[11]==$dato_origin[11] || $dato===2) {
+
+        $ejecutar->setDatos(
+            $_POST["cedula"],$_POST["rol"],$_POST["primer_nombre"],$_POST["segundo_nombre"],$_POST["primer_apellido"],$_POST["segundo_apellido"],$_POST["direccion"], $_POST["telefono"], $_POST["tipo_contratacion"], $_POST["categoria"], $_POST["dedicacion"], $_POST["telefono_fijo"],$_POST["correo"], $_POST["titulo"], $_POST["oficio"]);
+         $validate=$ejecutar->UpdateTableProfesor($_POST["update-profesor"]);
+    }
+    if ($dato[11]!=$dato_origin[11] && $dato!==2) {
+       $validate=3;
+    }
+    if ($validate===2) {
+         
         $_SESSION["error"]="La cedula que ingreso ya existe o es invalida";
         $_SESSION["container"]="profesor-container";
         $_SESSION["update"]=$ejecutar->FindQuery('profesor','cedula',$_POST["update-profesor"]);
         header("Location:../vista/administrador.php#$url");
+        
+    }
+    else if ($validate===3) {
+        $_SESSION["error"]="El correo que ingreso ya existe";
+        $_SESSION["container"]="profesor-container";
+        $_SESSION["update"]=$ejecutar->FindQuery('profesor','cedula',$_POST["update-profesor"]);
+        //header("Location:../vista/administrador.php#$url");
      }
      else {
         $_SESSION["completado"]="Los datos del profesor han sido actualizados";
         $_SESSION["container"]="profesor-container";
-        $_SESSION["update"]=$ejecutar->FindQuery('profesor','cedula',$_POST["cedula"]);
+        $_SESSION["update"]=$ejecutar->FindQuery('profesor','cedula',$_POST["update-profesor"]);
         if ($_POST["rol"]==="1") {
             $admin=$ejecutar->FindQuery("administrador","cedula",$_POST["update-profesor"]);
            if ($admin===2) {
@@ -70,9 +87,7 @@ else if (isset($_POST["delete-profesor"]) && $_POST["delete-profesor"]!="") {
 }
 else {
     $ejecutar->setDatos(
-    $_POST["cedula"],$_POST["rol"],$_POST["primer_nombre"],$_POST["segundo_nombre"],$_POST["primer_apellido"],
-    $_POST["segundo_apellido"],$_POST["direccion"], $_POST["telefono"], 
-    $_POST["tipo_contratacion"], $_POST["categoria"], $_POST["dedicacion"]);
+        $_POST["cedula"],$_POST["rol"],$_POST["primer_nombre"],$_POST["segundo_nombre"],$_POST["primer_apellido"],$_POST["segundo_apellido"],$_POST["direccion"], $_POST["telefono"], $_POST["tipo_contratacion"], $_POST["categoria"], $_POST["dedicacion"], $_POST["telefono_fijo"],$_POST["correo"], $_POST["titulo"], $_POST["oficio"]);
     $validate=$ejecutar->registrarProfesor();
     if ($validate===2) {
 
