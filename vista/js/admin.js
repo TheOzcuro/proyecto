@@ -78,19 +78,6 @@ function ShowContratacion(direccion,telefono,telefono_fijo,correo,titulo,oficio,
     if (rol==1) {
         document.getElementById('div_rol').innerText="Administrador";
     }
-    
-   document.getAnimations
-    if (valores!="") {
-        document.getElementById('tipo_contratacion').value=valores[8];
-        document.getElementById('categoria').value=valores[9];
-        document.getElementById('dedicacion').value=valores[10];
-    }
-    else {
-        document.getElementById('tipo_contratacion').value="";
-        document.getElementById('categoria').value="";
-        document.getElementById('dedicacion').value="";
-    }
-    
     document.querySelector(".blackcover").addEventListener("click", function(){
         document.getElementById('contratacion-container').style.display='none';
         document.querySelector('.blackcover').style.display='none';
@@ -176,6 +163,24 @@ function SelectAnimation(select){
         document.getElementById(select).style.borderColor="rgb(32, 190, 109)";
     }
     
+}
+function SubmitDisponibilidad() {
+    var div=document.getElementById('disponibilidad-container')
+    var input=div.querySelectorAll(".input_add");
+    var valide=true;
+    if (document.getElementById('cedula_dis').value=="") {
+        valide=false
+    }
+
+    if (valide) {
+        console.log("funciono");
+         OnLoad("active")
+         document.getElementById('disponibilidad').querySelector(".input-url").value=container_url;
+         //document.getElementById('disponibilidad').submit();
+    }
+    else {
+     Error("Parece que algunos datos estan vacios o son erroneos","msg_error","p_error")
+    }
 }
 function Submit(form){
    var div=document.getElementById(form).querySelector("div");
@@ -300,8 +305,17 @@ function Search(input,div) {
     }
 }
 function AddValueMateria(input, span) {
+    if (input=="cedula_dis") {
+        let value=span.getAttribute('value');
+        let array=value.split('/')
+        let nombre=array[0]+" "+array[1];
+        document.getElementById("nombre_dis").value=nombre;
+        document.getElementById("contratacion_dis").value=array[2];
+    }
     span=span.textContent || span.innerText;
     document.getElementById(input).value=span;
+    
+
     LabelInput();
 }
 function AddAndRemove(div,div_add,input,input_add, type, container) {
@@ -403,6 +417,13 @@ document.getElementById("registrarProfesor").addEventListener("click", function(
     DissapearVarious('.back-option','none');
     document.getElementById('history_back').style.display='inline';
     AppearsAndDissapear("profesor-container","grid")})
+document.getElementById("disponibilidadProfesor").addEventListener("click", function(){
+    if (div_edit!="") {
+           Close()
+    }
+    DissapearVarious('.back-option','none');
+    document.getElementById('history_back').style.display='inline';
+    AppearsAndDissapear("disponibilidad-container","grid")})
 
 document.getElementById("registrarAulas").addEventListener("click", function(){
     if (div_edit!="") {
@@ -505,10 +526,39 @@ document.getElementById("carreras_add").addEventListener("click", function(){
     document.querySelector("#carreras_add_drop").style.display="flex"})
 document.getElementById("lapso").addEventListener("click", function(){
         document.querySelector("#lapso_drop").style.display="flex"})
-document.getElementById("bloques").addEventListener("click", function(){
-        document.querySelector("#bloques_drop").style.display="flex"})
-document.getElementById("bloques_add").addEventListener("click", function(){
-        document.querySelector("#bloques_add_drop").style.display="flex"})
+
+document.getElementById("bloques_1").addEventListener("click", function(){
+        document.querySelector("#bloques_drop_1").style.display="flex"})
+
+document.getElementById("bloques_add_1").addEventListener("click", function(){
+        document.querySelector("#bloques_add_drop_1").style.display="flex"})
+
+document.getElementById("bloques_2").addEventListener("click", function(){
+            document.querySelector("#bloques_drop_2").style.display="flex"})
+    
+document.getElementById("bloques_add_2").addEventListener("click", function(){
+            document.querySelector("#bloques_add_drop_2").style.display="flex"})
+
+document.getElementById("bloques_3").addEventListener("click", function(){
+            document.querySelector("#bloques_drop_3").style.display="flex"})
+        
+document.getElementById("bloques_add_3").addEventListener("click", function(){
+            document.querySelector("#bloques_add_drop_3").style.display="flex"})
+
+document.getElementById("bloques_4").addEventListener("click", function(){
+            document.querySelector("#bloques_drop_4").style.display="flex"})
+        
+document.getElementById("bloques_add_4").addEventListener("click", function(){
+            document.querySelector("#bloques_add_drop_4").style.display="flex"})
+    
+document.getElementById("bloques_5").addEventListener("click", function(){
+            document.querySelector("#bloques_drop_5").style.display="flex"})
+            
+document.getElementById("bloques_add_5").addEventListener("click", function(){
+            document.querySelector("#bloques_add_drop_5").style.display="flex"})
+
+document.getElementById("cedula_dis").addEventListener("click", function(){
+        document.querySelector("#disponibilidad_drop").style.display="flex"})
 
 document.addEventListener('mouseup', function(e) {
     var input = document.getElementById('materias');
@@ -517,8 +567,19 @@ document.addEventListener('mouseup', function(e) {
     var input4= document.getElementById('carreras_add');
     var input5= document.getElementById('carrera_oferta');
     var input6= document.getElementById('lapso');
-    var input7= document.getElementById('bloques');
-    var input8= document.getElementById('bloques_add');
+    var input7= document.getElementById('bloques_1');
+    var input8= document.getElementById('bloques_add_1');
+    var input9= document.getElementById('cedula_dis');
+    var input10= document.getElementById('bloques_2');
+    var input11= document.getElementById('bloques_add_2');
+    var input12= document.getElementById('bloques_3');
+    var input13= document.getElementById('bloques_add_3');
+    var input14= document.getElementById('bloques_4');
+    var input15= document.getElementById('bloques_add_4');
+    var input16= document.getElementById('bloques_5');
+    var input17= document.getElementById('bloques_add_5');
+    
+    
     if (!input.contains(e.target)) {
         document.getElementById("materias_drop").style.display = 'none';
         input.style.border=""
@@ -545,12 +606,48 @@ document.addEventListener('mouseup', function(e) {
         input6.style.border=""
     }
     if (!input7.contains(e.target)) {
-        document.getElementById("bloques_drop").style.display = 'none';
+        document.getElementById("bloques_drop_1").style.display = 'none';
         input7.style.border=""
     }
     if (!input8.contains(e.target)) {
-        document.getElementById("bloques_add_drop").style.display = 'none';
+        document.getElementById("bloques_add_drop_1").style.display = 'none';
         input8.style.border=""
+    }
+    if (!input9.contains(e.target)) {
+        document.getElementById("disponibilidad_drop").style.display = 'none';
+        input9.style.border=""
+    }
+    if (!input10.contains(e.target)) {
+        document.getElementById("bloques_drop_2").style.display = 'none';
+        input10.style.border=""
+    }
+    if (!input11.contains(e.target)) {
+        document.getElementById("bloques_add_drop_2").style.display = 'none';
+        input11.style.border=""
+    }
+    if (!input12.contains(e.target)) {
+        document.getElementById("bloques_drop_3").style.display = 'none';
+        input12.style.border=""
+    }
+    if (!input13.contains(e.target)) {
+        document.getElementById("bloques_add_drop_3").style.display = 'none';
+        input13.style.border=""
+    }
+    if (!input14.contains(e.target)) {
+        document.getElementById("bloques_drop_4").style.display = 'none';
+        input14.style.border=""
+    }
+    if (!input15.contains(e.target)) {
+        document.getElementById("bloques_add_drop_4").style.display = 'none';
+        input15.style.border=""
+    }
+    if (!input16.contains(e.target)) {
+        document.getElementById("bloques_drop_5").style.display = 'none';
+        input16.style.border=""
+    }
+    if (!input17.contains(e.target)) {
+        document.getElementById("bloques_add_drop_5").style.display = 'none';
+        input17.style.border=""
     }
     
 });

@@ -73,7 +73,7 @@ if (isset($_SESSION["usuario"])==false) {
                     <ul>
                         <a href="#profesor-container-grid"><li id="registrarProfesor">Registrar</li><div class="borderline"></div></a>
                         <a href="#profesor-historial-grid"><li id="historialProfesor">Historial</li><div class="borderline"></div></a>
-                        <a href="#disprofesor"><li id="disponibilidadProfesor">Disponibilidad</li> <div class="borderline"></div></a>
+                        <a href="#disponibilidad-container-grid"><li id="disponibilidadProfesor">Disponibilidad</li> <div class="borderline"></div></a>
                     </ul>
                 </div>
             </div>

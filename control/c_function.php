@@ -16,6 +16,12 @@ function GetCarrerasOferta()
     $ejecutar=new registry();
     return $ejecutar->GetCarrerasOferta();
 }
+function GetProfesor()
+{
+    $ejecutar=new registry();
+    return $ejecutar->GetAllProfesor("","");
+}
+
 function GetLapso()
 {
     $ejecutar= new registry();

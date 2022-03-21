@@ -219,7 +219,7 @@ a:hover > .borderline {
   position: absolute;
   top: 20%;
   left: 45%;
-  transform: translate(-50%, 10%);
+  transform: translate(-50%, -5%);
   border-radius: 7px;
   z-index: 500;
 }

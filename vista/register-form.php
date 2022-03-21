@@ -334,19 +334,33 @@
                         <label for="cedula_dis" id="labelcedula_dis">Cedula</label><br>
                         <input type="text" id="cedula_dis" name="cedula_dis" onfocus="LabelAnimation('cedula_dis','labelcedula_dis')" onblur="LabelOut('cedula_dis','labelcedula_dis')" maxlength="11" class="input input-label">
                         <input type="checkbox" class="checkbox-edit checkbox-materia"  onclick="CheckboxDisabled('codigo_carrera', this)">
+                        <div class="dropdown" id="disponibilidad_drop">
+                        <?php 
+                            include_once("../control/c_function.php");
+                            $list=[];
+                            $list=GetProfesor();
+                            $totalarray=count($list);
+                            for ($i=0; $i < $totalarray; $i++) { 
+                                echo "<span value="."'".$list[$i][1]."/".$list[$i][3]."/".$list[$i][7]."'"." onclick=AddValueMateria('cedula_dis',this)>".$list[$i][0]."</span>";
+                            }
+                        ?>
+                        </div>
                     </div>
                     <div class="input-container">
-                        <label for="nombre_carrera" id="labelnombre_carrera">Nombre</label><br>
-                        <input type="text" id="nombre_carrera" name="nombre_carrera" onfocus="LabelAnimation('nombre_carrera','labelnombre_carrera')" onblur="LabelOut('nombre_carrera','labelnombre_carrera')" maxlength="30" class="input input-label">
+                        <label for="nombre_dis" id="labelnombre_dis">Nombre</label><br>
+                        <input type="text" id="nombre_dis" name="nombre_dis" onfocus="LabelAnimation('nombre_dis','labelnombre_dis')" onblur="LabelOut('nombre_dis','labelnombre_dis')" maxlength="30" class="input input-label" disabled>
+                        <input type="checkbox" class="checkbox-edit checkbox-materia"  onclick="CheckboxDisabled('nombre_dis', this)">
+                    </div>
+                    <div class="input-container">
+                        <label for="contratacion_dis" id="labelcontratacion_dis">Dedicacion</label><br>
+                        <input type="text" id="contratacion_dis" name="contratacion_dis" onfocus="LabelAnimation('contratacion_dis','labelcontratacion_dis')" onblur="LabelOut('contratacion_dis','labelcontratacion_dis')" maxlength="30" class="input input-label" disabled>
                         <input type="checkbox" class="checkbox-edit checkbox-materia"  onclick="CheckboxDisabled('nombre_carrera', this)">
                     </div>
+
+                    <!-- --------------PRIMER BLOQUE---------- -->
+
                     <div class="input-container">
-                        <label for="contratacion_dis" id="labelcontratacion_dis">Contratacion</label><br>
-                        <input type="text" id="contratacion_dis" name="contratacion_dis" onfocus="LabelAnimation('contratacion_dis','labelcontratacion_dis')" onblur="LabelOut('contratacion_dis','labelcontratacion_dis')" maxlength="30" class="input input-label">
-                        <input type="checkbox" class="checkbox-edit checkbox-materia"  onclick="CheckboxDisabled('nombre_carrera', this)">
-                    </div>
-                    <div class="input-container">
-                        <select name="dias" id="dias">
+                        <select name="dias_1" id="dias_1" class='input-dis'>
                             <option value="">Dia</option>
                             <option value="1">LUNES</option>
                             <option value="2">MARTES</option>
@@ -355,42 +369,212 @@
                             <option value="5">VIERNES</option>
                         </select>
                     </div>
-                    <?php 
-                   
-                    ?>
                     <div class="input-container" id="input-carreras" style='margin-bottom:60px;'>
-                        <label for="lapso" id="labebloques">Bloques</label><br>
-                        <input type="text" id="bloques" name="bloques" onfocus="LabelAnimation('bloques','labebloques')" onblur="LabelOut('bloques','labebloques')" maxlength="30" class="input-label principal_input" onkeyup="Search('bloques','bloques_drop')" autocomplete="off">
-                        <input type="checkbox" class="checkbox-edit"  onclick="CheckboxDisabled('lapso', this)">
-                        <img src="css/img/add.png" alt="" onclick="AddAndRemove('bloques_drop','bloques_add_drop','bloques','bloques_add','add', 'disponibilidad-container')">
-                        <div class="dropdown" id="bloques_drop">
+                        <label for="bloques_1" id="labebloques_1">Bloques</label><br>
+                        <input type="text" id="bloques_1" name="bloques_1" onfocus="LabelAnimation('bloques_1','labebloques_1')" onblur="LabelOut('bloques_1','labebloques_1')" maxlength="30" class="input-label" onkeyup="Search('bloques_1','bloques_drop_1')" autocomplete="off">
+                        <input type="checkbox" class="checkbox-edit"  onclick="CheckboxDisabled('bloques_1', this)">
+                        <img src="css/img/add.png" alt="" onclick="AddAndRemove('bloques_drop_1','bloques_add_drop_1','bloques_1','bloques_add_1','add', 'disponibilidad-container')">
+                        <div class="dropdown" id="bloques_drop_1">
                         <?php
                              $hora="07:00";
                              $hora2="07:45";
                             for ($i=1; $i <= 20; $i++) { 
-                                echo "<span id=B$i onclick=AddValueMateria('bloques',this)>BLOQUE ".$i." $hora-$hora2</span>";
+                                echo "<span id=B$i onclick=AddValueMateria('bloques_1',this)>BLOQUE ".$i." $hora-$hora2</span>";
                                 $nuevahora=strtotime($hora)+strtotime("00:45");
                                 $hora=date('H:i', $nuevahora);
                                 $nuevahora2=strtotime($hora2)+strtotime("00:45");
                                 $hora2=date('H:i', $nuevahora2);
                             }
                         ?>
-                    </div>
+                        </div>
                     </div>
                     <div class="input-container  input-add" style='grid-column: span 3/;'>
-                        <label for="bloques_add" id="labelbloques_add">Bloques Añadidos</label><br>
-                    <input type="text" id="bloques_add" name="bloques_add" onfocus="LabelAnimation('bloques_add','labelbloques_add')" onblur="LabelOut('bloques_add','labelbloques_add')" maxlength="30" class="input-label input_add" onkeyup="Search('bloques_add','bloques_add_drop')" autocomplete="off">
+                        <label for="bloques_add_1" id="labelbloques_add_1">Bloques Añadidos</label><br>
+                    <input type="text" id="bloques_add_1" name="bloques_add_1" onfocus="LabelAnimation('bloques_add_1','labelbloques_add_1')" onblur="LabelOut('bloques_add_1','labelbloques_add_1')" maxlength="30" class="input-label input_add" onkeyup="Search('bloques_add_1','bloques_add_drop_1')" autocomplete="off">
                     
-                        <img src="css/img/menos.png" alt="" onclick="AddAndRemove('bloques_add_drop','bloques_drop','bloques_add','bloques','del', 'disponibilidad-container')">
+                        <img src="css/img/menos.png" alt="" onclick="AddAndRemove('bloques_add_drop_1','bloques_drop_1','bloques_add_1','bloques_1','del', 'disponibilidad-container')">
                         <input type="text" id="add" name="add" class='input' hidden>
-                        <input type="checkbox" class="checkbox-edit checkbox-add"  onclick="CheckboxDisabled('carreras_add', this, 'active')">
+                        <input type="checkbox" class="checkbox-edit checkbox-add"  onclick="CheckboxDisabled('bloques_add_1', this, 'active')">
                         
-                        <div class="dropdown drop_add" id="bloques_add_drop">
+                        <div class="dropdown drop_add" id="bloques_add_drop_1">
+                        </div>
+                    </div>
+                    <!-- --------------PRIMER BLOQUE---------- -->
+
+                    <!-- --------------SEGUNDO BLOQUE---------- -->
+                    <div class="input-container">
+                        <select name="dias_2" id="dias_2" class='input-dis'>
+                            <option value="">Dia</option>
+                            <option value="1">LUNES</option>
+                            <option value="2">MARTES</option>
+                            <option value="3">MIERCOLES</option>
+                            <option value="4">JUEVES</option>
+                            <option value="5">VIERNES</option>
+                        </select>
+                    </div>
+                    <div class="input-container" id="input-carreras" style='margin-bottom:60px;'>
+                        <label for="bloques_2" id="labebloques_2">Bloques</label><br>
+                        <input type="text" id="bloques_2" name="bloques_2" onfocus="LabelAnimation('bloques_2','labebloques_2')" onblur="LabelOut('bloques_2','labebloques_2')" maxlength="30" class="input-label" onkeyup="Search('bloques_2','bloques_drop_2')" autocomplete="off">
+                        <input type="checkbox" class="checkbox-edit"  onclick="CheckboxDisabled('bloques_2', this)">
+                        <img src="css/img/add.png" alt="" onclick="AddAndRemove('bloques_drop_2','bloques_add_drop_2','bloques_2','bloques_add_2','add', 'disponibilidad-container')">
+                        <div class="dropdown" id="bloques_drop_2">
+                        <?php
+                             $hora="07:00";
+                             $hora2="07:45";
+                            for ($i=1; $i <= 20; $i++) { 
+                                echo "<span id=B$i onclick=AddValueMateria('bloques_2',this)>BLOQUE ".$i." $hora-$hora2</span>";
+                                $nuevahora=strtotime($hora)+strtotime("00:45");
+                                $hora=date('H:i', $nuevahora);
+                                $nuevahora2=strtotime($hora2)+strtotime("00:45");
+                                $hora2=date('H:i', $nuevahora2);
+                            }
+                        ?>
+                        </div>
+                    </div>
+                    <div class="input-container  input-add" style='grid-column: span 3/;'>
+                        <label for="bloques_add_2" id="labelbloques_add_2">Bloques Añadidos</label><br>
+                    <input type="text" id="bloques_add_2" name="bloques_add_2" onfocus="LabelAnimation('bloques_add_2','labelbloques_add_2')" onblur="LabelOut('bloques_add_2','labelbloques_add_2')" maxlength="30" class="input-label input_add" onkeyup="Search('bloques_add_2','bloques_add_drop_2')" autocomplete="off">
                     
+                        <img src="css/img/menos.png" alt="" onclick="AddAndRemove('bloques_add_drop_2','bloques_drop_2','bloques_add_2','bloques_2','del', 'disponibilidad-container')">
+                        <input type="text" id="add" name="add" class='input' hidden>
+                        <input type="checkbox" class="checkbox-edit checkbox-add"  onclick="CheckboxDisabled('bloques_add_2', this, 'active')">
+                        
+                        <div class="dropdown drop_add" id="bloques_add_drop_2">
+                        </div>
                     </div>
+                    <!-- --------------SEGUNDO BLOQUE---------- -->
+
+                    <!-- --------------TERCER BLOQUE---------- -->
+                    <div class="input-container">
+                        <select name="dias_3" id="dias_3" class='input-dis'>
+                            <option value="">Dia</option>
+                            <option value="1">LUNES</option>
+                            <option value="2">MARTES</option>
+                            <option value="3">MIERCOLES</option>
+                            <option value="4">JUEVES</option>
+                            <option value="5">VIERNES</option>
+                        </select>
                     </div>
-                    <br>
-                    <button type="button" onclick="Submit('carrera')">Registrar</button>
+                    <div class="input-container" id="input-carreras" style='margin-bottom:60px;'>
+                        <label for="bloques_3" id="labebloques_3">Bloques</label><br>
+                        <input type="text" id="bloques_3" name="bloques_3" onfocus="LabelAnimation('bloques_3','labebloques_3')" onblur="LabelOut('bloques_3','labebloques_3')" maxlength="30" class="input-label" onkeyup="Search('bloques_3','bloques_drop_3')" autocomplete="off">
+                        <input type="checkbox" class="checkbox-edit"  onclick="CheckboxDisabled('bloques_3', this)">
+                        <img src="css/img/add.png" alt="" onclick="AddAndRemove('bloques_drop_3','bloques_add_drop_3','bloques_3','bloques_add_3','add', 'disponibilidad-container')">
+                        <div class="dropdown" id="bloques_drop_3">
+                        <?php
+                             $hora="07:00";
+                             $hora2="07:45";
+                            for ($i=1; $i <= 20; $i++) { 
+                                echo "<span id=B$i onclick=AddValueMateria('bloques_3',this)>BLOQUE ".$i." $hora-$hora2</span>";
+                                $nuevahora=strtotime($hora)+strtotime("00:45");
+                                $hora=date('H:i', $nuevahora);
+                                $nuevahora2=strtotime($hora2)+strtotime("00:45");
+                                $hora2=date('H:i', $nuevahora2);
+                            }
+                        ?>
+                        </div>
+                    </div>
+                    <div class="input-container  input-add" style='grid-column: span 3/;'>
+                        <label for="bloques_add_3" id="labelbloques_add_3">Bloques Añadidos</label><br>
+                    <input type="text" id="bloques_add_3" name="bloques_add_3" onfocus="LabelAnimation('bloques_add_3','labelbloques_add_3')" onblur="LabelOut('bloques_add_3','labelbloques_add_3')" maxlength="30" class="input-label input_add" onkeyup="Search('bloques_add','bloques_add_drop')" autocomplete="off">
+                    
+                        <img src="css/img/menos.png" alt="" onclick="AddAndRemove('bloques_add_drop_3','bloques_drop_3','bloques_add_3','bloques_3','del', 'disponibilidad-container')">
+                        <input type="text" id="add" name="add" class='input' hidden>
+                        <input type="checkbox" class="checkbox-edit checkbox-add"  onclick="CheckboxDisabled('bloques_add_3', this, 'active')">
+                        
+                        <div class="dropdown drop_add" id="bloques_add_drop_3">
+                        </div>
+                    </div>
+                    <!-- --------------TERCER BLOQUE---------- -->
+
+
+                    <!-- --------------CUARTO BLOQUE---------- -->
+                    <div class="input-container">
+                        <select name="dias_4" id="dias_4" class='input-dis'>
+                            <option value="">Dia</option>
+                            <option value="1">LUNES</option>
+                            <option value="2">MARTES</option>
+                            <option value="3">MIERCOLES</option>
+                            <option value="4">JUEVES</option>
+                            <option value="5">VIERNES</option>
+                        </select>
+                    </div>
+                    <div class="input-container" id="input-carreras" style='margin-bottom:60px;'>
+                        <label for="bloques_4" id="labebloques_4">Bloques</label><br>
+                        <input type="text" id="bloques_4" name="bloques_4" onfocus="LabelAnimation('bloques_4','labebloques_4')" onblur="LabelOut('bloques_4','labebloques_4')" maxlength="30" class="input-label" onkeyup="Search('bloques_4','bloques_drop_4')" autocomplete="off">
+                        <input type="checkbox" class="checkbox-edit"  onclick="CheckboxDisabled('bloques_4', this)">
+                        <img src="css/img/add.png" alt="" onclick="AddAndRemove('bloques_drop_4','bloques_add_drop_4','bloques_4','bloques_add_4','add', 'disponibilidad-container')">
+                        <div class="dropdown" id="bloques_drop_4">
+                        <?php
+                             $hora="07:00";
+                             $hora2="07:45";
+                            for ($i=1; $i <= 20; $i++) { 
+                                echo "<span id=B$i onclick=AddValueMateria('bloques_4',this)>BLOQUE ".$i." $hora-$hora2</span>";
+                                $nuevahora=strtotime($hora)+strtotime("00:45");
+                                $hora=date('H:i', $nuevahora);
+                                $nuevahora2=strtotime($hora2)+strtotime("00:45");
+                                $hora2=date('H:i', $nuevahora2);
+                            }
+                        ?>
+                        </div>
+                    </div>
+                    <div class="input-container  input-add" style='grid-column: span 3/;'>
+                        <label for="bloques_add_4" id="labelbloques_add_4">Bloques Añadidos</label><br>
+                    <input type="text" id="bloques_add_4" name="bloques_add_4" onfocus="LabelAnimation('bloques_add_4','labelbloques_add')" onblur="LabelOut('bloques_add_4','labelbloques_add_4')" maxlength="30" class="input-label input_add" onkeyup="Search('bloques_add_4','labelbloques_add_4')" autocomplete="off">
+                    
+                        <img src="css/img/menos.png" alt="" onclick="AddAndRemove('bloques_add_drop_4','bloques_drop_4','bloques_add_4','bloques_4','del', 'disponibilidad-container')">
+                        <input type="text" id="add" name="add" class='input' hidden>
+                        <input type="checkbox" class="checkbox-edit checkbox-add"  onclick="CheckboxDisabled('bloques_add_4', this, 'active')">
+                        
+                        <div class="dropdown drop_add" id="bloques_add_drop_4">
+                        </div>
+                    </div>
+                     <!-- --------------CUARTO BLOQUE---------- -->
+
+
+                    <!-- --------------QUINTO BLOQUE---------- -->
+                    <div class="input-container">
+                        <select name="dias_5" id="dias_5" class='input-dis'>
+                            <option value="">Dia</option>
+                            <option value="1">LUNES</option>
+                            <option value="2">MARTES</option>
+                            <option value="3">MIERCOLES</option>
+                            <option value="4">JUEVES</option>
+                            <option value="5">VIERNES</option>
+                        </select>
+                    </div>
+                    <div class="input-container" id="input-carreras" style='margin-bottom:60px;'>
+                        <label for="bloques_5" id="labebloques_5">Bloques</label><br>
+                        <input type="text" id="bloques_5" name="bloques_5" onfocus="LabelAnimation('bloques_5','labebloques_5')" onblur="LabelOut('bloques_5','labebloques_5')" maxlength="30" class="input-label" onkeyup="Search('bloques_5','bloques_drop_5')" autocomplete="off">
+                        <input type="checkbox" class="checkbox-edit"  onclick="CheckboxDisabled('bloques_5', this)">
+                        <img src="css/img/add.png" alt="" onclick="AddAndRemove('bloques_drop_5','bloques_add_drop_5','bloques_5','bloques_add_5','add', 'disponibilidad-container')">
+                        <div class="dropdown" id="bloques_drop_5">
+                        <?php
+                             $hora="07:00";
+                             $hora2="07:45";
+                            for ($i=1; $i <= 20; $i++) { 
+                                echo "<span id=B$i onclick=AddValueMateria('bloques_5',this)>BLOQUE ".$i." $hora-$hora2</span>";
+                                $nuevahora=strtotime($hora)+strtotime("00:45");
+                                $hora=date('H:i', $nuevahora);
+                                $nuevahora2=strtotime($hora2)+strtotime("00:45");
+                                $hora2=date('H:i', $nuevahora2);
+                            }
+                        ?>
+                        </div>
+                    </div>
+                    <div class="input-container  input-add" style='grid-column: span 3/;'>
+                        <label for="bloques_add_5" id="labelbloques_add_5">Bloques Añadidos</label><br>
+                    <input type="text" id="bloques_add_5" name="bloques_add" onfocus="LabelAnimation('bloques_add_5','labelbloques_add_5')" onblur="LabelOut('bloques_add_5','labelbloques_add_5')" maxlength="30" class="input-label input_add" onkeyup="Search('bloques_add_5','bloques_add_drop_5')" autocomplete="off">
+                    
+                        <img src="css/img/menos.png" alt="" onclick="AddAndRemove('bloques_add_drop_5','bloques_drop_5','bloques_add_5','bloques_5','del', 'disponibilidad-container')">
+                        <input type="text" id="add" name="add" class='input' hidden>
+                        <input type="checkbox" class="checkbox-edit checkbox-add"  onclick="CheckboxDisabled('bloques_add_5', this, 'active')">
+                        
+                        <div class="dropdown drop_add" id="bloques_add_drop_5">
+                        </div>
+                    </div>
+                    <!-- --------------QUINTO BLOQUE---------- -->
+                    <button type="button" onclick="SubmitDisponibilidad()">Registrar</button>
                     <button type="button" onclick="DisplayDelete('flex','#carrera-find','#carrera')">Buscar</button>
                     <button type="button" onclick="Save('carrera')" class="button-edit button-update">Guardar</button>
                     <button type="button" onclick="DisplayDelete('block','.delete-window','#carrera')" class="button-edit button-delete">Eliminar</button>
