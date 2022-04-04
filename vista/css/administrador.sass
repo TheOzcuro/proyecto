@@ -209,7 +209,7 @@ a
     button 
         font-size: 18px
         width: 70%
-#pensum-container, #oferta-container
+#oferta-container
 
     max-width: 300px
     padding-left: 40px
@@ -345,9 +345,28 @@ button
     cursor: pointer
     right: 20px
     top: 10px
-#materia-container button
+#pensum-container button
     margin: auto
     grid-column: 1
+#pensum-container, #materia-container
+    top: 10px
+    width: 300px
+    .input
+        width: 90%
+    img
+        width: 30px
+        height: 30px
+        position: absolute
+        top: 20px
+        right: -5px
+        transition-property: transform
+        transition-timing-function: ease
+        transition-duration: .5s
+        cursor: pointer
+        &:hover
+            transform: scale(1.18)
+#pensum-container .checkbox-edit
+    left:270px
 .blackcover
     position: absolute
     background: rgb(30, 30, 30,.5)

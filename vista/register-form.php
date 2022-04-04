@@ -3,10 +3,37 @@
                 <input type="text" class="input-update" id="update" name="update" hidden>
                 <input type="text" class="input-delete" id="delete" name="delete" hidden>
                 <input type="text" class="input-url" id="url" name="url" hidden>
-                <div class="container container-flex" id="materia-container">
+                <div class="container container-flex" id="pensum-container">
                 <a class="a_img"><img src="css/img/close.png" alt="" class="close-icon" id="close-icon-profesor" onclick="Close()"></a>
                     
                     <h2>Unidad Curricular</h2>
+                    <div class="input-container dis" id="input-carreras">
+                        <label for="carreras" id="labelcarreras">Carreras</label><br>
+                        <input type="text" id="carreras" name="carreras" onfocus="LabelAnimation('carreras','labelcarreras')" onblur="LabelOut('carreras','labelcarreras')" maxlength="30" class="input-label principal_input" onkeyup="Search('carreras','carreras_drop')" autocomplete="off" style='width:89%;'>
+                        <input type="checkbox" class="checkbox-edit"  onclick="CheckboxDisabled('carreras', this)">
+                        <div class="dropdown" id="carreras_drop">
+                        <?php 
+                            include_once("../control/c_function.php");
+                            $list=[];
+                            $list=GetCarrerasNotPensum();
+                            $carrera=GetCarreras();
+                            $totalarray=count($list);
+                            $totalcarrera=count($carrera);
+                            if (isset($carrera)) {
+                                for ($i=0; $i < $totalcarrera; $i++) { 
+                                echo "<span id=".$carrera[$i][0]." onclick="."AddValueMateria('carreras',this)".">".$carrera[$i][1]." **</span>";
+                                }
+                            }
+                            if (isset($list)) {
+                                for ($i=0; $i < $totalarray; $i++) { 
+                                    echo "<span id=".$list[$i][0]." onclick="."AddValueMateria('carreras',this)".">".$list[$i][1]."</span>";
+                               }
+                            }
+                            
+                            
+                        ?>
+                        </div>
+                    </div>
                     <div class="input-container">
                         <label for="codigo_materia" id="labelcodigo_materia">Codigo</label><br>
                         <input type="text" id="codigo_materia" name="codigo_materia" onfocus="LabelAnimation('codigo_materia','labelcodigo_materia')" onblur="LabelOut('codigo_materia','labelcodigo_materia')" maxlength="11" class="input input-label">
@@ -16,7 +43,7 @@
                     <div class="input-container">
                         <label for="nombre_materia" id="labelnombre_materia">Nombre Materia</label><br>
                         <input type="text" id="nombre_materia" name="nombre_materia" onfocus="LabelAnimation('nombre_materia','labelnombre_materia')" onblur="LabelOut('nombre_materia','labelnombre_materia')" maxlength="30" class="input input-label">
-                        <input type="checkbox" class="checkbox-edit checkbox-materia"   onclick="CheckboxDisabled('nombre_materia', this)">
+                        <input type="checkbox" class="checkbox-edit checkbox-materia"   onclick="CheckboxDisabled('nombre_materia', this)" style='right:30px;'>
                     </div>
 
                     <div class="input-container">
@@ -24,12 +51,93 @@
                             <option value="">Tipo</option>
                             <option value="0">Diciplinaria</option>
                             <option value="1">Multidiciplinaria</option>
-                        </select><input type="checkbox" class="checkbox-edit checkbox-materia"   onclick="CheckboxDisabled('tipo_materia', this)">
+                        </select>
+                        <img src="css/img/add.png" class='dis' alt="" onclick="AddMateria('add')">
                     </div>
-                    <button type="button" onclick="Submit('materia')">Registrar</button>
-                    <button type="button" onclick="DisplayDelete('flex','#materia-find','#materia')" style="grid-column:2/3;">Buscar</button>
-                    <button type="button" onclick="Save('materia')" class="button-edit button-update">Guardar</button>
-                    <button type="button" onclick="DisplayDelete('block','.delete-window','#materia')" class="button-edit button-delete" style="grid-column:2/3;">Eliminar</button>
+                    <div class="input-container input-add dis" style='margin-top:30px;'>
+                        <label for="materias_add" id="labelmaterias_add">Materias Añadidas</label><br>
+                        <input type="text" id="materias_add" name="materias_add" onfocus="LabelAnimation('materias_add','labelmaterias_add')" onblur="LabelOut('materias_add','labelmaterias_add')" maxlength="30" class="input-label input_add" onkeyup="Search('materias_add','materias_add_drop')" autocomplete="off" style='width:89%;'>
+                        <img src="css/img/menos.png" alt="" onclick="AddMateria('del')">
+                        <input type="checkbox" class="checkbox-edit checkbox-add"  onclick="CheckboxDisabled('materias_add', this,'active')">
+                        <input type="text" id="add" name="add" hidden>
+                        <input type="text" id="del" name="del" hidden>
+                        <div class="dropdown drop_add" id="materias_add_drop"></div>
+                    </div>
+                    <button type="button" class='button_main' onclick="SubmitMateria('materia')" style='margin-top:30px;grid-column:1/3;'>Registrar</button>
+                    <button type="button" onclick="DisplayDelete('flex','#materia-find','#materia')" style="grid-column:2/3;margin-top:30px;" hidden>Buscar</button>
+                    <button type="button" onclick="Save('materia')" class="button-edit button-update" style='margin-top:30px;'>Guardar</button>
+                    <button type="button" onclick="DisplayDelete('block','.delete-window','#materia')" class="button-edit button-delete" style="grid-column:2/3;margin-top:30px;">Eliminar</button>
+                    <button type="button" onclick="SaveMaterias()" class="button-edit button-update button_unidad" style='margin-top:30px;'>Guardar</button>
+                    <button type="button" onclick="DisplayDelete('block','.delete-window','#materia')" class="button-edit button-delete button_unidad" style="grid-column:2/3;margin-top:30px;">Eliminar</button>
+                </div>
+            </form>
+            <form action="../control/c_pensum.php" method="POST" name="unidad" id="unidad">
+                <input type="text" class="input-update" id="update" name="update" hidden>
+                <input type="text" class="input-delete" id="delete" name="delete" hidden>
+                <input type="text" class="input-url" id="url" name="url" hidden>
+                <div id="materia-container" class="container container-flex">
+                    <a class="a_img"><img src="css/img/close.png" alt="" class="close-icon" id="close-icon-profesor" onclick="Close()"></a>
+                    <h2>Materia Multidiciplinaria</h2>
+                    <div class="input-container" id="input-carreras">
+                        <label for="carreras_unidad" id="labelcarreras_unidad">Carreras</label><br>
+                        <input type="text" id="carreras_unidad" name="carreras_unidad" onfocus="LabelAnimation('carreras_unidad','labelcarreras_unidad')" onblur="LabelOut('carreras_unidad','labelcarreras_unidad')" maxlength="30" class="input input-label principal_input" onkeyup="Search('carreras_unidad','carreras_drop_unidad')" autocomplete="off">
+                        <input type="checkbox" class="checkbox-edit"  onclick="CheckboxDisabled('carreras_unidad', this)">
+                        <div class="dropdown" id="carreras_drop_unidad">
+                        <?php 
+                            $list=[];
+                            $list=GetColumns("carrera");
+                            $prueba_list=$list;
+                            $carrera_unidad=GetCarreraMulti();
+                            $totalarray=count($list);
+                            $totalcarrera=count($carrera_unidad);
+                            for ($y=0; $y < $totalcarrera; $y++) { 
+                                    $clave = array_search($carrera_unidad[$y],$prueba_list);
+                                    unset($list[$clave]);
+                            }
+                            $list = array_values($list);
+                            if (isset($carrera_unidad)) {
+                                for ($i=0; $i < $totalcarrera; $i++) { 
+                                echo "<span id=".$carrera_unidad[$i][0]." onclick="."AddValueMateria('carreras_unidad',this)".">".$carrera_unidad[$i][1]." **</span>";
+                                }
+                            }
+                            if (isset($list)) {
+                                for ($i=0; $i < count($list); $i++) {
+                                    echo "<span id=".$list[$i][0]." onclick="."AddValueMateria('carreras_unidad',this)".">".$list[$i][1]."</span>";
+                               }
+                            }
+                        ?>
+                        </div>
+                    </div>
+                    <div class="input-container">
+                        <label for="materias_unidad" id="labelmaterias_unidad">Materias</label><br>
+                        <input type="text" id="materias_unidad" name="materias_unidad" onfocus="LabelAnimation('materias_unidad','labelmaterias_unidad')" onblur="LabelOut('materias_unidad','labelmaterias_unidad')" maxlength="30" class="input-label input_added" onkeyup="Search('materias_unidad','materias_drop_unidad')" autocomplete="off">
+                        <img src="css/img/add.png" alt="" onclick="AddAndRemove('materias_drop_unidad','materias_add_drop_unidad','materias_unidad','materias_add_unidad','add','materia-container')">
+                        <input type="checkbox" class="checkbox-edit checkbox-lapso"  onclick="CheckboxDisabled('materias_unidad', this,'active')">
+                    <div class="dropdown drop" id="materias_drop_unidad">
+   
+                        <?php 
+                            $list=[];
+                            $list=GetMateriaMulti();
+                            $totalarray=count($list);
+                            for ($i=0; $i < $totalarray; $i++) { 
+                                echo "<span id='".$list[$i][0]."'". "onclick="."AddValueMateria('materias_unidad',this)".">".$list[$i][1]."</span>";
+                            }
+                        ?>
+                        </div>
+                    </div>
+                        <div class="input-container input-add">
+                        <label for="materias_add_unidad" id="labelmaterias_add_unidad">Materias Añadidas</label><br>
+                        <input type="text" id="materias_add_unidad" name="materias_add_unidad" onfocus="LabelAnimation('materias_add_unidad','labelmaterias_add_unidad')" onblur="LabelOut('materias_add_unidad','labelmaterias_add_unidad')" maxlength="30" class="input-label input_add" onkeyup="Search('materias_add_unidad','materias_add_dropunidad')" autocomplete="off">
+                        <img src="css/img/menos.png" alt="" onclick="AddAndRemove('materias_add_drop_unidad','materias_drop_unidad','materias_add_unidad','materias_unidad','del','materia-container')">
+                        <input type="checkbox" class="checkbox-edit checkbox-add"  onclick="CheckboxDisabled('materias_add_unidad', this,'active')">
+                        <input type="text" id="add" name="add" class='input' hidden>
+                        <input type="text" id="del" name="del" class='input' hidden>
+                        <div class="dropdown drop_add" id="materias_add_drop_unidad"></div>
+                    </div>
+                    <button type="button" onclick="SubmitMateria('unidad')" style="grid-column:1/3;">Registrar</button>
+                    <button type="button" hidden>Buscar</button>
+                    <button type="button" onclick="SavePensum('#unidad')" class="button-edit button-update">Guardar</button>
+                    <button type="button" onclick="DisplayDelete('block','.delete-window','#unidad')" class="button-edit button-delete">Eliminar</button>
                 </div>
             </form>
             <form action="../control/c_profesor.php" method="POST" name="profesor" id="profesor">
@@ -144,6 +252,7 @@
                             <option value="1">Tiempo Convencional</option>
                             <option value="2">Medio Tiempo</option>
                             <option value="3">Tiempo Completo</option>
+                            <option value="4">Tiempo Exclusivo</option>
                         </select>
                         <input type="checkbox" class="checkbox-edit"  onclick="CheckboxDisabled('dedicacion', this)">
                     </div>
@@ -203,62 +312,6 @@
                     <button type="button" onclick="DisplayDelete('block','.delete-window','#carrera')" class="button-edit button-delete">Eliminar</button>
                 </div>
             </form>
-            <form action="../control/c_pensum.php" method="POST" name="pensum" id="pensum">
-                <input type="text" class="input-update" id="update" name="update" hidden>
-                <input type="text" class="input-delete" id="delete" name="delete" hidden>
-                <input type="text" class="input-url" id="url" name="url" hidden>
-                <div id="pensum-container" class="container container-flex">
-                    <a class="a_img"><img src="css/img/close.png" alt="" class="close-icon" id="close-icon-profesor" onclick="Close()"></a>
-                    <h2>Pensum</h2>
-                    <div class="input-container" id="input-carreras">
-                        <label for="carreras" id="labelcarreras">Carreras</label><br>
-                        <input type="text" id="carreras" name="carreras" onfocus="LabelAnimation('carreras','labelcarreras')" onblur="LabelOut('carreras','labelcarreras')" maxlength="30" class="input input-label principal_input" onkeyup="Search('carreras','carreras_drop')" autocomplete="off">
-                        <input type="checkbox" class="checkbox-edit"  onclick="CheckboxDisabled('carreras', this)">
-                        <div class="dropdown" id="carreras_drop">
-                        <?php 
-                            include_once("../control/c_function.php");
-                            $list=[];
-                            $list=GetCarreras();
-                            $totalarray=count($list);
-                            for ($i=0; $i < $totalarray; $i++) { 
-                                echo "<span value=".$list[$i][0]." onclick="."AddValueMateria('carreras',this)".">".$list[$i][1]."</span>";
-                            }
-                        ?>
-                        </div>
-                    </div>
-                    <div class="input-container">
-                        <label for="materias" id="labelmaterias">Materias</label><br>
-                        <input type="text" id="materias" name="materias" onfocus="LabelAnimation('materias','labelmaterias')" onblur="LabelOut('materias','labelmaterias')" maxlength="30" class="input-label input_added" onkeyup="Search('materias','materias_drop')" autocomplete="off">
-                        <img src="css/img/add.png" alt="" onclick="AddAndRemove('materias_drop','materias_add_drop','materias','materias_add','add','pensum-container')">
-                        <input type="checkbox" class="checkbox-edit checkbox-lapso"  onclick="CheckboxDisabled('materias', this,'active')">
-
-                        <div class="dropdown drop" id="materias_drop">
-   
-                        <?php 
-                            include_once("../control/c_function.php");
-                            $list=[];
-                            $list=GetColumns("materia");
-                            $totalarray=count($list);
-                            for ($i=0; $i < $totalarray; $i++) { 
-                                echo "<span id='".$list[$i][0]."'". "onclick="."AddValueMateria('materias',this)".">".$list[$i][1]."</span>";
-                            }
-                        ?>
-                        </div>
-                    </div>
-                    <div class="input-container input-add">
-                        <label for="materias_add" id="labelmaterias_add">Materias Añadidas</label><br>
-                        <input type="text" id="materias_add" name="materias_add" onfocus="LabelAnimation('materias_add','labelmaterias_add')" onblur="LabelOut('materias_add','labelmaterias_add')" maxlength="30" class="input-label input_add" onkeyup="Search('materias_add','materias_add_drop')" autocomplete="off">
-                        <img src="css/img/menos.png" alt="" onclick="AddAndRemove('materias_add_drop','materias_drop','materias_add','materias','del','pensum-container')">
-                        <input type="checkbox" class="checkbox-edit checkbox-add"  onclick="CheckboxDisabled('materias_add', this,'active')">
-                        <input type="text" id="add" name="add" class='input' hidden>
-                        <div class="dropdown drop_add" id="materias_add_drop"></div>
-                    </div>
-                    <button type="button" onclick="Submit('pensum')">Registrar</button>
-                    <button type="button" onclick="DisplayDelete('flex','#pensum-find','#pensum')">Buscar</button>
-                    <button type="button" onclick="SavePensum('#pensum')" class="button-edit button-update">Guardar</button>
-                    <button type="button" onclick="DisplayDelete('block','.delete-window','#carrera')" class="button-edit button-delete">Eliminar</button>
-                </div>
-            </form>
             <form action="../control/c_oferta.php" method="POST" name="oferta" id="oferta">
                 <input type="text" class="input-update" id="update" name="update" hidden>
                 <input type="text" class="input-delete" id="delete" name="delete" hidden>
@@ -268,11 +321,10 @@
                     <h2>Oferta Academica</h2>
                     <div class="input-container" id="input-carreras">
                         <label for="lapso" id="labelapso">Trayecto</label><br>
-                        <input type="text" id="lapso" name="lapso" onfocus="LabelAnimation('lapso','labelapso')" onblur="LabelOut('lapso','labelapso')" maxlength="30" class="input input-label principal_input" autocomplete="off">
+                        <input type="text" id="lapso" name="lapso" onfocus="LabelAnimation('lapso','labelapso')" onblur="LabelOut('lapso','labelapso')" maxlength="30" class="input input-label principal_input" onkeyup="Search('lapso','lapso_drop')" autocomplete="off">
                         <input type="checkbox" class="checkbox-edit"  onclick="CheckboxDisabled('lapso', this)">
                         <div class="dropdown" id="lapso_drop">
                         <?php 
-                            include_once("../control/c_function.php");
                             $list=[];
                             $list=GetLapso();
                             $totalarray=count($list);
@@ -284,16 +336,14 @@
                     </div>
                     <div class="input-container">
                         <label for="carrera" id="labelcar">Carreras</label><br>
-                        <input type="text" id="carrera_oferta" name="carrera_oferta" onfocus="LabelAnimation('carrera_oferta','labelcar')" onblur="LabelOut('carrera_oferta','labelcar')" maxlength="30" class="input-label input_added" onkeyup="Search('carrera_oferta','carreras_oferta_drop')" autocomplete="off">
-                        <img src="css/img/add.png" alt="" onclick="AddAndRemove('carreras_oferta_drop','carreras_add_drop','carrera_oferta','carreras_add','add', 'oferta-container')">
+                        <input type="text" id="carrera_oferta" name="carrera_oferta" onfocus="LabelAnimation('carrera_oferta','labelcar')" onblur="LabelOut('carrera_oferta','labelcar')" maxlength="30" class="input input-label input_added" onkeyup="Search('carrera_oferta','carreras_oferta_drop')" autocomplete="off">
                         <input type="checkbox" class="checkbox-edit checkbox-lapso"  onclick="CheckboxDisabled('carrera_oferta', this,'active')">
 
                         <div class="dropdown drop" id="carreras_oferta_drop">
    
                         <?php 
-                            include_once("../control/c_function.php");
                             $list=[];
-                            $list=GetCarrerasOferta();
+                            $list=GetCarrerasNotOferta();
                             $totalarray=count($list);
                             for ($i=0; $i < $totalarray; $i++) { 
                                 echo "<span id='".$list[$i][0]."'". "onclick="."AddValueMateria('carrera_oferta',this)".">".$list[$i][1]."</span>";
@@ -302,14 +352,14 @@
                         </div>
                     </div>
                     <div class="input-container  input-add">
-                        <label for="carreras_add" id="labelcarreras_add">Carreras Añadidas</label><br>
-                    <input type="text" id="carreras_add" name="carreras_add" onfocus="LabelAnimation('carreras_add','labelcarreras_add')" onblur="LabelOut('carreras_add','labelcarreras_add')" maxlength="30" class="input-label input_add" onkeyup="Search('carreras_add','carreras_add_drop')" autocomplete="off">
-                        <img src="css/img/menos.png" alt="" onclick="AddAndRemove('carreras_add_drop','carreras_oferta_drop','carreras_add','carrera_oferta','del', 'oferta-container')">
-                        <input type="text" id="add" name="add" class='input' hidden>
-                        <input type="checkbox" class="checkbox-edit checkbox-add"  onclick="CheckboxDisabled('carreras_add', this, 'active')">
-                        <div class="dropdown drop_add" id="carreras_add_drop">
-                    
-                        </div>
+                        <label for="horas_semana" id="labelhoras_semana">Horas por semana</label><br>
+                    <input type="text" id="horas_semana" name="horas_semana" onfocus="LabelAnimation('horas_semana','labelhoras_semana')" onblur="LabelOut('horas_semana','labelhoras_semana')" maxlength="30" class="input input-label input_add" autocomplete="off">
+                        <input type="checkbox" class="checkbox-edit checkbox-add"  onclick="CheckboxDisabled('horas_semana', this, 'active')">
+                    </div>
+                    <div class="input-container  input-add">
+                        <label for="unidad_credito" id="labelunidad_credito">Unidad de credito</label><br>
+                    <input type="text" id="unidad_credito" name="unidad_credito" onfocus="LabelAnimation('unidad_credito','labelunidad_credito')" onblur="LabelOut('unidad_credito','labelunidad_credito')" maxlength="30" class="input input-label input_add" autocomplete="off">
+                        <input type="checkbox" class="checkbox-edit checkbox-add"  onclick="CheckboxDisabled('unidad_credito', this, 'active')">
                     </div>
                    
                     <!--
@@ -319,7 +369,7 @@
                         -->
                     <button type="button" onclick="Submit('oferta')">Registrar</button>
                     <button type="button" onclick="DisplayDelete('flex','#oferta-find','#oferta')">Buscar</button>
-                    <button type="button" onclick="SavePensum('#oferta')" class="button-edit button-update">Guardar</button>
+                    <button type="button" onclick="Save('oferta')" class="button-edit button-update">Guardar</button>
                     <button type="button" onclick="DisplayDelete('block','.delete-window','#oferta')" class="button-edit button-delete">Eliminar</button>
                 </div>
             </form>
@@ -336,12 +386,20 @@
                         <input type="checkbox" class="checkbox-edit checkbox-materia"  onclick="CheckboxDisabled('codigo_carrera', this)">
                         <div class="dropdown" id="disponibilidad_drop">
                         <?php 
-                            include_once("../control/c_function.php");
                             $list=[];
-                            $list=GetProfesor();
+                            $list=GetUserNotDisponibilidad();
+                            $profesor_dis=GetUserInDisponibilidad();
                             $totalarray=count($list);
-                            for ($i=0; $i < $totalarray; $i++) { 
-                                echo "<span value="."'".$list[$i][1]."/".$list[$i][3]."/".$list[$i][7]."'"." onclick=AddValueMateria('cedula_dis',this)>".$list[$i][0]."</span>";
+                            $totalprofesor=count($profesor_dis);
+                            if (isset($profesor_dis)) {
+                                for ($i=0; $i < $totalprofesor; $i++) { 
+                                    echo "<span value="."'".$profesor_dis[$i][1]."/".$profesor_dis[$i][2]."/".$profesor_dis[$i][3]."'"." onclick=AddValueMateria('cedula_dis',this)>".$profesor_dis[$i][0]." **</span>";
+                                }
+                            }
+                            if (isset($list)) {
+                                for ($i=0; $i <  $totalarray; $i++) {
+                                    echo "<span value="."'".$list[$i][1]."/".$list[$i][2]."/".$list[$i][3]."'"." onclick=AddValueMateria('cedula_dis',this)>".$list[$i][0]."</span>";
+                               }
                             }
                         ?>
                         </div>
@@ -358,9 +416,9 @@
                     </div>
 
                     <!-- --------------PRIMER BLOQUE---------- -->
-
+                    <input type="text" id="del" name="del" hidden>
                     <div class="input-container">
-                        <select name="dias_1" id="dias_1" class='input-dis'>
+                        <select name="dias_1" id="dias_1" class='input-dis' value="bloques_add_drop_1">
                             <option value="">Dia</option>
                             <option value="1">LUNES</option>
                             <option value="2">MARTES</option>
@@ -371,10 +429,10 @@
                     </div>
                     <div class="input-container" id="input-carreras" style='margin-bottom:60px;'>
                         <label for="bloques_1" id="labebloques_1">Bloques</label><br>
-                        <input type="text" id="bloques_1" name="bloques_1" onfocus="LabelAnimation('bloques_1','labebloques_1')" onblur="LabelOut('bloques_1','labebloques_1')" maxlength="30" class="input-label" onkeyup="Search('bloques_1','bloques_drop_1')" autocomplete="off">
+                        <input type="text" id="bloques_1" name="bloques_1" onfocus="LabelAnimation('bloques_1','labebloques_1')" onblur="LabelOut('bloques_1','labebloques_1')" autocomplete="off" maxlength="30" class="input-label" onkeyup="Search('bloques_1','bloques_drop_1')">
                         <input type="checkbox" class="checkbox-edit"  onclick="CheckboxDisabled('bloques_1', this)">
                         <img src="css/img/add.png" alt="" onclick="AddAndRemove('bloques_drop_1','bloques_add_drop_1','bloques_1','bloques_add_1','add', 'disponibilidad-container')">
-                        <div class="dropdown" id="bloques_drop_1">
+                        <div class="dropdown drop_main" id="bloques_drop_1">
                         <?php
                              $hora="07:00";
                              $hora2="07:45";
@@ -396,14 +454,14 @@
                         <input type="text" id="add" name="add" class='input' hidden>
                         <input type="checkbox" class="checkbox-edit checkbox-add"  onclick="CheckboxDisabled('bloques_add_1', this, 'active')">
                         
-                        <div class="dropdown drop_add" id="bloques_add_drop_1">
+                        <div class="dropdown drop_add" id="bloques_add_drop_1" value="bloques_add_1">
                         </div>
                     </div>
                     <!-- --------------PRIMER BLOQUE---------- -->
 
                     <!-- --------------SEGUNDO BLOQUE---------- -->
                     <div class="input-container">
-                        <select name="dias_2" id="dias_2" class='input-dis'>
+                        <select name="dias_2" id="dias_2" class='input-dis' value="bloques_add_drop_2">
                             <option value="">Dia</option>
                             <option value="1">LUNES</option>
                             <option value="2">MARTES</option>
@@ -417,7 +475,7 @@
                         <input type="text" id="bloques_2" name="bloques_2" onfocus="LabelAnimation('bloques_2','labebloques_2')" onblur="LabelOut('bloques_2','labebloques_2')" maxlength="30" class="input-label" onkeyup="Search('bloques_2','bloques_drop_2')" autocomplete="off">
                         <input type="checkbox" class="checkbox-edit"  onclick="CheckboxDisabled('bloques_2', this)">
                         <img src="css/img/add.png" alt="" onclick="AddAndRemove('bloques_drop_2','bloques_add_drop_2','bloques_2','bloques_add_2','add', 'disponibilidad-container')">
-                        <div class="dropdown" id="bloques_drop_2">
+                        <div class="dropdown drop_main" id="bloques_drop_2">
                         <?php
                              $hora="07:00";
                              $hora2="07:45";
@@ -439,14 +497,14 @@
                         <input type="text" id="add" name="add" class='input' hidden>
                         <input type="checkbox" class="checkbox-edit checkbox-add"  onclick="CheckboxDisabled('bloques_add_2', this, 'active')">
                         
-                        <div class="dropdown drop_add" id="bloques_add_drop_2">
+                        <div class="dropdown drop_add" id="bloques_add_drop_2" value="bloques_add_2">
                         </div>
                     </div>
                     <!-- --------------SEGUNDO BLOQUE---------- -->
 
                     <!-- --------------TERCER BLOQUE---------- -->
                     <div class="input-container">
-                        <select name="dias_3" id="dias_3" class='input-dis'>
+                        <select name="dias_3" id="dias_3" class='input-dis' value="bloques_add_drop_3">
                             <option value="">Dia</option>
                             <option value="1">LUNES</option>
                             <option value="2">MARTES</option>
@@ -460,7 +518,7 @@
                         <input type="text" id="bloques_3" name="bloques_3" onfocus="LabelAnimation('bloques_3','labebloques_3')" onblur="LabelOut('bloques_3','labebloques_3')" maxlength="30" class="input-label" onkeyup="Search('bloques_3','bloques_drop_3')" autocomplete="off">
                         <input type="checkbox" class="checkbox-edit"  onclick="CheckboxDisabled('bloques_3', this)">
                         <img src="css/img/add.png" alt="" onclick="AddAndRemove('bloques_drop_3','bloques_add_drop_3','bloques_3','bloques_add_3','add', 'disponibilidad-container')">
-                        <div class="dropdown" id="bloques_drop_3">
+                        <div class="dropdown drop_main" id="bloques_drop_3">
                         <?php
                              $hora="07:00";
                              $hora2="07:45";
@@ -482,7 +540,7 @@
                         <input type="text" id="add" name="add" class='input' hidden>
                         <input type="checkbox" class="checkbox-edit checkbox-add"  onclick="CheckboxDisabled('bloques_add_3', this, 'active')">
                         
-                        <div class="dropdown drop_add" id="bloques_add_drop_3">
+                        <div class="dropdown drop_add" id="bloques_add_drop_3" value="bloques_add_3">
                         </div>
                     </div>
                     <!-- --------------TERCER BLOQUE---------- -->
@@ -490,7 +548,7 @@
 
                     <!-- --------------CUARTO BLOQUE---------- -->
                     <div class="input-container">
-                        <select name="dias_4" id="dias_4" class='input-dis'>
+                        <select name="dias_4" id="dias_4" class='input-dis' value="bloques_add_drop_4">
                             <option value="">Dia</option>
                             <option value="1">LUNES</option>
                             <option value="2">MARTES</option>
@@ -504,7 +562,7 @@
                         <input type="text" id="bloques_4" name="bloques_4" onfocus="LabelAnimation('bloques_4','labebloques_4')" onblur="LabelOut('bloques_4','labebloques_4')" maxlength="30" class="input-label" onkeyup="Search('bloques_4','bloques_drop_4')" autocomplete="off">
                         <input type="checkbox" class="checkbox-edit"  onclick="CheckboxDisabled('bloques_4', this)">
                         <img src="css/img/add.png" alt="" onclick="AddAndRemove('bloques_drop_4','bloques_add_drop_4','bloques_4','bloques_add_4','add', 'disponibilidad-container')">
-                        <div class="dropdown" id="bloques_drop_4">
+                        <div class="dropdown drop_main" id="bloques_drop_4">
                         <?php
                              $hora="07:00";
                              $hora2="07:45";
@@ -526,7 +584,7 @@
                         <input type="text" id="add" name="add" class='input' hidden>
                         <input type="checkbox" class="checkbox-edit checkbox-add"  onclick="CheckboxDisabled('bloques_add_4', this, 'active')">
                         
-                        <div class="dropdown drop_add" id="bloques_add_drop_4">
+                        <div class="dropdown drop_add" id="bloques_add_drop_4" value="bloques_add_4">
                         </div>
                     </div>
                      <!-- --------------CUARTO BLOQUE---------- -->
@@ -534,7 +592,7 @@
 
                     <!-- --------------QUINTO BLOQUE---------- -->
                     <div class="input-container">
-                        <select name="dias_5" id="dias_5" class='input-dis'>
+                        <select name="dias_5" id="dias_5" class='input-dis' value="bloques_add_drop_5">
                             <option value="">Dia</option>
                             <option value="1">LUNES</option>
                             <option value="2">MARTES</option>
@@ -548,7 +606,7 @@
                         <input type="text" id="bloques_5" name="bloques_5" onfocus="LabelAnimation('bloques_5','labebloques_5')" onblur="LabelOut('bloques_5','labebloques_5')" maxlength="30" class="input-label" onkeyup="Search('bloques_5','bloques_drop_5')" autocomplete="off">
                         <input type="checkbox" class="checkbox-edit"  onclick="CheckboxDisabled('bloques_5', this)">
                         <img src="css/img/add.png" alt="" onclick="AddAndRemove('bloques_drop_5','bloques_add_drop_5','bloques_5','bloques_add_5','add', 'disponibilidad-container')">
-                        <div class="dropdown" id="bloques_drop_5">
+                        <div class="dropdown drop_main" id="bloques_drop_5">
                         <?php
                              $hora="07:00";
                              $hora2="07:45";
@@ -570,14 +628,13 @@
                         <input type="text" id="add" name="add" class='input' hidden>
                         <input type="checkbox" class="checkbox-edit checkbox-add"  onclick="CheckboxDisabled('bloques_add_5', this, 'active')">
                         
-                        <div class="dropdown drop_add" id="bloques_add_drop_5">
+                        <div class="dropdown drop_add" id="bloques_add_drop_5" value="bloques_add_5">
                         </div>
                     </div>
                     <!-- --------------QUINTO BLOQUE---------- -->
-                    <button type="button" onclick="SubmitDisponibilidad()">Registrar</button>
-                    <button type="button" onclick="DisplayDelete('flex','#carrera-find','#carrera')">Buscar</button>
-                    <button type="button" onclick="Save('carrera')" class="button-edit button-update">Guardar</button>
-                    <button type="button" onclick="DisplayDelete('block','.delete-window','#carrera')" class="button-edit button-delete">Eliminar</button>
+                    <button type="button" onclick="SubmitDisponibilidad()" style='grid-column:2/3;'>Registrar</button>
+                    <button type="button" onclick="SaveDisponibilidad()" class="button-edit button-update">Guardar</button>
+                    <button type="button" onclick="DisplayDelete('block','.delete-window','#disponibilidad')" class="button-edit button-delete" style='grid-column:3/4;'>Eliminar</button>
                 </div>
             </form>
             <form action="../control/c_lapso_academico.php" method="POST" name="lapso_academico" id="lapso_academico">

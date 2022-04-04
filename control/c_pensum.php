@@ -28,66 +28,54 @@ else if (isset($_GET["buscar_pensum"]) && $_GET["buscar_pensum"]!="") {
      }
 }
 else if (isset($_POST["update"]) && $_POST["update"]!=""){
-    $dato=$ejecutar->FindQuery("carrera","nombre",$_POST["carreras"]);
-    $validate=$ejecutar->GetAllPensum($_POST["carreras"]);
-    if ($validate===2) {
-        $validate=0;
-    }
+    $dato=$ejecutar->FindQuery("carrera","codigo",$_POST["update"]);
     if ($dato===2) {
         $_SESSION["error"]="El nombre de carrera que ingreso no existe";
         $_SESSION["container"]="pensum-container";
-        $_SESSION["update"]=$ejecutar->GetAllPensum($_POST["update"]);
         header("Location:../vista/administrador.php#$url");
-
-    }
-    else if (count($validate)>0 && $_POST["update"]!=$_POST["carreras"]) {
-        $_SESSION["error"]="El nombre de carrera que ingreso ya existe";
-        $_SESSION["container"]="pensum-container";
-        $_SESSION["update"]=$ejecutar->GetAllPensum($_POST["update"]);
-        header("Location:../vista/administrador.php#$url");
-        
     }
     else {
-        $delete=$ejecutar->FindQuery("carrera","nombre",$_POST["update"]);
-        $ejecutar->DeleteTable("pensum","pnf",$delete[0]);
         $array=explode(",",$_POST["add"]);
+        $del=explode(",",$_POST["del"]);
+        if ($_POST["del"]!="") {
+            for ($i=0; $i < count($del); $i++) { 
+                echo ($_POST["del"]);
+                $validate=$ejecutar->DeleteTableTwoWhere("pensum","unidad_curricular",$del[$i], 'pnf',$_POST["update"]);
+            }
+        }
         if ($_POST["add"]!="") {
             for ($i=0; $i < count($array); $i++) { 
-                $validate=$ejecutar->registrarPensum($_POST["carreras"],$array[$i]);
+                $validate=$ejecutar->registrarPensum($_POST["update"],$array[$i]);
             }
-            $_SESSION["update"]=$ejecutar->GetAllPensum($_POST["carreras"]);
         }
+
         $_SESSION["completado"]="Los datos fueron actualizados correctamente";
-        $_SESSION["container"]="pensum-container";
+        $_SESSION["container"]="materia-container";
         header("Location:../vista/administrador.php#$url");
-        
     }
 }
 else if (isset($_POST["delete"]) && $_POST["delete"]!=""){
-    $ejecutar->DeleteTable("pensum","pnf",$_POST["delete"]);
+    $delete_array=explode(",",$_POST["delete"]);
+    for ($i=0; $i < count($delete_array); $i++) { 
+        $ejecutar->DeleteTable("pensum","unidad_curricular",$delete_array[$i]);
+    }
     $_SESSION["completado"]="Los datos fueron eliminados correctamente";
     header("Location:../vista/administrador.php#$url");
 }
 
 else {
-    $dato=$ejecutar->FindQuery("carrera","nombre",$_POST["carreras"]);
-    $validate=$ejecutar->FindQuery("pensum","pnf",$dato[0]);
+    $dato=$ejecutar->FindQuery("carrera","codigo",$_POST["carreras_unidad"]);
     if ($dato===2) {
         header("Location:../vista/administrador.php#$url");
         $_SESSION["error"]="La carrera que ingreso no existe";
     }
-    else if (count($validate)>3) {
-        header("Location:../vista/administrador.php#$url");
-        $_SESSION["error"]="La carrera que ingreso ya existe";
-    }
     else {
         $array=explode(",",$_POST["add"]);
         for ($i=0; $i < count($array); $i++) { 
-            $ejecutar->registrarPensum($_POST["carreras"],$array[$i],"");
+            $ejecutar->registrarPensum($dato[0],$array[$i],"");
         }
         header("Location:../vista/administrador.php#$url");
         $_SESSION["completado"]="La carrera se agrego correctamente";
-        $_SESSION["link"]="../control/c_pensum.php?buscar_pensum=".$dato[1];
     }
 }
 ?>

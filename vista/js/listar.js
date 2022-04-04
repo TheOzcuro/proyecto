@@ -1,18 +1,15 @@
 var valores=[];
 var span_array=[];
 function ActiveModificar(fila,container) {
-    if (container=="pensum-container" || container=="oferta-container") {
+    if (container=="pensum-container") {
         filas=document.querySelectorAll(fila);
-        lista=[];
-        lista.push(filas[1].innerText)
-        span=filas[2].querySelectorAll("span");
-        for (let index = 0; index < span.length; index++) {
-            lista.push(span[index].id)
-            lista.push(span[index].innerText)
-        }
-        ModificarPensum(lista, container);
+        ActiveModificarMateria(filas[1].innerText+" **");
     }
     else {
+        if (container=="materia-container") {
+            container="pensum-container";
+            DissapearVarious('.dis','none')
+        }
         valores=[];
         filas=document.querySelectorAll(fila);
         for (let index = 0; index < filas.length; index++) {
@@ -31,6 +28,9 @@ function ActiveModificar(fila,container) {
                     }
                     break
             }
+            else if (index==0 && container=="oferta-container") {
+                console.log("pasa");
+            }
             else {
                 valores.push(filas[index].innerText);
             }
@@ -44,6 +44,20 @@ function ActiveModificar(fila,container) {
     }
     
    
+}
+function ActiveModificarMateria(value) {
+    div_edit=document.getElementById("pensum-container");
+    AppearsAndDissapear(div_edit.id,"grid")
+    div_edit.querySelector(".close-icon").style.display="block";
+    //---Hacer aparecer los botones correspondientes
+    button=div_edit.querySelectorAll("button");
+    button[0].style.display="none";
+    button[1].style.display="none";
+    button[4].style.display="block";
+    button[5].style.display="block";
+    document.getElementById('carreras').value=value;
+    console.log(value);
+    CreateMaterias(value);
 }
 function ClearSpan() {
     drop_add=div_edit.querySelector(".drop_add");
@@ -75,6 +89,7 @@ function ClearSpan() {
     input_added.disabled=false;
     input_add.disabled=false;
 }
+
 function ModificarPensum(lista, container){
     add_array=[];
     valores=[];
@@ -184,12 +199,12 @@ function SelectValidation() {
     var campo=document.getElementById('campo').value;
     var input=document.getElementById('buscar_historial');
     const div=document.getElementById('input_buscar');
-    if (campo=='CEDULA' || campo=='TELEFONO') {
-        input.removeEventListener("keypress",KeyNumeros)
-        input.removeEventListener("keypress",KeyTexto)
-        input.removeEventListener("keypress",KeyVarchar)
+    if (campo=='CEDULA' || campo=='TELEFONO' || campo=='HORAS_SEMANALES' || campo=='CREDITOS') {
+        input.removeEventListener("keypress",KeyNumeros);
+        input.removeEventListener("keypress",KeyTexto);
+        input.removeEventListener("keypress",KeyVarchar);
         ValidateNumeros('buscar_historial');
-        DissapearVarious('.find_inputs','none')
+        DissapearVarious('.find_inputs','none');
         document.getElementById("buscar_historial").style.display="block";
         document.getElementById("labelbuscar_historial").style.display="block";
     }
@@ -218,7 +233,6 @@ function SelectValidation() {
         document.getElementById("buscar_historial").style.display="block";
         document.getElementById("labelbuscar_historial").style.display="block";
         ValidateTexto('buscar_historial');
-        
     }
     else if (campo=="CORREO") {
         input.removeEventListener("keypress",KeyNumeros)

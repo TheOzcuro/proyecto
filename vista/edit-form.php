@@ -68,9 +68,9 @@
     <form action="../control/c_oferta.php" method="POST" name="find_oferta" id="find_oferta">
         <input type="text" class="input-url" id="url" name="url" hidden>
         <div id="oferta-find" class="container container-edit">
-        <h4 style="text-align:center;">Introduzca el trayecto del lapso</h4>
+        <h4 style="text-align:center;">Introduzca el nombre de la carrera</h4>
         <div class="input-container">
-            <label for="buscar_oferta" id="labelbuscar_oferta">Trayecto</label><br>
+            <label for="buscar_oferta" id="labelbuscar_oferta">Nombre de Carrera</label><br>
             <input type="text" id="buscar_oferta" name="buscar_oferta" onfocus="LabelAnimation('buscar_oferta','labelbuscar_oferta')" onblur="LabelOut('buscar_oferta','labelbuscar_oferta')" maxlength="30" class="input-label input">
         </div><br>
         <button type="button"  onclick="Submit('find_oferta')" style="text-align:center;">Buscar</button>

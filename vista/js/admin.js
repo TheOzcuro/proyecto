@@ -7,8 +7,11 @@ var div_edit="";
 var container_url="";
 var container_add="";
 var add_array=[];
+var add_disponibilidad=[];
 var email=/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-
+var ant_value="";
+var ant_value_dis="";
+let dias_main=[];
 // ----------------------------------VARIABLES---------------------------------
 
 
@@ -96,7 +99,7 @@ function OnLoad(active){
     if (container==null) {
         container="";
     }
-    else{
+    else {
       container=container[0].substring(1);
       array=container.split("-")
       
@@ -107,10 +110,44 @@ function OnLoad(active){
     //Muestro el div al usuario
     
     container_url=array[0]+"-"+array[1];
-    if (array[1]=="container") {
-        document.getElementById('history_back').style.display="inline";
+    if (container_url=="disponibilidad-container") {
+        setTimeout(() => {
+            if (localStorage.getItem('disponibilidad')!=="" && localStorage.getItem('disponibilidad')!==null && localStorage.getItem('disponibilidad')!==undefined) {
+                    console.log(localStorage.getItem('disponibilidad'));
+                    document.getElementById('cedula_dis').value=localStorage.getItem('disponibilidad');
+                    document.getElementById('nombre_dis').value=localStorage.getItem('disponibilidad_n');
+                    document.getElementById('contratacion_dis').value=localStorage.getItem('disponibilidad_c');
+                    CreateDisponibilidad(localStorage.getItem('disponibilidad'));
+                    localStorage.setItem('disponibilidad',"");
+                    localStorage.setItem('disponibilidad_n',"");
+                    localStorage.setItem('disponibilidad_c',"");
+                    LabelInput()
+                }
+            }, 600);
     }
-    else if (array[1]=="historial") {
+    if (array[1]=="container" && active!="active" && container_url!="disponibilidad-container") {
+        document.getElementById('history_back').style.display="inline";
+        setTimeout(() => {
+        if (localStorage.getItem('carrera')!=="" && localStorage.getItem('carrera')!==null && localStorage.getItem('carrera')!==undefined && container_url!="") {
+                if (container_url=="pensum-container") {
+                    carrera=document.getElementById("carreras");
+                    carrera.value=localStorage.getItem('carrera');
+                    CreateMaterias(localStorage.getItem('carrera'));
+                    localStorage.setItem('carrera',"");
+                }
+                else if(container_url=="materia-container") {
+                    carrera=document.getElementById("carreras_unidad");
+                    carrera.value=localStorage.getItem('carrera');
+                    CreateMaterias(localStorage.getItem('carrera'));
+                    localStorage.setItem('carrera',"");
+                }
+               
+                LabelInput()
+            }
+        }, 600);
+        
+    }
+    else if (array[1]=="historial" && container_url!='disponibilidad-container') {
         document.getElementById('register_back').style.display="inline";
     }
     if (container!="" && active!="active") {
@@ -148,10 +185,10 @@ function LabelOut(input,label){
     if (inputs=="") {
         document.getElementById(label).style.top = "20px";
         document.getElementById(label).style.fontSize = "18px";
-        document.getElementById(input).style.borderColor= "rgb(225, 32, 109)"
+        document.getElementById(input).style.borderColor="rgb(225, 32, 109)"
     }
     else {
-        document.getElementById(input).style.borderColor= "rgb(32, 190, 109)"
+        document.getElementById(input).style.borderColor="rgb(32, 190, 109)"
     }
     
 }
@@ -164,22 +201,77 @@ function SelectAnimation(select){
     }
     
 }
-function SubmitDisponibilidad() {
+function SubmitDisponibilidad(active) {
     var div=document.getElementById('disponibilidad-container')
-    var input=div.querySelectorAll(".input_add");
+    var drop=div.querySelectorAll(".drop_add");
+    var select=div.querySelectorAll('.input-dis')
+    var AntSelect=""
     var valide=true;
-    if (document.getElementById('cedula_dis').value=="") {
-        valide=false
+    var valideSpan=false;
+    var valideSelect=false;
+    for (let index = 0; index < drop.length; index++) {
+        span=drop[index].querySelectorAll("span");
+        if (span.length>0) {
+            valideSpan=true
+        }
+    }
+    for (let index = 0; index < select.length; index++) {
+        if (select[index].value!="") {
+            id_drop=select[index].getAttribute('value');
+            if (document.getElementById(id_drop).querySelectorAll('span').length>0) {
+                valideSelect=true;
+            }
+            if (document.getElementById(id_drop).querySelectorAll('span').length==0) {
+                valideSelect=false;
+                select[index].style.borderColor='red';
+                document.getElementById(id_drop).style.borderColor='red';
+                break
+            }
+            select[index].style.borderColor='';
+            if (AntSelect==select[index].value) {
+                select[index].style.borderColor='red';
+                valideSelect=false;
+            }
+            AntSelect=select[index].value;
+        }
     }
 
-    if (valide) {
-        console.log("funciono");
-         OnLoad("active")
-         document.getElementById('disponibilidad').querySelector(".input-url").value=container_url;
-         //document.getElementById('disponibilidad').submit();
+
+    if (document.getElementById('cedula_dis').value=="") {
+        valide=false
+        document.getElementById('cedula_dis').style.borderColor='red';
+    }
+    if (valide && valideSpan && valideSelect) {
+        if (active!="active") {
+            for (let index = 0; index < drop.length; index++) {
+                span=drop[index].querySelectorAll("span");
+                if (span.length>0) {
+                    id=drop[index].getAttribute('value');
+                    document.getElementById(id).value="";
+                    for (let index = 0; index < span.length; index++) {
+                        if (document.getElementById(id).value=="") {
+                            document.getElementById(id).value=span[index].id;
+                        }
+                        else {
+                            document.getElementById(id).value=document.getElementById(id).value+","+span[index].id;
+                        }
+                        
+                    }
+                }
+            }
+             OnLoad("active")
+             document.getElementById('disponibilidad').querySelector(".input-url").value=container_url;
+             document.getElementById('disponibilidad').submit();
+        }
+        else {
+            return true;
+        }
     }
     else {
-     Error("Parece que algunos datos estan vacios o son erroneos","msg_error","p_error")
+     Error("Parece que algunos datos estan vacios o son erroneos. Recuerde añadir los bloques y seleccionar el dia","msg_error","p_error")
+     if (active=="active") {
+         return false;
+     }
     }
 }
 function Submit(form){
@@ -204,12 +296,9 @@ function Submit(form){
                 }
             }
        }
-      
-       
    }
-   console.log(valide);
    if (valide) {
-       console.log("funciono");
+        console.log("funciono");
         OnLoad("active")
         document.getElementById(form).querySelector(".input-url").value=container_url;
         document.getElementById(form).submit();
@@ -253,9 +342,6 @@ function KeyVarchar() {
 function ValidateTexto(input){
     var inputs=document.getElementById(input)
     inputs.addEventListener("keypress", KeyTexto)
-    
-}
-function ValidateEmail(params) {
     
 }
 function ValidateNumeros(input){
@@ -305,18 +391,249 @@ function Search(input,div) {
     }
 }
 function AddValueMateria(input, span) {
+    console.log(input);
     if (input=="cedula_dis") {
         let value=span.getAttribute('value');
-        let array=value.split('/')
+        let array=value.split('/');
         let nombre=array[0]+" "+array[1];
         document.getElementById("nombre_dis").value=nombre;
         document.getElementById("contratacion_dis").value=array[2];
     }
     span=span.textContent || span.innerText;
     document.getElementById(input).value=span;
-    
-
+    if (input=="carreras" || input=="carreras_unidad") {
+        CreateMaterias(span)
+    }
+    else if (input=="cedula_dis" || input=="cedula_dis") {
+        CreateDisponibilidad(span)
+    }
     LabelInput();
+}
+function ActiveDisponibilidad(cedula,nombre,apellido,contratacion,tipo) {
+    let div=document.getElementById('disponibilidad-container');
+    div_edit=div;
+    div.querySelector(".close-icon").style.display='block';
+    document.getElementById('nombre_dis').value=nombre+" "+apellido;
+    document.getElementById('contratacion_dis').value=contratacion;
+    if (tipo==0) {
+        document.getElementById('cedula_dis').value=cedula;
+    }
+    else {
+        cedula=cedula+" **";
+        CreateDisponibilidad(cedula);
+        document.getElementById('cedula_dis').value=cedula;
+    }
+    AppearsAndDissapear("disponibilidad-container","grid")
+    LabelInput();
+}
+function CreateMaterias(value) {
+    OnLoad('active');
+    if (container_url=="pensum-container" || container_url=="pensum-historial") {
+        nombre_add=document.getElementById('materias_add');
+        drop_main=document.getElementById('carreras_drop');
+        drop=document.getElementById('materias_add_drop');
+    }
+    else if(container_url=="materia-container" || container_url=="materia-historial") {
+        nombre_add=document.getElementById('materias_add_unidad');
+        drop_main=document.getElementById('carreras_drop_unidad');
+        drop=document.getElementById('materias_add_drop_unidad');
+        drop_main_unidad=document.getElementById('materias_drop_unidad');
+    }
+    console.log(container_url);
+    let span=drop.querySelectorAll('span');
+    let span_main=drop_main.querySelectorAll('span');
+    let carrera=value.slice(-2)
+   
+    if (carrera=="**") {
+        document.getElementById('materia').querySelector('#add').value="";
+        document.getElementById('materia').querySelector('#del').value="";
+        document.getElementById('unidad').querySelector('#add').value="";
+        document.getElementById('unidad').querySelector('#del').value="";
+        add_array=[];
+        valores=[];
+        for (let index = 0; index < span_main.length; index++) {
+            if (value==span_main[index].innerText) {
+                
+                carrera_id=span_main[index].id;
+            }
+            
+        }
+        for (let index = 0; index < span.length; index++) {
+            span[index].remove();
+        }
+        if (container_url=="materia-container") {
+            span_main_unidad=drop_main_unidad.querySelectorAll('span');
+            for (let index = 0; index < span_main_unidad.length; index++) {
+                span_main_unidad[index].hidden=false;
+            }
+        }
+        valores.push(carrera_id);
+        var y=0;
+        for (let index = 0; index < materiasArray.length; index=index+4) {
+            if (container_url=="pensum-container" || container_url=="pensum-historial") {
+                if (carrera_id==materiasArray[index+3] && materiasArray[index+2]==0) {
+                    let span_add=document.createElement('span');
+                    span_add.innerHTML=materiasArray[index]+"/"+materiasArray[index+1];
+                    span_add.onclick=function () {AddValueMateria(nombre_add.id, this)}
+                    span_add.id=materiasArray[index]+"/"+materiasArray[index+2];
+                    nombre_add.value=materiasArray[index]+"/"+materiasArray[index+1];
+                    drop.appendChild(span_add);
+                }
+            }
+            else if (container_url=="materia-container" || container_url=="materia-historial") {
+                if (carrera_id==materiasArray[index+3] && materiasArray[index+2]==1) {
+                    let span_add=document.createElement('span');
+                    span_add.innerHTML=materiasArray[index+1];
+                    span_add.onclick=function () {AddValueMateria(nombre_add.id, this)}
+                    span_add.id=materiasArray[index];
+                    nombre_add.value=materiasArray[index+1];
+                    drop_main_unidad.querySelector('#'+materiasArray[index]).hidden=true;
+                    drop.appendChild(span_add);
+                }
+
+            }
+            
+        }
+        span_update=drop.querySelectorAll('span')
+        add_array=span_update.length;
+        if (container_url=="pensum-container") {
+            DissapearVarious('.button_main','none')
+            DissapearVarious('.button_unidad','block')
+        }
+        else if(container_url=='materia-container'){
+            var button=document.getElementById('materia-container').querySelectorAll("button");
+            button[0].style.display='none';
+            button[1].style.display='none';
+            button[2].style.display='block';
+            button[3].style.display='block';
+        }
+        
+        LabelInput()
+        nombre_add.style.borderColor="rgb(32, 190, 109)";
+        setTimeout(() => {
+            nombre_add.style.borderColor="";
+            }, 800);
+    }
+    else if (ant_value=="**" && carrera!="**"){
+        document.getElementById('materia').querySelector('#add').value="";
+        document.getElementById('materia').querySelector('#del').value="";
+        document.getElementById('unidad').querySelector('#add').value="";
+        document.getElementById('unidad').querySelector('#del').value="";
+        for (let index = 0; index < span.length; index++) {
+            span[index].remove();
+        }
+        if (container_url=="pensum-container") {
+            DissapearVarious('.button_main','block')
+            DissapearVarious('.button_unidad','none')
+        }
+        else if(container_url=='materia-container'){
+            span_main_unidad=drop_main_unidad.querySelectorAll('span');
+            console.log(span_main_unidad);
+            for (let index = 0; index < span_main_unidad.length; index++) {
+                span_main_unidad[index].hidden=false;
+            }
+            var button=document.getElementById('materia-container').querySelectorAll("button");
+            button[0].style.display='block';
+            button[1].style.display='none';
+            button[2].style.display='none';
+            button[3].style.display='none';
+        }
+        nombre_add.value="";
+        LabelInput()
+    }
+    ant_value=carrera;       
+}
+function CreateDisponibilidad(value) {
+    div=document.getElementById('disponibilidad-container');
+    dias=div.querySelectorAll('.input-dis');
+    bloques_add=div.querySelectorAll('.input_add');
+    bloques_add_drop=div.querySelectorAll('.drop_add');
+    bloques_drop=div.querySelector("#bloques_drop_1");
+    bloques_drop_main=div.querySelectorAll(".drop_main");
+    button=div.querySelectorAll('button');
+    console.log(bloques_drop_main);
+    let profesor=value.slice(-2);
+    if (profesor=="**") {
+        ant_value_dis=profesor;
+        for (let index = 0; index < dias.length; index++) {
+            dias[index].value="";
+        }
+        for (let index = 0; index < bloques_add_drop.length; index++) {
+            bloques_add[index].value="";
+            span_bloques=bloques_add_drop[index].querySelectorAll('span');
+            for (let i = 0; i < span_bloques.length; i++) {
+                span_bloques[i].remove();
+            }
+            
+        }
+        for (let index = 0; index < bloques_drop_main.length; index++) {
+            span_main=bloques_drop_main[index].querySelectorAll('span');
+            for (let i = 0; i < span_main.length; i++) {
+                span_main[i].hidden=false;
+            } 
+        }
+        profesor_administrador=value.split(' **');
+        value=profesor_administrador[0];
+        valores.push(profesor_administrador[0]);
+        antdia="";
+        d=0;
+        b=-1;
+        totalspan=0
+        for (let index = 0; index < disponibilidadArray.length; index=index+3) {
+            if (value==disponibilidadArray[index]) {
+                if (antdia!=disponibilidadArray[index+2]) {
+                    dias[d].value=disponibilidadArray[index+2];
+                    dias_main.push(disponibilidadArray[index+2]);
+                    antdia=disponibilidadArray[index+2];
+                    d=d+1;
+                    b=b+1;
+                    let inputs=bloques_add[b];
+                    inputs.style.borderColor="rgb(32, 190, 109)";
+                    setTimeout(() => {
+                        inputs.style.borderColor="";
+                        }, 800);
+                }
+                bloques_drop_main[b].querySelector("#"+disponibilidadArray[index+1]).hidden=true;
+                let input_id=bloques_add[b].id;
+                let span_add=document.createElement('span');
+                span_add.innerHTML=bloques_drop.querySelector("#"+disponibilidadArray[index+1]).innerText;
+                span_add.onclick=function () {AddValueMateria(input_id, this)}
+                span_add.id=disponibilidadArray[index+1];
+                bloques_add[b].value=bloques_drop.querySelector("#"+disponibilidadArray[index+1]).innerText;
+                bloques_add_drop[b].appendChild(span_add);
+                totalspan=totalspan+1;
+                add_disponibilidad=totalspan;
+                
+            }
+        }
+        console.log(dias_main);
+        button[0].style.display="none";
+        button[1].style.display="block";
+        button[2].style.display="block";
+    }
+    else if(profesor!="**" && ant_value_dis=="**") {
+        for (let index = 0; index < dias.length; index++) {
+            dias[index].value="";
+        }
+        for (let index = 0; index < bloques_drop_main.length; index++) {
+            span_main=bloques_drop_main[index].querySelectorAll('span');
+            for (let i = 0; i < span_main.length; i++) {
+                span_main[i].hidden=false;
+            } 
+        }
+        for (let index = 0; index < bloques_add_drop.length; index++) {
+            bloques_add[index].value="";
+            span_bloques=bloques_add_drop[index].querySelectorAll('span');
+            for (let i = 0; i < span_bloques.length; i++) {
+                span_bloques[i].remove();
+            }
+        }
+        button[0].style.display="block";
+        button[1].style.display="none";
+        button[2].style.display="none";
+        LabelInput();
+    }
+
 }
 function AddAndRemove(div,div_add,input,input_add, type, container) {
     //VARIABLES
@@ -326,58 +643,283 @@ function AddAndRemove(div,div_add,input,input_add, type, container) {
     var div=document.getElementById(div);
     var div_add=document.getElementById(div_add);
     var span=div.querySelectorAll("span");
+    var span_mod=div_add.querySelectorAll("span")
     var container=document.getElementById(container);
+    var valide=true;
     if (container_add!=container && container_add!="") {
-        add_array=[];
         if (container.querySelector('#add').value!="") {
             add_array=container.querySelector('#add').value.split(',');
-        }
-        
-    }
-    container_add=container;
-   
-    if (input!="") {
-        for (let index = 0; index < span.length; index++) {
-        if (span[index].innerText==input.value.toUpperCase()) {
-            console.log(span[index].id)
             input_add.value=input.value.toUpperCase();
             span_add.innerHTML=input.value.toUpperCase();
             span_add.onclick=function () {AddValueMateria(input_add.id, this)}
             span_add.id=span[index].getAttribute('id');
             span[index].remove();
             div_add.appendChild(span_add);
-            if (type=="add") {
-                add_array.push(span[index].getAttribute('id'));
-                
-                
-            }
-            else if (type=="del") {
-                for( var i = 0; i < add_array.length; i++){ 
-    
-                    if ( add_array[i] === span[index].getAttribute('id')) { 
-                
-                        add_array.splice(i, 1); 
-                    }
-                
-                }
-            }
-            container.querySelector('#add').value="";
-            for (let index = 0; index < add_array.length; index++) {
-                if (container.querySelector("#add").value!="") {
-                    container.querySelector("#add").value=container.querySelector("#add").value+","+add_array[index];
-                }
-                else {
-                    container.querySelector("#add").value=add_array[index];
-                }
-            }
-            input.value="";
-            LabelInput();
-            Search(input.id,div.id)
-        }
         }
         
     }
-    console.log(container.querySelector("#add").value)
+    container_add=container;
+    if (input!="") {
+        if (type=="del") {
+            for (let index = 0; index < span.length; index++) {
+                if (input.value.toUpperCase()==span[index].innerText) {
+                    if (container.querySelector("#del").value!="") {
+                        container.querySelector("#del").value=container.querySelector("#del").value+","+span[index].getAttribute('id');
+                    }
+                    else {
+                        container.querySelector("#del").value=span[index].getAttribute('id');
+                    }
+                    document.getElementById(span[index].id).hidden=false;
+                    span[index].remove();
+                    input.value="";                    
+                }
+                add_disponibilidad=add_disponibilidad-2;
+            }
+        }
+        else if (type=="add") {
+            for (let index = 0; index < span_mod.length; index++) {
+                if (input.value.toUpperCase()==span_mod[index].innerText) {
+                    console.log("aver");
+                    valide=false
+                    break
+                }
+            }
+            if (valide) {
+                
+                for (let index = 0; index < span.length; index++) {
+                    if (span[index].innerText==input.value.toUpperCase()) {
+                        span[index].hidden=true;
+                        input_add.value=input.value.toUpperCase();
+                        span_add.innerHTML=input.value.toUpperCase();
+                        span_add.onclick=function () {AddValueMateria(input_add.id, this)}
+                        span_add.id=span[index].getAttribute('id');
+                        div_add.appendChild(span_add);
+                        input.value="";
+                        LabelInput();
+                        Search(input.id,div.id)
+                    }
+            }
+        }
+        
+        
+        }    
+    }
+}
+    /*
+                        if (type=="add") {
+                            console.log(add_array);
+                            add_array.push(span[index].getAttribute('id'));
+                        }
+                        else if (type=="del") {
+                            for( var i = 0; i < add_array.length; i++){ 
+                                if ( add_array[i] === span[index].getAttribute('id')) { 
+                                    add_array.splice(i, 1); 
+                                }
+                            }
+                        }
+                        container.querySelector('#add').value="";
+                        for (let index = 0; index < add_array.length; index++) {
+                            if (container.querySelector("#add").value!="") {
+                                container.querySelector("#add").value=container.querySelector("#add").value+","+add_array[index];
+                            }
+                            else {
+                                container.querySelector("#add").value=add_array[index];
+                            }
+                        }
+                        */
+function SelectMateria() {
+    var tipo=document.getElementById('tipo_materia').value;
+    if (tipo==1) {
+        DissapearVarious('.dis','none')
+        
+        button=document.getElementById("materia").querySelectorAll('button');
+        button[0].style.gridColumn='1/2';
+        button[0].style.display="block";
+        button[1].style.display="block";
+        button[2].style.display="none";
+        button[3].style.display="none";
+        button[4].style.display="none";
+        button[5].style.display="none";
+    }
+    else if (tipo==0){
+        button=document.getElementById("materia").querySelectorAll('button');
+        DissapearVarious('.dis','block')
+        button[1].style.display="none";
+        button[0].style.gridColumn='1/3';
+        carrera=document.getElementById("carreras").value;
+        type=carrera.slice(-2);
+        if (type=="**") {
+            button[4].style.display="block";
+            button[5].style.display="block";
+            button[0].style.display="none";
+            button[1].style.display="none";
+            button[2].style.display="none";
+            button[3].style.display="none";
+        }
+    }
+}
+function AddMateria(modo) {
+    OnLoad('active');
+    var span_add=document.createElement("span");
+        carrera=document.getElementById("carreras");
+        codigo=document.getElementById('codigo_materia');
+        nombre=document.getElementById('nombre_materia');
+        nombre_add=document.getElementById('materias_add');
+        tipo=document.getElementById('tipo_materia');
+        div=document.getElementById('materia');
+        drop=document.getElementById('materias_add_drop');
+    
+    let del=div.querySelector('#del');
+    
+    let span=drop.querySelectorAll('span');
+    let add=div.querySelector('#add');
+    if (modo=="add") {
+        if (carrera.value!="" && codigo.value!="" && nombre.value!="" && tipo.value==0 && tipo.value!="") {
+            let valide=true;
+           
+            for (let index = 0; index < span.length; index++) {
+                array=span[index].id.split("/");
+                nombre_span=span[index].innerText.split('/');
+                if (nombre.value.toUpperCase()==nombre_span[1] || array[0].toUpperCase()==codigo.value.toUpperCase()) {
+                    console.log(array[0].toUpperCase()==codigo.value.toUpperCase())
+                    console.log(nombre_add.value.toUpperCase()==span[index].innerText)
+                    valide=false
+                    break
+                }
+            }
+            if (valide) {
+                span_add.innerHTML=codigo.value.toUpperCase()+"/"+nombre.value.toUpperCase();
+                span_add.onclick=function () {AddValueMateria(nombre_add.id, this)}
+                span_add.id=codigo.value.toUpperCase()+"/"+tipo.value;
+                nombre_add.value=codigo.value.toUpperCase()+"/"+nombre.value.toUpperCase();
+                document.getElementById('materias_add_drop').appendChild(span_add);
+                if (add.value!="") {
+                    add.value=add.value+","+codigo.value.toUpperCase()+","+nombre.value.toUpperCase()+","+tipo.value;
+                }
+                else {
+                    add.value=codigo.value.toUpperCase()+","+nombre.value.toUpperCase()+","+tipo.value;
+                }
+
+                LabelInput()
+                codigo.value="";
+                nombre.value="";
+                tipo.value="";
+                nombre_add.style.borderColor="rgb(32, 190, 109)";
+                setTimeout(() => {
+                nombre_add.style.borderColor="";
+                }, 800);
+            }
+            else {
+                Error("La materia que esta intentando agregar ya existe",'msg_error','p_error')
+            }
+        }
+        else {
+            Error("Seleccione una carrera por favor",'msg_error','p_error')
+        }
+    }
+    else if (modo=="del") {
+        for (let index = 0; index < span.length; index++) {
+            array=span[index].id.split("/");
+            nombre_span=span[index].innerText.split('-');
+            if (nombre_add.value.toUpperCase()==span[index].innerText) {
+                array=span[index].id.split("/");
+                if (del.value!="") {
+                    del.value=del.value+","+array[0];
+                }
+                else {
+                    del.value=array[0];
+                }
+                add_array=span_update.length-2;
+                del.value=array[0];
+                nombre_add.value=""
+                span[index].remove();
+                nombre_add.style.borderColor="rgb(32, 190, 109)";
+                setTimeout(() => {
+                    nombre_add.style.borderColor="";
+                }, 800);
+            }
+            
+        }
+    }
+    
+}
+
+function SubmitMateria(form) {
+   
+    OnLoad('active');
+    if (container_url=="pensum-container") {
+        carrera=document.getElementById('carreras');
+        drop=document.getElementById('materias_add_drop');
+        drop_main=document.getElementById('carreras_drop');
+        span_main=drop_main.querySelectorAll('span');
+        input_add=document.getElementById('materias_add');
+        span=drop.querySelectorAll('span');
+    }
+    else if(container_url=="materia-container") {
+        carrera=document.getElementById('carreras_unidad');
+        drop=document.getElementById('materias_add_drop_unidad');
+        drop_main=document.getElementById('carreras_drop_unidad');
+        span_main=drop_main.querySelectorAll('span');
+        input_add=document.getElementById('materias_add_unidad');
+        span=drop.querySelectorAll('span');
+    }
+    let valideCarrera=false;
+    let valideSpan=false;
+    for (let index = 0; index < span_main.length; index++) {
+       if (carrera.value.toUpperCase()==span_main[index].innerText) {
+            carrera_id=span_main[index].id;
+            localStorage.setItem('carrera',carrera.value.toUpperCase()+" **");
+            valideCarrera=true;
+       }
+       if (carrera.value=="") {
+           carrera.style.borderColor='red';
+       }
+    }
+    if (document.getElementById("tipo_materia").value==1) {
+        Submit('materia');
+    }
+    if (span.length>0) {
+        valideSpan=true;
+    }
+    if (valideCarrera && valideSpan) {
+        input_add.value="";
+        if (container_url=="pensum-container") {
+            for (let index = 0; index < span.length; index++) {
+                array=span[index].id.split("/");
+                nombre=span[index].innerText.split("/");
+                console.log(nombre)
+                if (input_add.value!="") {
+                    input_add.value=input_add.value+","+array[0]+","+nombre[1]+","+array[1];
+                }
+                else {
+                    input_add.value=array[0]+","+nombre[1]+","+array[1];
+                }
+            }
+        }
+        else if (container_url=="materia-container") {
+            for (let index = 0; index < span.length; index++) {
+                let add_unidad=document.getElementById(form).querySelector('#add');
+                if (add_unidad.value!="") {
+                    add_unidad.value=add_unidad.value+","+span[index].id.toUpperCase();
+                }
+                else {
+                    add_unidad.value=span[index].id.toUpperCase();
+                }
+            }
+        }
+        console.log(add_unidad=document.getElementById(form).querySelector('#add').value);
+        
+        carrera.value=carrera_id;
+        OnLoad("active")
+        document.getElementById(form).querySelector(".input-url").value=container_url;
+        document.getElementById(form).submit();
+    }
+    else {
+        if (document.getElementById("tipo_materia").value==0) {
+            Error("Parece que carrera esta vacia o no se han agregado materias", "msg_error","p_error");
+        }
+       
+    }
 }
 function BackOption(div){
         OnLoad("active")
@@ -408,7 +950,8 @@ document.getElementById("registrarMateria").addEventListener("click", function()
     }
     DissapearVarious('.back-option','none');
     document.getElementById('history_back').style.display='inline';
-    AppearsAndDissapear("materia-container","grid")})
+    DissapearVarious('.dis','block')
+    AppearsAndDissapear("pensum-container","grid")})
 
 document.getElementById("registrarProfesor").addEventListener("click", function(){
     if (div_edit!="") {
@@ -422,7 +965,6 @@ document.getElementById("disponibilidadProfesor").addEventListener("click", func
            Close()
     }
     DissapearVarious('.back-option','none');
-    document.getElementById('history_back').style.display='inline';
     AppearsAndDissapear("disponibilidad-container","grid")})
 
 document.getElementById("registrarAulas").addEventListener("click", function(){
@@ -440,6 +982,14 @@ document.getElementById("registrarCarreras").addEventListener("click", function(
     DissapearVarious('.back-option','none');
     document.getElementById('history_back').style.display='inline';
     AppearsAndDissapear("carrera-container","grid")})
+document.getElementById("registrarMateriaMulti").addEventListener("click", function(){
+    if (div_edit!="") {
+            Close()
+        }
+    DissapearVarious('.back-option','none');
+    document.getElementById('history_back').style.display='inline';
+    AppearsAndDissapear("materia-container","grid")})
+    
 
 document.getElementById("crearLapso").addEventListener("click", function(){
     if (div_edit!="") {
@@ -477,7 +1027,7 @@ document.getElementById("historialMateria").addEventListener("click", function()
          Close()
         }
     DissapearVarious('.container','none');
-    refresh(1,'materia')
+    refresh(1,'pensum')
     DissapearVarious('.back-option','none');
     document.getElementById('register_back').style.display='inline';
 })
@@ -508,22 +1058,29 @@ document.getElementById("correo").addEventListener("blur", function(){
         Error("El correo es invalido por favor Verifique","msg_error","p_error")
     }
 })
+document.getElementById("tipo_materia").addEventListener("click", SelectMateria)
 
-document.getElementById("materias").addEventListener("click", function(){
-    document.querySelector("#materias_drop").style.display="flex"})
+document.getElementById("materias_unidad").addEventListener("click", function(){
+    document.querySelector("#materias_drop_unidad").style.display="flex"})
+
 
 document.getElementById("materias_add").addEventListener("click", function(){
     
     document.querySelector("#materias_add_drop").style.display="flex"})
 
+document.getElementById("materias_add_unidad").addEventListener("click", function(){
+    
+        document.querySelector("#materias_add_drop_unidad").style.display="flex"})
+
 document.getElementById("carreras").addEventListener("click", function(){
     document.querySelector("#carreras_drop").style.display="flex"})
+
+document.getElementById("carreras_unidad").addEventListener("click", function(){
+        document.querySelector("#carreras_drop_unidad").style.display="flex"})
 
 document.getElementById("carrera_oferta").addEventListener("click", function(){
     document.querySelector("#carreras_oferta_drop").style.display="flex"})
 
-document.getElementById("carreras_add").addEventListener("click", function(){
-    document.querySelector("#carreras_add_drop").style.display="flex"})
 document.getElementById("lapso").addEventListener("click", function(){
         document.querySelector("#lapso_drop").style.display="flex"})
 
@@ -561,10 +1118,9 @@ document.getElementById("cedula_dis").addEventListener("click", function(){
         document.querySelector("#disponibilidad_drop").style.display="flex"})
 
 document.addEventListener('mouseup', function(e) {
-    var input = document.getElementById('materias');
+    var input = document.getElementById('materias_unidad');
     var input2= document.getElementById('materias_add');
     var input3= document.getElementById('carreras');
-    var input4= document.getElementById('carreras_add');
     var input5= document.getElementById('carrera_oferta');
     var input6= document.getElementById('lapso');
     var input7= document.getElementById('bloques_1');
@@ -578,10 +1134,13 @@ document.addEventListener('mouseup', function(e) {
     var input15= document.getElementById('bloques_add_4');
     var input16= document.getElementById('bloques_5');
     var input17= document.getElementById('bloques_add_5');
+    var input18= document.getElementById('carreras_unidad');
+    var input19= document.getElementById('materias_add_unidad');
+    
     
     
     if (!input.contains(e.target)) {
-        document.getElementById("materias_drop").style.display = 'none';
+        document.getElementById("materias_drop_unidad").style.display = 'none';
         input.style.border=""
     }
     if (!input2.contains(e.target)) {
@@ -591,11 +1150,6 @@ document.addEventListener('mouseup', function(e) {
     if (!input3.contains(e.target)) {
         document.getElementById("carreras_drop").style.display = 'none';
         input3.style.border=""
-    }
-    
-    if (!input4.contains(e.target)) {
-        document.getElementById("carreras_add_drop").style.display = 'none';
-        input4.style.border=""
     }
     if (!input5.contains(e.target)) {
         document.getElementById("carreras_oferta_drop").style.display = 'none';
@@ -649,6 +1203,14 @@ document.addEventListener('mouseup', function(e) {
         document.getElementById("bloques_add_drop_5").style.display = 'none';
         input17.style.border=""
     }
+    if (!input18.contains(e.target)) {
+        document.getElementById("carreras_drop_unidad").style.display = 'none';
+        input3.style.border=""
+    }
+    if (!input2.contains(e.target)) {
+        document.getElementById("materias_add_drop_unidad").style.display = 'none';
+        input2.style.border=""
+    }
     
 });
 ValidateTexto('primer_nombre');
@@ -661,6 +1223,8 @@ ValidateVarchar('nombre_carrera');
 ValidateNumeros('cedula');
 ValidateNumeros('telefono');
 ValidateNumeros('telefono_fijo');
+ValidateNumeros('horas_semana');
+ValidateNumeros('unidad_credito');
 ValidateVarchar('codigo_carrera');
 ValidateVarchar('codigo_materia');
 ValidateVarchar('codigo_aula');

@@ -26,7 +26,7 @@ body {
 }
 
 .header {
-  background-color: #e6e6e6;
+  background-color: rgb(230, 230, 230);
   grid-column: 1/5;
   height: 50;
 }
@@ -37,7 +37,7 @@ body {
 
 a {
   text-decoration: none;
-  color: #1e1e1e;
+  color: rgb(30, 30, 30);
   display: inline-block;
   text-align: center;
   height: 35px;
@@ -47,12 +47,12 @@ a {
 a:hover > .test {
   transform: scaleX(100);
   width: 1px;
-  background-color: #d33434;
+  background-color: rgb(211, 52, 52);
 }
 a:hover > .test-1 {
   transform: scaleX(150);
   width: 1px;
-  background-color: #d33434;
+  background-color: rgb(211, 52, 52);
 }
 
 .nav {
@@ -88,9 +88,9 @@ a:hover > .test-1 {
   transform: translate(-50%, -50%);
   text-indent: 40px;
   letter-spacing: 2px;
-  background-color: #e6e6e6;
+  background-color: rgb(230, 230, 230);
   padding: 10px 20px;
-  border: 6px solid #d33434;
+  border: 6px solid rgb(211, 52, 52);
   border-radius: 7px;
 }
 

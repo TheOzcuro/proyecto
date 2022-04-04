@@ -84,8 +84,9 @@ if (isset($_SESSION["usuario"])==false) {
             <img src="css/img/arrow_down.png" alt="" id="arrow_down" onclick="AnimationPrincipalMenu(1)">
             <div class="submenu">
                     <ul>
-                        <a href="#materia-container-grid"><li id="registrarMateria">Crear/Buscar</li><div class="borderline"></div></a>
-                        <a href="#materia-historial-grid"><li id="historialMateria">Historial</li><div class="borderline"></div></a>
+                        <a href="#pensum-container-grid"><li id="registrarMateria">Crear/Buscar</li><div class="borderline"></div></a>
+                        <a href="#materia-container-grid"><li id="registrarMateriaMulti">Añadir Multidiciplinaria</li><div class="borderline"></div></a>
+                        <a href="#pensum-historial-grid"><li id="historialMateria">Historial</li><div class="borderline"></div></a>
                     </ul>
                 </div>
             </div>
@@ -180,53 +181,69 @@ if (isset($_SESSION["completado"]) && $_SESSION["completado"]!="") {
 <script type="text/javascript">
           
           <?php
-  
+            include_once("../control/c_function.php");
+            $list=GetMaterias();
+            $list_dis=GetDisponibilidad();
+            if (isset($list)) {
+                echo "materiasArray=[";
+                for ($i=0; $i < count($list); $i++) { 
+                    echo "'".$list[$i][0]."','".$list[$i][1]."','".$list[$i][2]."','".$list[$i][3]."',";
+                }
+                echo "];";
+            }
+            if (isset($list_dis)) {
+                echo "disponibilidadArray=[";
+                for ($i=0; $i < count($list_dis); $i++) { 
+                    echo "'".$list_dis[$i][0]."','".$list_dis[$i][1]."','".$list_dis[$i][2]."',";
+                }
+                echo "];console.log(disponibilidadArray);";
+            }
           if (isset($_SESSION["update"]) && $_SESSION["update"]!="") {
               $total=count($_SESSION["update"]);
               $total=$total/2;
               $x=0;
-              if ($_SESSION["container"]=="pensum-container") {
-                $x=2;
-                echo "arrayPensum=[";
-                while ($x<count($_SESSION["update"][0])) {
-                    echo "'".$_SESSION["update"][0][$x]."'".',';
-                    $x=$x+1;
-                }
-                echo "];";
-                echo "ModificarPensum(arrayPensum,`".$_SESSION['container']."`);";
-                
-                }
-              else if ($_SESSION["container"]=="oferta-container") {
-                    $x=1;
-                    echo "arrayOferta=[";
+                if ($_SESSION["container"]=="pensum-container") {
+                    $x=2;
+                    echo "arrayPensum=[";
                     while ($x<count($_SESSION["update"][0])) {
                         echo "'".$_SESSION["update"][0][$x]."'".',';
                         $x=$x+1;
                     }
                     echo "];";
-                    echo "ModificarPensum(arrayOferta,`".$_SESSION['container']."`);";
+                    echo "ModificarPensum(arrayPensum,`".$_SESSION['container']."`);";
                     
                     }
-              else if ($_SESSION["container"]=="profesor-container") {
-                    echo "valores=[";
-                    while ($x<$total) {
-                        if ($x==5) {
-                            $x=$x+3;
+                else if ($_SESSION["container"]=="oferta-container") {
+                        $x=1;
+                        echo "valores=[";
+                        while ($x<count($_SESSION["update"][0])) {
+                            echo "'".$_SESSION["update"][0][$x]."'".',';
+                            $x=$x+1;
                         }
-                        if ($x==14) {
-                            echo "'".$_SESSION["update"][14]."'".',';
-                            echo "'".$_SESSION["update"][5]."'".',';
-                            echo "'".$_SESSION["update"][6]."'".',';
-                            echo "'".$_SESSION["update"][7]."'";
+                        echo "];";
+                        echo "Modificar('".$_SESSION["container"]."','grid', valores);";
+                        
                         }
-                        else {
-                            echo "'".$_SESSION["update"][$x]."'".',';
+                else if ($_SESSION["container"]=="profesor-container") {
+                        echo "valores=[";
+                        while ($x<$total) {
+                            if ($x==5) {
+                                $x=$x+3;
+                            }
+                            if ($x==14) {
+                                echo "'".$_SESSION["update"][14]."'".',';
+                                echo "'".$_SESSION["update"][5]."'".',';
+                                echo "'".$_SESSION["update"][6]."'".',';
+                                echo "'".$_SESSION["update"][7]."'";
+                            }
+                            else {
+                                echo "'".$_SESSION["update"][$x]."'".',';
+                            }
+                        $x=$x+1;
                         }
-                    $x=$x+1;
-                    }
-                    echo "];";
-                  echo "Modificar('".$_SESSION["container"]."','grid', valores);";
-              }
+                        echo "];";
+                    echo "Modificar('".$_SESSION["container"]."','grid', valores);";
+                }
               else {
                 echo "valores=[";
                 while ($x<$total) {

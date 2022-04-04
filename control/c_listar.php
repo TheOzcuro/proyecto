@@ -10,7 +10,7 @@ function GetAll($tabla)
 function History($tabla,$campo,$dato)
 {
     $ejecutar= new registry();
-    if ($campo!="undefined" && $tabla!="pensum" && $tabla!="oferta" && $tabla!="profesor") {
+    if ($campo!="undefined" && $tabla!="pensum" && $tabla!="oferta" && $tabla!="profesor" && $tabla!="materia") {
         return $ejecutar->GetFindQuery($tabla,$campo,$dato);
     }
     if ($tabla=="pensum") {
@@ -25,11 +25,21 @@ function History($tabla,$campo,$dato)
     }
     if ($tabla=="oferta") {
         if ($campo!="undefined") {
-            return $ejecutar->GetAllOferta($campo);
+            return $ejecutar->GetAllOferta($campo,$dato);
         }
         else {
             
-            return $ejecutar->GetAllOferta("");
+            return $ejecutar->GetAllOferta("","");
+        }
+       
+    }
+    if ($tabla=="materia") {
+        if ($campo!="undefined") {
+            return $ejecutar->GetMateriasMulti($campo);
+        }
+        else {
+            
+            return $ejecutar->GetMateriasMulti("");
         }
        
     }

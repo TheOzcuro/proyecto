@@ -23,10 +23,10 @@
   height: 30px;
 }
 .buscar-historial-container #back {
-  background: #df3e21;
+  background: rgb(223, 62, 33);
 }
 .buscar-historial-container #back:hover {
-  background: #f1735d;
+  background: rgb(241, 115, 93);
 }
 
 .historial {
@@ -60,10 +60,10 @@
   min-width: auto;
   overflow: hidden;
   max-width: 180px;
-  background: #fafafa;
+  background: rgb(250, 250, 250);
 }
 .listar-container .title {
-  background: #695ff8;
+  background: rgb(105, 95, 248);
   border-top: 1px solid black;
   font-size: 0.9vw;
   color: white;

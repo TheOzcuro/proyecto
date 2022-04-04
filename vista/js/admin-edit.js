@@ -71,7 +71,12 @@ function Save(form) {
                 input[index].disabled=false;
                 
             }
-            document.querySelector("#"+form).querySelector(".input-update").value=valores[0];
+            if (form=="oferta") {
+                document.querySelector("#"+form).querySelector(".input-update").value=valores[1];
+            }
+            else {
+                document.querySelector("#"+form).querySelector(".input-update").value=valores[0];
+            }
             OnLoad("active");
             document.getElementById(form).querySelector(".input-url").value=container_url
             document.querySelector("#"+form).submit();
@@ -83,40 +88,181 @@ function Save(form) {
     }
 function SavePensum(form) {
     var valideTrue=false;
-    var valideFalse="";
-    console.log(form);
+    var ValidePrincipal=false;
     form=document.querySelector(form);
-    for (let index = 0; index < add_array.length; index++) {
-        if (add_array[index]!=valores[index+1]) {
-            valideTrue=true
-            valideFalse="";
+    drop=form.querySelector('.drop_add');
+    span=drop.querySelectorAll('span');
+   
+    if (add_array!=span.length) {
+        valideTrue=true;
+    }
+    if (form.querySelector('.principal_input').value!=valores[0] && form.querySelector('.principal_input').value!="") {
+        ValidePrincipal=true;
+        carrera=document.getElementById("carreras_unidad").value.toUpperCase();
+        if (span.length==0) {
+            carrera_array=carrera.split(" **");
+            console.log(carrera_array);
+            localStorage.setItem('carrera',carrera_array[0]);
         }
         else {
-            valideFalse="false";
+            localStorage.setItem('carrera',carrera);
         }
+        
     }
-    
-    if (form.querySelector('.principal_input').value!=valores[0] && form.querySelector('.principal_input').value!="") {
-        valideTrue=true
-        valideFalse="";
-    }
-
-    if (valideTrue=true && valideFalse=="") {
+    if (valideTrue==true && ValidePrincipal==true) {
        form.querySelector(".input-update").value=valores[0];
         OnLoad("active");
         form.querySelector(".input-url").value=container_url;
-        form.querySelector('.principal_input').disabled=false;
         form.submit();
     }
     else {
-        console.log("error")
+        Error("Tiene que hacer algun cambio si desea guardar", "msg_error", "p_error");
     }
 }
+function SaveMaterias() {
+    var ValideCarrera=false;
+    var ValideSpan=false;
+    let carrera=document.getElementById('carreras');
+    let drop=document.getElementById('materias_add_drop');
+    let span=drop.querySelectorAll('span');
+    let drop_main=document.getElementById('carreras_drop');
+    let span_main=drop_main.querySelectorAll('span');
+    let form=document.getElementById('materia');
+    for (let index = 0; index < span_main.length; index++) {
+        if (carrera.value.toUpperCase()==span_main[index].innerText) {
+             carrera_id=span_main[index].id;
+             if (span.length==0) {
+                carrera_array=carrera.value.split(" **");
+                localStorage.setItem('carrera',carrera_array[0]);
+            }
+            else {
+                localStorage.setItem('carrera',carrera.value);
+            }
+             ValideCarrera=true;
+        }
+        if (carrera.value=="") {
+            carrera.style.borderColor='red';
+        }
+     }
+     if (span.length!=add_array) {
+         ValideSpan=true;
+     }
+     console.log(add_array)
+     if (ValideCarrera && ValideSpan) {
+        form.querySelector(".input-update").value=carrera_id;
+        form.querySelector(".input-url").value=container_url;
+        form.submit();
+     }
+     else {
+         Error("Tiene que hacer algun cambio si desea guardar", "msg_error", "p_error");
+     }
+}
+function SaveDisponibilidad() {
+    var ValideCarrera=false;
+    var ValideSpan=false;
+    var ValideDias=false;
+    div=document.getElementById('disponibilidad-container');
+    cedula=div.querySelector('#cedula_dis');
+    dias=div.querySelectorAll('.input-dis');
+    bloques_add=div.querySelectorAll('.input_add');
+    bloques_add_drop=div.querySelectorAll('.drop_add');
+    drop_dis=div.querySelector('#disponibilidad_drop');
+    span_main_mod=drop_dis.querySelectorAll('span');
+    profesor_array=cedula.value.split(" **");
+    form=document.getElementById('disponibilidad');
+    totalspan=0;
+    ValideSubmit=SubmitDisponibilidad('active');
+    for (let index = 0; index < bloques_add_drop.length; index++) {
+        span_dis=bloques_add_drop[index].querySelectorAll('span');
+        totalspan=totalspan+span_dis.length;
+    }
+    for (let index = 0; index < dias.length; index++) {
+        if (dias[index].value!=dias_main[index] && dias[index].value!="") {
+            ValideDias=true
+
+        }
+    }
+    console.log(totalspan)
+    for (let index = 0; index < span_main_mod.length; index++) {
+        
+        if (cedula.value.toUpperCase()==span_main_mod[index].innerText) {
+             carrera_id=profesor_array[0];
+             array=span_main_mod[index].getAttribute('value').split('/');
+             if (totalspan==0) {
+                 
+                localStorage.setItem('disponibilidad',profesor_array[0]);
+                localStorage.setItem('disponibilidad_n',array[0]+" "+array[1])
+                localStorage.setItem('disponibilidad_c',array[2])
+            }
+            else {
+              
+                localStorage.setItem('disponibilidad',cedula.value);
+                localStorage.setItem('disponibilidad_n',array[0]+" "+array[1])
+                localStorage.setItem('disponibilidad_c',array[2])
+            }
+             ValideCarrera=true;
+        }
+        if (carrera.value=="") {
+            carrera.style.borderColor='red';
+        }
+     }
+     if (totalspan!=add_disponibilidad) {
+         ValideSpan=true;
+     }
+     if (ValideSubmit && ValideDias) {
+        ValideSpan=true;
+     }
+     if (ValideCarrera && ValideSpan && ValideSubmit) {
+        for (let index = 0; index < bloques_add_drop.length; index++) {
+            span=bloques_add_drop[index].querySelectorAll("span");
+            if (span.length>0) {
+                id=bloques_add_drop[index].getAttribute('value');
+                document.getElementById(id).value="";
+                for (let index = 0; index < span.length; index++) {
+                    if (document.getElementById(id).value=="") {
+                        document.getElementById(id).value=span[index].id;
+                    }
+                    else {
+                        document.getElementById(id).value=document.getElementById(id).value+","+span[index].id;
+                    }
+                    
+                }
+            }
+        }
+        form.querySelector(".input-update").value=carrera_id;
+        form.querySelector(".input-url").value=container_url;
+        form.submit();
+     }
+     else {
+         Error("Tiene que hacer algun cambio si desea guardar", "msg_error", "p_error");
+         localStorage.setItem('disponibilidad',"");
+         localStorage.setItem('disponibilidad_n',"");
+         localStorage.setItem('disponibilidad_c',"");
+     }
+}
 function Delete(form,valor) {
-        if (valores!="") {
+        if (valores!="" && form!="#unidad") {
             document.querySelector(form).querySelector(".input-delete").value=valores[0];
         }
-       else if (valor!="") {
+        else if(form=="#pensum") {
+            document.querySelector("#materia").querySelector(".input-delete").value=valor;
+            form="#materia";
+        }
+        else if(form=="#unidad") {
+
+            drop=document.getElementById('materias_add_drop_unidad');
+            span=drop.querySelectorAll('span');
+            input_delete=document.querySelector(form).querySelector(".input-delete");
+            for (let index = 0; index < span.length; index++) {
+                if (input_delete.value!="") {
+                    input_delete.value=input_delete.value+","+span[index].id;
+                }
+                else {
+                    input_delete.value=span[index].id;
+                }
+            }
+        }   
+        else if (valor!="" && form!="#unidad") {
             document.querySelector(form).querySelector(".input-delete").value=valor;
         }
         OnLoad("active");
@@ -125,7 +271,10 @@ function Delete(form,valor) {
         document.querySelector(form).submit();
     }
 function Modificar(container,display,valores) {
-
+        if (container=="materia-container") {
+            container="pensum-container";
+            DissapearVarious('.dis','none')
+        }
          div_edit=document.getElementById(container);
          AppearsAndDissapear(div_edit.id,display)
          div_edit.querySelector("h2").innerHTML="Editar Datos";
@@ -156,18 +305,44 @@ function Modificar(container,display,valores) {
     }
 function Close() {
         DissapearVarious(".checkbox-edit","none")
-        button[0].style.display="block";
-        button[1].style.display="block";
-        button[2].style.display="none";
-        button[3].style.display="none";
+        if (div_edit.id=="disponibilidad-container") {
+            button[0].style.display="block";
+            button[1].style.display="none";
+            button[2].style.display="none";
+            dias=div_edit.querySelectorAll('.input-dis');
+            bloques_add_drop=div_edit.querySelectorAll('.drop_add');
+            for (let index = 0; index < dias.length; index++) {
+                dias[index].value="";
+            }
+            for (let index = 0; index < bloques_add_drop.length; index++) {
+                for (let index = 0; index < bloques_add_drop.length; index++) {
+                    bloques_add[index].value="";
+                    span_bloques=bloques_add_drop[index].querySelectorAll('span');
+                    for (let i = 0; i < span_bloques.length; i++) {
+                        span_bloques[i].remove();
+                    }
+                }
+            }
+        }
+        else {
+            button[0].style.display="block";
+            button[1].style.display="block";
+            button[2].style.display="none";
+            button[3].style.display="none";
+        }
+       
+        DissapearVarious('.dis','block')
+        console.log(button.length);
+        if (button.length>4) {
+            button[4].style.display="none";
+            button[5].style.display="none";
+        }
         var input=div_edit.querySelectorAll(".input");
         var label=div_edit.querySelectorAll("label");
         for (let index = 0; index < input.length; index++) {
             input[index].disabled=false
             input[index].value=""
         }
-        document.getElementById('materias').disabled=false;
-        document.getElementById('materias_add').disabled=false;
         for (let index = 0; index < label.length; index++) {
             if (div_edit.id!="lapso_academico-container") {
                 label[index].style.top="20px";
@@ -175,11 +350,12 @@ function Close() {
             }
             
         }
+        console.log(div_edit.id)
         if (div_edit.id=="profesor-container") {
             div_edit.querySelector("h2").innerHTML="Profesor"
         }
         if (div_edit.id=="materia-container") {
-            div_edit.querySelector("h2").innerHTML="Materia";
+            document.querySelector(".pensum-container").querySelector("h2").innerHTML="Unidad Curricular";
         }
         if (div_edit.id=="aula-container") {
             div_edit.querySelector("h2").innerHTML="Aula"
@@ -187,9 +363,14 @@ function Close() {
         if (div_edit.id=="carrera-container") {
             div_edit.querySelector("h2").innerHTML="Carrera"
         }
-        if (div_edit.id=="pensum-container" || div_edit.id=="oferta-container") {
-            ClearSpan();
-            span_array=[];
+        if (div_edit.id=="pensum-container") {
+            document.getElementById('carreras').value="";
+            CreateMaterias(document.getElementById('carreras').value);
+            div_edit.querySelector("h2").innerHTML="Unidad Curricular";
+            button[1].style.display="none";
+        }
+        if (div_edit.id=="oferta-container") {
+            div_edit.querySelector("h2").innerHTML="Oferta Academica";
         }
         OnLoad();
         div_edit.querySelector(".close-icon").style.display="none"

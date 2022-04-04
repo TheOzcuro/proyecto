@@ -34,7 +34,7 @@ class registry extends mybsd {
 	function GetAllProfesor($buscar,$campo) 
 	{
 		if ($buscar=="") {
-			$query="SELECT profesor.cedula, profesor.primer_nombre, profesor.segundo_nombre, profesor.primer_apellido,  profesor.segundo_apellido, tcontratacion.tcontratacion, categoria.nombre, dedicacion.nombre,profesor.direccion, profesor.telefono, profesor.telefono_fijo, profesor.correo, profesor.titulo, profesor.oficio,  profesor.rol, tcontratacion.codigo, categoria.codigo, dedicacion.codigo FROM `profesor`,`tcontratacion`,`dedicacion`,`categoria` WHERE profesor.contratacion=tcontratacion.codigo AND profesor.categoria=categoria.codigo AND profesor.dedicacion=dedicacion.codigo ORDER BY contratacion DESC";
+			$query="SELECT profesor.cedula, profesor.primer_nombre, profesor.segundo_nombre, profesor.primer_apellido,  profesor.segundo_apellido, tcontratacion.tcontratacion, categoria.nombre, dedicacion.nombre,profesor.direccion, profesor.telefono, profesor.telefono_fijo, profesor.correo, profesor.titulo, profesor.oficio,  profesor.rol, tcontratacion.codigo, categoria.codigo, dedicacion.codigo, profesor.disponibilidad FROM `profesor`,`tcontratacion`,`dedicacion`,`categoria` WHERE profesor.contratacion=tcontratacion.codigo AND profesor.categoria=categoria.codigo AND profesor.dedicacion=dedicacion.codigo ORDER BY contratacion DESC";
 			return $this->ListAll($this->execute($query), MYSQLI_NUM);
 		}
 		else {
@@ -57,8 +57,33 @@ class registry extends mybsd {
 		
 	}
 	function GetCarrerasPensum() {
+		$query="SELECT DISTINCT carrera.codigo, carrera.nombre FROM carrera, materia, pensum WHERE carrera.codigo IN (SELECT pensum.pnf FROM pensum WHERE materia.codigo=pensum.unidad_curricular AND materia.tipo<>1) ORDER BY carrera.codigo";
+		return $this->ListAll($this->execute($query), MYSQLI_NUM);
+	}
+	function GetCarrerasNOTPensum() {
 		$query="SELECT carrera.codigo, carrera.nombre FROM carrera
-		WHERE carrera.codigo NOT IN (SELECT pensum.pnf FROM pensum)";
+		WHERE carrera.codigo NOT IN (SELECT pensum.pnf FROM pensum, materia WHERE materia.codigo=pensum.unidad_curricular AND materia.tipo<>1) ORDER BY carrera.codigo";
+		return $this->ListAll($this->execute($query), MYSQLI_NUM);
+	}
+	function GetCarrerasMulti() {
+		$query="SELECT DISTINCT carrera.codigo, carrera.nombre FROM carrera, pensum, materia
+		WHERE carrera.codigo=pensum.pnf AND materia.codigo=pensum.unidad_curricular AND materia.tipo=1";
+		return $this->ListAll($this->execute($query), MYSQLI_NUM);
+	}
+	function GetMateriasMulti($busca) {
+		if ($busca=="") {
+			$query="SELECT * FROM `materia` WHERE `tipo`=1";
+			return $this->ListAll($this->execute($query), MYSQLI_NUM);
+		}
+		else {
+			$query="SELECT * FROM `materia` WHERE `tipo`=1 AND `nombre`='$busca'";
+			return $this->ListAll($this->execute($query), MYSQLI_NUM);
+		}
+		
+	}
+	
+	function GetMateriasPensum() {
+		$query="SELECT DISTINCT materia.codigo, materia.nombre, materia.tipo, pensum.pnf FROM materia, pensum WHERE materia.codigo IN (SELECT pensum.unidad_curricular FROM pensum) AND materia.codigo=pensum.unidad_curricular";
 		return $this->ListAll($this->execute($query), MYSQLI_NUM);
 	}
 	function GetCarrerasOferta() {
@@ -66,10 +91,58 @@ class registry extends mybsd {
 		WHERE carrera.codigo IN (SELECT pensum.pnf FROM pensum)";
 		return $this->ListAll($this->execute($query), MYSQLI_NUM);
 	}
-	function GetLapsoOferta() {
-		$query="SELECT lapso_academico.trayecto FROM lapso_academico
-		WHERE lapso_academico.trayecto NOT IN (SELECT oferta.lapso_academico FROM oferta)";
+	function GetCarrerasNotInOferta() {
+		$query="SELECT carrera.codigo, carrera.nombre FROM carrera
+		WHERE carrera.codigo NOT IN (SELECT oferta.pnf FROM oferta)";
 		return $this->ListAll($this->execute($query), MYSQLI_NUM);
+	}
+	
+	function GetLapsoOferta() {
+		$query="SELECT lapso_academico.trayecto FROM lapso_academico";
+		return $this->ListAll($this->execute($query), MYSQLI_NUM);
+	}
+	function GetUserInDisponibilidad() {
+		$query="SELECT profesor.cedula, profesor.primer_nombre, profesor.primer_apellido, dedicacion.nombre FROM profesor, dedicacion WHERE profesor.cedula IN (SELECT bloque_disponibilidad.cedula FROM bloque_disponibilidad) AND dedicacion.codigo=profesor.dedicacion";
+		return $this->ListAll($this->execute($query), MYSQLI_NUM);
+	}
+	function GetUserNotDisponibilidad() {
+		$query="SELECT profesor.cedula, profesor.primer_nombre, profesor.primer_apellido, dedicacion.nombre FROM profesor, dedicacion WHERE profesor.cedula NOT IN (SELECT bloque_disponibilidad.cedula FROM bloque_disponibilidad) AND dedicacion.codigo=profesor.dedicacion";
+		return $this->ListAll($this->execute($query), MYSQLI_NUM);
+	}
+	function GetDisponibilidad() {
+		$columna="";
+		$dia="";
+		$n_array=[];
+		$f_array=[];
+		$i=0;
+		$query="SELECT bloque_disponibilidad.cedula, bloque_disponibilidad.bloque, bloque_disponibilidad.dia FROM `bloque_disponibilidad` ORDER BY bloque_disponibilidad.codigo";
+		return $this->ListAll($this->execute($query), MYSQLI_NUM);
+		/*
+		foreach ($lista as $value) {
+      
+			if ($columna!=$value[0]) {
+			  $columna=$value[0];
+			  if (count($n_array)>0) {
+				array_push($f_array,$n_array);
+				$n_array=[];
+			  }
+			  array_push($n_array,$value[0]);
+			}
+			if ($dia!=$value[2] || $columna!=$value[0]) {
+				array_push($n_array,$value[2]);
+				$dia=$value[2];
+			}
+			if ($columna==$value[0]){
+			  array_push($n_array,$value[1]);
+			  if (count($lista)-1==$i) {
+				array_push($f_array,$n_array);
+			  }
+			 
+			}
+		  $i=$i+1;
+		  }
+	   return $f_array;
+	   */
 	}
 	function GetAllPensum($busca)
 	{
@@ -95,7 +168,6 @@ class registry extends mybsd {
 					$n_array=[];
 				  }
 				  array_push($n_array,$value[0],$value[1],$value[2]);
-				  
 				}
 				if ($columna==$value[2]){
 				  array_push($n_array,$value[3]);
@@ -110,43 +182,24 @@ class registry extends mybsd {
 		   return $f_array;
 		
 	}
-	function GetAllOferta($busca)
+	function GetAllOferta($dato,$campo)
 	{
-		$columna="";
-		$n_array=[];
-		$f_array=[];
-		$i=0;
-		if ($busca=="") {
-			$query="SELECT oferta.codigo, oferta.lapso_academico, oferta.pnf, carrera.nombre FROM carrera INNER JOIN oferta ON oferta.pnf = carrera.codigo ORDER BY oferta.codigo DESC";
-			$lista=$this->ListAll($this->execute($query), MYSQLI_NUM);
+		if ($dato=="") {
+			$query="SELECT oferta.codigo, oferta.lapso_academico, carrera.nombre, oferta.horas_semanales, oferta.creditos FROM oferta, carrera WHERE oferta.pnf=carrera.codigo";
+			return $this->ListAll($this->execute($query), MYSQLI_NUM);
 		}
 		else {
-			$query="SELECT oferta.codigo, oferta.lapso_academico, oferta.pnf, carrera.nombre FROM carrera INNER JOIN oferta ON oferta.pnf = carrera.codigo && oferta.lapso_academico LIKE '%$busca%' ORDER BY oferta.codigo DESC";
-			$lista=$this->ListAll($this->execute($query), MYSQLI_NUM);
+			if ($campo=="pnf" || $campo=="PNF") {
+				$query="SELECT oferta.codigo, oferta.lapso_academico, carrera.nombre, oferta.horas_semanales, oferta.creditos FROM oferta, carrera WHERE oferta.pnf=carrera.codigo AND carrera.nombre LIKE '%$dato%'";
+				return $this->ListAll($this->execute($query), MYSQLI_NUM);
 			}
+			else {
+				$query="SELECT oferta.codigo, oferta.lapso_academico, carrera.nombre, oferta.horas_semanales, oferta.creditos FROM oferta, carrera WHERE oferta.pnf=carrera.codigo AND `$campo` LIKE '%$dato%'";
+				return $this->ListAll($this->execute($query), MYSQLI_NUM);
+			}
+			
+		}
 		
-		foreach ($lista as $value) {
-      
-				if ($columna!=$value[1]) {
-				  $columna=$value[1];
-				  if (count($n_array)>0) {
-					array_push($f_array,$n_array);
-					$n_array=[];
-				  }
-				  array_push($n_array,$value[0],$value[1]);
-				  
-				}
-				if ($columna==$value[1]){
-				  array_push($n_array,$value[2]);
-				  array_push($n_array,$value[3]);
-				  if (count($lista)-1==$i) {
-					array_push($f_array,$n_array);
-				  }
-				 
-				}
-			  $i=$i+1;
-			  }
-		   return $f_array;
 	}
 function GetFindQuery($tabla,$dato,$campo)
 	{
@@ -170,17 +223,10 @@ function GetFindQuery($tabla,$dato,$campo)
 	}
 	function registrarMateria($codigo, $nombre, $tipo){
 		$nombre=strtoupper($nombre);
-		$query="SELECT * FROM `materia` WHERE `nombre`='$nombre'";
-		
-		$val=$this->CheckResult($this->execute($query));
-		if ($val==1) {
-			return 3;
-		}
-		else {
+		$codigo=strtoupper($codigo);
 			$query="INSERT INTO `materia`(`codigo`, `nombre`, `tipo`)
 		VALUES ('".$codigo."','".$nombre."','".$tipo."')";
 			return $this->execute($query);
-		}
 	}
 	function registrarAula($codigo, $nombre){
 		$nombre=strtoupper($nombre);
@@ -195,6 +241,11 @@ function GetFindQuery($tabla,$dato,$campo)
 			VALUES ('".$codigo."','".strtoupper($nombre)."')";
 			return $this->execute($query);
 		}
+	}
+	function registrarDisponibilidad($cedula, $bloque, $dia, $disponibilidad){
+		$query="INSERT INTO `bloque_disponibilidad`(`cedula`, `bloque`,`dia`,`disponibilidad`)
+		VALUES ('$cedula','$bloque','$dia','$disponibilidad')";
+		return $this->execute($query);
 	}
 	function registrarCarrera($codigo, $nombre){
 		$nombre=strtoupper($nombre);
@@ -219,20 +270,31 @@ function GetFindQuery($tabla,$dato,$campo)
 		
 	}
 	function registrarPensum($carrera, $unidad){
+		/*
 		$carrera=strtoupper($carrera);
 		$codigo=$this->FindQuery("carrera","nombre",$carrera);
 		$codigo1=$codigo[0];
+		*/
 		$query="INSERT INTO `pensum`(`pnf`, `unidad_curricular`)
-			VALUES ('$codigo1','$unidad')";
+			VALUES ('$carrera','$unidad')";
 			
 		return $this->execute($query);
 		
 	}
-	function registrarOferta($trayecto, $pnf){
+	function registrarOferta($trayecto, $pnf, $horas, $unidad){
 		$trayecto=strtoupper($trayecto);
-		$query="INSERT INTO `oferta`(`lapso_academico`, `pnf`)
-			VALUES ('$trayecto','$pnf')";
-		return $this->execute($query);
+		$pnf=strtoupper($pnf);
+		$carrera=$this->FindQuery("carrera","nombre",$pnf);
+		$pnf=$carrera[0];
+		if ($carrera!=2) {
+			$query="INSERT INTO `oferta`(`lapso_academico`, `pnf`, `horas_semanales`, `creditos`)
+			VALUES ('$trayecto','$pnf', '$horas', '$unidad')";
+			return $this->execute($query);
+		}
+		else {
+			return 3;
+		}
+		
 		
 	}
     function ValidateLogin($cedula){
@@ -282,6 +344,11 @@ function GetFindQuery($tabla,$dato,$campo)
 		$query="UPDATE `profesor` SET `cedula`='$this->cedula', `rol`='$this->rol', `primer_nombre`='$this->primer_nombre', `segundo_nombre`='$this->segundo_nombre', `primer_apellido`='$this->primer_apellido', `segundo_apellido`='$this->segundo_apellido', `direccion`='$this->direccion', `telefono`='$this->telefono', `telefono_fijo`='$this->telefono_fijo', `correo`='$this->correo', `titulo`='$this->titulo', `oficio`='$this->oficio',`contratacion`='$this->contratacion', `categoria`='$this->categoria', `dedicacion`='$this->dedicacion' WHERE `cedula`=$cedula";
 		return $this->execute($query);
 	}
+	function UpdateDisponibilidad($cedula, $tipo)
+	{
+		$query="UPDATE `profesor` SET `disponibilidad`='$tipo' WHERE `cedula`='$cedula' ";
+		return $this->execute($query);
+	}
 	function UpdateTableAdmin($cedula, $origin_cedula)
 	{
 		$query="UPDATE `administrador` SET `cedula`='$cedula' WHERE `cedula`='$origin_cedula' ";
@@ -302,6 +369,35 @@ function GetFindQuery($tabla,$dato,$campo)
 					WHERE `codigo`='$original_codigo'";
 			return $this->execute($query);
 		
+	}
+	function UpdateTableDisponibilidad($cedula,$bloque,$dia,$disponibilidad)
+	{
+		$nombre=strtoupper($nombre);
+			$query="UPDATE `aula` SET 
+					`codigo`='$codigo', `nombre`='$nombre' 
+					WHERE `codigo`='$original_codigo'";
+			return $this->execute($query);
+		
+	}
+	function UpdateTableOferta($trayecto,$pnf,$horas,$unidad,$original_codigo)
+	{
+			$trayecto=strtoupper($trayecto);
+			$pnf=strtoupper($pnf);
+			$pnf_origin=strtoupper($original_codigo);
+			$carrera=$this->FindQuery("carrera","nombre",$pnf);
+			$carrera_origin=$this->FindQuery("carrera","nombre",$pnf_origin);
+			$pnf=$carrera[0];
+			$original_codigo=$carrera_origin[0];
+			if ($carrera!=2 && $carrera_origin!=2) {
+				$query="UPDATE `oferta` SET `lapso_academico`='$trayecto', `pnf`='$pnf', `horas_semanales`='$horas', `creditos`='$unidad' WHERE `pnf`='$original_codigo'";
+				return $this->execute($query);
+			}
+			else {
+				return 3;
+			}
+			
+			
+	
 	}
 	function UpdateTableCarrera($codigo,$nombre,$original_codigo)
 	{
@@ -341,6 +437,10 @@ function GetFindQuery($tabla,$dato,$campo)
 	}
 	function DeleteTable($tabla, $campo, $dato) {
 		$query="DELETE FROM `$tabla` WHERE `$campo`='$dato'";
+		return $this->execute($query);
+	}
+	function DeleteTableTwoWhere($tabla, $campo, $dato, $campo2, $dato2) {
+		$query="DELETE FROM `$tabla` WHERE `$campo`='$dato' AND `$campo2`='$dato2'";
 		return $this->execute($query);
 	}
 	function TakeColumnNames($tabla) {

@@ -12,7 +12,7 @@ body {
 .password-container {
   height: 300px;
   width: 300px;
-  background-color: #f0f0f0;
+  background-color: rgb(240, 240, 240);
   position: absolute;
   top: 40%;
   left: 50%;
@@ -25,7 +25,7 @@ body {
   padding: 20px;
 }
 .password-container b {
-  color: #c72b23;
+  color: rgb(199, 43, 35);
   font-size: 14px;
   position: absolute;
   bottom: 25px;
@@ -35,7 +35,7 @@ label {
   font-size: 18px;
   position: absolute;
   top: 20px;
-  color: #8a8888;
+  color: rgb(138, 136, 136);
   transition-property: top, font-size;
   transition-timing-function: ease;
   transition-duration: 0.5s;
@@ -63,7 +63,7 @@ input {
   transition-timing-function: ease;
 }
 input:focus {
-  border-color: #206bdb;
+  border-color: rgb(32, 107, 219);
 }
 
 .eye {
@@ -77,14 +77,14 @@ input:focus {
 
 button {
   border: none;
-  background-color: #3d85ce;
+  background-color: rgb(61, 133, 206);
   width: 80%;
   left: 20px;
   top: 15px;
   position: relative;
   cursor: pointer;
   height: 30px;
-  color: #e6e6e6;
+  color: rgb(230, 230, 230);
   font-size: 17px;
   border-left: 3px solid;
   border-right: 3px solid;
@@ -93,8 +93,8 @@ button {
   transition-timing-function: ease;
 }
 button:hover {
-  background-color: #4a98e7;
-  border-color: #e28732;
+  background-color: rgb(74, 152, 231);
+  border-color: rgb(226, 135, 50);
 }
 button::before {
   content: "";
@@ -108,7 +108,7 @@ button::before {
   transition-duration: 0.5s;
 }
 button:hover::before {
-  border-color: #e28732;
+  border-color: rgb(226, 135, 50);
   transform: scale(104, 1);
 }
 button::after {
@@ -123,15 +123,15 @@ button::after {
   transition-duration: 0.5s;
 }
 button:hover::after {
-  border-color: #e28732;
+  border-color: rgb(226, 135, 50);
   transform: scale(104, 1);
 }
 button:active {
-  border-color: #3cd63c;
+  border-color: rgb(60, 214, 60);
 }
 button:active::before {
-  border-color: #3cd63c;
+  border-color: rgb(60, 214, 60);
 }
 button:active::after {
-  border-color: #3cd63c;
+  border-color: rgb(60, 214, 60);
 }/*# sourceMappingURL=configadmin.css.map */

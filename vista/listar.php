@@ -97,8 +97,24 @@ function CreateTable($table,$campo,$dato) {
   <select name='campo' id='campo' style='margin-left:20px;margin-top:20px;height:30px;' onclick='SelectValidation()'>";
   //Para crear el select con los nombres de cada columna de la tabla para mas comodidad para buscar
   //Confirmamos si la tabla es pensum para darle un comportamiento diferente a la de las otras tablas para evitar incovenientes
-  if ($table=="pensum" || $table=="oferta") {
+  if ($table=="pensum") {
     echo "<option value=".strtoupper($name[1]["COLUMN_NAME"]).">".strtoupper($name[1]["COLUMN_NAME"]);
+    echo "</option>";
+  }
+  if ($table=="materia") {
+    echo "<option value=".strtoupper($name[0]["COLUMN_NAME"]).">".strtoupper($name[0]["COLUMN_NAME"]);
+    echo "</option>";
+    echo "<option value=".strtoupper($name[1]["COLUMN_NAME"]).">".strtoupper($name[1]["COLUMN_NAME"]);
+    echo "</option>";
+  }
+  if ($table=="oferta") {
+    echo "<option value=".strtoupper($name[1]["COLUMN_NAME"]).">".strtoupper($name[1]["COLUMN_NAME"]);
+    echo "</option>";
+    echo "<option value=".strtoupper($name[2]["COLUMN_NAME"]).">".strtoupper($name[2]["COLUMN_NAME"]);
+    echo "</option>";
+    echo "<option value=".strtoupper($name[3]["COLUMN_NAME"]).">".strtoupper($name[3]["COLUMN_NAME"]);
+    echo "</option>";
+    echo "<option value=".strtoupper($name[4]["COLUMN_NAME"]).">".strtoupper($name[4]["COLUMN_NAME"]);
     echo "</option>";
   }
   //Si no es igual a pensum se ejecuta como normalmente lo haria
@@ -158,18 +174,6 @@ function CreateTable($table,$campo,$dato) {
           }
           echo "</div>";
     }
-      else if($table==="oferta") {
-      
-        echo "<div class='".$name[0]["COLUMN_NAME"]." f-".$index."' value=".$lista[$index][0].">".$lista[$index][0]."</div>";
-        echo "<div class='".$name[1]["COLUMN_NAME"]." f-".$index."' value=".$lista[$index][1].">".$lista[$index][1]."</div>";
-        echo "<div class='".$name[2]["COLUMN_NAME"]." f-".$index."' >";
-        $x=3;
-        for ($i=2; $i < count($lista[$index]); $i=$i+2) { 
-          echo "<span id=".$lista[$index][$i].">".$lista[$index][$x]."  </span>";
-          $x=$x+2;
-        }
-        echo "</div>";
-    }
       else {
         //For para ingresar los datos en los div de la fila
         for ($i=0; $i < $count_lista; $i++) { 
@@ -188,20 +192,34 @@ function CreateTable($table,$campo,$dato) {
             if ($i==9) {
               echo "<div></div>";
             }
-            echo "<div class='".$name[$i]["COLUMN_NAME"]." f-".$index."' value=".$lista[$index][$i]." title='".$lista[$index][$i]."'>".$lista[$index][$i]."</div>";
+            echo "<div class='".$name[$i]["COLUMN_NAME"]." f-".$index."' value=".$lista[$index][$i]." title='".$lista[$index][$i]."'>".$lista[$index][$i];
+            if ($table=="profesor" && $i==0) {
+              if ($lista[$index][18]==0) {
+                print_r("<div style='border-radius:50%;background:rgb(220,60,30);position:absolute;width: 25px;height: 25px;left:-25px;z-index:-1;cursor:pointer;'  title='No posee Disponibilidad'  onclick='ActiveDisponibilidad(`".$lista[$index][0]."`,`".$lista[$index][1]."`,`".$lista[$index][3]."`,`".$lista[$index][7]."`,`0`)'></div>");
+               }
+               else if($lista[$index][18]==1) {
+                 print_r("<div style='border-radius:50%;background:rgb(105,180,100);position:absolute;width: 25px;height: 25px;left:-25px;z-index:-1;cursor:pointer;' title='Posee Disponibilidad' 
+                 onclick='ActiveDisponibilidad(`".$lista[$index][0]."`,`".$lista[$index][1]."`,`".$lista[$index][3]."`,`".$lista[$index][7]."`,`1`)'></div>");
+               }
+            }
+            echo "</div>";
           }
          
         }
       }
       
       print_r("<button onclick='ActiveModificar(`.f-".$index."`,`$table-container`)'>Modificar</button>");
-      if ($table=="pensum" || $table=="oferta") {
+      if ($table=="pensum") {
         echo "<button onclick='DisplayDelete(`block`,`.delete-window`,`#$table`,`".$lista[$index][1]."`)'>Eliminar</button>";
+      }
+      else if ($table=="oferta") {
+        echo "<button onclick='DisplayDelete(`block`,`.delete-window`,`#$table`,`".$lista[$index][2]."`)'>Eliminar</button>";
       }
       else {
         echo "<button onclick='DisplayDelete(`block`,`.delete-window`,`#$table`,`".$lista[$index][0]."`)'>Eliminar</button>";
       }
       if ($table=="profesor") {
+        
         echo "<button onclick='ShowContratacion(`".$lista[$index][8]."`,`".$lista[$index][9]."`,`".$lista[$index][10]."`,`".$lista[$index][11]."`,`".$lista[$index][12]."`,`".$lista[$index][13]."`,`".$lista[$index][14]."`)'>Mostrar Mas</button>";
         echo "<input type='hidden' class='f-".$index."' value='".$lista[$index][8]."/".$lista[$index][9]."/".$lista[$index][10]."/".$lista[$index][11]."/".$lista[$index][12]."/".$lista[$index][13]."/".$lista[$index][14]."/".$lista[$index][15]."/".$lista[$index][16]."/".$lista[$index][17]."'>";
       }

@@ -3,7 +3,7 @@
   src: url(fonts/OpenSans-Regular.ttf);
 }
 body {
-  background-color: #e6e6e6;
+  background-color: rgb(230, 230, 230);
   padding: 0;
   margin: 0;
   font-family: Open Sans, sans-serif;
@@ -18,7 +18,7 @@ body {
   width: 250px;
   height: 285px;
   transform: translate(-50%, -50%);
-  background-color: #f5f5fa;
+  background-color: rgb(245, 245, 250);
   border-radius: 10px;
   box-shadow: 20px 15px 30px rgba(30, 30, 30, 0.6);
   padding: 15px 25px;
@@ -27,8 +27,8 @@ body {
   border: none;
   font-size: 17px;
   padding: 5px 0px;
-  background-color: #206bdb;
-  color: #f0f0f0;
+  background-color: rgb(32, 107, 219);
+  color: rgb(240, 240, 240);
   position: relative;
   cursor: pointer;
   border-left: 3px solid transparent;
@@ -39,8 +39,8 @@ body {
   transition-property: border-color;
 }
 .login-container button:hover {
-  background-color: #4a98e7;
-  border-color: #e28732;
+  background-color: rgb(74, 152, 231);
+  border-color: rgb(226, 135, 50);
 }
 .login-container button::before {
   content: "";
@@ -54,7 +54,7 @@ body {
   transition-duration: 0.5s;
 }
 .login-container button:hover::before {
-  border-color: #e28732;
+  border-color: rgb(226, 135, 50);
   transform: scale(125, 1);
 }
 .login-container button::after {
@@ -69,17 +69,17 @@ body {
   transition-duration: 0.5s;
 }
 .login-container button:hover::after {
-  border-color: #e28732;
+  border-color: rgb(226, 135, 50);
   transform: scale(125, 1);
 }
 .login-container button:active {
-  border-color: #3cd63c;
+  border-color: rgb(60, 214, 60);
 }
 .login-container button:active::before {
-  border-color: #3cd63c;
+  border-color: rgb(60, 214, 60);
 }
 .login-container button:active::after {
-  border-color: #3cd63c;
+  border-color: rgb(60, 214, 60);
 }
 
 h2 {
@@ -94,7 +94,7 @@ label {
   font-size: 18px;
   position: absolute;
   top: 20px;
-  color: #8a8888;
+  color: rgb(138, 136, 136);
   transition-property: top, font-size;
   transition-timing-function: ease;
   transition-duration: 0.5s;
@@ -122,7 +122,7 @@ input {
   transition-timing-function: ease;
 }
 input:focus {
-  border-color: #206bdb;
+  border-color: rgb(32, 107, 219);
 }
 
 .blackcover {
@@ -137,7 +137,7 @@ input:focus {
   width: 350px;
   height: 200px;
   padding: 5px 30px;
-  background: #e6e6e6;
+  background: rgb(230, 230, 230);
   top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -155,12 +155,12 @@ input:focus {
   cursor: pointer;
 }
 .blackcover .button-rep {
-  border: 3px solid #206bdb;
+  border: 3px solid rgb(32, 107, 219);
   background: transparent;
 }
 .blackcover .button-rep:hover {
-  background: #206bdb;
-  color: #e6e6e6;
+  background: rgb(32, 107, 219);
+  color: rgb(230, 230, 230);
 }
 .blackcover .button-clo {
   border: 3px solid red;
@@ -169,7 +169,7 @@ input:focus {
 }
 .blackcover .button-clo:hover {
   background: red;
-  color: #e6e6e6;
+  color: rgb(230, 230, 230);
 }
 
 @-webkit-keyframes Appear {
