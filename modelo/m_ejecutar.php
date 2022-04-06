@@ -41,7 +41,7 @@ class registry extends mybsd {
 			$query="SELECT profesor.cedula, profesor.primer_nombre, profesor.segundo_nombre, profesor.primer_apellido,  
 			profesor.segundo_apellido, tcontratacion.tcontratacion, categoria.nombre, dedicacion.nombre,profesor.direccion, 
 			profesor.telefono, profesor.telefono_fijo, profesor.correo, profesor.titulo, profesor.oficio, profesor.rol, 
-			tcontratacion.codigo, categoria.codigo, dedicacion.codigo  
+			tcontratacion.codigo, categoria.codigo, dedicacion.codigo, profesor.disponibilidad  
 			FROM `profesor`,`tcontratacion`,`dedicacion`,`categoria` 
 			WHERE profesor.contratacion=tcontratacion.codigo 
 			AND profesor.categoria=categoria.codigo 
