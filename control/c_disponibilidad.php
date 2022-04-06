@@ -32,10 +32,7 @@ else if (isset($_POST["update"]) && $_POST["update"]!=""){
     $valida=$ejecutar->FindQuery('profesor','cedula',$_POST['update']);
     if ($valida===2) {
         $_SESSION["error"]="La cedula del profesor que ingreso no existe";
-        $_SESSION["container"]="aula-container";
-        $_SESSION["update"]=$ejecutar->FindQuery("aula","codigo", $_POST["update"]);
         header("Location:../vista/administrador.php#$url");
-
     }
     else {
         $ejecutar->DeleteTable('bloque_disponibilidad', 'cedula',$_POST["update"]);
@@ -84,6 +81,7 @@ else if (isset($_POST["update"]) && $_POST["update"]!=""){
 }
 else if (isset($_POST["delete"]) && $_POST["delete"]!=""){
     $ejecutar->DeleteTable('bloque_disponibilidad', 'cedula',$_POST["delete"]);
+    $ejecutar->UpdateDisponibilidad($_POST["delete"], 0);
     $_SESSION["completado"]="Los datos fueron eliminados correctamente";
     header("Location:../vista/administrador.php#$url");
 }
@@ -131,7 +129,7 @@ else {
         }
         $ejecutar->UpdateDisponibilidad($_POST["cedula_dis"], 1);
         header("Location:../vista/administrador.php#$url");
-        $_SESSION["completado"]="Se creo correctamente la disponibilidad del profesor".$_POST["nombre_dis"];
+        $_SESSION["completado"]="Se creo correctamente la disponibilidad del profesor ".$_POST["nombre_dis"];
     }
 }
 

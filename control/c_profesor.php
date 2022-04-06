@@ -53,12 +53,14 @@ else if (isset($_POST["update-profesor"]) && $_POST["update-profesor"]!="") {
         $_SESSION["error"]="El correo que ingreso ya existe";
         $_SESSION["container"]="profesor-container";
         $_SESSION["update"]=$ejecutar->FindQuery('profesor','cedula',$_POST["update-profesor"]);
-        //header("Location:../vista/administrador.php#$url");
+        header("Location:../vista/administrador.php#$url");
      }
      else {
         $_SESSION["completado"]="Los datos del profesor han sido actualizados";
         $_SESSION["container"]="profesor-container";
-        $_SESSION["update"]=$ejecutar->FindQuery('profesor','cedula',$_POST["update-profesor"]);
+        $ejecutar->UpdateTableDisponibilidad($_POST["cedula"], $_POST["update-profesor"]);
+        $_SESSION["update"]=$ejecutar->FindQuery('profesor','cedula',$_POST["cedula"]);
+        print_r($_SESSION["update"]);
         if ($_POST["rol"]==="1") {
             $admin=$ejecutar->FindQuery("administrador","cedula",$_POST["update-profesor"]);
            if ($admin===2) {
@@ -82,6 +84,7 @@ else if (isset($_POST["update-profesor"]) && $_POST["update-profesor"]!="") {
 }
 else if (isset($_POST["delete-profesor"]) && $_POST["delete-profesor"]!="") {
    $ejecutar->DeleteTable("profesor","cedula",$_POST["delete-profesor"]);
+   $ejecutar->DeleteTable("bloque_disponibilidad","cedula",$_POST["delete-profesor"]);
    $_SESSION["completado"]="Los datos fueron eliminados sastifactoriamente";
    header("Location:../vista/administrador.php#$url");
 }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 19-03-2022 a las 02:24:52
+-- Tiempo de generación: 06-04-2022 a las 21:33:55
 -- Versión del servidor: 8.0.21
 -- Versión de PHP: 7.3.21
 
@@ -71,6 +71,41 @@ INSERT INTO `aula` (`codigo`, `nombre`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `bloque_disponibilidad`
+--
+
+DROP TABLE IF EXISTS `bloque_disponibilidad`;
+CREATE TABLE IF NOT EXISTS `bloque_disponibilidad` (
+  `codigo` int NOT NULL AUTO_INCREMENT,
+  `cedula` int NOT NULL,
+  `bloque` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
+  `dia` int NOT NULL,
+  `disponibilidad` int NOT NULL,
+  PRIMARY KEY (`codigo`)
+) ENGINE=MyISAM AUTO_INCREMENT=236 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `bloque_disponibilidad`
+--
+
+INSERT INTO `bloque_disponibilidad` (`codigo`, `cedula`, `bloque`, `dia`, `disponibilidad`) VALUES
+(223, 9372683, 'B4', 3, 1),
+(222, 9372683, 'B3', 3, 1),
+(221, 9372683, 'B2', 3, 1),
+(235, 11716900, 'B4', 1, 1),
+(234, 11716900, 'B3', 1, 1),
+(233, 11716900, 'B2', 1, 1),
+(232, 11716900, 'B1', 1, 1),
+(220, 9372683, 'B1', 3, 1),
+(219, 9372683, 'B5', 1, 1),
+(218, 9372683, 'B4', 1, 1),
+(217, 9372683, 'B3', 1, 1),
+(216, 9372683, 'B2', 1, 1),
+(215, 9372683, 'B1', 1, 1);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `carrera`
 --
 
@@ -87,7 +122,7 @@ CREATE TABLE IF NOT EXISTS `carrera` (
 
 INSERT INTO `carrera` (`codigo`, `nombre`) VALUES
 ('2121', 'INGENIERIA EN AZUCAR'),
-('1515', 'DANSA'),
+('1515', 'DANZA'),
 ('102', 'ARTES PLASTICAS'),
 ('70', 'PROGRAMACION');
 
@@ -137,7 +172,50 @@ CREATE TABLE IF NOT EXISTS `dedicacion` (
 INSERT INTO `dedicacion` (`codigo`, `nombre`) VALUES
 (1, 'Tiempo Convencional'),
 (2, 'Medio Tiempo'),
-(3, 'Tiempo Completo');
+(3, 'Tiempo Completo'),
+(4, 'Tiempo Exclusivo');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `dias_semana`
+--
+
+DROP TABLE IF EXISTS `dias_semana`;
+CREATE TABLE IF NOT EXISTS `dias_semana` (
+  `codigo` int NOT NULL,
+  `dias` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
+  PRIMARY KEY (`codigo`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `dias_semana`
+--
+
+INSERT INTO `dias_semana` (`codigo`, `dias`) VALUES
+(5, 'VIERNES'),
+(4, 'JUEVES'),
+(3, 'MIERCOLES'),
+(2, 'MARTES'),
+(1, 'LUNES');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `horario_docente`
+--
+
+DROP TABLE IF EXISTS `horario_docente`;
+CREATE TABLE IF NOT EXISTS `horario_docente` (
+  `codigo` int NOT NULL AUTO_INCREMENT,
+  `cedula_docente` int NOT NULL,
+  `codigo_aula` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
+  `lapso_academico` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
+  `bloque` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
+  `unidad_curricular` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
+  `dia` int NOT NULL,
+  PRIMARY KEY (`codigo`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
 
@@ -181,10 +259,11 @@ CREATE TABLE IF NOT EXISTS `materia` (
 --
 
 INSERT INTO `materia` (`codigo`, `nombre`, `tipo`) VALUES
-('100', 'EJECUCION INSTRUMENTAL', '0'),
-('4564', 'MATEMATICA 2', '0'),
-('900', 'CANTO Y REPERTORIO', '0'),
-('903', 'MUSICA LATINOAMAERICA', '1');
+('MAT02', 'MATEMATICA 2', '0'),
+('FISICA02', 'FISICA', '0'),
+('45-20', 'HOLA', '1'),
+('PERRO', 'PERRA', '0'),
+('CANSAO', 'CONFIRMO', '1');
 
 -- --------------------------------------------------------
 
@@ -197,15 +276,21 @@ CREATE TABLE IF NOT EXISTS `oferta` (
   `codigo` int NOT NULL AUTO_INCREMENT,
   `lapso_academico` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
   `pnf` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  PRIMARY KEY (`codigo`)
-) ENGINE=MyISAM AUTO_INCREMENT=47 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `horas_semanales` int NOT NULL,
+  `creditos` int NOT NULL,
+  PRIMARY KEY (`codigo`),
+  UNIQUE KEY `pnf` (`pnf`)
+) ENGINE=MyISAM AUTO_INCREMENT=55 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `oferta`
 --
 
-INSERT INTO `oferta` (`codigo`, `lapso_academico`, `pnf`) VALUES
-(46, '1100', '2121');
+INSERT INTO `oferta` (`codigo`, `lapso_academico`, `pnf`, `horas_semanales`, `creditos`) VALUES
+(49, '1100', '1515', 15, 15),
+(51, '90', '2121', 15, 30),
+(52, '9000', '102', 46, 50),
+(53, '90', '70', 56, 10);
 
 -- --------------------------------------------------------
 
@@ -219,14 +304,18 @@ CREATE TABLE IF NOT EXISTS `pensum` (
   `pnf` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
   `unidad_curricular` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
   PRIMARY KEY (`codigo`)
-) ENGINE=MyISAM AUTO_INCREMENT=288 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=359 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `pensum`
 --
 
 INSERT INTO `pensum` (`codigo`, `pnf`, `unidad_curricular`) VALUES
-(287, '2121', '4564');
+(354, '2121', 'FISICA02'),
+(350, '2121', 'CANSAO'),
+(357, '1515', 'CANSAO'),
+(358, '2121', 'PERRO'),
+(342, '2121', 'MAT02');
 
 -- --------------------------------------------------------
 
@@ -251,6 +340,7 @@ CREATE TABLE IF NOT EXISTS `profesor` (
   `titulo` varchar(40) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `oficio` varchar(40) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `rol` varchar(1) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
+  `disponibilidad` int NOT NULL,
   PRIMARY KEY (`cedula`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
@@ -258,10 +348,10 @@ CREATE TABLE IF NOT EXISTS `profesor` (
 -- Volcado de datos para la tabla `profesor`
 --
 
-INSERT INTO `profesor` (`cedula`, `primer_nombre`, `segundo_nombre`, `primer_apellido`, `segundo_apellido`, `contratacion`, `categoria`, `dedicacion`, `direccion`, `telefono`, `telefono_fijo`, `correo`, `titulo`, `oficio`, `rol`) VALUES
-(9372683, 'NIRETCIA', 'INMACULADA', 'RAMIREZ', 'VALERO', 3, 5, 1, 'CAMBURITO', '04147965415', '02556659105', 'perro@gmail.com', 'BACHILLER', 'MUSICO', '1'),
-(11716900, 'JONATHAN', 'SEXO', 'RAMIREZ', '', 2, 3, 3, 'URB CAMBURITO, CALLE 7, CASA 7-24', '04167577138', '0255669105', 'jonathan@gmail.com', 'MASTER EN SEXO', 'PLANIFICADOR DE ORGIAS', '0'),
-(27414575, 'MARTIN', 'PEREZ', 'ROJAS', 'PASTOR', 1, 6, 2, 'EN LAS PALMAS', '04125719342', '02314242113', 'sexo@gmail.com', 'ESCUELA PRIMARIA', 'DAR MAMADAS', '0');
+INSERT INTO `profesor` (`cedula`, `primer_nombre`, `segundo_nombre`, `primer_apellido`, `segundo_apellido`, `contratacion`, `categoria`, `dedicacion`, `direccion`, `telefono`, `telefono_fijo`, `correo`, `titulo`, `oficio`, `rol`, `disponibilidad`) VALUES
+(9372683, 'NIRETCIA', 'INMACULADA', 'RAMIREZ', 'VALERO', 3, 5, 1, 'CAMBURITO', '04147965415', '02556659105', 'perro@gmail.com', 'BACHILLER', 'MUSICO', '1', 1),
+(11716900, 'JONATHAN', 'SEXO', 'RAMIREZ', '', 2, 3, 3, 'URB CAMBURITO, CALLE 7, CASA 7-24', '04167577138', '0255669105', 'jonathan@gmail.com', 'MASTER EN SEXO', 'PLANIFICADOR DE ORGIAS', '0', 1),
+(27414575, 'MARTIN', 'PEREZ', 'ROJAS', 'PASTOR', 1, 6, 3, 'EN LAS PALMAS', '04125719342', '02314242113', 'sexo@gmail.com', 'ESCUELA PRIMARIA', 'DAR MAMADAS', '0', 0);
 
 -- --------------------------------------------------------
 

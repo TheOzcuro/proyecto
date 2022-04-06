@@ -169,7 +169,7 @@ function CreateTable($table,$campo,$dato) {
           $x=4;
           //for donde se agregan todas las materias al mismo div para mas comodidad para el usuario
           for ($i=3; $i < count($lista[$index]); $i=$i+2) { 
-            echo "<span id=".$lista[$index][$i].">".$lista[$index][$x]."  </span>";
+            echo "<span id=".$lista[$index][$i].">".$lista[$index][$x]." ||  </span>";
             $x=$x+2;
           }
           echo "</div>";

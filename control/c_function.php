@@ -50,7 +50,7 @@ function GetCarrerasNotOferta()
 function GetDisponibilidad()
 {
     $ejecutar=new registry();
-    return $ejecutar->GetDisponibilidad();
+    return $ejecutar->GetDisponibilidad("");
 }
 function GetUserInDisponibilidad()
 {
@@ -61,6 +61,11 @@ function GetUserNotDisponibilidad()
 {
     $ejecutar=new registry();
     return $ejecutar->GetUserNotDisponibilidad();
+}
+function GetUserInHorario()
+{
+    $ejecutar=new registry();
+    return $ejecutar->GetUserInHorario();
 }
 function GetProfesor()
 {

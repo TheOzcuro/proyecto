@@ -306,11 +306,13 @@ function Modificar(container,display,valores) {
 function Close() {
         DissapearVarious(".checkbox-edit","none")
         if (div_edit.id=="disponibilidad-container") {
+            button=div_edit.querySelectorAll('button');
             button[0].style.display="block";
             button[1].style.display="none";
             button[2].style.display="none";
             dias=div_edit.querySelectorAll('.input-dis');
             bloques_add_drop=div_edit.querySelectorAll('.drop_add');
+            bloques_add=div_edit.querySelectorAll('.input_add');
             for (let index = 0; index < dias.length; index++) {
                 dias[index].value="";
             }
@@ -377,6 +379,13 @@ function Close() {
         document.getElementById("buscar_profesor").value=""
         div_edit="";
     }
+function DisplayHorario(display,div) {
+    console.log(div);
+    document.querySelector(".blackcover").addEventListener("click", function(){
+        DisplayHorario("none",div)})
+    document.querySelector(".blackcover").style.display=display;
+    document.querySelector(div).style.display=display;
+}
 function DisplayDelete(display,div,form,valor) {
         document.querySelector(".blackcover").addEventListener("click", function(){
             DisplayDelete("none",div,form)})

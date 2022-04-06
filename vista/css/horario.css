@@ -1,0 +1,54 @@
+#horario_list {
+  display: grid;
+  position: absolute;
+  grid-template-columns: repeat(6, 160px);
+  grid-auto-rows: 75px;
+  border: 1px solid black;
+  grid-gap: 1px;
+  background-color: black;
+  font-family: Open Sans, sans-serif;
+}
+#horario_list .title {
+  text-align: center;
+  line-height: 75px;
+}
+#horario_list .hora {
+  line-height: 75px;
+}
+#horario_list .active {
+  transition-duration: 0.3s;
+  transition-property: background;
+  transition-timing-function: ease;
+}
+#horario_list .active:hover {
+  background: rgb(230, 230, 230);
+}
+#horario_list div {
+  font-family: Open Sans, sans-serif;
+  background: white;
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  overflow: auto;
+}
+#horario_list div span {
+  font-size: 13px;
+}
+
+.profesor_datos {
+  display: grid;
+  width: 947px;
+  grid-template-columns: repeat(4, 220px);
+  padding: 15px 10px;
+  font-size: 16px;
+  color: rgb(240, 240, 240);
+  background: rgb(73, 87, 214);
+  text-align: center;
+}
+
+.formularios {
+  top: 20%;
+  left: 60%;
+  transform: translate(-50%, 2%);
+  padding-left: 45px;
+}/*# sourceMappingURL=horario.css.map */

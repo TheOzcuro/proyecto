@@ -12,6 +12,7 @@ var email=/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>(
 var ant_value="";
 var ant_value_dis="";
 let dias_main=[];
+let activehorario="";
 // ----------------------------------VARIABLES---------------------------------
 
 
@@ -20,7 +21,8 @@ let dias_main=[];
 //--------------------------------------------FUNCIONES--------------------------------
 
 function AppearsAndDissapear(appear,display) {
-    DissapearVarious(".container","none")
+    DissapearVarious(".container","none");
+        console.log(appear);
         document.getElementById(appear).style.display=display;
         document.getElementById(appear).style.animationName="Opacity";
         document.getElementById(appear).style.animationDuration="0.7s";
@@ -125,7 +127,7 @@ function OnLoad(active){
                 }
             }, 600);
     }
-    if (array[1]=="container" && active!="active" && container_url!="disponibilidad-container") {
+    if (array[1]=="container" && active!="active" && container_url!="disponibilidad-container" && container_url!="horario-container") {
         document.getElementById('history_back').style.display="inline";
         setTimeout(() => {
         if (localStorage.getItem('carrera')!=="" && localStorage.getItem('carrera')!==null && localStorage.getItem('carrera')!==undefined && container_url!="") {
@@ -147,7 +149,7 @@ function OnLoad(active){
         }, 600);
         
     }
-    else if (array[1]=="historial" && container_url!='disponibilidad-container') {
+    else if (array[1]=="historial" && container_url!='disponibilidad-container' && container_url!='horario-container') {
         document.getElementById('register_back').style.display="inline";
     }
     if (container!="" && active!="active") {
@@ -952,6 +954,18 @@ document.getElementById("registrarMateria").addEventListener("click", function()
     document.getElementById('history_back').style.display='inline';
     DissapearVarious('.dis','block')
     AppearsAndDissapear("pensum-container","grid")})
+document.getElementById("registrarHorario").addEventListener("click", function(){
+    if (div_edit!="") {
+        Close()
+    }
+    DissapearVarious('.back-option','none');
+    if (activehorario==1) {
+        AppearsAndDissapear('horario_agrupar','block');
+    }
+    else {
+        AppearsAndDissapear("horario-container","grid");
+    }
+    })
 
 document.getElementById("registrarProfesor").addEventListener("click", function(){
     if (div_edit!="") {
@@ -1116,6 +1130,10 @@ document.getElementById("bloques_add_5").addEventListener("click", function(){
 
 document.getElementById("cedula_dis").addEventListener("click", function(){
         document.querySelector("#disponibilidad_drop").style.display="flex"})
+document.getElementById("cedula_horario").addEventListener("click", function(){
+        document.querySelector("#horario_drop").style.display="flex"})
+document.getElementById("lapso_horario").addEventListener("click", function(){
+        document.querySelector("#lapso_drop_horario").style.display="flex"})
 
 document.addEventListener('mouseup', function(e) {
     var input = document.getElementById('materias_unidad');
@@ -1136,7 +1154,8 @@ document.addEventListener('mouseup', function(e) {
     var input17= document.getElementById('bloques_add_5');
     var input18= document.getElementById('carreras_unidad');
     var input19= document.getElementById('materias_add_unidad');
-    
+    var input20= document.getElementById('cedula_horario');
+    var input21= document.getElementById('lapso_horario');
     
     
     if (!input.contains(e.target)) {
@@ -1205,6 +1224,14 @@ document.addEventListener('mouseup', function(e) {
     }
     if (!input18.contains(e.target)) {
         document.getElementById("carreras_drop_unidad").style.display = 'none';
+        input3.style.border=""
+    }
+    if (!input20.contains(e.target)) {
+        document.getElementById("horario_drop").style.display = 'none';
+        input3.style.border=""
+    }
+    if (!input20.contains(e.target)) {
+        document.getElementById("lapso_drop_horario").style.display = 'none';
         input3.style.border=""
     }
     if (!input2.contains(e.target)) {

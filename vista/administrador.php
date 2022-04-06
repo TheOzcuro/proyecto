@@ -11,6 +11,7 @@ if (isset($_SESSION["usuario"])==false) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/administrador.css">
+    <link rel="stylesheet" href="css/horario.css">
     <title>Administrador</title>
 </head>
 <body onload="LabelInput()">
@@ -49,7 +50,7 @@ if (isset($_SESSION["usuario"])==false) {
            
         </div>
         <?php include_once("edit-form.php");
-            ?>
+        ?>
         <div class="delete-window">
             <h4>¿Esta seguro que desea eliminar estos datos?</h4>
             <button class="delete" id="yes-delete">Si
@@ -138,7 +139,7 @@ if (isset($_SESSION["usuario"])==false) {
             <img src="css/img/arrow_down.png" alt="" id="arrow_down" onclick="AnimationPrincipalMenu(5)">
             <div class="submenu">
                     <ul>
-                        <a href="#reghorario"><li id="registrarHorario">Crear</li><div class="borderline"></div></a>
+                        <a href="#horario-container-grid"><li id="registrarHorario">Crear</li><div class="borderline"></div></a>
                         <a href="#edithorario"><li id="editarHorario">Editar</li><div class="borderline"></div></a>
                         <a href="#imphorario"><li id="ImprimirHorario">Imprimir</li><div class="borderline"></div></a>
                     </ul>
@@ -156,11 +157,60 @@ if (isset($_SESSION["usuario"])==false) {
          <div class='back-option' id='register_back' onclick='BackOption(this)'>Ir al Registro</div>
         <div class='back-option' id='history_back' onclick='BackOption(this)'>Ir al Historial</div>
             <?php include_once("msg_error.php");include_once("register-form.php"); 
-        
+                    if (isset($_SESSION["lista_disponibilidad"])) {
+                        include_once("horario.php");
+                        
+                    }
             ?>
             <div id='refresh'></div>
         </div>
+        
     </div>
+    <?php
+        if (isset($_SESSION["lista_disponibilidad"])) {
+                $dias=1;
+                $b=1;
+                $bloque="";
+                $list=$_SESSION["lista_disponibilidad"];
+                $list_i=0;
+                $bloque_id=0; 
+                   for ($i=0; $i < 7; $i++) {
+                       $dias=1;
+                       $bloque="B".$b;
+                       for ($index=0; $index < 5; $index++) {
+                           $list_i=searchForId($dias,$list);
+                           $bloque_id=searchForBloque($bloque,$dias,$list);
+                           if (isset($list[$list_i]) && $dias==$list[$list_i][2] && $bloque==$list[$bloque_id][1]) {
+                               echo "<div class='form-".$dias."_".$b." formularios' style='display:none;z-index:1000;position:absolute;top:100px;width: 300px;height: 420px;background:rgb(250,250,250);'>
+                               <h2 style='margin-left:-15px;'>Añadir Horario</h2>
+                               <div class='input-container'>
+                                    <label for='carrera_horario_".$dias."_".$b."' id='labelcarrera_horario_".$dias."_".$b."'>Carreras</label><br>
+                                    <input type='text' id='carrera_horario_".$dias."_".$b."' name='carrera_horario_".$dias."_".$b."' onfocus='LabelAnimation(`carrera_horario_".$dias."_".$b."`,`labelcarrera_horario_".$dias."_".$b."`)' onblur='LabelOut(`carrera_horario_".$dias."_".$b."`,`labelcarrera_horario_".$dias."_".$b."`)' maxlength='30' class='input input-label input_horario' maxlength='30' onkeyup='Search(`carrera_horario_".$dias."_".$b."`,`drop_carrera_".$dias."_".$b."`)' autocomplete='off'>
+                                    <div class='dropdown drop_horario' id='drop_carrera_".$dias."_".$b."'>
+                                    </div>
+                                </div>
+                                <div class='input-container' style='margin-top:30px;'>
+                                    <label for='unidad_horario_".$dias."_".$b."' id='labelunidad_horario_".$dias."_".$b."'>Unidad Curricular</label><br>
+                                    <input type='text' id='unidad_horario_".$dias."_".$b."' name='unidad_horario_".$dias."_".$b."' onfocus='LabelAnimation(`unidad_horario_".$dias."_".$b."`,`labelunidad_horario_".$dias."_".$b."`)' onblur='LabelOut(`unidad_horario_".$dias."_".$b."`,`labelunidad_horario_".$dias."_".$b."`)' maxlength='30' class='input input-label input_horario' maxlength='30' onkeyup='Search(`unidad_horario_".$dias."_".$b."`,`drop_unidad_".$dias."_".$b."`)' autocomplete='off'>
+                                    <div class='dropdown drop_horario' id='drop_unidad_".$dias."_".$b."'>
+                                    </div>
+                                 </div>
+                                <div class='input-container' style='margin-top:30px;'>
+                                    <label for='aula_horario_".$dias."_".$b."' id='labelaula_horario_".$dias."_".$b."'>Aula</label><br>
+                                    <input type='text' id='aula_horario_".$dias."_".$b."' name='aula_horario_".$dias."_".$b."' onfocus='LabelAnimation(`aula_horario_".$dias."_".$b."`,`labelaula_horario_".$dias."_".$b."`)' onblur='LabelOut(`aula_horario_".$dias."_".$b."`,`labelaula_horario_".$dias."_".$b."`)' maxlength='30' class='input input-label input_horario' maxlength='30' onkeyup='Search(`aula_horario_".$dias."_".$b."`,`drop_aula_".$dias."_".$b."`)' autocomplete='off'>
+                                    <div class='dropdown drop_horario' id='drop_aula_".$dias."_".$b."'>
+                                    </div>
+                                </div>
+                                <button type='button' style='margin-top:75px;margin-left:40px;'>Guardar</button>
+                               </div>";
+                        }
+                        $dias=$dias+1;
+                    }
+                $b=$b+1;    
+                }
+                
+            }
+        ?>
 </body>
 <?php 
 if (isset($_SESSION["error"]) && $_SESSION["error"]!="") {
@@ -184,6 +234,11 @@ if (isset($_SESSION["completado"]) && $_SESSION["completado"]!="") {
             include_once("../control/c_function.php");
             $list=GetMaterias();
             $list_dis=GetDisponibilidad();
+            if (isset($_SESSION["lista_disponibilidad"])) {
+                echo "AppearsAndDissapear('horario_agrupar','block');";
+                echo "activehorario=1;";
+                unset($_SESSION["lista_disponibilidad"]);
+            }
             if (isset($list)) {
                 echo "materiasArray=[";
                 for ($i=0; $i < count($list); $i++) { 
@@ -234,7 +289,7 @@ if (isset($_SESSION["completado"]) && $_SESSION["completado"]!="") {
                                 echo "'".$_SESSION["update"][14]."'".',';
                                 echo "'".$_SESSION["update"][5]."'".',';
                                 echo "'".$_SESSION["update"][6]."'".',';
-                                echo "'".$_SESSION["update"][7]."'";
+                                echo "'".$_SESSION["update"][7]."'".',';
                             }
                             else {
                                 echo "'".$_SESSION["update"][$x]."'".',';
@@ -263,4 +318,7 @@ if (isset($_SESSION["completado"]) && $_SESSION["completado"]!="") {
           }
           ?>
       </script>
+    
 </html>
+
+

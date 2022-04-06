@@ -109,14 +109,25 @@ class registry extends mybsd {
 		$query="SELECT profesor.cedula, profesor.primer_nombre, profesor.primer_apellido, dedicacion.nombre FROM profesor, dedicacion WHERE profesor.cedula NOT IN (SELECT bloque_disponibilidad.cedula FROM bloque_disponibilidad) AND dedicacion.codigo=profesor.dedicacion";
 		return $this->ListAll($this->execute($query), MYSQLI_NUM);
 	}
-	function GetDisponibilidad() {
+	function GetUserInHorario() {
+		$query="SELECT profesor.cedula FROM profesor WHERE profesor.cedula IN (SELECT bloque_disponibilidad.cedula FROM bloque_disponibilidad) AND profesor.cedula NOT IN (SELECT horario_docente.cedula_docente FROM horario_docente)";
+		return $this->ListAll($this->execute($query), MYSQLI_NUM);
+	}
+	function GetDisponibilidad($busca) {
 		$columna="";
 		$dia="";
 		$n_array=[];
 		$f_array=[];
 		$i=0;
-		$query="SELECT bloque_disponibilidad.cedula, bloque_disponibilidad.bloque, bloque_disponibilidad.dia FROM `bloque_disponibilidad` ORDER BY bloque_disponibilidad.codigo";
-		return $this->ListAll($this->execute($query), MYSQLI_NUM);
+		if ($busca=="") {
+			$query="SELECT bloque_disponibilidad.cedula, bloque_disponibilidad.bloque, bloque_disponibilidad.dia FROM `bloque_disponibilidad` ORDER BY bloque_disponibilidad.codigo";
+			return $this->ListAll($this->execute($query), MYSQLI_NUM);
+		}
+		else {
+			$query="SELECT bloque_disponibilidad.cedula, bloque_disponibilidad.bloque, bloque_disponibilidad.dia FROM `bloque_disponibilidad` WHERE bloque_disponibilidad.cedula=$busca ORDER BY bloque_disponibilidad.codigo";
+			return $this->ListAll($this->execute($query), MYSQLI_NUM);
+		}
+		
 		/*
 		foreach ($lista as $value) {
       
@@ -151,11 +162,11 @@ class registry extends mybsd {
 		$f_array=[];
 		$i=0;
 		if ($busca=="") {
-			$query="SELECT pensum.codigo, carrera.codigo, carrera.nombre, materia.codigo, materia.nombre FROM ((carrera INNER JOIN pensum ON pensum.pnf = carrera.codigo) INNER JOIN materia ON pensum.unidad_curricular = materia.codigo) ORDER BY pensum.codigo DESC";
+			$query="SELECT pensum.codigo, carrera.codigo, carrera.nombre, materia.codigo, materia.nombre FROM ((carrera INNER JOIN pensum ON pensum.pnf = carrera.codigo) INNER JOIN materia ON pensum.unidad_curricular = materia.codigo) ORDER BY pensum.pnf DESC";
 			$lista=$this->ListAll($this->execute($query), MYSQLI_NUM);
 		}
 		else {
-			$query="SELECT DISTINCT pensum.codigo, carrera.codigo, carrera.nombre, materia.codigo, materia.nombre FROM ((carrera INNER JOIN pensum ON pensum.pnf = carrera.codigo && carrera.nombre LIKE '%$busca%') INNER JOIN materia ON pensum.unidad_curricular = materia.codigo) ORDER BY pensum.codigo DESC";
+			$query="SELECT DISTINCT pensum.codigo, carrera.codigo, carrera.nombre, materia.codigo, materia.nombre FROM ((carrera INNER JOIN pensum ON pensum.pnf = carrera.codigo && carrera.nombre LIKE '%$busca%') INNER JOIN materia ON pensum.unidad_curricular = materia.codigo) ORDER BY pensum.pnf DESC";
 			$lista=$this->ListAll($this->execute($query), MYSQLI_NUM);
 			}
 		
@@ -344,6 +355,10 @@ function GetFindQuery($tabla,$dato,$campo)
 		$query="UPDATE `profesor` SET `cedula`='$this->cedula', `rol`='$this->rol', `primer_nombre`='$this->primer_nombre', `segundo_nombre`='$this->segundo_nombre', `primer_apellido`='$this->primer_apellido', `segundo_apellido`='$this->segundo_apellido', `direccion`='$this->direccion', `telefono`='$this->telefono', `telefono_fijo`='$this->telefono_fijo', `correo`='$this->correo', `titulo`='$this->titulo', `oficio`='$this->oficio',`contratacion`='$this->contratacion', `categoria`='$this->categoria', `dedicacion`='$this->dedicacion' WHERE `cedula`=$cedula";
 		return $this->execute($query);
 	}
+	function UpdateTableDisponibilidad($cedula, $origin_cedula) {
+		$query="UPDATE `bloque_disponibilidad` SET `cedula`=$cedula WHERE `cedula`=$origin_cedula";
+		return $this->execute($query);
+	}
 	function UpdateDisponibilidad($cedula, $tipo)
 	{
 		$query="UPDATE `profesor` SET `disponibilidad`='$tipo' WHERE `cedula`='$cedula' ";
@@ -362,15 +377,6 @@ function GetFindQuery($tabla,$dato,$campo)
 		
 	}
 	function UpdateTableAula($codigo,$nombre,$original_codigo)
-	{
-		$nombre=strtoupper($nombre);
-			$query="UPDATE `aula` SET 
-					`codigo`='$codigo', `nombre`='$nombre' 
-					WHERE `codigo`='$original_codigo'";
-			return $this->execute($query);
-		
-	}
-	function UpdateTableDisponibilidad($cedula,$bloque,$dia,$disponibilidad)
 	{
 		$nombre=strtoupper($nombre);
 			$query="UPDATE `aula` SET 

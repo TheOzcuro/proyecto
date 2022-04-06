@@ -637,6 +637,49 @@
                     <button type="button" onclick="DisplayDelete('block','.delete-window','#disponibilidad')" class="button-edit button-delete" style='grid-column:3/4;'>Eliminar</button>
                 </div>
             </form>
+            <form action="../control/c_horario.php" method="POST" name="horario" id="horario">
+            <input type="text" class="input-update" id="update" name="update" hidden>
+                <input type="text" class="input-delete" id="delete" name="delete" hidden>
+                <input type="text" class="input-url" id="url" name="url" hidden>
+                <div id="horario-container" class="container">
+                    <a class="a_img"><img src="css/img/close.png" alt="" class="close-icon" id="close-icon-profesor" onclick="Close()"></a>
+                    <h2>Crear</h2>
+                    <div class="input-container">
+                        <label for="cedula_horario" id="labelcedula_horario">Cedula</label><br>
+                        <input type="text" id="cedula_horario" name="cedula_horario" onfocus="LabelAnimation('cedula_horario','labelcedula_horario')" onblur="LabelOut('cedula_horario','labelcedula_horario')" maxlength="11" class="input input-label" maxlength="15">
+                        <div class="dropdown drop_main" id="horario_drop">
+                            <?php 
+                             $list=[];
+                             $list=GetUserInHorario();
+                             $totalarray=count($list);
+                             if (isset($list)) {
+                                 for ($i=0; $i < $totalarray; $i++) { 
+                                     echo "<span id=".$list[$i][0]." onclick="."AddValueMateria('cedula_horario',this)".">".$list[$i][0]."</span>";
+                                }
+                             }
+                            ?>
+                        </div>
+                    </div>
+                    <div class="input-container" id="input-carreras">
+                        <label for="lapso_horario" id="labelapso_horario">Lapso Academico</label><br>
+                        <input type="text" id="lapso_horario" name="lapso_horario" onfocus="LabelAnimation('lapso_horario','labelapso_horario')" onblur="LabelOut('lapso_horario','labelapso_horario')" maxlength="30" class="input input-label principal_input" onkeyup="Search('lapso_horario','lapso_drop_horario')" autocomplete="off">
+                        <div class="dropdown" id="lapso_drop_horario">
+                        <?php 
+                            $list=[];
+                            $list=GetLapso();
+                            $totalarray=count($list);
+                            for ($i=0; $i < $totalarray; $i++) { 
+                                echo "<span value=".$list[$i][0]." onclick="."AddValueMateria('lapso_horario',this)".">".$list[$i][0]."</span>";
+                            }
+                        ?>
+                        </div>
+                    </div>
+                    <button type="button" onclick="Submit('horario')" style='grid-column:1/2;'>Crear</button>
+                    <button type="button" onclick="DisplayDelete('flex','#lapso-find','#lapso_academico')" style='grid-column:2/3;'>Buscar</button>
+                    <button type="button" onclick="Save('lapso_academico')" class="button-edit button-update">Guardar</button><br>
+                    <button type="button" onclick="DisplayDelete('block','.delete-window','#lapso_academico')" class="button-edit button-delete">Eliminar</button>
+                </div>
+            </form>
             <form action="../control/c_lapso_academico.php" method="POST" name="lapso_academico" id="lapso_academico">
             <input type="text" class="input-update" id="update" name="update" hidden>
                 <input type="text" class="input-delete" id="delete" name="delete" hidden>
