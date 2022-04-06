@@ -211,6 +211,7 @@ function SubmitDisponibilidad(active) {
     var valide=true;
     var valideSpan=false;
     var valideSelect=false;
+    var valideSpanAdd=false;
     for (let index = 0; index < drop.length; index++) {
         span=drop[index].querySelectorAll("span");
         if (span.length>0) {
@@ -221,29 +222,36 @@ function SubmitDisponibilidad(active) {
         if (select[index].value!="") {
             id_drop=select[index].getAttribute('value');
             if (document.getElementById(id_drop).querySelectorAll('span').length>0) {
-                valideSelect=true;
+                valideSpanAdd=true;
             }
             if (document.getElementById(id_drop).querySelectorAll('span').length==0) {
-                valideSelect=false;
+                valideSpanAdd=false;
                 select[index].style.borderColor='red';
                 document.getElementById(id_drop).style.borderColor='red';
                 break
             }
             select[index].style.borderColor='';
-            if (AntSelect==select[index].value) {
-                select[index].style.borderColor='red';
-                valideSelect=false;
-            }
-            AntSelect=select[index].value;
         }
     }
-
+    for (let index = 0; index < select.length; index++) {
+        for (let i = 0; i < select.length; i++) {
+            if (index==i) {
+            }
+            else if(select[index].value!="" && select[i].value!="" && select[index].value==select[i].value) {
+                valideSelect=false;
+                break
+            }
+            else if(select[index].value!="" && select[i].value!="" && select[index].value!=select[i].value){
+                valideSelect=true;
+            }
+        }
+    }
 
     if (document.getElementById('cedula_dis').value=="") {
         valide=false
         document.getElementById('cedula_dis').style.borderColor='red';
     }
-    if (valide && valideSpan && valideSelect) {
+    if (valide && valideSpan && valideSelect && valideSpanAdd) {
         if (active!="active") {
             for (let index = 0; index < drop.length; index++) {
                 span=drop[index].querySelectorAll("span");
