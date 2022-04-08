@@ -270,7 +270,7 @@ function SubmitDisponibilidad(active) {
                 }
             }
              OnLoad("active")
-             document.getElementById('disponibilidad').querySelector(".input-url").value=container_url;
+             document.getElementById('disponibilidad').querySelector(".input-url").value=container_url+"-grid";
              document.getElementById('disponibilidad').submit();
         }
         else {
@@ -278,7 +278,12 @@ function SubmitDisponibilidad(active) {
         }
     }
     else {
-     Error("Parece que algunos datos estan vacios o son erroneos. Recuerde añadir los bloques y seleccionar el dia","msg_error","p_error")
+        if (valideSelect==false) {
+            Error("Recuerde que no pueden haber dos dias repetidos","msg_error","p_error")
+        }
+        else {
+            Error("Parece que algunos datos estan vacios o son erroneos. Recuerde añadir los bloques y seleccionar el dia","msg_error","p_error")
+        }
      if (active=="active") {
          return false;
      }
@@ -310,7 +315,7 @@ function Submit(form){
    if (valide) {
         console.log("funciono");
         OnLoad("active")
-        document.getElementById(form).querySelector(".input-url").value=container_url;
+        document.getElementById(form).querySelector(".input-url").value=container_url+"-grid";
         document.getElementById(form).submit();
    }
    else {
@@ -679,7 +684,7 @@ function AddAndRemove(div,div_add,input,input_add, type, container) {
                     else {
                         container.querySelector("#del").value=span[index].getAttribute('id');
                     }
-                    document.getElementById(span[index].id).hidden=false;
+                    div_add.querySelector("#"+span[index].id).hidden=false;
                     span[index].remove();
                     input.value="";                    
                 }
@@ -921,7 +926,7 @@ function SubmitMateria(form) {
         
         carrera.value=carrera_id;
         OnLoad("active")
-        document.getElementById(form).querySelector(".input-url").value=container_url;
+        document.getElementById(form).querySelector(".input-url").value=container_url+"-grid";
         document.getElementById(form).submit();
     }
     else {
@@ -1106,40 +1111,12 @@ document.getElementById("carrera_oferta").addEventListener("click", function(){
 document.getElementById("lapso").addEventListener("click", function(){
         document.querySelector("#lapso_drop").style.display="flex"})
 
-document.getElementById("bloques_1").addEventListener("click", function(){
-        document.querySelector("#bloques_drop_1").style.display="flex"})
-
-document.getElementById("bloques_add_1").addEventListener("click", function(){
-        document.querySelector("#bloques_add_drop_1").style.display="flex"})
-
-document.getElementById("bloques_2").addEventListener("click", function(){
-            document.querySelector("#bloques_drop_2").style.display="flex"})
-    
-document.getElementById("bloques_add_2").addEventListener("click", function(){
-            document.querySelector("#bloques_add_drop_2").style.display="flex"})
-
-document.getElementById("bloques_3").addEventListener("click", function(){
-            document.querySelector("#bloques_drop_3").style.display="flex"})
-        
-document.getElementById("bloques_add_3").addEventListener("click", function(){
-            document.querySelector("#bloques_add_drop_3").style.display="flex"})
-
-document.getElementById("bloques_4").addEventListener("click", function(){
-            document.querySelector("#bloques_drop_4").style.display="flex"})
-        
-document.getElementById("bloques_add_4").addEventListener("click", function(){
-            document.querySelector("#bloques_add_drop_4").style.display="flex"})
-    
-document.getElementById("bloques_5").addEventListener("click", function(){
-            document.querySelector("#bloques_drop_5").style.display="flex"})
-            
-document.getElementById("bloques_add_5").addEventListener("click", function(){
-            document.querySelector("#bloques_add_drop_5").style.display="flex"})
-
 document.getElementById("cedula_dis").addEventListener("click", function(){
         document.querySelector("#disponibilidad_drop").style.display="flex"})
+
 document.getElementById("cedula_horario").addEventListener("click", function(){
         document.querySelector("#horario_drop").style.display="flex"})
+        
 document.getElementById("lapso_horario").addEventListener("click", function(){
         document.querySelector("#lapso_drop_horario").style.display="flex"})
 
@@ -1186,49 +1163,9 @@ document.addEventListener('mouseup', function(e) {
         document.getElementById("lapso_drop").style.display = 'none';
         input6.style.border=""
     }
-    if (!input7.contains(e.target)) {
-        document.getElementById("bloques_drop_1").style.display = 'none';
-        input7.style.border=""
-    }
-    if (!input8.contains(e.target)) {
-        document.getElementById("bloques_add_drop_1").style.display = 'none';
-        input8.style.border=""
-    }
     if (!input9.contains(e.target)) {
         document.getElementById("disponibilidad_drop").style.display = 'none';
         input9.style.border=""
-    }
-    if (!input10.contains(e.target)) {
-        document.getElementById("bloques_drop_2").style.display = 'none';
-        input10.style.border=""
-    }
-    if (!input11.contains(e.target)) {
-        document.getElementById("bloques_add_drop_2").style.display = 'none';
-        input11.style.border=""
-    }
-    if (!input12.contains(e.target)) {
-        document.getElementById("bloques_drop_3").style.display = 'none';
-        input12.style.border=""
-    }
-    if (!input13.contains(e.target)) {
-        document.getElementById("bloques_add_drop_3").style.display = 'none';
-        input13.style.border=""
-    }
-    if (!input14.contains(e.target)) {
-        document.getElementById("bloques_drop_4").style.display = 'none';
-        input14.style.border=""
-    }
-    if (!input15.contains(e.target)) {
-        document.getElementById("bloques_add_drop_4").style.display = 'none';
-        input15.style.border=""
-    }
-    if (!input16.contains(e.target)) {
-        document.getElementById("bloques_drop_5").style.display = 'none';
-        input16.style.border=""
-    }
-    if (!input17.contains(e.target)) {
-        document.getElementById("bloques_add_drop_5").style.display = 'none';
-        input17.style.border=""
     }
     if (!input18.contains(e.target)) {
         document.getElementById("carreras_drop_unidad").style.display = 'none';

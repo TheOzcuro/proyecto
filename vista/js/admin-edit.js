@@ -112,7 +112,7 @@ function SavePensum(form) {
     if (valideTrue==true && ValidePrincipal==true) {
        form.querySelector(".input-update").value=valores[0];
         OnLoad("active");
-        form.querySelector(".input-url").value=container_url;
+        form.querySelector(".input-url").value=container_url+"-grid";
         form.submit();
     }
     else {
@@ -150,7 +150,7 @@ function SaveMaterias() {
      console.log(add_array)
      if (ValideCarrera && ValideSpan) {
         form.querySelector(".input-update").value=carrera_id;
-        form.querySelector(".input-url").value=container_url;
+        form.querySelector(".input-url").value=container_url+"-grid";
         form.submit();
      }
      else {
@@ -230,11 +230,14 @@ function SaveDisponibilidad() {
             }
         }
         form.querySelector(".input-update").value=carrera_id;
-        form.querySelector(".input-url").value=container_url;
+        form.querySelector(".input-url").value=container_url+"-grid";
+        console.log(form.querySelector(".input-url").value)
         form.submit();
      }
      else {
-         Error("Tiene que hacer algun cambio si desea guardar", "msg_error", "p_error");
+         if (ValideSubmit==true) {
+            Error("Tiene que hacer algun cambio si desea guardar", "msg_error", "p_error");
+         }
          localStorage.setItem('disponibilidad',"");
          localStorage.setItem('disponibilidad_n',"");
          localStorage.setItem('disponibilidad_c',"");
@@ -266,7 +269,7 @@ function Delete(form,valor) {
             document.querySelector(form).querySelector(".input-delete").value=valor;
         }
         OnLoad("active");
-        document.querySelector(form).querySelector(".input-url").value=container_url;
+        document.querySelector(form).querySelector(".input-url").value=container_url+"-grid";
         console.log(document.querySelector(form).querySelector(".input-url").value)
         document.querySelector(form).submit();
     }

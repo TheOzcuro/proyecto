@@ -156,39 +156,39 @@
 
                     <div class="input-container">
                         <label for="primer_nombre" id="labelprimer_nombre">Primer Nombre <b style="color:red;">*</b></label><br>
-                        <input type="text" id="primer_nombre" name="primer_nombre" onfocus="LabelAnimation('primer_nombre','labelprimer_nombre')" onblur="LabelOut('primer_nombre','labelprimer_nombre')" maxlength="20" class="input input-label">
+                        <input type="text" id="primer_nombre" name="primer_nombre" onfocus="LabelAnimation('primer_nombre','labelprimer_nombre')" onblur="LabelOut('primer_nombre','labelprimer_nombre')" maxlength="20" class="input input-label" style="text-transform:uppercase">
                         <input type="checkbox" class="checkbox-edit checkbox-profesor"   onclick="CheckboxDisabled('primer_nombre', this)">
                     </div>
 
                     <div class="input-container">
                         <label for="segundo_nombre" id="labelsegundo_nombre">Segundo Nombre</label><br>
                         <input type="text" id="segundo_nombre" name="segundo_nombre"
-                        onfocus="LabelAnimation('segundo_nombre','labelsegundo_nombre')" onblur="LabelOut('segundo_nombre','labelsegundo_nombre')" maxlength="20" class="input input-label">
+                        onfocus="LabelAnimation('segundo_nombre','labelsegundo_nombre')" onblur="LabelOut('segundo_nombre','labelsegundo_nombre')" maxlength="20" class="input input-label" style="text-transform:uppercase">
                         <input type="checkbox" class="checkbox-edit checkbox-profesor" onclick="CheckboxDisabled('segundo_nombre', this)">
                     </div>
 
                     <div class="input-container">
                         <label for="primer_apellido" id="labelprimer_apellido">Primer Apellido <b style="color:red;">*</b></label><br>
                         <input type="text" id="primer_apellido" name="primer_apellido"
-                        onfocus="LabelAnimation('primer_apellido','labelprimer_apellido')" onblur="LabelOut('primer_apellido','labelprimer_apellido')" maxlength="20" class="input input-label">
+                        onfocus="LabelAnimation('primer_apellido','labelprimer_apellido')" onblur="LabelOut('primer_apellido','labelprimer_apellido')" maxlength="20" class="input input-label" style="text-transform:uppercase">
                         <input type="checkbox" class="checkbox-edit checkbox-profesor" onclick="CheckboxDisabled('primer_apellido', this)">
                     </div>
 
                     <div class="input-container">
                         <label for="segundo_apellido" id="labelsegundo_apellido">Segundo Apellido</label><br>
                         <input type="text" id="segundo_apellido" name="segundo_apellido"
-                        onfocus="LabelAnimation('segundo_apellido','labelsegundo_apellido')" onblur="LabelOut('segundo_apellido','labelsegundo_apellido')" maxlength="20" class="input input-label">
+                        onfocus="LabelAnimation('segundo_apellido','labelsegundo_apellido')" onblur="LabelOut('segundo_apellido','labelsegundo_apellido')" maxlength="20" class="input input-label" style="text-transform:uppercase">
                         <input type="checkbox" class="checkbox-edit" onclick="CheckboxDisabled('segundo_apellido', this)">
                     </div>
-                    <div class="input-container">
+                    <div class="input-container" style='grid-column:1/3;width:100%;'>
                         <label for="direccion" id="labeldireccion">Direccion <b style="color:red;">*</b></label><br>
                         <textarea type="text" id="direccion" name="direccion"
-                        onfocus="LabelAnimation('direccion','labeldireccion')" onblur="LabelOut('direccion','labeldireccion')" maxlength="60" class="input input-label" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'></textarea>
-                        <input type="checkbox" class="checkbox-edit" onclick="CheckboxDisabled('direccion', this)">
+                        onfocus="LabelAnimation('direccion','labeldireccion')" onblur="LabelOut('direccion','labeldireccion')" maxlength="60" class="input input-label" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"' style='width:90%;text-transform:uppercase;'></textarea>
+                        <input type="checkbox" class="checkbox-edit" onclick="CheckboxDisabled('direccion', this)" style='left:540px;'>
                     </div>
 
-                    <div class="input-container">
-                        <label for="telefono" id="labeltelefono">Telefono</label><br>
+                    <div class="input-container" style='grid-column:2/3;grid-row:4;'>
+                        <label for="telefono" id="labeltelefono">Telefono Personal</label><br>
                         <input type="text" id="telefono" name="telefono"
                         onfocus="LabelAnimation('telefono','labeltelefono')" onblur="LabelOut('telefono','labeltelefono')" maxlength="11" class="input input-label">
                         <input type="checkbox" class="checkbox-edit" onclick="CheckboxDisabled('telefono', this)" >
@@ -257,9 +257,9 @@
                         <input type="checkbox" class="checkbox-edit"  onclick="CheckboxDisabled('dedicacion', this)">
                     </div>
                     <button type="button" onclick="Submit('profesor')" class>Registrar</button>
-                    <button type="button" onclick="DisplayDelete('flex','#profesor-find','#profesor')" class="button-find" style='grid-column:3/4;'>Buscar</button>
+                    <button type="button" onclick="DisplayDelete('flex','#profesor-find','#profesor')" class="button-find">Buscar</button>
                     <button type="button" onclick="Save('profesor')" class="button-edit button-update">Guardar</button>
-                    <button type="button" onclick="DisplayDelete('block','.delete-window','#profesor')" class="button-edit button-delete" style='grid-column:3/4;'>Eliminar</button>
+                    <button type="button" onclick="DisplayDelete('block','.delete-window','#profesor')" class="button-edit button-delete">Eliminar</button>
                 </div>
             </form>
             <form action="../control/c_aula.php" method="POST" name="aula" id="aula">
@@ -418,7 +418,7 @@
                     <!-- --------------PRIMER BLOQUE---------- -->
                     <input type="text" id="del" name="del" hidden>
                     <div class="input-container">
-                        <select name="dias_1" id="dias_1" class='input-dis' value="bloques_add_drop_1">
+                        <select name="dias_1" id="dias_1" class='input-dis' value="bloques_add_drop_1" style='margin-top:25px;'>
                             <option value="">Dia</option>
                             <option value="1">LUNES</option>
                             <option value="2">MARTES</option>
@@ -427,7 +427,7 @@
                             <option value="5">VIERNES</option>
                         </select>
                     </div>
-                    <div class="input-container" id="input-carreras" style='margin-bottom:60px;'>
+                    <div class="input-container input-bloques" style='margin-bottom:60px;margin-top:0px;'>
                         <label for="bloques_1" id="labebloques_1">Bloques</label><br>
                         <input type="text" id="bloques_1" name="bloques_1" onfocus="LabelAnimation('bloques_1','labebloques_1')" onblur="LabelOut('bloques_1','labebloques_1')" autocomplete="off" maxlength="30" class="input-label" onkeyup="Search('bloques_1','bloques_drop_1')">
                         <input type="checkbox" class="checkbox-edit"  onclick="CheckboxDisabled('bloques_1', this)">
@@ -446,7 +446,7 @@
                         ?>
                         </div>
                     </div>
-                    <div class="input-container  input-add" style='grid-column: span 3/;'>
+                    <div class="input-container input-bloques" style='grid-column: span 3/;margin-top:0px;'>
                         <label for="bloques_add_1" id="labelbloques_add_1">Bloques Añadidos</label><br>
                     <input type="text" id="bloques_add_1" name="bloques_add_1" onfocus="LabelAnimation('bloques_add_1','labelbloques_add_1')" onblur="LabelOut('bloques_add_1','labelbloques_add_1')" maxlength="30" class="input-label input_add" onkeyup="Search('bloques_add_1','bloques_add_drop_1')" autocomplete="off">
                     
@@ -470,7 +470,7 @@
                             <option value="5">VIERNES</option>
                         </select>
                     </div>
-                    <div class="input-container" id="input-carreras" style='margin-bottom:60px;'>
+                    <div class="input-container input-bloques" id="input-carreras" style='margin-bottom:60px;'>
                         <label for="bloques_2" id="labebloques_2">Bloques</label><br>
                         <input type="text" id="bloques_2" name="bloques_2" onfocus="LabelAnimation('bloques_2','labebloques_2')" onblur="LabelOut('bloques_2','labebloques_2')" maxlength="30" class="input-label" onkeyup="Search('bloques_2','bloques_drop_2')" autocomplete="off">
                         <input type="checkbox" class="checkbox-edit"  onclick="CheckboxDisabled('bloques_2', this)">
@@ -489,7 +489,7 @@
                         ?>
                         </div>
                     </div>
-                    <div class="input-container  input-add" style='grid-column: span 3/;'>
+                    <div class="input-container input-bloques" style='grid-column: span 3/;'>
                         <label for="bloques_add_2" id="labelbloques_add_2">Bloques Añadidos</label><br>
                     <input type="text" id="bloques_add_2" name="bloques_add_2" onfocus="LabelAnimation('bloques_add_2','labelbloques_add_2')" onblur="LabelOut('bloques_add_2','labelbloques_add_2')" maxlength="30" class="input-label input_add" onkeyup="Search('bloques_add_2','bloques_add_drop_2')" autocomplete="off">
                     
@@ -513,7 +513,7 @@
                             <option value="5">VIERNES</option>
                         </select>
                     </div>
-                    <div class="input-container" id="input-carreras" style='margin-bottom:60px;'>
+                    <div class="input-container input-bloques" id="input-carreras" style='margin-bottom:60px;'>
                         <label for="bloques_3" id="labebloques_3">Bloques</label><br>
                         <input type="text" id="bloques_3" name="bloques_3" onfocus="LabelAnimation('bloques_3','labebloques_3')" onblur="LabelOut('bloques_3','labebloques_3')" maxlength="30" class="input-label" onkeyup="Search('bloques_3','bloques_drop_3')" autocomplete="off">
                         <input type="checkbox" class="checkbox-edit"  onclick="CheckboxDisabled('bloques_3', this)">
@@ -532,7 +532,7 @@
                         ?>
                         </div>
                     </div>
-                    <div class="input-container  input-add" style='grid-column: span 3/;'>
+                    <div class="input-container input-bloques" style='grid-column: span 3/;'>
                         <label for="bloques_add_3" id="labelbloques_add_3">Bloques Añadidos</label><br>
                     <input type="text" id="bloques_add_3" name="bloques_add_3" onfocus="LabelAnimation('bloques_add_3','labelbloques_add_3')" onblur="LabelOut('bloques_add_3','labelbloques_add_3')" maxlength="30" class="input-label input_add" onkeyup="Search('bloques_add','bloques_add_drop')" autocomplete="off">
                     
@@ -557,7 +557,7 @@
                             <option value="5">VIERNES</option>
                         </select>
                     </div>
-                    <div class="input-container" id="input-carreras" style='margin-bottom:60px;'>
+                    <div class="input-container input-bloques" id="input-carreras" style='margin-bottom:60px;'>
                         <label for="bloques_4" id="labebloques_4">Bloques</label><br>
                         <input type="text" id="bloques_4" name="bloques_4" onfocus="LabelAnimation('bloques_4','labebloques_4')" onblur="LabelOut('bloques_4','labebloques_4')" maxlength="30" class="input-label" onkeyup="Search('bloques_4','bloques_drop_4')" autocomplete="off">
                         <input type="checkbox" class="checkbox-edit"  onclick="CheckboxDisabled('bloques_4', this)">
@@ -576,7 +576,7 @@
                         ?>
                         </div>
                     </div>
-                    <div class="input-container  input-add" style='grid-column: span 3/;'>
+                    <div class="input-container input-bloques" style='grid-column: span 3/;'>
                         <label for="bloques_add_4" id="labelbloques_add_4">Bloques Añadidos</label><br>
                     <input type="text" id="bloques_add_4" name="bloques_add_4" onfocus="LabelAnimation('bloques_add_4','labelbloques_add')" onblur="LabelOut('bloques_add_4','labelbloques_add_4')" maxlength="30" class="input-label input_add" onkeyup="Search('bloques_add_4','labelbloques_add_4')" autocomplete="off">
                     
@@ -601,7 +601,7 @@
                             <option value="5">VIERNES</option>
                         </select>
                     </div>
-                    <div class="input-container" id="input-carreras" style='margin-bottom:60px;'>
+                    <div class="input-container input-bloques" id="input-carreras" style='margin-bottom:60px;'>
                         <label for="bloques_5" id="labebloques_5">Bloques</label><br>
                         <input type="text" id="bloques_5" name="bloques_5" onfocus="LabelAnimation('bloques_5','labebloques_5')" onblur="LabelOut('bloques_5','labebloques_5')" maxlength="30" class="input-label" onkeyup="Search('bloques_5','bloques_drop_5')" autocomplete="off">
                         <input type="checkbox" class="checkbox-edit"  onclick="CheckboxDisabled('bloques_5', this)">
@@ -620,7 +620,7 @@
                         ?>
                         </div>
                     </div>
-                    <div class="input-container  input-add" style='grid-column: span 3/;'>
+                    <div class="input-container input-bloques" style='grid-column: span 3/;'>
                         <label for="bloques_add_5" id="labelbloques_add_5">Bloques Añadidos</label><br>
                     <input type="text" id="bloques_add_5" name="bloques_add" onfocus="LabelAnimation('bloques_add_5','labelbloques_add_5')" onblur="LabelOut('bloques_add_5','labelbloques_add_5')" maxlength="30" class="input-label input_add" onkeyup="Search('bloques_add_5','bloques_add_drop_5')" autocomplete="off">
                     

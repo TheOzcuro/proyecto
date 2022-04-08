@@ -219,8 +219,8 @@ function GetFindQuery($tabla,$dato,$campo)
 	}
 	function registrarProfesor(){
 		$query="INSERT INTO `profesor`(`cedula`, `rol`, `primer_nombre`, 
-		`segundo_nombre`, `primer_apellido`, `segundo_apellido`, `direccion`, `telefono`, `telefono_fijo`, `contratacion`, `categoria`, `dedicacion`, `correo`, `titulo`, `oficio`)
-		VALUES ('".$this->cedula."','".$this->rol."','".$this->primer_nombre."','".$this->segundo_nombre."','".$this->primer_apellido."','".$this->segundo_apellido."','".$this->direccion."','".$this->telefono."','".$this->telefono_fijo."','".$this->contratacion."','".$this->categoria."','".$this->dedicacion."','".$this->correo."','".$this->titulo."','".$this->oficio."')";
+		`segundo_nombre`, `primer_apellido`, `segundo_apellido`, `direccion`, `telefono`, `telefono_fijo`, `contratacion`, `categoria`, `dedicacion`, `correo`, `titulo`, `oficio`, `disponibilidad`)
+		VALUES ('".$this->cedula."','".$this->rol."','".$this->primer_nombre."','".$this->segundo_nombre."','".$this->primer_apellido."','".$this->segundo_apellido."','".$this->direccion."','".$this->telefono."','".$this->telefono_fijo."','".$this->contratacion."','".$this->categoria."','".$this->dedicacion."','".$this->correo."','".$this->titulo."','".$this->oficio."', '0')";
 		return $this->execute($query);
 	}
 	function registrarAdministrador($contrasena){

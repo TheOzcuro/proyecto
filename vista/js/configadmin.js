@@ -31,12 +31,12 @@ function ValidateNumeros(input){
 }
 function SeePass(input,eye) {
     var srceye=document.getElementById(eye).src.slice(43,60)
-    if (srceye=="eye_close.png") {
+    if (srceye=="g/eye_close.png") {
         document.getElementById(eye).src="css/img/eye_open.png";
         document.getElementById(input).type="text"
         
     }
-    if (srceye=="eye_open.png") {
+    if (srceye=="g/eye_open.png") {
         document.getElementById(eye).src="css/img/eye_close.png";
         document.getElementById(input).type="password"
         click=0;
