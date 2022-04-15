@@ -35,38 +35,41 @@ else if (isset($_POST["update"]) && $_POST["update"]!=""){
         header("Location:../vista/administrador.php#$url");
     }
     else {
+        $disponibilidad=$ejecutar->GetFindQuery('bloque_disponibilidad',$_POST['update'],'cedula');
         $ejecutar->DeleteTable('bloque_disponibilidad', 'cedula',$_POST["update"]);
+        $horario=$ejecutar->GetFindQuery('horario_docente',$_POST["update"],'cedula_docente');
         if ($_POST['bloques_add_1']!="" && $_POST['dias_1']!="") {
             $array=explode(",",$_POST["bloques_add_1"]);
-            sort($array);
+            sort($array, SORT_NATURAL);
             for ($i=0; $i < count($array); $i++) { 
                $ejecutar->registrarDisponibilidad($_POST["cedula_dis"], $array[$i],$_POST["dias_1"],1);
             }
+
         }
         if ($_POST['bloques_add_2']!="" && $_POST['dias_2']!="") {
             $array=explode(",",$_POST["bloques_add_2"]);
-            sort($array);
+            sort($array, SORT_NATURAL);
             for ($i=0; $i < count($array); $i++) { 
                 $ejecutar->registrarDisponibilidad($_POST["cedula_dis"], $array[$i],$_POST["dias_2"],1);
              }
         }
         if ($_POST['bloques_add_3']!="" && $_POST['dias_3']!="") {
             $array=explode(",",$_POST["bloques_add_3"]);
-            sort($array);
+            sort($array, SORT_NATURAL);
             for ($i=0; $i < count($array); $i++) { 
                 $ejecutar->registrarDisponibilidad($_POST["cedula_dis"], $array[$i],$_POST["dias_3"],1);
              }
         }
         if ($_POST['bloques_add_4']!="" && $_POST['dias_4']!="") {
             $array=explode(",",$_POST["bloques_add_4"]);
-            sort($array);
+            sort($array, SORT_NATURAL);
             for ($i=0; $i < count($array); $i++) { 
                 $ejecutar->registrarDisponibilidad($_POST["cedula_dis"], $array[$i],$_POST["dias_4"],1);
              }
         }
         if ($_POST['bloques_add_5']!="" && $_POST['dias_5']!="") {
             $array=explode(",",$_POST["bloques_add_5"]);
-            sort($array);
+            sort($array, SORT_NATURAL);
             for ($i=0; $i < count($array); $i++) { 
                 $ejecutar->registrarDisponibilidad($_POST["cedula_dis"], $array[$i],$_POST["dias_5"],1);
              }
@@ -75,12 +78,27 @@ else if (isset($_POST["update"]) && $_POST["update"]!=""){
         if ($valida==2) {
             $ejecutar->UpdateDisponibilidad($_POST["cedula_dis"], 0);
         }
+        if ($horario!=2) {
+            
+            for ($i=0; $i < count($disponibilidad); $i++) {
+                $verifyhorario=$ejecutar->GetFindHorario($_POST['update'],$disponibilidad[$i][2],$disponibilidad[$i][3]);
+                if (count($verifyhorario)==0) {
+                    print_r($disponibilidad[$i][2]);
+                    echo "<br>";
+                    print_r($disponibilidad[$i][3]);
+                    echo "<br>";
+
+                    $ejecutar->DeleteTableHorario($_POST['update'],$disponibilidad[$i][2],$disponibilidad[$i][3]);
+                }
+            }
+        }
         $_SESSION["completado"]="Los datos fueron actualizados correctamente";
         header("Location:../vista/administrador.php#$url");
     }
 }
 else if (isset($_POST["delete"]) && $_POST["delete"]!=""){
     $ejecutar->DeleteTable('bloque_disponibilidad', 'cedula',$_POST["delete"]);
+    $ejecutar->DeleteTable('horario_docente', 'cedula_docente',$_POST["delete"]);
     $ejecutar->UpdateDisponibilidad($_POST["delete"], 0);
     $_SESSION["completado"]="Los datos fueron eliminados correctamente";
     header("Location:../vista/administrador.php#$url");
@@ -99,30 +117,35 @@ else {
     else {
         if ($_POST['bloques_add_1']!="") {
             $array=explode(",",$_POST["bloques_add_1"]);
+            sort($array, SORT_NATURAL);
             for ($i=0; $i < count($array); $i++) { 
                $ejecutar->registrarDisponibilidad($_POST["cedula_dis"], $array[$i],$_POST["dias_1"],1);
             }
         }
         if ($_POST['bloques_add_2']!="") {
             $array=explode(",",$_POST["bloques_add_2"]);
+            sort($array, SORT_NATURAL);
             for ($i=0; $i < count($array); $i++) { 
                 $ejecutar->registrarDisponibilidad($_POST["cedula_dis"], $array[$i],$_POST["dias_2"],1);
              }
         }
         if ($_POST['bloques_add_3']!="") {
             $array=explode(",",$_POST["bloques_add_3"]);
+            sort($array, SORT_NATURAL);
             for ($i=0; $i < count($array); $i++) { 
                 $ejecutar->registrarDisponibilidad($_POST["cedula_dis"], $array[$i],$_POST["dias_3"],1);
              }
         }
         if ($_POST['bloques_add_4']!="") {
             $array=explode(",",$_POST["bloques_add_4"]);
+            sort($array, SORT_NATURAL);
             for ($i=0; $i < count($array); $i++) { 
                 $ejecutar->registrarDisponibilidad($_POST["cedula_dis"], $array[$i],$_POST["dias_4"],1);
              }
         }
         if ($_POST['bloques_add_5']!="") {
             $array=explode(",",$_POST["bloques_add_5"]);
+            sort($array, SORT_NATURAL);
             for ($i=0; $i < count($array); $i++) { 
                 $ejecutar->registrarDisponibilidad($_POST["cedula_dis"], $array[$i],$_POST["dias_5"],1);
              }

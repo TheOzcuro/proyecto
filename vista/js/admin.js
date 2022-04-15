@@ -13,6 +13,7 @@ var ant_value="";
 var ant_value_dis="";
 let dias_main=[];
 let activehorario="";
+let valideBloque=0;
 // ----------------------------------VARIABLES---------------------------------
 
 
@@ -20,15 +21,21 @@ let activehorario="";
 
 //--------------------------------------------FUNCIONES--------------------------------
 
+function OnclickAppear(display,drop, input) {
+    input=document.getElementById(input);
+    document.getElementById(drop).style.display=display
+    document.addEventListener('mouseup', function(e) {
+        if (!input.contains(e.target)) {
+            document.getElementById(drop).style.display = 'none';
+            input.style.border=""
+        }
+    })
+}
 function AppearsAndDissapear(appear,display) {
     DissapearVarious(".container","none");
-        console.log(appear);
         document.getElementById(appear).style.display=display;
         document.getElementById(appear).style.animationName="Opacity";
         document.getElementById(appear).style.animationDuration="0.7s";
-}
-function ValidateEmail(input) {
-    console.log(input);
 }
 function LabelAnimation(input,label){
         document.getElementById(input).style.borderColor=""
@@ -115,7 +122,6 @@ function OnLoad(active){
     if (container_url=="disponibilidad-container") {
         setTimeout(() => {
             if (localStorage.getItem('disponibilidad')!=="" && localStorage.getItem('disponibilidad')!==null && localStorage.getItem('disponibilidad')!==undefined) {
-                    console.log(localStorage.getItem('disponibilidad'));
                     document.getElementById('cedula_dis').value=localStorage.getItem('disponibilidad');
                     document.getElementById('nombre_dis').value=localStorage.getItem('disponibilidad_n');
                     document.getElementById('contratacion_dis').value=localStorage.getItem('disponibilidad_c');
@@ -159,7 +165,6 @@ function OnLoad(active){
 function ValidateDate() {
     var date_inicio=document.getElementById('fecha_inicio').value;
     var date_final=document.getElementById('fecha_final').value;
-    console.log(date_final<date_inicio)
     array_inicio=date_inicio.split("-");
     array_final=date_final.split("-");
     if (date_final<date_inicio && date_final!="") {
@@ -174,10 +179,16 @@ function LabelInput() {
      l=0
      var input=document.querySelectorAll(".input-label");
      var label=document.querySelectorAll("label");
+     OnLoad('active');
      totalinput=input.length;
      while (y<totalinput) {
          if (input[y].value!="") {
-             LabelAnimation(input[y].id,label[y].id)
+             if (container_url=="horario-container" && activehorario==1) {
+                LabelAnimation(input[y].id,label[y+2].id)
+             }
+             else {
+                LabelAnimation(input[y].id,label[y].id)
+             }
          }
          y=y+1
      }
@@ -210,8 +221,11 @@ function SubmitDisponibilidad(active) {
     var AntSelect=""
     var valide=true;
     var valideSpan=false;
-    var valideSelect=false;
+    var valideSelect=true;
     var valideSpanAdd=false;
+    cedula=div.querySelector('#cedula_dis');
+    drop_dis=div.querySelector('#disponibilidad_drop');
+    span_main_mod=drop_dis.querySelectorAll('span');
     for (let index = 0; index < drop.length; index++) {
         span=drop[index].querySelectorAll("span");
         if (span.length>0) {
@@ -246,7 +260,16 @@ function SubmitDisponibilidad(active) {
             }
         }
     }
-
+    for (let index = 0; index < select.length; index++) {
+        id_drop=select[index].getAttribute('value');
+        block=document.getElementById(id_drop).querySelectorAll('span');
+        if (select[index]=="" && block.length>0) {
+            valideSelect=false;
+            select[index].style.borderColor='red';
+            break
+        }
+        
+    }
     if (document.getElementById('cedula_dis').value=="") {
         valide=false
         document.getElementById('cedula_dis').style.borderColor='red';
@@ -269,7 +292,16 @@ function SubmitDisponibilidad(active) {
                     }
                 }
             }
-             OnLoad("active")
+            OnLoad("active")
+            for (let index = 0; index < span_main_mod.length; index++) {
+                if (cedula.value.toUpperCase()==span_main_mod[index].innerText) {
+                    array=span_main_mod[index].getAttribute('value').split('/');
+                    localStorage.setItem('disponibilidad',cedula.value+" **");
+                    localStorage.setItem('disponibilidad_n',array[0]+" "+array[1])
+                    localStorage.setItem('disponibilidad_c',array[2])
+                    ValideCarrera=true;
+                }
+             }
              document.getElementById('disponibilidad').querySelector(".input-url").value=container_url+"-grid";
              document.getElementById('disponibilidad').submit();
         }
@@ -279,10 +311,10 @@ function SubmitDisponibilidad(active) {
     }
     else {
         if (valideSelect==false) {
-            Error("Recuerde que no pueden haber dos dias repetidos","msg_error","p_error")
+            Error("Recuerde que no pueden haber dos dias repetidos o vacios","msg_error","p_error")
         }
         else {
-            Error("Parece que algunos datos estan vacios o son erroneos. Recuerde añadir los bloques y seleccionar el dia","msg_error","p_error")
+            Error("Recuerde añadir los bloques y seleccionar el dia","msg_error","p_error")
         }
      if (active=="active") {
          return false;
@@ -313,7 +345,6 @@ function Submit(form){
        }
    }
    if (valide) {
-        console.log("funciono");
         OnLoad("active")
         document.getElementById(form).querySelector(".input-url").value=container_url+"-grid";
         document.getElementById(form).submit();
@@ -406,7 +437,6 @@ function Search(input,div) {
     }
 }
 function AddValueMateria(input, span) {
-    console.log(input);
     if (input=="cedula_dis") {
         let value=span.getAttribute('value');
         let array=value.split('/');
@@ -416,6 +446,11 @@ function AddValueMateria(input, span) {
     }
     span=span.textContent || span.innerText;
     document.getElementById(input).value=span;
+    if (input=="cedula_horario") {
+        value=span.split("-");
+        document.getElementById(input).value=value[0];
+        document.getElementById('nombre_horario').value=value[1];
+    }
     if (input=="carreras" || input=="carreras_unidad") {
         CreateMaterias(span)
     }
@@ -441,6 +476,30 @@ function ActiveDisponibilidad(cedula,nombre,apellido,contratacion,tipo) {
     AppearsAndDissapear("disponibilidad-container","grid")
     LabelInput();
 }
+function AddAllBloques(bloques_add, bloques_input) {
+    bloques_add=document.getElementById(bloques_add).querySelectorAll("span");
+    bloques_input=document.getElementById(bloques_input);
+    input=bloques_input.getAttribute('value');
+    for (let index = 0; index < bloques_add.length; index++) {
+       let span_add=document.createElement('span');
+       span_add.innerHTML=bloques_add[index].innerText;
+       span_add.onclick=function () {AddValueMateria(input, this)}
+       span_add.id=bloques_add[index].id;
+       bloques_input.appendChild(span_add);
+       bloques_add[index].hidden=true
+    }
+}
+function DeleteAllBloques(bloques_add, bloques_input) {
+    bloques_add=document.getElementById(bloques_add);
+    bloques_input=document.getElementById(bloques_input);
+    input=bloques_input.getAttribute('value');
+    document.getElementById(input).value="";
+    bloques_input=bloques_input.querySelectorAll('span');
+    for (let index = 0; index < bloques_input.length; index++) {
+        bloques_add.querySelector("#"+bloques_input[index].id).hidden=false;
+       bloques_input[index].remove();
+    }
+}
 function CreateMaterias(value) {
     OnLoad('active');
     if (container_url=="pensum-container" || container_url=="pensum-historial") {
@@ -454,7 +513,6 @@ function CreateMaterias(value) {
         drop=document.getElementById('materias_add_drop_unidad');
         drop_main_unidad=document.getElementById('materias_drop_unidad');
     }
-    console.log(container_url);
     let span=drop.querySelectorAll('span');
     let span_main=drop_main.querySelectorAll('span');
     let carrera=value.slice(-2)
@@ -543,7 +601,6 @@ function CreateMaterias(value) {
         }
         else if(container_url=='materia-container'){
             span_main_unidad=drop_main_unidad.querySelectorAll('span');
-            console.log(span_main_unidad);
             for (let index = 0; index < span_main_unidad.length; index++) {
                 span_main_unidad[index].hidden=false;
             }
@@ -566,7 +623,6 @@ function CreateDisponibilidad(value) {
     bloques_drop=div.querySelector("#bloques_drop_1");
     bloques_drop_main=div.querySelectorAll(".drop_main");
     button=div.querySelectorAll('button');
-    console.log(bloques_drop_main);
     let profesor=value.slice(-2);
     if (profesor=="**") {
         ant_value_dis=profesor;
@@ -621,7 +677,6 @@ function CreateDisponibilidad(value) {
                 
             }
         }
-        console.log(dias_main);
         button[0].style.display="none";
         button[1].style.display="block";
         button[2].style.display="block";
@@ -649,6 +704,51 @@ function CreateDisponibilidad(value) {
         LabelInput();
     }
 
+}
+function SubmitBloque(form,bloque) {
+    form=document.querySelector(form);
+    bloque=document.getElementById(bloque);
+    drop=form.querySelectorAll('.drop_horario');
+    input=form.querySelectorAll('.input_horario');
+    valide=0;
+    valideUpdate=0;
+    for (let index = 0; index < drop.length; index++) {
+        if (span_data[index]!=input[index].value) {
+            valideUpdate=valideUpdate+1;
+        }
+        span=drop[index].querySelectorAll('span');
+        for (let i = 0; i < span.length; i++) {
+            if (span[i].innerText==input[index].value.toUpperCase()) {
+                valide=valide+1;
+            }
+        }
+        
+    }
+    if (valide==3 && valideUpdate>0) {
+        bloques=bloque.querySelectorAll("span");
+        bloques[0].innerText='Carrera: '+input[0].value;
+        bloques[1].innerText='Materia: '+input[1].value;
+        bloques[2].innerText='Aula: '+input[2].value;
+        form.style.display='none';
+        valideBloque=valideBloque+1;
+        document.querySelector('.blackcover').style.display='none';
+    }
+    if (valideUpdate==0) {
+        Error('Tiene que hacer algun cambio si desea guardar', 'msg_error','p_error');
+    }
+}
+function DeleteBloque(form,bloque) {
+    form=document.querySelector(form);
+    input=form.querySelectorAll('.input');
+    bloque=document.getElementById(bloque);
+    bloques=bloque.querySelectorAll("span");
+    for (let index = 0; index < bloques.length; index++) {
+        bloques[index].innerText='';
+        input[index].value='';
+    }
+    form.style.display='none';
+    valideBloque=valideBloque+1;
+    document.querySelector('.blackcover').style.display='none';
 }
 function AddAndRemove(div,div_add,input,input_add, type, container) {
     //VARIABLES
@@ -694,7 +794,6 @@ function AddAndRemove(div,div_add,input,input_add, type, container) {
         else if (type=="add") {
             for (let index = 0; index < span_mod.length; index++) {
                 if (input.value.toUpperCase()==span_mod[index].innerText) {
-                    console.log("aver");
                     valide=false
                     break
                 }
@@ -796,8 +895,6 @@ function AddMateria(modo) {
                 array=span[index].id.split("/");
                 nombre_span=span[index].innerText.split('/');
                 if (nombre.value.toUpperCase()==nombre_span[1] || array[0].toUpperCase()==codigo.value.toUpperCase()) {
-                    console.log(array[0].toUpperCase()==codigo.value.toUpperCase())
-                    console.log(nombre_add.value.toUpperCase()==span[index].innerText)
                     valide=false
                     break
                 }
@@ -858,7 +955,47 @@ function AddMateria(modo) {
     }
     
 }
+function SubmitHorario(){
+    form=document.getElementById('horario_form');
+    valide="";
+    input=form.querySelectorAll('.input');
+    for (let index = 0; index < input.length; index++) {
+        if (input[index].value!="") {
+            valide=valide+1;
+        }   
+    }
+    if (valideBloque>0) {
+        bloques=document.querySelectorAll('.bloque_add');
+        formularios=document.querySelectorAll('.formularios');
+        for (let index = 0; index < bloques.length; index++) {
+            span=bloques[index].querySelectorAll("span");
+            inputs=formularios[index].querySelectorAll('.input_horario');
+            for (let i = 0; i < inputs.length; i++) {
+                if (span[i].innerText!="") {
+                    span_value=span[i].innerText.split(': ');
+                    console.log(span_value)
+                    inputs[i].value=span_value[1];
 
+                }
+            }
+            
+        }
+        OnLoad("active")
+        form.querySelector(".input-url").value=container_url+"-grid";
+        form.submit();
+    }
+    else {
+        Error("Tiene que al menos llenar un bloque", 'msg_error', 'p_error');
+    }
+}
+function ChangeHorarioType(tipo) {
+    document.getElementById('cedula_horario').value=document.getElementById('codigo_cedula_horario').value;
+    document.getElementById('lapso_horario').value=document.getElementById('codigo_lapso_horario').value;
+    OnLoad('active');
+    document.getElementById('horario').querySelector(".input-url").value=container_url+"-grid";
+    document.getElementById('tipo_horario').value=tipo;
+    document.getElementById('horario').submit();
+}
 function SubmitMateria(form) {
    
     OnLoad('active');
@@ -902,7 +1039,6 @@ function SubmitMateria(form) {
             for (let index = 0; index < span.length; index++) {
                 array=span[index].id.split("/");
                 nombre=span[index].innerText.split("/");
-                console.log(nombre)
                 if (input_add.value!="") {
                     input_add.value=input_add.value+","+array[0]+","+nombre[1]+","+array[1];
                 }
@@ -939,7 +1075,6 @@ function SubmitMateria(form) {
 function BackOption(div){
         OnLoad("active")
         array=container_url.split("-")
-        console.log(array);
         container=array[0]
         if (div.id=="history_back") {
             document.getElementById(div.id).style.display="none";
@@ -1032,13 +1167,6 @@ document.getElementById("crearLapso").addEventListener("click", function(){
     DissapearVarious('.back-option','none');
     document.getElementById('history_back').style.display='inline';
     AppearsAndDissapear("oferta-container","grid")})
-document.getElementById("crearPensum").addEventListener("click", function(){
-    if (div_edit!="") {
-            Close()
-    }
-    DissapearVarious('.back-option','none');
-    document.getElementById('history_back').style.display='inline';
-    AppearsAndDissapear("pensum-container","grid")})
 document.getElementById("historialProfesor").addEventListener("click", function(){
 if (div_edit!="") {
      Close()
@@ -1193,11 +1321,13 @@ ValidateTexto('tipo_materia');
 ValidateVarchar('nombre_aula');
 ValidateVarchar('nombre_carrera');
 ValidateNumeros('cedula');
+ValidateNumeros('cedula_horario');
 ValidateNumeros('telefono');
 ValidateNumeros('telefono_fijo');
 ValidateNumeros('horas_semana');
 ValidateNumeros('unidad_credito');
 ValidateVarchar('codigo_carrera');
+ValidateVarchar('direccion');
 ValidateVarchar('codigo_materia');
 ValidateVarchar('codigo_aula');
 ValidateVarchar('trayecto');

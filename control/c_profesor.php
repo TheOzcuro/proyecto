@@ -29,6 +29,13 @@ else if (isset($_GET["buscar_profesor"]) && $_GET["buscar_profesor"]!="") {
     }
 
 }
+else if (isset($_POST["find-user"]) && $_POST["find-user"]!=""){
+    $validate=$ejecutar->FindQuery('profesor','cedula',$_POST["cedula"]);
+    if($validate!==2){
+        echo "yes";
+    }
+    else echo "no";
+}
 else if (isset($_POST["update-profesor"]) && $_POST["update-profesor"]!="") {
     $dato=$ejecutar->FindQuery('profesor','correo',$_POST["correo"]);
     $dato_origin=$ejecutar->FindQuery("profesor","cedula",$_POST["update-profesor"]);

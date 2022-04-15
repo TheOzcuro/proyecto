@@ -135,7 +135,7 @@ function CreateTable($table,$campo,$dato) {
   }
  echo "</div>";
   if ($table=="profesor") {
-    echo "<div class='listar-container' id='teacher' style='display:none;width:".$width."px;grid-template-columns:repeat(".$namecount.",auto);left:45%;'>";
+    echo "<div class='listar-container' id='teacher' style='display:none;width:".$width."px;grid-template-columns:repeat(".$namecount.",auto);left:46%;'>";
   }
   else {
     echo "<div class='listar-container' style='display:none;width:".$width."px;grid-template-columns:repeat(".$namecount.",auto);'>";
@@ -181,10 +181,10 @@ function CreateTable($table,$campo,$dato) {
           //Transformar los valores de la tabla de materia en algo mas agradable y entendible para el usuario
           if ($table==="materia" && $i===2) {
             if ($lista[$index][$i]==="0") {
-              echo "<div class='".$name[$i]["COLUMN_NAME"]." f-".$index."' value=".$lista[$index][$i].">DICIPLINARIA</div>";
+              echo "<div class='".$name[$i]["COLUMN_NAME"]." f-".$index."' value=".$lista[$index][$i].">DISCIPLINARIA</div>";
             }
             else if($lista[$index][$i]==="1") {
-              echo "<div class='".$name[$i]["COLUMN_NAME"]." f-".$index."' value=".$lista[$index][$i].">MULTIDICIPLINARIA</div>";
+              echo "<div class='".$name[$i]["COLUMN_NAME"]." f-".$index."' value=".$lista[$index][$i].">MULTIDISCIPLINARIA</div>";
             }
           }
           
@@ -193,12 +193,13 @@ function CreateTable($table,$campo,$dato) {
               echo "<div></div>";
             }
             echo "<div class='".$name[$i]["COLUMN_NAME"]." f-".$index."' value=".$lista[$index][$i]." title='".$lista[$index][$i]."'>".$lista[$index][$i];
+            
             if ($table=="profesor" && $i==0) {
               if ($lista[$index][18]==0) {
-                print_r("<div style='border-radius:50%;background:rgb(220,60,30);position:absolute;width: 25px;height: 25px;left:-25px;z-index:-1;cursor:pointer;'  title='No posee Disponibilidad'  onclick='ActiveDisponibilidad(`".$lista[$index][0]."`,`".$lista[$index][1]."`,`".$lista[$index][3]."`,`".$lista[$index][7]."`,`0`)'></div>");
+                print_r("<div style='border-radius:50%;background:rgb(220,60,30);position:absolute;width: 25px;height: 25px;left:-30px;z-index:-1;cursor:pointer;margin-top:-10px;'  title='No posee Disponibilidad'  onclick='ActiveDisponibilidad(`".$lista[$index][0]."`,`".$lista[$index][1]."`,`".$lista[$index][3]."`,`".$lista[$index][7]."`,`0`)'></div>");
                }
                else if($lista[$index][18]==1) {
-                 print_r("<div style='border-radius:50%;background:rgb(105,180,100);position:absolute;width: 25px;height: 25px;left:-25px;z-index:-1;cursor:pointer;' title='Posee Disponibilidad' 
+                 print_r("<div style='border-radius:50%;background:rgb(105,180,100);position:absolute;width: 25px;height: 25px;left:-30px;z-index:-1;cursor:pointer;margin-top:-10px;' title='Posee Disponibilidad' 
                  onclick='ActiveDisponibilidad(`".$lista[$index][0]."`,`".$lista[$index][1]."`,`".$lista[$index][3]."`,`".$lista[$index][7]."`,`1`)'></div>");
                }
             }
@@ -208,19 +209,19 @@ function CreateTable($table,$campo,$dato) {
         }
       }
       
-      print_r("<button onclick='ActiveModificar(`.f-".$index."`,`$table-container`)'>Modificar</button>");
+      print_r("<img class='img-historial' src='css/img/edit.png' onclick='ActiveModificar(`.f-".$index."`,`$table-container`)' title='Editar Datos' style='width:30px;height:30px;cursor:pointer;margin-top:10px;margin-left:10px;'>");
       if ($table=="pensum") {
-        echo "<button onclick='DisplayDelete(`block`,`.delete-window`,`#$table`,`".$lista[$index][1]."`)'>Eliminar</button>";
+        echo "<img class='img-historial' src='css/img/borrar.png' onclick='DisplayDelete(`block`,`.delete-window`,`#$table`,`".$lista[$index][1]."`)'title='Borrar Datos' style='width:30px;height:30px;cursor:pointer;margin-top:10px;margin-left:10px;'>";
       }
       else if ($table=="oferta") {
-        echo "<button onclick='DisplayDelete(`block`,`.delete-window`,`#$table`,`".$lista[$index][2]."`)'>Eliminar</button>";
+        echo "<img class='img-historial' src='css/img/borrar.png' onclick='DisplayDelete(`block`,`.delete-window`,`#$table`,`".$lista[$index][2]."`)' title='Borrar Datos' style='width:30px;height:30px;cursor:pointer;margin-top:10px;margin-left:10px;'>";
       }
       else {
-        echo "<button onclick='DisplayDelete(`block`,`.delete-window`,`#$table`,`".$lista[$index][0]."`)'>Eliminar</button>";
+        echo "<img class='img-historial' src='css/img/borrar.png' onclick='DisplayDelete(`block`,`.delete-window`,`#$table`,`".$lista[$index][0]."`)' title='Borrar Datos' style='width:30px;height:30px;cursor:pointer;margin-top:10px;margin-left:10px;'>";
       }
       if ($table=="profesor") {
         
-        echo "<button onclick='ShowContratacion(`".$lista[$index][8]."`,`".$lista[$index][9]."`,`".$lista[$index][10]."`,`".$lista[$index][11]."`,`".$lista[$index][12]."`,`".$lista[$index][13]."`,`".$lista[$index][14]."`)'>Mostrar Mas</button>";
+        echo "<img class='img-historial' src='css/img/lupa.png' onclick='ShowContratacion(`".$lista[$index][8]."`,`".$lista[$index][9]."`,`".$lista[$index][10]."`,`".$lista[$index][11]."`,`".$lista[$index][12]."`,`".$lista[$index][13]."`,`".$lista[$index][14]."`)' title='Mostrar Datos' style='width:30px;height:30px;cursor:pointer;margin-top:10px;margin-left:10px;'>";
         echo "<input type='hidden' class='f-".$index."' value='".$lista[$index][8]."/".$lista[$index][9]."/".$lista[$index][10]."/".$lista[$index][11]."/".$lista[$index][12]."/".$lista[$index][13]."/".$lista[$index][14]."/".$lista[$index][15]."/".$lista[$index][16]."/".$lista[$index][17]."'>";
       }
       $index=$index+1;

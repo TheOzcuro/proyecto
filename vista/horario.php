@@ -12,6 +12,7 @@
             echo  $_SESSION["disponibilidad_profesor"][0][12];
         }
         ?></div>
+        <div class='lapso' style='position:relative;top:5px;left:-25px;'><b>Lapso: </b><?php echo  $_SESSION["lapso"];?></div>
     </div>
 <div id='horario_list'>
     <div class='title'>HORA</div>
@@ -36,16 +37,26 @@
             }
         }
         return 0;
+    }
+    if ($_SESSION["tipo_horario"]==0) {
+        $hora="07:00";
+        $hora2="07:45";
+        echo "<button type='button' onclick='ChangeHorarioType(`8`)' style='position:absolute;left:-100px;width:100px;font-size:14px;'>Crear Horario Vespertino</button>";
+    }
+    else if ($_SESSION["tipo_horario"]==8) {
+        echo "<button type='button' onclick='ChangeHorarioType(`0`)' style='position:absolute;left:-100px;width:100px;font-size:14px;'>Crear Horario Matunino</button>";
+        $hora="13:00";
+        $hora2="13:45";
+        
     } 
-    $hora="07:00";
-    $hora2="07:45";
     $dias=1;
-    $b=1;
+    $b=$_SESSION["tipo_horario"]+1;
     $bloque="";
     $list=$_SESSION["lista_disponibilidad"];
     $list_i=0;
     $bloque_id=0;
-    for ($i=0; $i < 7; $i++) {
+    $y=0;
+    for ($i=$_SESSION["tipo_horario"]; $i < $_SESSION["tipo_horario"]+7; $i++) {
         $dias=1;
         $bloque="B".$b; 
         
@@ -55,21 +66,44 @@
             $list_i=searchForId($dias,$list);
             $bloque_id=searchForBloque($bloque,$dias,$list);
             if (isset($list[$list_i]) && $dias==$list[$list_i][2] && $bloque==$list[$bloque_id][1]) {
-                echo "<div class='".$dias." B".$b."' id='bloque_".$dias."_".$b."'active' style='border:3px solid rgb(110,225,80);cursor:pointer;'  onclick='DisplayHorario(`block`,`.form-".$dias."_".$b."`)'></div>";
+                echo "<div class='".$dias." B".$b." bloque_add' id='bloque_".$dias."_".$b."'active' style='border:3px solid rgb(110,225,80);cursor:pointer;'  onclick='DisplayHorario(`block`,`.form-".$dias."_".$b."`,this)'>";
+                if (isset($_SESSION["find_horario"]) && $y<count($_SESSION["find_horario"])) {
+                    if ($_SESSION["find_horario"][$y][3]==$bloque && $_SESSION["find_horario"][$y][6]==$dias) {
+                        echo "<span>Carrera: ".$_SESSION["find_horario"][$y][5]."</span><br>";
+                        echo "<span>Materia: ".$_SESSION["find_horario"][$y][4]."</span><br>";
+                        echo "<span>Aula: ".$_SESSION["find_horario"][$y][1]."</span>";
+                        $y=$y+1;
+                    }
+                    else {
+                    echo "<span></span><br>
+                    <span></span><br>
+                    <span></span>";
+                    }
+                }
+                else {
+                    echo "<span></span><br>
+                    <span></span><br>
+                    <span></span>";
+                }
+                echo "</div>";
             }
             else {
                 echo "<div class='".$dias." B".$b."'>
                 </div>";
             } 
-           
             $dias=$dias+1;
         }
+        
         $b=$b+1;
         $nuevahora=strtotime($hora)+strtotime("00:45");
         $hora=date('H:i', $nuevahora);
         $nuevahora2=strtotime($hora2)+strtotime("00:45");
         $hora2=date('H:i', $nuevahora2);
     }
+    echo "";
+    echo "";
     ?>
 </div>
+<button type="button" class='button_horario' onclick='SubmitHorario()'>Guardar</button>
+<button onClick='window.location.reload();' class='button_horario cancel_horario' style='left:717px;'>Volver</button>
 </div>

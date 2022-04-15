@@ -49,8 +49,8 @@
                     <div class="input-container">
                         <select name="tipo_materia" id="tipo_materia" onclick="SelectAnimation('rol')" class="input">
                             <option value="">Tipo</option>
-                            <option value="0">Diciplinaria</option>
-                            <option value="1">Multidiciplinaria</option>
+                            <option value="0">Disciplinaria</option>
+                            <option value="1">Multidisciplinaria</option>
                         </select>
                         <img src="css/img/add.png" class='dis' alt="" onclick="AddMateria('add')">
                     </div>
@@ -146,11 +146,11 @@
                 <input type="text" class="input-url" id="url" name="url" hidden>
                 <div class="container" id="profesor-container">
                     <a class="a_img"><img src="css/img/close.png" alt="" class="close-icon" id="close-icon-profesor" onclick="Close()"></a>
-                    <h2>Profesor</h2>
+                    <h2 style="height:30px;">Profesor</h2>
 
                     <div class="input-container">
                         <label for="cedula" id="labelcedula">Cedula <b style="color:red;">*</b></label><br>
-                        <input type="text" id="cedula" name="cedula" onfocus="LabelAnimation('cedula','labelcedula')" onblur="LabelOut('cedula','labelcedula')" maxlength="10" class="input input-label">
+                        <input type="text" id="cedula" name="cedula" onfocus="LabelAnimation('cedula','labelcedula')" onblur="LabelOut('cedula','labelcedula')" maxlength="10" class="input input-label" onfocusout="userConfirm()">
                         <input type="checkbox" class="checkbox-edit checkbox-profesor" onclick="CheckboxDisabled('cedula', this)">
                     </div>
 
@@ -180,7 +180,7 @@
                         onfocus="LabelAnimation('segundo_apellido','labelsegundo_apellido')" onblur="LabelOut('segundo_apellido','labelsegundo_apellido')" maxlength="20" class="input input-label" style="text-transform:uppercase">
                         <input type="checkbox" class="checkbox-edit" onclick="CheckboxDisabled('segundo_apellido', this)">
                     </div>
-                    <div class="input-container" style='grid-column:1/3;width:100%;'>
+                    <div class="input-container" style='grid-column:1/3;width:100%;grid-row:7;'>
                         <label for="direccion" id="labeldireccion">Direccion <b style="color:red;">*</b></label><br>
                         <textarea type="text" id="direccion" name="direccion"
                         onfocus="LabelAnimation('direccion','labeldireccion')" onblur="LabelOut('direccion','labeldireccion')" maxlength="60" class="input input-label" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"' style='width:90%;text-transform:uppercase;'></textarea>
@@ -227,7 +227,7 @@
                     <div class="input-container">
                         <select name="tipo_contratacion" id="tipo_contratacion" onclick="SelectAnimation('tipo_contratacion')" class="input">
                             <option value="">Contratacion<b style="color:red;">*</b></option>
-                            <option value="1">Tiempo Inderteminado</option>
+                            <option value="1">Tiempo Indeterminado</option>
                             <option value="2">Tiempo Determinado</option>
                             <option value="3">Ordinario</option>
                          </select>
@@ -382,8 +382,8 @@
                     <h2>Disponibilidad</h2>
                     <div class="input-container">
                         <label for="cedula_dis" id="labelcedula_dis">Cedula</label><br>
-                        <input type="text" id="cedula_dis" name="cedula_dis" onfocus="LabelAnimation('cedula_dis','labelcedula_dis')" onblur="LabelOut('cedula_dis','labelcedula_dis')" maxlength="11" class="input input-label">
-                        <input type="checkbox" class="checkbox-edit checkbox-materia"  onclick="CheckboxDisabled('codigo_carrera', this)">
+                        <input type="text" id="cedula_dis" name="cedula_dis" onfocus="LabelAnimation('cedula_dis','labelcedula_dis')" onblur="LabelOut('cedula_dis','labelcedula_dis')" maxlength="11" class="input input-label" onkeyup="Search('cedula_dis','disponibilidad_drop')">
+                        <input type="checkbox" class="checkbox-edit checkbox-materia"  onclick="CheckboxDisabled('codigo_carrera', this)" >
                         <div class="dropdown" id="disponibilidad_drop">
                         <?php 
                             $list=[];
@@ -413,6 +413,7 @@
                         <label for="contratacion_dis" id="labelcontratacion_dis">Dedicacion</label><br>
                         <input type="text" id="contratacion_dis" name="contratacion_dis" onfocus="LabelAnimation('contratacion_dis','labelcontratacion_dis')" onblur="LabelOut('contratacion_dis','labelcontratacion_dis')" maxlength="30" class="input input-label" disabled>
                         <input type="checkbox" class="checkbox-edit checkbox-materia"  onclick="CheckboxDisabled('nombre_carrera', this)">
+                        <input type="text" id="del" name="del" class='input' hidden>
                     </div>
 
                     <!-- --------------PRIMER BLOQUE---------- -->
@@ -445,6 +446,8 @@
                             }
                         ?>
                         </div>
+                        <img src="css/img/arrow-add.png" alt="flecha" style='width:20px;height:20px;position:absolute;right:-30px;top:100px;' title='Añade todos los bloques' onclick='AddAllBloques("bloques_drop_1", "bloques_add_drop_1")'>
+                        <img src="css/img/arrow-delete.png" alt="flecha" style='width:20px;height:20px;position:absolute;right:-30px;top:130px;' title='Eliminar todos los bloques' onclick='DeleteAllBloques("bloques_drop_1", "bloques_add_drop_1")'>
                     </div>
                     <div class="input-container input-bloques" style='grid-column: span 3/;margin-top:0px;'>
                         <label for="bloques_add_1" id="labelbloques_add_1">Bloques Añadidos</label><br>
@@ -488,6 +491,8 @@
                             }
                         ?>
                         </div>
+                        <img src="css/img/arrow-add.png" alt="flecha" style='width:20px;height:20px;position:absolute;right:-30px;top:100px;' title='Añade todos los bloques' onclick='AddAllBloques("bloques_drop_2", "bloques_add_drop_2")'>
+                        <img src="css/img/arrow-delete.png" alt="flecha" style='width:20px;height:20px;position:absolute;right:-30px;top:130px;' title='Eliminar todos los bloques' onclick='DeleteAllBloques("bloques_drop_2", "bloques_add_drop_2")'>
                     </div>
                     <div class="input-container input-bloques" style='grid-column: span 3/;'>
                         <label for="bloques_add_2" id="labelbloques_add_2">Bloques Añadidos</label><br>
@@ -531,6 +536,8 @@
                             }
                         ?>
                         </div>
+                        <img src="css/img/arrow-add.png" alt="flecha" style='width:20px;height:20px;position:absolute;right:-30px;top:100px;' title='Añade todos los bloques' onclick='AddAllBloques("bloques_drop_3", "bloques_add_drop_3")'>
+                        <img src="css/img/arrow-delete.png" alt="flecha" style='width:20px;height:20px;position:absolute;right:-30px;top:130px;' title='Eliminar todos los bloques' onclick='DeleteAllBloques("bloques_drop_3", "bloques_add_drop_3")'>
                     </div>
                     <div class="input-container input-bloques" style='grid-column: span 3/;'>
                         <label for="bloques_add_3" id="labelbloques_add_3">Bloques Añadidos</label><br>
@@ -575,6 +582,8 @@
                             }
                         ?>
                         </div>
+                        <img src="css/img/arrow-add.png" alt="flecha" style='width:20px;height:20px;position:absolute;right:-30px;top:100px;' title='Añade todos los bloques' onclick='AddAllBloques("bloques_drop_4", "bloques_add_drop_4")'>
+                        <img src="css/img/arrow-delete.png" alt="flecha" style='width:20px;height:20px;position:absolute;right:-30px;top:130px;' title='Eliminar todos los bloques' onclick='DeleteAllBloques("bloques_drop_4", "bloques_add_drop_4")'>
                     </div>
                     <div class="input-container input-bloques" style='grid-column: span 3/;'>
                         <label for="bloques_add_4" id="labelbloques_add_4">Bloques Añadidos</label><br>
@@ -619,6 +628,8 @@
                             }
                         ?>
                         </div>
+                        <img src="css/img/arrow-add.png" alt="flecha" style='width:20px;height:20px;position:absolute;right:-30px;top:100px;' title='Añade todos los bloques' onclick='AddAllBloques("bloques_drop_5", "bloques_add_drop_5")'>
+                        <img src="css/img/arrow-delete.png" alt="flecha" style='width:20px;height:20px;position:absolute;right:-30px;top:130px;' title='Eliminar todos los bloques' onclick='DeleteAllBloques("bloques_drop_5", "bloques_add_drop_5")'>
                     </div>
                     <div class="input-container input-bloques" style='grid-column: span 3/;'>
                         <label for="bloques_add_5" id="labelbloques_add_5">Bloques Añadidos</label><br>
@@ -646,7 +657,7 @@
                     <h2>Crear</h2>
                     <div class="input-container">
                         <label for="cedula_horario" id="labelcedula_horario">Cedula</label><br>
-                        <input type="text" id="cedula_horario" name="cedula_horario" onfocus="LabelAnimation('cedula_horario','labelcedula_horario')" onblur="LabelOut('cedula_horario','labelcedula_horario')" maxlength="11" class="input input-label" maxlength="15">
+                        <input type="text" id="cedula_horario" name="cedula_horario" onfocus="LabelAnimation('cedula_horario','labelcedula_horario')" onblur="LabelOut('cedula_horario','labelcedula_horario')" maxlength="11" class="input input-label" maxlength="15"  onkeyup="Search('cedula_horario','horario_drop')">
                         <div class="dropdown drop_main" id="horario_drop">
                             <?php 
                              $list=[];
@@ -654,11 +665,16 @@
                              $totalarray=count($list);
                              if (isset($list)) {
                                  for ($i=0; $i < $totalarray; $i++) { 
-                                     echo "<span id=".$list[$i][0]." onclick="."AddValueMateria('cedula_horario',this)".">".$list[$i][0]."</span>";
+                                     echo "<span id=".$list[$i][0]." onclick="."AddValueMateria('cedula_horario',this)".">"
+                                     .$list[$i][0]."-".$list[$i][1]." ".$list[$i][2]."</span>";
                                 }
                              }
                             ?>
                         </div>
+                    </div>
+                    <div class="input-container">
+                        <label for="nombre_horario" id="labelnombre_horario">Nombre</label><br>
+                        <input type="text" id="nombre_horario" name="nombre_horario" onfocus="LabelAnimation('nombre_horario','labelnombre_horario')" onblur="LabelOut('nombre_horario','labelnombre_horario')" maxlength="11" class="input input-label" maxlength="70" disabled>
                     </div>
                     <div class="input-container" id="input-carreras">
                         <label for="lapso_horario" id="labelapso_horario">Lapso Academico</label><br>
@@ -673,6 +689,14 @@
                             }
                         ?>
                         </div>
+                    </div>
+                    <div class="input-container" id="input-carreras">
+                        <select name="tipo_horario" id="tipo_horario" class='input'>
+                            <option value="">Tipo</option>
+                            <option value="0">Matutino</option>
+                            <option value="8">Vespertino</option>
+                        </select>
+                        
                     </div>
                     <button type="button" onclick="Submit('horario')" style='grid-column:1/2;'>Crear</button>
                     <button type="button" onclick="DisplayDelete('flex','#lapso-find','#lapso_academico')" style='grid-column:2/3;'>Buscar</button>

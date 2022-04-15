@@ -1,4 +1,5 @@
-
+let div_horario="";
+let span_data="";
 function CheckboxDisabled(input, check, type) {
     var input=document.getElementById(input);
        if (check.checked) {
@@ -170,8 +171,10 @@ function SaveDisponibilidad() {
     span_main_mod=drop_dis.querySelectorAll('span');
     profesor_array=cedula.value.split(" **");
     form=document.getElementById('disponibilidad');
+    diasarray=[];
     totalspan=0;
     ValideSubmit=SubmitDisponibilidad('active');
+    OnLoad('active');
     for (let index = 0; index < bloques_add_drop.length; index++) {
         span_dis=bloques_add_drop[index].querySelectorAll('span');
         totalspan=totalspan+span_dis.length;
@@ -179,17 +182,30 @@ function SaveDisponibilidad() {
     for (let index = 0; index < dias.length; index++) {
         if (dias[index].value!=dias_main[index] && dias[index].value!="") {
             ValideDias=true
-
+        }
+        if(dias[index].value!="") {
+            diasarray.push(dias[index].value);
         }
     }
-    console.log(totalspan)
+    for (let index = 0; index < dias_main.length; index++) {
+        if (diasarray[index]!=dias_main[index]) {
+            ValideDias=true
+        }
+    }
+    for (let index = 0; index < dias_main.length; index++) {
+        if (dias[index].value==dias_main[index]) {
+            bloque=document.getElementById(dias[index].getAttribute('value')).querySelectorAll('span');
+            if (bloque.length==0) {
+                ValideSubmit=true
+            }
+        }
+    }
     for (let index = 0; index < span_main_mod.length; index++) {
         
         if (cedula.value.toUpperCase()==span_main_mod[index].innerText) {
              carrera_id=profesor_array[0];
              array=span_main_mod[index].getAttribute('value').split('/');
              if (totalspan==0) {
-                 
                 localStorage.setItem('disponibilidad',profesor_array[0]);
                 localStorage.setItem('disponibilidad_n',array[0]+" "+array[1])
                 localStorage.setItem('disponibilidad_c',array[2])
@@ -228,6 +244,17 @@ function SaveDisponibilidad() {
                     
                 }
             }
+        }
+        for (let index = 0; index < dias.length; index++) {
+            if (dias[index].value!="") {
+                break
+            }
+            else if(index==4) {
+                localStorage.setItem('disponibilidad',profesor_array[0]);
+                localStorage.setItem('disponibilidad_n',array[0]+" "+array[1])
+                localStorage.setItem('disponibilidad_c',array[2])
+            }
+            
         }
         form.querySelector(".input-update").value=carrera_id;
         form.querySelector(".input-url").value=container_url+"-grid";
@@ -382,12 +409,47 @@ function Close() {
         document.getElementById("buscar_profesor").value=""
         div_edit="";
     }
-function DisplayHorario(display,div) {
-    console.log(div);
-    document.querySelector(".blackcover").addEventListener("click", function(){
-        DisplayHorario("none",div)})
+function DisplayHorario(display,div,bloque) {
+    span_data=[];
+    div_horario=div;
+    span=bloque.querySelectorAll('span');
+    input_div=document.querySelector(div_horario).querySelectorAll('input');
+    label_div=document.querySelector(div_horario).querySelectorAll('label');
+    drop_div=document.querySelector(div_horario).querySelectorAll('.dropdown');
+    input=document.querySelector(div_horario).querySelectorAll('.input');
+    button=document.querySelector(div_horario).querySelectorAll('button');
+    for (let index = 0; index < input.length; index++) {
+        if (span[index].innerText!="") {
+            span_value=span[index].innerText.split(': ');
+            input[index].value=span_value[1];
+            span_data.push(span_value[1]);
+        }
+       
+    }
+    if (span[0].innerText!="") {
+        GetMateriasHorario(input_div[0].id,"",input_div[3].value,input_div[4].value, label_div[0].id,input_div[1].id,drop_div[1].id,input_div[2].id,drop_div[2].id,document.getElementById('codigo_lapso_horario').value);
+        button[1].hidden=false;
+        button[1].style.width='100px';
+        button[0].style.width='100px';
+        button[1].style.marginLeft='200px';
+        button[0].style.marginLeft='-15px';
+        
+
+    }
+    LabelInput();
+    document.querySelector(".blackcover").removeEventListener("click",UnDisplayHorario);
+    document.querySelector(".blackcover").addEventListener("click", UnDisplayHorario)
     document.querySelector(".blackcover").style.display=display;
     document.querySelector(div).style.display=display;
+}
+function UnDisplayHorario(){
+    document.querySelector(div_horario).style.display="none";
+    input=document.querySelector(div_horario).querySelectorAll('.input');
+    for (let index = 0; index < input.length; index++) {
+        input[index].value="";
+        
+    }
+    document.querySelector(".blackcover").style.display='none';
 }
 function DisplayDelete(display,div,form,valor) {
         document.querySelector(".blackcover").addEventListener("click", function(){

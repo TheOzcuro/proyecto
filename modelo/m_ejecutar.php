@@ -70,6 +70,7 @@ class registry extends mybsd {
 		WHERE carrera.codigo=pensum.pnf AND materia.codigo=pensum.unidad_curricular AND materia.tipo=1";
 		return $this->ListAll($this->execute($query), MYSQLI_NUM);
 	}
+
 	function GetMateriasMulti($busca) {
 		if ($busca=="") {
 			$query="SELECT * FROM `materia` WHERE `tipo`=1";
@@ -81,14 +82,23 @@ class registry extends mybsd {
 		}
 		
 	}
-	
+	function GetAulasHorario($busca,$dia,$lapso) {
+			$query="SELECT DISTINCT aula.codigo, aula.nombre FROM `aula` WHERE aula.codigo NOT IN (SELECT horario_docente.codigo_aula FROM horario_docente) OR aula.codigo NOT IN (SELECT horario_docente.codigo_aula FROM horario_docente WHERE horario_docente.bloque='$busca' AND horario_docente.dia='$dia' AND horario_docente.lapso_academico='$lapso')";
+			return $this->ListAll($this->execute($query), MYSQLI_NUM);
+	}
 	function GetMateriasPensum() {
 		$query="SELECT DISTINCT materia.codigo, materia.nombre, materia.tipo, pensum.pnf FROM materia, pensum WHERE materia.codigo IN (SELECT pensum.unidad_curricular FROM pensum) AND materia.codigo=pensum.unidad_curricular";
 		return $this->ListAll($this->execute($query), MYSQLI_NUM);
 	}
-	function GetCarrerasOferta() {
+	function GetMateriasPensumWithPNF($busca) {
+		$busca=$this->FindQuery("carrera","nombre",$busca);
+		$codigo=$busca[0];
+		$query="SELECT DISTINCT materia.codigo, materia.nombre FROM materia, pensum WHERE materia.codigo IN (SELECT pensum.unidad_curricular FROM pensum) AND materia.codigo=pensum.unidad_curricular AND pensum.pnf=$codigo";
+		return $this->ListAll($this->execute($query), MYSQLI_NUM);
+	}
+	function GetCarrerasOferta($busca) {
 		$query="SELECT carrera.codigo, carrera.nombre FROM carrera
-		WHERE carrera.codigo IN (SELECT pensum.pnf FROM pensum)";
+		WHERE carrera.codigo IN (SELECT oferta.pnf FROM oferta WHERE oferta.lapso_academico=$busca)";
 		return $this->ListAll($this->execute($query), MYSQLI_NUM);
 	}
 	function GetCarrerasNotInOferta() {
@@ -110,7 +120,11 @@ class registry extends mybsd {
 		return $this->ListAll($this->execute($query), MYSQLI_NUM);
 	}
 	function GetUserInHorario() {
-		$query="SELECT profesor.cedula FROM profesor WHERE profesor.cedula IN (SELECT bloque_disponibilidad.cedula FROM bloque_disponibilidad) AND profesor.cedula NOT IN (SELECT horario_docente.cedula_docente FROM horario_docente)";
+		$query="SELECT profesor.cedula, profesor.primer_nombre, profesor.primer_apellido FROM profesor WHERE profesor.cedula IN (SELECT bloque_disponibilidad.cedula FROM bloque_disponibilidad)";
+		return $this->ListAll($this->execute($query), MYSQLI_NUM);
+	}
+	function GetHorario($busca,$lapso) {
+		$query="SELECT horario_docente.cedula_docente, aula.nombre, horario_docente.lapso_academico, horario_docente.bloque, materia.nombre, carrera.nombre, horario_docente.dia FROM horario_docente, carrera, materia, aula WHERE carrera.codigo=horario_docente.carrera AND materia.codigo=horario_docente.unidad_curricular AND horario_docente.codigo_aula=aula.codigo AND horario_docente.cedula_docente=$busca AND horario_docente.lapso_academico=$lapso ORDER BY horario_docente.codigo";
 		return $this->ListAll($this->execute($query), MYSQLI_NUM);
 	}
 	function GetDisponibilidad($busca) {
@@ -120,11 +134,11 @@ class registry extends mybsd {
 		$f_array=[];
 		$i=0;
 		if ($busca=="") {
-			$query="SELECT bloque_disponibilidad.cedula, bloque_disponibilidad.bloque, bloque_disponibilidad.dia FROM `bloque_disponibilidad` ORDER BY bloque_disponibilidad.codigo";
+			$query="SELECT bloque_disponibilidad.cedula, bloque_disponibilidad.bloque, bloque_disponibilidad.dia FROM `bloque_disponibilidad` ORDER BY bloque_disponibilidad.cedula DESC, bloque_disponibilidad.codigo ASC, bloque_disponibilidad.dia ASC, bloque_disponibilidad.bloque ASC";
 			return $this->ListAll($this->execute($query), MYSQLI_NUM);
 		}
 		else {
-			$query="SELECT bloque_disponibilidad.cedula, bloque_disponibilidad.bloque, bloque_disponibilidad.dia FROM `bloque_disponibilidad` WHERE bloque_disponibilidad.cedula=$busca ORDER BY bloque_disponibilidad.codigo";
+			$query="SELECT bloque_disponibilidad.cedula, bloque_disponibilidad.bloque, bloque_disponibilidad.dia FROM `bloque_disponibilidad` WHERE bloque_disponibilidad.cedula=$busca ORDER BY bloque_disponibilidad.cedula DESC, bloque_disponibilidad.codigo ASC, bloque_disponibilidad.dia ASC, bloque_disponibilidad.bloque ASC";
 			return $this->ListAll($this->execute($query), MYSQLI_NUM);
 		}
 		
@@ -217,10 +231,25 @@ function GetFindQuery($tabla,$dato,$campo)
 		$query="SELECT * FROM `$tabla` WHERE `$campo` LIKE '%$dato%'";
 		return $this->ListAll($this->execute($query), MYSQLI_NUM);
 	}
+	function GetFindHorario($cedula,$bloque,$dia)
+	{
+		$query="SELECT * FROM `horario_docente`, `bloque_disponibilidad` WHERE horario_docente.cedula_docente='$cedula' AND bloque_disponibilidad.cedula='$cedula' AND horario_docente.bloque='$bloque' AND bloque_disponibilidad.bloque='$bloque' AND horario_docente.dia='$dia' AND bloque_disponibilidad.dia='$dia'";
+		return $this->ListAll($this->execute($query), MYSQLI_NUM);
+	}
 	function registrarProfesor(){
 		$query="INSERT INTO `profesor`(`cedula`, `rol`, `primer_nombre`, 
 		`segundo_nombre`, `primer_apellido`, `segundo_apellido`, `direccion`, `telefono`, `telefono_fijo`, `contratacion`, `categoria`, `dedicacion`, `correo`, `titulo`, `oficio`, `disponibilidad`)
 		VALUES ('".$this->cedula."','".$this->rol."','".$this->primer_nombre."','".$this->segundo_nombre."','".$this->primer_apellido."','".$this->segundo_apellido."','".$this->direccion."','".$this->telefono."','".$this->telefono_fijo."','".$this->contratacion."','".$this->categoria."','".$this->dedicacion."','".$this->correo."','".$this->titulo."','".$this->oficio."', '0')";
+		return $this->execute($query);
+	}
+	function registrarHorario($cedula,$aula,$lapso,$bloque,$unidad,$carrera,$dia){
+		$codigo_a=$this->FindQuery('aula','nombre',$aula);
+		$codigo_m=$this->FindQuery('materia','nombre',$unidad);
+		$codigo_c=$this->FindQuery('carrera','nombre',$carrera);
+		$aula=$codigo_a[0];
+		$unidad=$codigo_m[0];
+		$carrera=$codigo_c[0];
+		$query="INSERT INTO `horario_docente` (`cedula_docente`,`codigo_aula`,`lapso_academico`,`bloque`, `unidad_curricular`,`carrera`,`dia`) VALUES ('$cedula','$aula','$lapso','$bloque','$unidad','$carrera','$dia')";
 		return $this->execute($query);
 	}
 	function registrarAdministrador($contrasena){
@@ -443,6 +472,10 @@ function GetFindQuery($tabla,$dato,$campo)
 	}
 	function DeleteTable($tabla, $campo, $dato) {
 		$query="DELETE FROM `$tabla` WHERE `$campo`='$dato'";
+		return $this->execute($query);
+	}
+	function DeleteTableHorario($cedula, $bloque, $dia) {
+		$query="DELETE FROM `horario_docente` WHERE `cedula_docente`='$cedula' AND `bloque`='$bloque' AND `dia`='$dia'";
 		return $this->execute($query);
 	}
 	function DeleteTableTwoWhere($tabla, $campo, $dato, $campo2, $dato2) {
