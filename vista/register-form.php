@@ -44,6 +44,7 @@
                         <label for="nombre_materia" id="labelnombre_materia">Nombre Materia</label><br>
                         <input type="text" id="nombre_materia" name="nombre_materia" onfocus="LabelAnimation('nombre_materia','labelnombre_materia')" onblur="LabelOut('nombre_materia','labelnombre_materia')" maxlength="30" class="input input-label">
                         <input type="checkbox" class="checkbox-edit checkbox-materia"   onclick="CheckboxDisabled('nombre_materia', this)" style='right:30px;'>
+                        <img src="css/img/add.png" class='dis' alt="" onclick="AddMateria('add')">
                     </div>
 
                     <div class="input-container">
@@ -52,7 +53,7 @@
                             <option value="0">Disciplinaria</option>
                             <option value="1">Multidisciplinaria</option>
                         </select>
-                        <img src="css/img/add.png" class='dis' alt="" onclick="AddMateria('add')">
+                        
                     </div>
                     <div class="input-container input-add dis" style='margin-top:30px;'>
                         <label for="materias_add" id="labelmaterias_add">Materias Añadidas</label><br>
@@ -320,7 +321,7 @@
                     <a class="a_img"><img src="css/img/close.png" alt="" class="close-icon" id="close-icon-profesor" onclick="Close()"></a>
                     <h2>Oferta Academica</h2>
                     <div class="input-container" id="input-carreras">
-                        <label for="lapso" id="labelapso">Trayecto</label><br>
+                        <label for="lapso" id="labelapso">Lapso</label><br>
                         <input type="text" id="lapso" name="lapso" onfocus="LabelAnimation('lapso','labelapso')" onblur="LabelOut('lapso','labelapso')" maxlength="30" class="input input-label principal_input" onkeyup="Search('lapso','lapso_drop')" autocomplete="off">
                         <input type="checkbox" class="checkbox-edit"  onclick="CheckboxDisabled('lapso', this)">
                         <div class="dropdown" id="lapso_drop">
@@ -337,7 +338,7 @@
                     <div class="input-container">
                         <label for="carrera" id="labelcar">Carreras</label><br>
                         <input type="text" id="carrera_oferta" name="carrera_oferta" onfocus="LabelAnimation('carrera_oferta','labelcar')" onblur="LabelOut('carrera_oferta','labelcar')" maxlength="30" class="input input-label input_added" onkeyup="Search('carrera_oferta','carreras_oferta_drop')" autocomplete="off">
-                        <input type="checkbox" class="checkbox-edit checkbox-lapso"  onclick="CheckboxDisabled('carrera_oferta', this,'active')">
+                        <input type="checkbox" class="checkbox-edit checkbox-lapso"  onclick="CheckboxDisabled('carrera_oferta', this)">
 
                         <div class="dropdown drop" id="carreras_oferta_drop">
    
@@ -354,12 +355,12 @@
                     <div class="input-container  input-add">
                         <label for="horas_semana" id="labelhoras_semana">Horas por semana</label><br>
                     <input type="text" id="horas_semana" name="horas_semana" onfocus="LabelAnimation('horas_semana','labelhoras_semana')" onblur="LabelOut('horas_semana','labelhoras_semana')" maxlength="30" class="input input-label input_add" autocomplete="off">
-                        <input type="checkbox" class="checkbox-edit checkbox-add"  onclick="CheckboxDisabled('horas_semana', this, 'active')">
+                        <input type="checkbox" class="checkbox-edit checkbox-add"  onclick="CheckboxDisabled('horas_semana', this)">
                     </div>
                     <div class="input-container  input-add">
                         <label for="unidad_credito" id="labelunidad_credito">Unidad de credito</label><br>
                     <input type="text" id="unidad_credito" name="unidad_credito" onfocus="LabelAnimation('unidad_credito','labelunidad_credito')" onblur="LabelOut('unidad_credito','labelunidad_credito')" maxlength="30" class="input input-label input_add" autocomplete="off">
-                        <input type="checkbox" class="checkbox-edit checkbox-add"  onclick="CheckboxDisabled('unidad_credito', this, 'active')">
+                        <input type="checkbox" class="checkbox-edit checkbox-add"  onclick="CheckboxDisabled('unidad_credito', this)">
                     </div>
                    
                     <!--

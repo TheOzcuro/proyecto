@@ -2,6 +2,9 @@ var valores=[];
 var span_array=[];
 function ActiveModificar(fila,container) {
     if (container=="pensum-container") {
+        ValideAddMateria=0;
+        ValideDelMateria=0;
+        add_array=0;
         filas=document.querySelectorAll(fila);
         ActiveModificarMateria(filas[1].innerText+" **");
     }

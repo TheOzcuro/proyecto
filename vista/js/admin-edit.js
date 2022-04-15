@@ -148,11 +148,15 @@ function SaveMaterias() {
      if (span.length!=add_array) {
          ValideSpan=true;
      }
-     console.log(add_array)
-     if (ValideCarrera && ValideSpan) {
+     console.log(add_array);
+     console.log(span.length);
+     console.log(ValideSpan);
+     console.log(ValideAddMateria);
+     console.log(ValideDelMateria);
+     if (ValideCarrera && ValideSpan && ValideAddMateria>0 || ValideDelMateria>0) {
         form.querySelector(".input-update").value=carrera_id;
         form.querySelector(".input-url").value=container_url+"-grid";
-        form.submit();
+        //form.submit();
      }
      else {
          Error("Tiene que hacer algun cambio si desea guardar", "msg_error", "p_error");

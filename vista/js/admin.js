@@ -14,6 +14,8 @@ var ant_value_dis="";
 let dias_main=[];
 let activehorario="";
 let valideBloque=0;
+let ValideAddMateria=0;
+let ValideDelMateria=0;
 // ----------------------------------VARIABLES---------------------------------
 
 
@@ -503,6 +505,8 @@ function DeleteAllBloques(bloques_add, bloques_input) {
 function CreateMaterias(value) {
     OnLoad('active');
     if (container_url=="pensum-container" || container_url=="pensum-historial") {
+        ValideDelMateria=0;
+        ValideAddMateria=0;
         nombre_add=document.getElementById('materias_add');
         drop_main=document.getElementById('carreras_drop');
         drop=document.getElementById('materias_add_drop');
@@ -560,7 +564,7 @@ function CreateMaterias(value) {
                     span_add.onclick=function () {AddValueMateria(nombre_add.id, this)}
                     span_add.id=materiasArray[index];
                     nombre_add.value=materiasArray[index+1];
-                    drop_main_unidad.querySelector('#'+materiasArray[index]).hidden=true;
+                    drop_main_unidad.querySelector("[id='"+materiasArray[index]+"']").hidden=true;
                     drop.appendChild(span_add);
                 }
 
@@ -784,7 +788,7 @@ function AddAndRemove(div,div_add,input,input_add, type, container) {
                     else {
                         container.querySelector("#del").value=span[index].getAttribute('id');
                     }
-                    div_add.querySelector("#"+span[index].id).hidden=false;
+                    div_add.querySelector("[id='"+span[index].id+"']").hidden=false;
                     span[index].remove();
                     input.value="";                    
                 }
@@ -890,7 +894,6 @@ function AddMateria(modo) {
     if (modo=="add") {
         if (carrera.value!="" && codigo.value!="" && nombre.value!="" && tipo.value==0 && tipo.value!="") {
             let valide=true;
-           
             for (let index = 0; index < span.length; index++) {
                 array=span[index].id.split("/");
                 nombre_span=span[index].innerText.split('/');
@@ -913,12 +916,13 @@ function AddMateria(modo) {
                 }
 
                 LabelInput()
+                ValideAddMateria=ValideAddMateria+1;
                 codigo.value="";
                 nombre.value="";
-                tipo.value="";
                 nombre_add.style.borderColor="rgb(32, 190, 109)";
                 setTimeout(() => {
                 nombre_add.style.borderColor="";
+                
                 }, 800);
             }
             else {
@@ -941,9 +945,10 @@ function AddMateria(modo) {
                 else {
                     del.value=array[0];
                 }
+                console.log(del.value);
                 add_array=span_update.length-2;
-                del.value=array[0];
                 nombre_add.value=""
+                ValideDelMateria=ValideDelMateria+1;
                 span[index].remove();
                 nombre_add.style.borderColor="rgb(32, 190, 109)";
                 setTimeout(() => {

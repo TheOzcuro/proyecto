@@ -88,7 +88,7 @@ else if (isset($_POST["update"]) && $_POST["update"]!="") {
                 }
             }
             if ($_POST["del"]!="") {
-                for ($i=0; $i < count($del); $i=$i+3) { 
+                for ($i=0; $i < count($del); $i++) { 
                     $ejecutar->DeleteTable("pensum","unidad_curricular",$del[$i]);
                     $ejecutar->DeleteTable("materia","codigo",$del[$i]);
                 }
