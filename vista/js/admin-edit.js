@@ -156,7 +156,7 @@ function SaveMaterias() {
      if (ValideCarrera && ValideSpan && ValideAddMateria>0 || ValideDelMateria>0) {
         form.querySelector(".input-update").value=carrera_id;
         form.querySelector(".input-url").value=container_url+"-grid";
-        //form.submit();
+        form.submit();
      }
      else {
          Error("Tiene que hacer algun cambio si desea guardar", "msg_error", "p_error");
@@ -275,6 +275,8 @@ function SaveDisponibilidad() {
      }
 }
 function Delete(form,valor) {
+    console.log(form);
+    console.log(document.querySelector(form))
         if (valores!="" && form!="#unidad") {
             document.querySelector(form).querySelector(".input-delete").value=valores[0];
         }
@@ -456,6 +458,7 @@ function UnDisplayHorario(){
     document.querySelector(".blackcover").style.display='none';
 }
 function DisplayDelete(display,div,form,valor) {
+        console.log(form)
         document.querySelector(".blackcover").addEventListener("click", function(){
             DisplayDelete("none",div,form)})
             var input=document.querySelector(div).querySelector("input");

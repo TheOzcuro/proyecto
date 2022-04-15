@@ -211,7 +211,7 @@ function CreateTable($table,$campo,$dato) {
       
       print_r("<img class='img-historial' src='css/img/edit.png' onclick='ActiveModificar(`.f-".$index."`,`$table-container`)' title='Editar Datos' style='width:30px;height:30px;cursor:pointer;margin-top:10px;margin-left:10px;'>");
       if ($table=="pensum") {
-        echo "<img class='img-historial' src='css/img/borrar.png' onclick='DisplayDelete(`block`,`.delete-window`,`#$table`,`".$lista[$index][1]."`)'title='Borrar Datos' style='width:30px;height:30px;cursor:pointer;margin-top:10px;margin-left:10px;'>";
+        echo "<img class='img-historial' src='css/img/borrar.png' onclick='DisplayDelete(`block`,`.delete-window`,`#materia`,`".$lista[$index][1]."`)'title='Borrar Datos' style='width:30px;height:30px;cursor:pointer;margin-top:10px;margin-left:10px;'>";
       }
       else if ($table=="oferta") {
         echo "<img class='img-historial' src='css/img/borrar.png' onclick='DisplayDelete(`block`,`.delete-window`,`#$table`,`".$lista[$index][2]."`)' title='Borrar Datos' style='width:30px;height:30px;cursor:pointer;margin-top:10px;margin-left:10px;'>";
