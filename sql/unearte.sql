@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 06-04-2022 a las 21:33:55
+-- Tiempo de generación: 15-04-2022 a las 19:54:57
 -- Versión del servidor: 8.0.21
 -- Versión de PHP: 7.3.21
 
@@ -36,14 +36,15 @@ CREATE TABLE IF NOT EXISTS `administrador` (
   `contrasena` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   PRIMARY KEY (`codigo`),
   UNIQUE KEY `cedula` (`cedula`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `administrador`
 --
 
 INSERT INTO `administrador` (`codigo`, `cedula`, `contrasena`) VALUES
-(1, 9372683, '152560loco');
+(1, 9372683, '152560loco'),
+(9, 16541564, '');
 
 -- --------------------------------------------------------
 
@@ -82,26 +83,46 @@ CREATE TABLE IF NOT EXISTS `bloque_disponibilidad` (
   `dia` int NOT NULL,
   `disponibilidad` int NOT NULL,
   PRIMARY KEY (`codigo`)
-) ENGINE=MyISAM AUTO_INCREMENT=236 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=847 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `bloque_disponibilidad`
 --
 
 INSERT INTO `bloque_disponibilidad` (`codigo`, `cedula`, `bloque`, `dia`, `disponibilidad`) VALUES
-(223, 9372683, 'B4', 3, 1),
-(222, 9372683, 'B3', 3, 1),
-(221, 9372683, 'B2', 3, 1),
-(235, 11716900, 'B4', 1, 1),
-(234, 11716900, 'B3', 1, 1),
-(233, 11716900, 'B2', 1, 1),
-(232, 11716900, 'B1', 1, 1),
-(220, 9372683, 'B1', 3, 1),
-(219, 9372683, 'B5', 1, 1),
-(218, 9372683, 'B4', 1, 1),
-(217, 9372683, 'B3', 1, 1),
-(216, 9372683, 'B2', 1, 1),
-(215, 9372683, 'B1', 1, 1);
+(846, 11716900, 'B3', 2, 1),
+(845, 11716900, 'B2', 2, 1),
+(844, 11716900, 'B1', 2, 1),
+(399, 27414575, 'B1', 2, 1),
+(398, 27414575, 'B5', 1, 1),
+(397, 27414575, 'B4', 1, 1),
+(843, 11716900, 'B4', 1, 1),
+(842, 11716900, 'B3', 1, 1),
+(841, 11716900, 'B2', 1, 1),
+(840, 11716900, 'B1', 1, 1),
+(396, 27414575, 'B2', 1, 1),
+(395, 27414575, 'B1', 1, 1),
+(637, 9372683, 'B10', 1, 1),
+(636, 9372683, 'B9', 1, 1),
+(635, 9372683, 'B7', 1, 1),
+(634, 9372683, 'B6', 1, 1),
+(633, 9372683, 'B5', 1, 1),
+(632, 9372683, 'B4', 1, 1),
+(631, 9372683, 'B3', 1, 1),
+(630, 9372683, 'B2', 1, 1),
+(629, 9372683, 'B1', 1, 1),
+(400, 27414575, 'B2', 2, 1),
+(401, 27414575, 'B3', 2, 1),
+(402, 27414575, 'B4', 2, 1),
+(403, 27414575, 'B5', 2, 1),
+(638, 9372683, 'B11', 1, 1),
+(729, 121221, 'B13', 1, 1),
+(728, 121221, 'B12', 1, 1),
+(727, 121221, 'B11', 1, 1),
+(726, 121221, 'B4', 1, 1),
+(725, 121221, 'B3', 1, 1),
+(724, 121221, 'B2', 1, 1),
+(723, 121221, 'B1', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -208,14 +229,22 @@ INSERT INTO `dias_semana` (`codigo`, `dias`) VALUES
 DROP TABLE IF EXISTS `horario_docente`;
 CREATE TABLE IF NOT EXISTS `horario_docente` (
   `codigo` int NOT NULL AUTO_INCREMENT,
-  `cedula_docente` int NOT NULL,
+  `cedula_docente` bigint NOT NULL,
   `codigo_aula` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
   `lapso_academico` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
   `bloque` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
   `unidad_curricular` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
+  `carrera` varchar(40) COLLATE utf8_spanish_ci NOT NULL,
   `dia` int NOT NULL,
   PRIMARY KEY (`codigo`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=31 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `horario_docente`
+--
+
+INSERT INTO `horario_docente` (`codigo`, `cedula_docente`, `codigo_aula`, `lapso_academico`, `bloque`, `unidad_curricular`, `carrera`, `dia`) VALUES
+(30, 11716900, '914914d', '1100', 'B2', 'CANSAO', '1515', 2);
 
 -- --------------------------------------------------------
 
@@ -263,7 +292,9 @@ INSERT INTO `materia` (`codigo`, `nombre`, `tipo`) VALUES
 ('FISICA02', 'FISICA', '0'),
 ('45-20', 'HOLA', '1'),
 ('PERRO', 'PERRA', '0'),
-('CANSAO', 'CONFIRMO', '1');
+('ALEX', 'TE AMO', '0'),
+('CANSAO', 'CONFIRMO', '1'),
+('DIB', 'CIENCIA DEL DIBUJO', '0');
 
 -- --------------------------------------------------------
 
@@ -288,9 +319,7 @@ CREATE TABLE IF NOT EXISTS `oferta` (
 
 INSERT INTO `oferta` (`codigo`, `lapso_academico`, `pnf`, `horas_semanales`, `creditos`) VALUES
 (49, '1100', '1515', 15, 15),
-(51, '90', '2121', 15, 30),
-(52, '9000', '102', 46, 50),
-(53, '90', '70', 56, 10);
+(51, '1100', '2121', 15, 30);
 
 -- --------------------------------------------------------
 
@@ -304,13 +333,15 @@ CREATE TABLE IF NOT EXISTS `pensum` (
   `pnf` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
   `unidad_curricular` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
   PRIMARY KEY (`codigo`)
-) ENGINE=MyISAM AUTO_INCREMENT=359 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=362 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `pensum`
 --
 
 INSERT INTO `pensum` (`codigo`, `pnf`, `unidad_curricular`) VALUES
+(361, '102', 'DIB'),
+(360, '1515', 'ALEX'),
 (354, '2121', 'FISICA02'),
 (350, '2121', 'CANSAO'),
 (357, '1515', 'CANSAO'),
@@ -325,7 +356,7 @@ INSERT INTO `pensum` (`codigo`, `pnf`, `unidad_curricular`) VALUES
 
 DROP TABLE IF EXISTS `profesor`;
 CREATE TABLE IF NOT EXISTS `profesor` (
-  `cedula` int NOT NULL,
+  `cedula` bigint NOT NULL,
   `primer_nombre` varchar(60) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `segundo_nombre` varchar(60) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `primer_apellido` varchar(60) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
@@ -351,7 +382,9 @@ CREATE TABLE IF NOT EXISTS `profesor` (
 INSERT INTO `profesor` (`cedula`, `primer_nombre`, `segundo_nombre`, `primer_apellido`, `segundo_apellido`, `contratacion`, `categoria`, `dedicacion`, `direccion`, `telefono`, `telefono_fijo`, `correo`, `titulo`, `oficio`, `rol`, `disponibilidad`) VALUES
 (9372683, 'NIRETCIA', 'INMACULADA', 'RAMIREZ', 'VALERO', 3, 5, 1, 'CAMBURITO', '04147965415', '02556659105', 'perro@gmail.com', 'BACHILLER', 'MUSICO', '1', 1),
 (11716900, 'JONATHAN', 'SEXO', 'RAMIREZ', '', 2, 3, 3, 'URB CAMBURITO, CALLE 7, CASA 7-24', '04167577138', '0255669105', 'jonathan@gmail.com', 'MASTER EN SEXO', 'PLANIFICADOR DE ORGIAS', '0', 1),
-(27414575, 'MARTIN', 'PEREZ', 'ROJAS', 'PASTOR', 1, 6, 3, 'EN LAS PALMAS', '04125719342', '02314242113', 'sexo@gmail.com', 'ESCUELA PRIMARIA', 'DAR MAMADAS', '0', 0);
+(27414575, 'MARTIN', 'PEREZ', 'ROJAS', 'PASTOR', 1, 6, 3, 'EN LAS PALMAS', '04125719342', '02314242113', 'sexo@gmail.com', 'ESCUELA PRIMARIA', 'DAR MAMADAS', '0', 1),
+(121221, 'ADSADASD', '', 'DADASDSAD', '', 1, 1, 1, 'DSADASDSADSADSAADSADSADDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD', '01211545616', '', 'culo@gmail.com', 'DSADASDSAD', 'DSADSADASDSA', '0', 1),
+(16541564, 'ADSADASDAS', 'DSADADSAD', 'ADSADADSA', 'DSADSADSA', 1, 5, 1, 'DSADSADSADSA', '156165131', '1561654', 'dasdasdsa@gmail.com', 'DSADASDSA', 'DSADASDAS', '1', 0);
 
 -- --------------------------------------------------------
 
@@ -371,7 +404,7 @@ CREATE TABLE IF NOT EXISTS `tcontratacion` (
 --
 
 INSERT INTO `tcontratacion` (`codigo`, `tcontratacion`) VALUES
-(1, 'Tiempo Inderteminado'),
+(1, 'Tiempo Indeterminado'),
 (2, 'Tiempo Determinado'),
 (3, 'Ordinario');
 COMMIT;

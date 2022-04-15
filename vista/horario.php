@@ -104,6 +104,12 @@
     echo "";
     ?>
 </div>
+<?php
+    if (isset($_SESSION["find_horario"]) && count($_SESSION["find_horario"])>0) {
+        echo "<img class='img-horario' src='css/img/borrar.png' onclick='DisplayDelete(`block`,`.delete-window`,`#horario`,`".$_SESSION["disponibilidad_profesor"][0][0]."`)'title='Borrar Datos' style='width:60px;height:60px;cursor:pointer;position:absolute;left:450px;top:870px;'>";
+    }
+ 
+?>
 <button type="button" class='button_horario' onclick='SubmitHorario()'>Guardar</button>
 <button onClick='window.location.reload();' class='button_horario cancel_horario' style='left:717px;'>Volver</button>
 </div>

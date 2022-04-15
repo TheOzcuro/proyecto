@@ -15,6 +15,11 @@ if (isset($_POST["cedula_horario"]) && $_POST["cedula_horario"]!="") {
     }
     header("Location:../vista/administrador.php#$url");
 }
+else if (isset($_POST["delete"]) && $_POST["delete"]!=""){
+    $ejecutar->DeleteTable('horario_docente', 'cedula_docente',$_POST["delete"]);
+    $_SESSION["completado"]="Los datos fueron eliminados correctamente";
+    header("Location:../vista/administrador.php#$url");
+}
 else if (isset($_POST["carrera_horario"]) && $_POST["carrera_horario"]!="") {
    echo json_encode([$ejecutar->GetMateriasPensumWithPNF($_POST["carrera_horario"]),$ejecutar->GetAulasHorario($_POST["bloque"],$_POST['dia'],$_POST['lapso'])]);
 }
@@ -33,4 +38,5 @@ else if (isset($_POST["input_horario"]) && $_POST["input_horario"]!="") {
      $_SESSION["find_horario"]=$ejecutar->GetHorario($_POST["input_horario"][0],$_POST["input_horario"][1]);
      header("Location:../vista/administrador.php#$url");
 }
+
 ?>

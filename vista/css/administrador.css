@@ -330,7 +330,8 @@ a:hover > .borderline {
 }
 
 #oferta-container {
-  max-width: 300px;
+  grid-template-columns: 100px 100px;
+  max-width: 400px;
   padding-left: 40px;
   padding-right: 40px;
   /*.checkbox-lapso */
@@ -377,7 +378,6 @@ a:hover > .borderline {
 
 .container-flex {
   display: none;
-  grid-template-rows: repeat(4, 70px);
   grid-template-rows: 20px;
   grid-gap: 30px 5px;
   background: rgb(250, 250, 250);

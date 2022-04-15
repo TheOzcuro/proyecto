@@ -103,7 +103,7 @@ class registry extends mybsd {
 	}
 	function GetCarrerasNotInOferta() {
 		$query="SELECT carrera.codigo, carrera.nombre FROM carrera
-		WHERE carrera.codigo NOT IN (SELECT oferta.pnf FROM oferta)";
+		WHERE carrera.codigo NOT IN (SELECT oferta.pnf FROM oferta) AND carrera.codigo IN (SELECT pensum.pnf FROM pensum)";
 		return $this->ListAll($this->execute($query), MYSQLI_NUM);
 	}
 	
