@@ -482,6 +482,10 @@ function ActiveDisponibilidad(cedula,nombre,apellido,contratacion,tipo) {
 function AddAllBloques(bloques_add, bloques_input) {
     bloques_add=document.getElementById(bloques_add).querySelectorAll("span");
     bloques_input=document.getElementById(bloques_input);
+    span_bloques=bloques_input.querySelectorAll('span');
+    for (let index = 0; index < span_bloques.length; index++) {
+        span_bloques[index].remove();
+    }
     input=bloques_input.getAttribute('value');
     for (let index = 0; index < bloques_add.length; index++) {
        let span_add=document.createElement('span');
