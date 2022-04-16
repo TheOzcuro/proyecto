@@ -383,7 +383,7 @@
                     <h2>Disponibilidad</h2>
                     <div class="input-container">
                         <label for="cedula_dis" id="labelcedula_dis">Cedula</label><br>
-                        <input type="text" id="cedula_dis" name="cedula_dis" onfocus="LabelAnimation('cedula_dis','labelcedula_dis')" onblur="LabelOut('cedula_dis','labelcedula_dis')" maxlength="11" class="input input-label" onkeyup="Search('cedula_dis','disponibilidad_drop')">
+                        <input type="text" id="cedula_dis" name="cedula_dis" onfocus="LabelAnimation('cedula_dis','labelcedula_dis')" onblur="LabelOut('cedula_dis','labelcedula_dis')" maxlength="11" class="input input-label" onkeyup="Search('cedula_dis','disponibilidad_drop')" autocomplete='off'>
                         <input type="checkbox" class="checkbox-edit checkbox-materia"  onclick="CheckboxDisabled('codigo_carrera', this)" >
                         <div class="dropdown" id="disponibilidad_drop">
                         <?php 
@@ -634,7 +634,7 @@
                     </div>
                     <div class="input-container input-bloques" style='grid-column: span 3/;'>
                         <label for="bloques_add_5" id="labelbloques_add_5">Bloques Añadidos</label><br>
-                    <input type="text" id="bloques_add_5" name="bloques_add" onfocus="LabelAnimation('bloques_add_5','labelbloques_add_5')" onblur="LabelOut('bloques_add_5','labelbloques_add_5')" maxlength="30" class="input-label input_add" onkeyup="Search('bloques_add_5','bloques_add_drop_5')" autocomplete="off">
+                    <input type="text" id="bloques_add_5" name="bloques_add_5" onfocus="LabelAnimation('bloques_add_5','labelbloques_add_5')" onblur="LabelOut('bloques_add_5','labelbloques_add_5')" maxlength="30" class="input-label input_add" onkeyup="Search('bloques_add_5','bloques_add_drop_5')" autocomplete="off">
                     
                         <img src="css/img/menos.png" alt="" onclick="AddAndRemove('bloques_add_drop_5','bloques_drop_5','bloques_add_5','bloques_5','del', 'disponibilidad-container')">
                         <input type="text" id="add" name="add" class='input' hidden>
@@ -658,7 +658,7 @@
                     <h2>Crear</h2>
                     <div class="input-container">
                         <label for="cedula_horario" id="labelcedula_horario">Cedula</label><br>
-                        <input type="text" id="cedula_horario" name="cedula_horario" onfocus="LabelAnimation('cedula_horario','labelcedula_horario')" onblur="LabelOut('cedula_horario','labelcedula_horario')" maxlength="11" class="input input-label" maxlength="15"  onkeyup="Search('cedula_horario','horario_drop')">
+                        <input type="text" id="cedula_horario" name="cedula_horario" onfocus="LabelAnimation('cedula_horario','labelcedula_horario')" onblur="LabelOut('cedula_horario','labelcedula_horario')" maxlength="11" class="input input-label" maxlength="15"  onkeyup="Search('cedula_horario','horario_drop')" autocomplete='off'>
                         <div class="dropdown drop_main" id="horario_drop">
                             <?php 
                              $list=[];

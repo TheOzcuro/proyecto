@@ -42,7 +42,7 @@ else if (isset($_POST["update"]) && $_POST["update"]!=""){
             $array=explode(",",$_POST["bloques_add_1"]);
             sort($array, SORT_NATURAL);
             for ($i=0; $i < count($array); $i++) { 
-               $ejecutar->registrarDisponibilidad($_POST["cedula_dis"], $array[$i],$_POST["dias_1"],1);
+               $ejecutar->registrarDisponibilidad($_POST["update"], $array[$i],$_POST["dias_1"],1);
             }
 
         }
@@ -50,44 +50,39 @@ else if (isset($_POST["update"]) && $_POST["update"]!=""){
             $array=explode(",",$_POST["bloques_add_2"]);
             sort($array, SORT_NATURAL);
             for ($i=0; $i < count($array); $i++) { 
-                $ejecutar->registrarDisponibilidad($_POST["cedula_dis"], $array[$i],$_POST["dias_2"],1);
+                $ejecutar->registrarDisponibilidad($_POST["update"], $array[$i],$_POST["dias_2"],1);
              }
         }
         if ($_POST['bloques_add_3']!="" && $_POST['dias_3']!="") {
             $array=explode(",",$_POST["bloques_add_3"]);
             sort($array, SORT_NATURAL);
             for ($i=0; $i < count($array); $i++) { 
-                $ejecutar->registrarDisponibilidad($_POST["cedula_dis"], $array[$i],$_POST["dias_3"],1);
+                $ejecutar->registrarDisponibilidad($_POST["update"], $array[$i],$_POST["dias_3"],1);
              }
         }
         if ($_POST['bloques_add_4']!="" && $_POST['dias_4']!="") {
             $array=explode(",",$_POST["bloques_add_4"]);
             sort($array, SORT_NATURAL);
             for ($i=0; $i < count($array); $i++) { 
-                $ejecutar->registrarDisponibilidad($_POST["cedula_dis"], $array[$i],$_POST["dias_4"],1);
+                $ejecutar->registrarDisponibilidad($_POST["update"], $array[$i],$_POST["dias_4"],1);
              }
         }
         if ($_POST['bloques_add_5']!="" && $_POST['dias_5']!="") {
             $array=explode(",",$_POST["bloques_add_5"]);
             sort($array, SORT_NATURAL);
             for ($i=0; $i < count($array); $i++) { 
-                $ejecutar->registrarDisponibilidad($_POST["cedula_dis"], $array[$i],$_POST["dias_5"],1);
+                $ejecutar->registrarDisponibilidad($_POST["update"], $array[$i],$_POST["dias_5"],1);
              }
         }
         $valida=$ejecutar->FindQuery('bloque_disponibilidad','cedula',$_POST['update']);
         if ($valida==2) {
-            $ejecutar->UpdateDisponibilidad($_POST["cedula_dis"], 0);
+            $ejecutar->UpdateDisponibilidad($_POST["update"], 0);
         }
         if ($horario!=2) {
             
             for ($i=0; $i < count($disponibilidad); $i++) {
                 $verifyhorario=$ejecutar->GetFindHorario($_POST['update'],$disponibilidad[$i][2],$disponibilidad[$i][3]);
                 if (count($verifyhorario)==0) {
-                    print_r($disponibilidad[$i][2]);
-                    echo "<br>";
-                    print_r($disponibilidad[$i][3]);
-                    echo "<br>";
-
                     $ejecutar->DeleteTableHorario($_POST['update'],$disponibilidad[$i][2],$disponibilidad[$i][3]);
                 }
             }
@@ -105,6 +100,7 @@ else if (isset($_POST["delete"]) && $_POST["delete"]!=""){
 }
 else {
     $valida=$ejecutar->FindQuery('profesor','cedula',$_POST['cedula_dis']);
+    echo $valida[1]." ".$valida[3];
     $validate=$ejecutar->FindQuery('bloque_disponibilidad','cedula',$_POST['cedula_dis']);
     if ($validate!==2) {
         header("Location:../vista/administrador.php#$url");
@@ -143,6 +139,7 @@ else {
                 $ejecutar->registrarDisponibilidad($_POST["cedula_dis"], $array[$i],$_POST["dias_4"],1);
              }
         }
+        echo $_POST['bloques_add_5'];
         if ($_POST['bloques_add_5']!="") {
             $array=explode(",",$_POST["bloques_add_5"]);
             sort($array, SORT_NATURAL);
@@ -152,7 +149,7 @@ else {
         }
         $ejecutar->UpdateDisponibilidad($_POST["cedula_dis"], 1);
         header("Location:../vista/administrador.php#$url");
-        $_SESSION["completado"]="Se creo correctamente la disponibilidad del profesor ".$_POST["nombre_dis"];
+        $_SESSION["completado"]="Se creo correctamente la disponibilidad del profesor ".$valida[1]." ".$valida[3];
     }
 }
 
