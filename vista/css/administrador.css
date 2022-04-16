@@ -405,6 +405,9 @@ a:hover > .borderline {
 .container-flex h2 {
   margin-top: -10px;
 }
+.container-flex .checkbox-edit {
+  top: 25px;
+}
 
 .find_inputs select {
   margin-bottom: 10px;

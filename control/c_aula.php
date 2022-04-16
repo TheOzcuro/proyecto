@@ -15,7 +15,7 @@ if (isset($_POST["buscar_aula"]) && $_POST["buscar_aula"]!="") {
         header("Location:../vista/administrador.php#aula-container-grid");
      }
 }
-if (isset($_GET["buscar_aula"]) && $_GET["buscar_aula"]!="") {
+else if (isset($_GET["buscar_aula"]) && $_GET["buscar_aula"]!="") {
     $validate=$ejecutar->FindQuery("aula","codigo", $_GET["buscar_aula"]);
     if ($validate===2) {
        $_SESSION["error"]="El codigo que ingreso no existe";
