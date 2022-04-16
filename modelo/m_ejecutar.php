@@ -98,7 +98,7 @@ class registry extends mybsd {
 	}
 	function GetCarrerasOferta($busca) {
 		$query="SELECT carrera.codigo, carrera.nombre FROM carrera
-		WHERE carrera.codigo IN (SELECT oferta.pnf FROM oferta WHERE oferta.lapso_academico=$busca)";
+		WHERE carrera.codigo IN (SELECT oferta.pnf FROM oferta WHERE oferta.lapso_academico='$busca')";
 		return $this->ListAll($this->execute($query), MYSQLI_NUM);
 	}
 	function GetCarrerasNotInOferta() {
@@ -124,7 +124,7 @@ class registry extends mybsd {
 		return $this->ListAll($this->execute($query), MYSQLI_NUM);
 	}
 	function GetHorario($busca,$lapso) {
-		$query="SELECT horario_docente.cedula_docente, aula.nombre, horario_docente.lapso_academico, horario_docente.bloque, materia.nombre, carrera.nombre, horario_docente.dia FROM horario_docente, carrera, materia, aula WHERE carrera.codigo=horario_docente.carrera AND materia.codigo=horario_docente.unidad_curricular AND horario_docente.codigo_aula=aula.codigo AND horario_docente.cedula_docente=$busca AND horario_docente.lapso_academico=$lapso ORDER BY horario_docente.codigo";
+		$query="SELECT horario_docente.cedula_docente, aula.nombre, horario_docente.lapso_academico, horario_docente.bloque, materia.nombre, carrera.nombre, horario_docente.dia FROM horario_docente, carrera, materia, aula WHERE carrera.codigo=horario_docente.carrera AND materia.codigo=horario_docente.unidad_curricular AND horario_docente.codigo_aula=aula.codigo AND horario_docente.cedula_docente='$busca' AND horario_docente.lapso_academico='$lapso' ORDER BY horario_docente.codigo";
 		return $this->ListAll($this->execute($query), MYSQLI_NUM);
 	}
 	function GetDisponibilidad($busca) {

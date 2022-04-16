@@ -313,7 +313,6 @@ function Modificar(container,display,valores) {
         }
          div_edit=document.getElementById(container);
          AppearsAndDissapear(div_edit.id,display)
-         div_edit.querySelector("h2").innerHTML="Editar Datos";
          div_edit.querySelector(".close-icon").style.display="block";
         //---Hacer aparecer los botones correspondientes
         button=div_edit.querySelectorAll("button");
