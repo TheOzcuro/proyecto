@@ -15,7 +15,7 @@ if (isset($_POST["cedula_horario"]) && $_POST["cedula_horario"]!="") {
     $_SESSION["lapso"]=$_POST["lapso_horario"];
     $_SESSION["carreras_horario"]=$ejecutar->GetCarrerasOferta($_POST["lapso_horario"]);
     if (count($_SESSION["carreras_horario"])==0) {
-        $_SESSION["error"]="El lapso que ingreso no existe";
+        $_SESSION["error"]="El lapso que ingreso no existe o no tiene carreras agregadas";
         unset($_SESSION["lista_disponibilidad"]);
         header("Location:../vista/administrador.php#$url");
     }

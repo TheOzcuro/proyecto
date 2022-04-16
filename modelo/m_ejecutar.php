@@ -218,6 +218,10 @@ class registry extends mybsd {
 				$query="SELECT oferta.codigo, oferta.lapso_academico, carrera.nombre, oferta.horas_semanales, oferta.creditos FROM oferta, carrera WHERE oferta.pnf=carrera.codigo AND carrera.nombre LIKE '%$dato%'";
 				return $this->ListAll($this->execute($query), MYSQLI_NUM);
 			}
+			if ($campo=="HORAS_SEMANALES" || $campo=="CREDITOS" || $campo=="horas_semanales" || $campo=="creditos") {
+				$query="SELECT oferta.codigo, oferta.lapso_academico, carrera.nombre, oferta.horas_semanales, oferta.creditos FROM oferta, carrera WHERE oferta.pnf=carrera.codigo AND `$campo`='$dato'";
+				return $this->ListAll($this->execute($query), MYSQLI_NUM);
+			}
 			else {
 				$query="SELECT oferta.codigo, oferta.lapso_academico, carrera.nombre, oferta.horas_semanales, oferta.creditos FROM oferta, carrera WHERE oferta.pnf=carrera.codigo AND `$campo` LIKE '%$dato%'";
 				return $this->ListAll($this->execute($query), MYSQLI_NUM);
@@ -230,6 +234,7 @@ function GetFindQuery($tabla,$dato,$campo)
 	{
 		$query="SELECT * FROM `$tabla` WHERE `$campo` LIKE '%$dato%'";
 		return $this->ListAll($this->execute($query), MYSQLI_NUM);
+		
 	}
 	function GetFindHorario($cedula,$bloque,$dia)
 	{

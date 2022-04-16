@@ -265,7 +265,8 @@ function SubmitDisponibilidad(active) {
     for (let index = 0; index < select.length; index++) {
         id_drop=select[index].getAttribute('value');
         block=document.getElementById(id_drop).querySelectorAll('span');
-        if (select[index]=="" && block.length>0) {
+       
+        if (select[index].value=="" && block.length>0) {
             valideSelect=false;
             select[index].style.borderColor='red';
             break

@@ -25,6 +25,7 @@ function CreateTable($table,$campo,$dato) {
  
   //Datos de las columnas de las tabla
   $lista=History($table,$campo,$dato);
+  print_r($lista);
   //Desde donde empezara a contar
   $index=0;
   //El numero total de columnas mas el boton de modificar y eliminar
