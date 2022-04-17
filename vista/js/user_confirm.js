@@ -42,7 +42,7 @@ function MateriaConfirm(codigo,nombre){
     .then(function(response) {
        if(response=="si"){
             localStorage.setItem('respuesta',"si");
-           Error("El codigo de la materia '"+nombre+"' que intenta agregar ya existe","msg_error","p_error")
+           
            return response
        }
     })

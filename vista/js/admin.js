@@ -881,7 +881,7 @@ function SelectMateria() {
         }
     }
 }
-function AddMateria(modo) {
+async function AddMateria(modo) {
     OnLoad('active');
     var span_add=document.createElement("span");
         carrera=document.getElementById("carreras");
@@ -908,7 +908,7 @@ function AddMateria(modo) {
                 }
             }
            
-           let valueconfirm=MateriaConfirm(codigo.value,nombre.value).then(response=>response)
+           let valueconfirm=await MateriaConfirm(codigo.value,nombre.value).then(response=>response)
            console.log(valueconfirm);
            window.localStorage.removeItem('respuesta');
             if (valide && valueconfirm!="si") {
@@ -935,8 +935,13 @@ function AddMateria(modo) {
                 }, 800);
             }
             else {
-                
-                Error("La materia que esta intentando agregar ya existe",'msg_error','p_error')
+                if (valueconfirm=="si") {
+                    Error("El codigo de la materia '"+nombre.value+"' que intenta agregar ya existe","msg_error","p_error");
+                }
+                else {
+                    Error("La materia que esta intentando agregar ya existe",'msg_error','p_error');
+                }
+               
             }
            
         }
