@@ -1,3 +1,4 @@
+let resp="no";
 function userConfirm(){
     var cedula = document.querySelector("#cedula");
     const data = new FormData();
@@ -23,6 +24,31 @@ function userConfirm(){
      .catch(function(err) {
         console.log(err);
      });
+}
+function MateriaConfirm(codigo,nombre){
+   const data = new FormData();
+   data.append("codigo_confirm",codigo);
+   data.append("nombre_confirm",nombre);
+   data.append("url","paraEvitarError")
+   return fetch('../control/c_materia.php', {
+       method: 'POST',
+       body: data
+    })
+    .then(function(response) {
+       if(response.ok) {
+        return response.text()
+       } 
+    })
+    .then(function(response) {
+       if(response=="si"){
+            localStorage.setItem('respuesta',"si");
+           Error("El codigo de la materia '"+nombre+"' que intenta agregar ya existe","msg_error","p_error")
+           return response
+       }
+    })
+    .catch(function(err) {
+       console.log(err);
+    });
 }
 function GetMateriasHorario(input, span, bloque, dia,  label, input_materias, drop_materias, input_aula, drop_aulas, lapso){
    if (span!="") {

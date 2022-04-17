@@ -151,7 +151,7 @@ function OnLoad(active){
                     CreateMaterias(localStorage.getItem('carrera'));
                     localStorage.setItem('carrera',"");
                 }
-               
+                window.localStorage.removeItem('carrera');
                 LabelInput()
             }
         }, 600);
@@ -907,7 +907,11 @@ function AddMateria(modo) {
                     break
                 }
             }
-            if (valide) {
+           
+           let valueconfirm=MateriaConfirm(codigo.value,nombre.value).then(response=>response)
+           console.log(valueconfirm);
+           window.localStorage.removeItem('respuesta');
+            if (valide && valueconfirm!="si") {
                 span_add.innerHTML=codigo.value.toUpperCase()+"/"+nombre.value.toUpperCase();
                 span_add.onclick=function () {AddValueMateria(nombre_add.id, this)}
                 span_add.id=codigo.value.toUpperCase()+"/"+tipo.value;
@@ -931,8 +935,10 @@ function AddMateria(modo) {
                 }, 800);
             }
             else {
+                
                 Error("La materia que esta intentando agregar ya existe",'msg_error','p_error')
             }
+           
         }
         else {
             Error("Seleccione una carrera por favor",'msg_error','p_error')

@@ -3,7 +3,15 @@ session_start();
 include_once("../modelo/m_ejecutar.php");
 $ejecutar= new registry();
 $url=$_POST["url"];
-if (isset($_POST["buscar_materia"]) && $_POST["buscar_materia"]!="") {
+if (isset($_POST["codigo_confirm"]) && $_POST["codigo_confirm"]!="") {
+    if ($ejecutar->FindQuery('materia','codigo',$_POST["codigo_confirm"])!=2) {
+        echo "si";
+    }
+    else {
+        echo "no";
+    }
+}
+else if (isset($_POST["buscar_materia"]) && $_POST["buscar_materia"]!="") {
     
     $validate=$ejecutar->FindQuery("materia", "codigo", $_POST["buscar_materia"]);
     if ($validate===2) {
@@ -16,7 +24,7 @@ if (isset($_POST["buscar_materia"]) && $_POST["buscar_materia"]!="") {
         header("Location:../vista/administrador.php#$url");
     }
 }
-if (isset($_GET["buscar_materia"]) && $_GET["buscar_materia"]!="") {
+else if (isset($_GET["buscar_materia"]) && $_GET["buscar_materia"]!="") {
     
     $validate=$ejecutar->FindQuery("materia", "codigo", $_GET["buscar_materia"]);
     if ($validate===2) {
@@ -115,16 +123,11 @@ else if (isset($_POST["delete"]) && $_POST["delete"]!="") {
 }
 else{
     if ($_POST["tipo_materia"]==1) {
-        $dato=$ejecutar->FindQuery("materia","nombre",$_POST["nombre_materia"]);
         $validate=$ejecutar->registrarMateria($_POST["codigo_materia"],$_POST["nombre_materia"],$_POST["tipo_materia"]);
         if ($validate===2) {
             header("Location:../vista/administrador.php#$url");
             $_SESSION["error"]="El codigo de materia que ingreso ya existe";
             
-        }
-        else if ($dato!==2) {
-            header("Location:../vista/administrador.php#$url");
-            $_SESSION["error"]="El nombre de materia que ingreso ya existe";
         }
         else {
             header("Location:../vista/administrador.php#$url");
@@ -133,6 +136,7 @@ else{
         }
     }
     else {
+        $valideMaterias=true;
         echo $_POST["carreras"];
         $dato=$ejecutar->FindQuery("carrera","codigo",$_POST["carreras"]);
         if ($dato===2) {
@@ -141,13 +145,31 @@ else{
         }
         else {
             $array=explode(",",$_POST["materias_add"]);
-            for ($i=0; $i < count($array);) { 
-                $ejecutar->registrarMateria($array[$i],$array[$i+1],$array[$i+2]);
-                $ejecutar->registrarPensum($_POST["carreras"],$array[$i],"");
+            for ($i=0; $i < count($array);) {
+                if ($ejecutar->FindQuery('materia','codigo',$array[$i])!=2) {
+                    $valideMaterias=false;
+                    $materia=$array[$i+1];
+                    break;
+                }
                 $i=$i+3;
             }
-            header("Location:../vista/administrador.php#$url");
-            $_SESSION["completado"]="Las materias se agregaron correctamente";
+            if ($valideMaterias==true) {
+                for ($i=0; $i < count($array);) { 
+                    $ejecutar->registrarMateria($array[$i],$array[$i+1],$array[$i+2]);
+                    if ($valideMaterias==2) {
+                        
+                    }
+                    $ejecutar->registrarPensum($_POST["carreras"],$array[$i],"");
+                    $i=$i+3;
+                }
+                header("Location:../vista/administrador.php#$url");
+                $_SESSION["completado"]="Las materias se agregaron correctamente";
+            }
+            else {
+                header("Location:../vista/administrador.php#$url");
+                $_SESSION["error"]="La materia ".$materia." que intento registrar posee el mismo codigo que otra materia que ya se encuentra registrada";
+            }
+           
         }
         /*
         $dato=$ejecutar->FindQuery("carrera","codigo",$_POST["carreras"]);
