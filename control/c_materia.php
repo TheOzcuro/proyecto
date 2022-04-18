@@ -108,17 +108,9 @@ else if (isset($_POST["update"]) && $_POST["update"]!="") {
     }
 }
 else if (isset($_POST["delete"]) && $_POST["delete"]!="") {
-    $carrera=$ejecutar->FindQuery("carrera","codigo",$_POST["delete"]);
+    echo $_POST["delete"];
     $ejecutar->DeleteTable("pensum","unidad_curricular",$_POST["delete"]);
     $ejecutar->DeleteTable("materia","codigo",$_POST["delete"]);
-    if ($carrera!=2) {
-        $values=$ejecutar->GetAllPensum($carrera[1]);
-        for ($i=3; $i < count($values[0]); $i=$i+2) { 
-            $ejecutar->DeleteTable("materia","codigo",$values[0][$i]);
-        }
-        $ejecutar->DeleteTable("pensum","pnf",$_POST["delete"]);
-    }
-
     $_SESSION["completado"]="Los datos fueron eliminados";
     header("Location:../vista/administrador.php#$url");
 }

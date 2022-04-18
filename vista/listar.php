@@ -216,6 +216,9 @@ function CreateTable($table,$campo,$dato) {
       else if ($table=="oferta") {
         echo "<img class='img-historial' src='css/img/borrar.png' onclick='DisplayDelete(`block`,`.delete-window`,`#$table`,`".$lista[$index][2]."`)' title='Borrar Datos' style='width:30px;height:30px;cursor:pointer;margin-top:10px;margin-left:10px;'>";
       }
+      else if ($table=="materia") {
+        echo "<img class='img-historial' src='css/img/borrar.png' onclick='DisplayDelete(`block`,`.delete-window`,`#unidad`,`".$lista[$index][0]."`)' title='Borrar Datos' style='width:30px;height:30px;cursor:pointer;margin-top:10px;margin-left:10px;'>";
+      }
       else {
         echo "<img class='img-historial' src='css/img/borrar.png' onclick='DisplayDelete(`block`,`.delete-window`,`#$table`,`".$lista[$index][0]."`)' title='Borrar Datos' style='width:30px;height:30px;cursor:pointer;margin-top:10px;margin-left:10px;'>";
       }

@@ -285,21 +285,7 @@ function Delete(form,valor) {
             document.querySelector("#materia").querySelector(".input-delete").value=valor;
             form="#materia";
         }
-        else if(form=="#unidad") {
-
-            drop=document.getElementById('materias_add_drop_unidad');
-            span=drop.querySelectorAll('span');
-            input_delete=document.querySelector(form).querySelector(".input-delete");
-            for (let index = 0; index < span.length; index++) {
-                if (input_delete.value!="") {
-                    input_delete.value=input_delete.value+","+span[index].id;
-                }
-                else {
-                    input_delete.value=span[index].id;
-                }
-            }
-        }   
-        else if (valor!="" && form!="#unidad") {
+        else if (valor!="") {
             document.querySelector(form).querySelector(".input-delete").value=valor;
         }
         OnLoad("active");

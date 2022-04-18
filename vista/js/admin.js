@@ -904,6 +904,12 @@ async function AddMateria(modo) {
             }
            
            let valueconfirm=await MateriaConfirm(codigo.value,nombre.value).then(response=>response)
+           array_del=del.value.split(",");
+           for (let index = 0; index < array_del.length; index++) {
+              if (array_del[index]==codigo.value) {
+                  valueconfirm="no";
+              }
+           }
            console.log(valueconfirm);
            window.localStorage.removeItem('respuesta');
             if (valide && valueconfirm!="si") {
