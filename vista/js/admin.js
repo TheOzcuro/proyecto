@@ -515,22 +515,23 @@ function CreateMaterias(value) {
         nombre_add=document.getElementById('materias_add');
         drop_main=document.getElementById('carreras_drop');
         drop=document.getElementById('materias_add_drop');
+        nombre_add_multi=document.getElementById('materias_add_unidad');
+        drop_main_multi=document.getElementById('carreras_drop_unidad');
+        drop_multi=document.getElementById('materias_add_drop_unidad');
     }
-    else if(container_url=="materia-container" || container_url=="materia-historial") {
-        nombre_add=document.getElementById('materias_add_unidad');
-        drop_main=document.getElementById('carreras_drop_unidad');
-        drop=document.getElementById('materias_add_drop_unidad');
-        drop_main_unidad=document.getElementById('materias_drop_unidad');
-    }
+    drop_main_unidad=document.getElementById('materias_drop_unidad');
     let span=drop.querySelectorAll('span');
+    let span_multi=drop_multi.querySelectorAll('span');
     let span_main=drop_main.querySelectorAll('span');
     let carrera=value.slice(-2)
    
     if (carrera=="**") {
         document.getElementById('materia').querySelector('#add').value="";
         document.getElementById('materia').querySelector('#del').value="";
-        document.getElementById('unidad').querySelector('#add').value="";
-        document.getElementById('unidad').querySelector('#del').value="";
+        document.getElementById('materia').querySelector('#add_multi').value="";
+        document.getElementById('materia').querySelector('#del_multi').value="";
+        nombre_add.value="";
+        nombre_add_multi.value="";
         add_array=[];
         valores=[];
         for (let index = 0; index < span_main.length; index++) {
@@ -543,16 +544,17 @@ function CreateMaterias(value) {
         for (let index = 0; index < span.length; index++) {
             span[index].remove();
         }
-        if (container_url=="materia-container") {
+        for (let index = 0; index < span_multi.length; index++) {
+            span_multi[index].remove();
+        }
             span_main_unidad=drop_main_unidad.querySelectorAll('span');
             for (let index = 0; index < span_main_unidad.length; index++) {
                 span_main_unidad[index].hidden=false;
             }
-        }
+        
         valores.push(carrera_id);
         var y=0;
         for (let index = 0; index < materiasArray.length; index=index+4) {
-            if (container_url=="pensum-container" || container_url=="pensum-historial") {
                 if (carrera_id==materiasArray[index+3] && materiasArray[index+2]==0) {
                     let span_add=document.createElement('span');
                     span_add.innerHTML=materiasArray[index]+"/"+materiasArray[index+1];
@@ -561,20 +563,15 @@ function CreateMaterias(value) {
                     nombre_add.value=materiasArray[index]+"/"+materiasArray[index+1];
                     drop.appendChild(span_add);
                 }
-            }
-            else if (container_url=="materia-container" || container_url=="materia-historial") {
                 if (carrera_id==materiasArray[index+3] && materiasArray[index+2]==1) {
                     let span_add=document.createElement('span');
                     span_add.innerHTML=materiasArray[index+1];
-                    span_add.onclick=function () {AddValueMateria(nombre_add.id, this)}
+                    span_add.onclick=function () {AddValueMateria(nombre_add_multi.id, this)}
                     span_add.id=materiasArray[index];
-                    nombre_add.value=materiasArray[index+1];
+                    nombre_add_multi.value=materiasArray[index+1];
                     drop_main_unidad.querySelector("[id='"+materiasArray[index]+"']").hidden=true;
-                    drop.appendChild(span_add);
+                    drop_multi.appendChild(span_add);
                 }
-
-            }
-            
         }
         span_update=drop.querySelectorAll('span')
         add_array=span_update.length;
@@ -599,20 +596,25 @@ function CreateMaterias(value) {
     else if (ant_value=="**" && carrera!="**"){
         document.getElementById('materia').querySelector('#add').value="";
         document.getElementById('materia').querySelector('#del').value="";
-        document.getElementById('unidad').querySelector('#add').value="";
-        document.getElementById('unidad').querySelector('#del').value="";
+        document.getElementById('materia').querySelector('#add_multi').value="";
+        document.getElementById('materia').querySelector('#del_multi').value="";
         for (let index = 0; index < span.length; index++) {
             span[index].remove();
+        }
+        console.log(span_multi);
+        for (let index = 0; index < span_multi.length; index++) {
+            span_multi[index].remove();
         }
         if (container_url=="pensum-container") {
             DissapearVarious('.button_main','block')
             DissapearVarious('.button_unidad','none')
-        }
-        else if(container_url=='materia-container'){
             span_main_unidad=drop_main_unidad.querySelectorAll('span');
             for (let index = 0; index < span_main_unidad.length; index++) {
                 span_main_unidad[index].hidden=false;
             }
+        }
+        else if(container_url=='materia-container'){
+           
             var button=document.getElementById('materia-container').querySelectorAll("button");
             button[0].style.display='block';
             button[1].style.display='none';
@@ -620,6 +622,7 @@ function CreateMaterias(value) {
             button[3].style.display='none';
         }
         nombre_add.value="";
+        nombre_add_multi.value="";
         LabelInput()
     }
     ant_value=carrera;       
@@ -797,6 +800,8 @@ function AddAndRemove(div,div_add,input,input_add, type, container) {
                     span[index].remove();
                     input.value="";                    
                 }
+                console.log(container.querySelector("#del").value);
+                ValideDelMateria=ValideDelMateria+1;
                 add_disponibilidad=add_disponibilidad-2;
             }
         }
@@ -808,7 +813,6 @@ function AddAndRemove(div,div_add,input,input_add, type, container) {
                 }
             }
             if (valide) {
-                
                 for (let index = 0; index < span.length; index++) {
                     if (span[index].innerText==input.value.toUpperCase()) {
                         span[index].hidden=true;
@@ -820,7 +824,14 @@ function AddAndRemove(div,div_add,input,input_add, type, container) {
                         input.value="";
                         LabelInput();
                         Search(input.id,div.id)
+                        if (container.querySelector("#add").value!="") {
+                            container.querySelector("#add").value=container.querySelector("#add").value+","+span[index].getAttribute('id');
+                        }
+                        else {
+                            container.querySelector("#add").value=span[index].getAttribute('id');
+                        }
                     }
+                ValideAddMateria=ValideAddMateria+1;
             }
         }
         
@@ -853,32 +864,16 @@ function AddAndRemove(div,div_add,input,input_add, type, container) {
 function SelectMateria() {
     var tipo=document.getElementById('tipo_materia').value;
     if (tipo==1) {
-        DissapearVarious('.dis','none')
-        
+        DissapearVarious('.dis','none');
+        DissapearVarious('.das','block');
         button=document.getElementById("materia").querySelectorAll('button');
-        button[0].style.gridColumn='1/2';
-        button[0].style.display="block";
-        button[1].style.display="block";
-        button[2].style.display="none";
-        button[3].style.display="none";
-        button[4].style.display="none";
-        button[5].style.display="none";
     }
     else if (tipo==0){
         button=document.getElementById("materia").querySelectorAll('button');
-        DissapearVarious('.dis','block')
-        button[1].style.display="none";
-        button[0].style.gridColumn='1/3';
+        DissapearVarious('.dis','block');
+        DissapearVarious('.das','none');
         carrera=document.getElementById("carreras").value;
         type=carrera.slice(-2);
-        if (type=="**") {
-            button[4].style.display="block";
-            button[5].style.display="block";
-            button[0].style.display="none";
-            button[1].style.display="none";
-            button[2].style.display="none";
-            button[3].style.display="none";
-        }
     }
 }
 async function AddMateria(modo) {
@@ -892,10 +887,10 @@ async function AddMateria(modo) {
         div=document.getElementById('materia');
         drop=document.getElementById('materias_add_drop');
     
-    let del=div.querySelector('#del');
+    let del=div.querySelector('#del_multi');
     
     let span=drop.querySelectorAll('span');
-    let add=div.querySelector('#add');
+    let add=div.querySelector('#add_multi');
     if (modo=="add") {
         if (carrera.value!="" && codigo.value!="" && nombre.value!="" && tipo.value==0 && tipo.value!="") {
             let valide=true;
@@ -926,6 +921,7 @@ async function AddMateria(modo) {
 
                 LabelInput()
                 ValideAddMateria=ValideAddMateria+1;
+                
                 codigo.value="";
                 nombre.value="";
                 nombre_add.style.borderColor="rgb(32, 190, 109)";
@@ -1026,15 +1022,16 @@ function SubmitMateria(form) {
         drop_main=document.getElementById('carreras_drop');
         span_main=drop_main.querySelectorAll('span');
         input_add=document.getElementById('materias_add');
+        drop_multi=document.getElementById('materias_add_drop_unidad');
+        span_multi=drop_multi.querySelectorAll('span');
         span=drop.querySelectorAll('span');
     }
     else if(container_url=="materia-container") {
         carrera=document.getElementById('carreras_unidad');
-        drop=document.getElementById('materias_add_drop_unidad');
         drop_main=document.getElementById('carreras_drop_unidad');
         span_main=drop_main.querySelectorAll('span');
         input_add=document.getElementById('materias_add_unidad');
-        span=drop.querySelectorAll('span');
+       
     }
     let valideCarrera=false;
     let valideSpan=false;
@@ -1051,7 +1048,7 @@ function SubmitMateria(form) {
     if (document.getElementById("tipo_materia").value==1) {
         Submit('materia');
     }
-    if (span.length>0) {
+    if (span.length>0 || span_multi.length>0) {
         valideSpan=true;
     }
     if (valideCarrera && valideSpan) {
@@ -1069,18 +1066,9 @@ function SubmitMateria(form) {
             }
         }
         else if (container_url=="materia-container") {
-            for (let index = 0; index < span.length; index++) {
-                let add_unidad=document.getElementById(form).querySelector('#add');
-                if (add_unidad.value!="") {
-                    add_unidad.value=add_unidad.value+","+span[index].id.toUpperCase();
-                }
-                else {
-                    add_unidad.value=span[index].id.toUpperCase();
-                }
-            }
+            
         }
-        console.log(add_unidad=document.getElementById(form).querySelector('#add').value);
-        
+        console.log(document.getElementById(form).querySelector('#add').value);
         carrera.value=carrera_id;
         OnLoad("active")
         document.getElementById(form).querySelector(".input-url").value=container_url+"-grid";
@@ -1121,7 +1109,6 @@ document.getElementById("registrarMateria").addEventListener("click", function()
     }
     DissapearVarious('.back-option','none');
     document.getElementById('history_back').style.display='inline';
-    DissapearVarious('.dis','block')
     AppearsAndDissapear("pensum-container","grid")})
 document.getElementById("registrarHorario").addEventListener("click", function(){
     if (div_edit!="") {
@@ -1251,8 +1238,6 @@ document.getElementById("materias_add_unidad").addEventListener("click", functio
 document.getElementById("carreras").addEventListener("click", function(){
     document.querySelector("#carreras_drop").style.display="flex"})
 
-document.getElementById("carreras_unidad").addEventListener("click", function(){
-        document.querySelector("#carreras_drop_unidad").style.display="flex"})
 
 document.getElementById("carrera_oferta").addEventListener("click", function(){
     document.querySelector("#carreras_oferta_drop").style.display="flex"})
@@ -1286,7 +1271,6 @@ document.addEventListener('mouseup', function(e) {
     var input15= document.getElementById('bloques_add_4');
     var input16= document.getElementById('bloques_5');
     var input17= document.getElementById('bloques_add_5');
-    var input18= document.getElementById('carreras_unidad');
     var input19= document.getElementById('materias_add_unidad');
     var input20= document.getElementById('cedula_horario');
     var input21= document.getElementById('lapso_horario');
@@ -1316,10 +1300,6 @@ document.addEventListener('mouseup', function(e) {
         document.getElementById("disponibilidad_drop").style.display = 'none';
         input9.style.border=""
     }
-    if (!input18.contains(e.target)) {
-        document.getElementById("carreras_drop_unidad").style.display = 'none';
-        input3.style.border=""
-    }
     if (!input20.contains(e.target)) {
         document.getElementById("horario_drop").style.display = 'none';
         input3.style.border=""
@@ -1340,6 +1320,8 @@ ValidateTexto('primer_apellido');
 ValidateTexto('segundo_apellido');
 ValidateTexto('tipo_materia');
 ValidateVarchar('nombre_aula');
+ValidateVarchar('codigo_materia_multi');
+ValidateVarchar('nombre_materia_multi');
 ValidateVarchar('nombre_carrera');
 ValidateNumeros('cedula');
 ValidateNumeros('cedula_horario');
@@ -1350,6 +1332,7 @@ ValidateNumeros('unidad_credito');
 ValidateVarchar('codigo_carrera');
 ValidateVarchar('direccion');
 ValidateVarchar('codigo_materia');
+ValidateVarchar('nombre_materia');
 ValidateVarchar('codigo_aula');
 ValidateVarchar('trayecto');
 ValidateVarchar('titulo');

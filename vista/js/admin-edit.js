@@ -122,17 +122,18 @@ function SavePensum(form) {
 }
 function SaveMaterias() {
     var ValideCarrera=false;
-    var ValideSpan=false;
     let carrera=document.getElementById('carreras');
     let drop=document.getElementById('materias_add_drop');
     let span=drop.querySelectorAll('span');
     let drop_main=document.getElementById('carreras_drop');
     let span_main=drop_main.querySelectorAll('span');
+    let drop_multi=document.getElementById('materias_add_drop_unidad');
+    let span_multi=drop_multi.querySelectorAll('span');
     let form=document.getElementById('materia');
     for (let index = 0; index < span_main.length; index++) {
         if (carrera.value.toUpperCase()==span_main[index].innerText) {
              carrera_id=span_main[index].id;
-             if (span.length==0) {
+             if (span.length==0 && span_multi.length==0) {
                 carrera_array=carrera.value.split(" **");
                 localStorage.setItem('carrera',carrera_array[0]);
             }
@@ -145,15 +146,15 @@ function SaveMaterias() {
             carrera.style.borderColor='red';
         }
      }
-     if (span.length!=add_array) {
-         ValideSpan=true;
-     }
      console.log(add_array);
      console.log(span.length);
-     console.log(ValideSpan);
      console.log(ValideAddMateria);
      console.log(ValideDelMateria);
-     if (ValideCarrera && ValideSpan && ValideAddMateria>0 || ValideDelMateria>0) {
+     console.log(form.querySelector('#add_multi').value)
+     console.log(form.querySelector('#del_multi').value)
+     console.log(form.querySelector('#add').value)
+     console.log(form.querySelector('#del').value)
+     if (ValideCarrera && ValideAddMateria>0 || ValideDelMateria>0) {
         form.querySelector(".input-update").value=carrera_id;
         form.querySelector(".input-url").value=container_url+"-grid";
         form.submit();
@@ -307,10 +308,6 @@ function Delete(form,valor) {
         document.querySelector(form).submit();
     }
 function Modificar(container,display,valores) {
-        if (container=="materia-container") {
-            container="pensum-container";
-            DissapearVarious('.dis','none')
-        }
          div_edit=document.getElementById(container);
          AppearsAndDissapear(div_edit.id,display)
          div_edit.querySelector(".close-icon").style.display="block";
@@ -337,6 +334,10 @@ function Modificar(container,display,valores) {
                 input[index].value=valores[index]
              
          }
+
+        if (container=="materia-container") {
+            document.getElementById('tipo_materia_multi').value=1;
+        }
     }
 function Close() {
         DissapearVarious(".checkbox-edit","none")
@@ -361,14 +362,20 @@ function Close() {
                 }
             }
         }
+        else if (div_edit.id=="pensum-container") {
+            button[0].style.display="block";
+            button[1].style.display="none";
+            button[2].style.display="none";
+        }
         else {
             button[0].style.display="block";
             button[1].style.display="block";
             button[2].style.display="none";
             button[3].style.display="none";
         }
-       
-        DissapearVarious('.dis','block')
+        DissapearVarious('.dis','block');
+        DissapearVarious('.das','none');
+        document.getElementById('tipo_materia').value="";
         console.log(button.length);
         if (button.length>4) {
             button[4].style.display="none";
@@ -391,9 +398,6 @@ function Close() {
         if (div_edit.id=="profesor-container") {
             div_edit.querySelector("h2").innerHTML="Profesor"
         }
-        if (div_edit.id=="materia-container") {
-            document.querySelector(".pensum-container").querySelector("h2").innerHTML="Unidad Curricular";
-        }
         if (div_edit.id=="aula-container") {
             div_edit.querySelector("h2").innerHTML="Aula"
         }
@@ -409,6 +413,7 @@ function Close() {
         if (div_edit.id=="oferta-container") {
             div_edit.querySelector("h2").innerHTML="Oferta Academica";
         }
+        document.getElementById('tipo_materia_multi').value=1;
         OnLoad();
         div_edit.querySelector(".close-icon").style.display="none"
         document.getElementById("buscar_profesor").value=""

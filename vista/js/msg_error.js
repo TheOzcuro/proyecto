@@ -8,7 +8,7 @@ function Error(parrafo, msg, p){
     })
     setTimeout(function(){
         document.getElementById(msg).style.right="30px"
-    },500)
+    },200)
     setTimeout(function(){
         document.getElementById(msg).style.right="-500px"
     },5000)

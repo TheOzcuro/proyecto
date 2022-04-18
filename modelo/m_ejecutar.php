@@ -57,12 +57,12 @@ class registry extends mybsd {
 		
 	}
 	function GetCarrerasPensum() {
-		$query="SELECT DISTINCT carrera.codigo, carrera.nombre FROM carrera, materia, pensum WHERE carrera.codigo IN (SELECT pensum.pnf FROM pensum WHERE materia.codigo=pensum.unidad_curricular AND materia.tipo<>1) ORDER BY carrera.codigo";
+		$query="SELECT DISTINCT carrera.codigo, carrera.nombre FROM carrera, materia, pensum WHERE carrera.codigo IN (SELECT pensum.pnf FROM pensum WHERE materia.codigo=pensum.unidad_curricular) ORDER BY carrera.codigo";
 		return $this->ListAll($this->execute($query), MYSQLI_NUM);
 	}
 	function GetCarrerasNOTPensum() {
 		$query="SELECT carrera.codigo, carrera.nombre FROM carrera
-		WHERE carrera.codigo NOT IN (SELECT pensum.pnf FROM pensum, materia WHERE materia.codigo=pensum.unidad_curricular AND materia.tipo<>1) ORDER BY carrera.codigo";
+		WHERE carrera.codigo NOT IN (SELECT pensum.pnf FROM pensum, materia WHERE materia.codigo=pensum.unidad_curricular) ORDER BY carrera.codigo";
 		return $this->ListAll($this->execute($query), MYSQLI_NUM);
 	}
 	function GetCarrerasMulti() {
@@ -477,6 +477,10 @@ function GetFindQuery($tabla,$dato,$campo)
 	}
 	function DeleteTable($tabla, $campo, $dato) {
 		$query="DELETE FROM `$tabla` WHERE `$campo`='$dato'";
+		return $this->execute($query);
+	}
+	function DeleteTableMateriaMulti($tabla, $campo, $dato) {
+		$query="DELETE FROM `$tabla` WHERE `$campo`='$dato' AND `tipo`<>'1'";
 		return $this->execute($query);
 	}
 	function DeleteTableHorario($cedula, $bloque, $dia) {

@@ -1,6 +1,7 @@
 var valores=[];
 var span_array=[];
 function ActiveModificar(fila,container) {
+    console.log(container);
     if (container=="pensum-container") {
         ValideAddMateria=0;
         ValideDelMateria=0;
@@ -9,10 +10,6 @@ function ActiveModificar(fila,container) {
         ActiveModificarMateria(filas[1].innerText+" **");
     }
     else {
-        if (container=="materia-container") {
-            container="pensum-container";
-            DissapearVarious('.dis','none')
-        }
         valores=[];
         filas=document.querySelectorAll(fila);
         for (let index = 0; index < filas.length; index++) {
@@ -55,9 +52,8 @@ function ActiveModificarMateria(value) {
     //---Hacer aparecer los botones correspondientes
     button=div_edit.querySelectorAll("button");
     button[0].style.display="none";
-    button[1].style.display="none";
-    button[4].style.display="block";
-    button[5].style.display="block";
+    button[1].style.display="block";
+    button[2].style.display="block";
     document.getElementById('carreras').value=value;
     console.log(value);
     CreateMaterias(value);

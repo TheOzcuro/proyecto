@@ -101,13 +101,13 @@ function CreateTable($table,$campo,$dato) {
     echo "<option value=".strtoupper($name[1]["COLUMN_NAME"]).">".strtoupper($name[1]["COLUMN_NAME"]);
     echo "</option>";
   }
-  if ($table=="materia") {
+  else if ($table=="materia") {
     echo "<option value=".strtoupper($name[0]["COLUMN_NAME"]).">".strtoupper($name[0]["COLUMN_NAME"]);
     echo "</option>";
     echo "<option value=".strtoupper($name[1]["COLUMN_NAME"]).">".strtoupper($name[1]["COLUMN_NAME"]);
     echo "</option>";
   }
-  if ($table=="oferta") {
+  else if ($table=="oferta") {
     echo "<option value=".strtoupper($name[1]["COLUMN_NAME"]).">".strtoupper($name[1]["COLUMN_NAME"]);
     echo "</option>";
     echo "<option value=".strtoupper($name[2]["COLUMN_NAME"]).">".strtoupper($name[2]["COLUMN_NAME"]);

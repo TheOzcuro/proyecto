@@ -38,11 +38,11 @@ else if (isset($_GET["buscar_materia"]) && $_GET["buscar_materia"]!="") {
     }
 }
 else if (isset($_POST["update"]) && $_POST["update"]!="") {
-    if ($_POST["tipo_materia"]==1) {
-        $dato=$ejecutar->FindQuery("materia","nombre",$_POST["nombre_materia"]);
+    if ($_POST["tipo_materia_multi"]==1) {
+        $dato=$ejecutar->FindQuery("materia","nombre",$_POST["nombre_materia_multi"]);
         $dato_origin=$ejecutar->FindQuery("materia","codigo",$_POST["update"]);
         if ($dato[1]==$dato_origin[1] || $dato===2) {
-            $validate=$ejecutar->UpdateTableMateria($_POST["codigo_materia"],$_POST["nombre_materia"],$_POST["tipo_materia"],$_POST["update"]);
+            $validate=$ejecutar->UpdateTableMateria($_POST["codigo_materia_multi"],$_POST["nombre_materia_multi"],$_POST["tipo_materia_multi"],$_POST["update"]);
         }
         if ($dato[1]!=$dato_origin[1] && $dato!==2) {
            $validate=3;
@@ -61,9 +61,10 @@ else if (isset($_POST["update"]) && $_POST["update"]!="") {
         }
         else {
             if ($_POST["codigo_materia"]!=$_POST["update"]) {
-                $ejecutar->UpdateTableMateriasPensum($_POST["update"],$_POST["codigo_materia"]);
+                $ejecutar->UpdateTableMateriasPensum($_POST["update"],$_POST["codigo_materia_multi"]);
             }
-            $_SESSION["update"]=$ejecutar->FindQuery("materia", "codigo", $_POST["codigo_materia"]);
+            $_SESSION["update"]=$ejecutar->FindQuery("materia", "codigo", $_POST["codigo_materia_multi"]);
+            print_r($_SESSION["update"]);
             $_SESSION["container"]="materia-container";
             $_SESSION["completado"]="Los datos de la materia han sido actualizados";
             header("Location:../vista/administrador.php#$url");
@@ -122,8 +123,8 @@ else if (isset($_POST["delete"]) && $_POST["delete"]!="") {
     header("Location:../vista/administrador.php#$url");
 }
 else{
-    if ($_POST["tipo_materia"]==1) {
-        $validate=$ejecutar->registrarMateria($_POST["codigo_materia"],$_POST["nombre_materia"],$_POST["tipo_materia"]);
+    if ($_POST["tipo_materia_multi"]==1) {
+        $validate=$ejecutar->registrarMateria($_POST["codigo_materia_multi"],$_POST["nombre_materia_multi"],$_POST["tipo_materia_multi"]);
         if ($validate===2) {
             header("Location:../vista/administrador.php#$url");
             $_SESSION["error"]="El codigo de materia que ingreso ya existe";
@@ -132,7 +133,7 @@ else{
         else {
             header("Location:../vista/administrador.php#$url");
             $_SESSION["completado"]="La materia fue registrada sastifactoriamente";
-            $_SESSION["link"]="../control/c_materia.php?buscar_materia=".$_POST["codigo_materia"];
+            $_SESSION["link"]="../control/c_materia.php?buscar_materia=".$_POST["codigo_materia_multi"];
         }
     }
     else {
