@@ -116,7 +116,7 @@
                         <input type="text" id="nombre_materia_multi" name="nombre_materia_multi" onfocus="LabelAnimation('nombre_materia_multi','labelnombre_materia_multi')" onblur="LabelOut('nombre_materia_multi','labelnombre_materia_multi')" maxlength="30" class="input input-label">
                         <input type="checkbox" class="checkbox-edit checkbox-materia"   onclick="CheckboxDisabled('nombre_materia_multi', this)" style='right:30px;'>
                     </div>
-                    <div class="input-container">
+                    <div class="input-container" hidden>
                         <select name="tipo_materia_multi" id="tipo_materia_multi" onclick="SelectAnimation('rol')" class="input">
                             <option value="1">Multidisciplinaria</option>
                         </select>
@@ -639,7 +639,7 @@
             <input type="text" class="input-update" id="update" name="update" hidden>
                 <input type="text" class="input-delete" id="delete" name="delete" hidden>
                 <input type="text" class="input-url" id="url" name="url" hidden>
-                <div id="horario-container" class="container">
+                <div id="horario_docente-container" class="container">
                     <a class="a_img"><img src="css/img/close.png" alt="" class="close-icon" id="close-icon-profesor" onclick="Close()"></a>
                     <h2>Crear</h2>
                     <div class="input-container">

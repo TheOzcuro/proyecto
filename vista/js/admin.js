@@ -35,6 +35,10 @@ function OnclickAppear(display,drop, input) {
 }
 function AppearsAndDissapear(appear,display) {
     DissapearVarious(".container","none");
+        if (appear=="horario_agrupar") {
+            document.getElementById('register_back').style.display='none';
+            document.getElementById('history_back').style.display='none';
+        }
         document.getElementById(appear).style.display=display;
         document.getElementById(appear).style.animationName="Opacity";
         document.getElementById(appear).style.animationDuration="0.7s";
@@ -135,7 +139,7 @@ function OnLoad(active){
                 }
             }, 600);
     }
-    if (array[1]=="container" && active!="active" && container_url!="disponibilidad-container" && container_url!="horario-container") {
+    if (array[1]=="container" && active!="active" && container_url!="disponibilidad-container" && activehorario!=1) {
         document.getElementById('history_back').style.display="inline";
         setTimeout(() => {
         if (localStorage.getItem('carrera')!=="" && localStorage.getItem('carrera')!==null && localStorage.getItem('carrera')!==undefined && container_url!="") {
@@ -157,7 +161,8 @@ function OnLoad(active){
         }, 600);
         
     }
-    else if (array[1]=="historial" && container_url!='disponibilidad-container' && container_url!='horario-container') {
+    else if (array[1]=="historial" && container_url!='disponibilidad-container' && container_url!='horario-container' && activehorario!=1) {
+        console.log(activehorario);
         document.getElementById('register_back').style.display="inline";
     }
     if (container!="" && active!="active") {
@@ -1019,6 +1024,14 @@ function ChangeHorarioType(tipo) {
     document.getElementById('tipo_horario').value=tipo;
     document.getElementById('horario').submit();
 }
+function ActiveHorario(cedula, lapso) {
+    document.getElementById('cedula_horario').value=cedula;
+    document.getElementById('lapso_horario').value=lapso;
+    OnLoad('active');
+    document.getElementById('horario').querySelector(".input-url").value=container_url+"-grid";
+    document.getElementById('tipo_horario').value=0;
+    document.getElementById('horario').submit();
+}
 function SubmitMateria(form) {
    
     OnLoad('active');
@@ -1121,13 +1134,23 @@ document.getElementById("registrarHorario").addEventListener("click", function()
         Close()
     }
     DissapearVarious('.back-option','none');
+    document.getElementById('history_back').style.display='inline';
     if (activehorario==1) {
         AppearsAndDissapear('horario_agrupar','block');
     }
     else {
-        AppearsAndDissapear("horario-container","grid");
+        AppearsAndDissapear("horario_docente-container","grid");
     }
     })
+    document.getElementById("editarHorario").addEventListener("click", function(){
+        if (div_edit!="") {
+            Close()
+        }
+        DissapearVarious('.container','none');
+        refresh(1,'horario_docente')
+        DissapearVarious('.back-option','none');
+        document.getElementById('register_back').style.display='inline';
+        })
 
 document.getElementById("registrarProfesor").addEventListener("click", function(){
     if (div_edit!="") {

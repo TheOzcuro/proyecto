@@ -29,7 +29,7 @@ function GetCarreraNotMulti()
 function GetMateriaMulti()
 {
     $ejecutar= new registry();
-   return $ejecutar->GetMateriasMulti("");
+   return $ejecutar->GetMateriasMulti("","");
 }
 
 function GetMaterias()

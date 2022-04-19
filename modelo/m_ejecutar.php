@@ -71,13 +71,24 @@ class registry extends mybsd {
 		return $this->ListAll($this->execute($query), MYSQLI_NUM);
 	}
 
-	function GetMateriasMulti($busca) {
+	function GetMateriasMulti($busca,$columna) {
 		if ($busca=="") {
 			$query="SELECT * FROM `materia` WHERE `tipo`=1";
 			return $this->ListAll($this->execute($query), MYSQLI_NUM);
 		}
 		else {
-			$query="SELECT * FROM `materia` WHERE `tipo`=1 AND `nombre`='$busca'";
+			$query="SELECT * FROM `materia` WHERE `tipo`=1 AND `$columna`='$busca'";
+			return $this->ListAll($this->execute($query), MYSQLI_NUM);
+		}
+		
+	}
+	function GetHistorialHorario($busca,$columna) {
+		if ($busca=="") {
+			$query="SELECT DISTINCT profesor.cedula, profesor.primer_nombre, profesor.segundo_nombre, profesor.primer_apellido, profesor.segundo_apellido, horario_docente.lapso_academico FROM horario_docente, profesor WHERE profesor.cedula IN (SELECT horario_docente.cedula_docente FROM horario_docente)";
+			return $this->ListAll($this->execute($query), MYSQLI_NUM);
+		}
+		else {
+			$query="SELECT DISTINCT profesor.cedula, profesor.primer_nombre, profesor.segundo_nombre, profesor.primer_apellido, profesor.segundo_apellido, horario_docente.lapso_academico FROM horario_docente, profesor WHERE profesor.cedula IN (SELECT horario_docente.cedula_docente FROM horario_docente) AND `$columna` LIKE '%$busca%'";
 			return $this->ListAll($this->execute($query), MYSQLI_NUM);
 		}
 		

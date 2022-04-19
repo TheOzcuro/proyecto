@@ -138,8 +138,8 @@ if (isset($_SESSION["usuario"])==false) {
             <img src="css/img/arrow_down.png" alt="" id="arrow_down" onclick="AnimationPrincipalMenu(5)">
             <div class="submenu">
                     <ul>
-                        <a href="#horario-container-grid"><li id="registrarHorario">Crear</li><div class="borderline"></div></a>
-                        <a href="#edithorario"><li id="editarHorario">Editar</li><div class="borderline"></div></a>
+                        <a href="#horario_docente-container-grid"><li id="registrarHorario">Crear</li><div class="borderline"></div></a>
+                        <a href="#horario_docente-historial-grid"><li id="editarHorario">Historial</li><div class="borderline"></div></a>
                         <a href="#imphorario"><li id="ImprimirHorario">Imprimir</li><div class="borderline"></div></a>
                     </ul>
                 </div>

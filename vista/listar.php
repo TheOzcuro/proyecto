@@ -57,6 +57,13 @@ function CreateTable($table,$campo,$dato) {
     $count_lista=8;
     $width=$namecount*105;
   }
+  if ($table=="materia") {
+    $namecount=4;
+  }
+  if ($table=="horario_docente") {
+    $namecount=8;
+    $width=$namecount*105;
+  }
     //El div donde estara la tabla
   echo "<div id='$table-historial' class='container historial' style='animation-name=Appear'>";
   //el formulario de busqueda para los datos de la tabla
@@ -107,6 +114,16 @@ function CreateTable($table,$campo,$dato) {
     echo "<option value=".strtoupper($name[1]["COLUMN_NAME"]).">".strtoupper($name[1]["COLUMN_NAME"]);
     echo "</option>";
   }
+  else if($table=="horario_docente") {
+    echo "<option value=".strtoupper($name[1]["COLUMN_NAME"]).">".strtoupper($name[1]["COLUMN_NAME"]);
+    echo "</option>";
+    echo "<option value=PRIMER_NOMBRE>PRIMER_NOMBRE";
+    echo "</option>";
+    echo "<option value=PRIMER_APELLIDO>PRIMER_APELLIDO";
+    echo "</option>";
+    echo "<option value=".strtoupper($name[3]["COLUMN_NAME"]).">".strtoupper($name[3]["COLUMN_NAME"]);
+    echo "</option>";
+  }
   else if ($table=="oferta") {
     echo "<option value=".strtoupper($name[1]["COLUMN_NAME"]).">".strtoupper($name[1]["COLUMN_NAME"]);
     echo "</option>";
@@ -142,10 +159,25 @@ function CreateTable($table,$campo,$dato) {
   }
   //Se crean las columnas con los nombres
   for ($i=0; $i < count($name); $i++) {
-    echo "<div class='title'>".strtoupper($name[$i]["COLUMN_NAME"])."</div>";
-    if ($i==7) {
+    if ($table=="materia" && $i==2) {
+
+    }
+    if ($table=="horario_docente") {
+      echo"<div class='title'>CEDULA DOCENTE</div>";
+      echo"<div class='title'>PRIMER NOMBRE</div>";
+      echo"<div class='title'>SEGUNDO NOMBRE</div>";
+      echo"<div class='title'>PRIMER APELLIDO</div>";
+      echo"<div class='title'>SEGUNDO APELLIDO</div>";
+      echo"<div class='title'>LAPSO ACADEMICO</div>";
       break;
     }
+    else {
+      echo "<div class='title'>".strtoupper($name[$i]["COLUMN_NAME"])."</div>";
+      if ($i==7) {
+        break;
+      }
+    }
+   
   }
   if (count($lista)>0) {
   echo "<span></span>";
@@ -180,12 +212,6 @@ function CreateTable($table,$campo,$dato) {
           //Transformar los valores de la tabla del profesor en algo mas agradable y entendible para el usuario
           //Transformar los valores de la tabla de materia en algo mas agradable y entendible para el usuario
           if ($table==="materia" && $i===2) {
-            if ($lista[$index][$i]==="0") {
-              echo "<div class='".$name[$i]["COLUMN_NAME"]." f-".$index."' value=".$lista[$index][$i].">DISCIPLINARIA</div>";
-            }
-            else if($lista[$index][$i]==="1") {
-              echo "<div class='".$name[$i]["COLUMN_NAME"]." f-".$index."' value=".$lista[$index][$i].">MULTIDISCIPLINARIA</div>";
-            }
           }
           
           else {
@@ -208,8 +234,12 @@ function CreateTable($table,$campo,$dato) {
          
         }
       }
-      
-      print_r("<img class='img-historial' src='css/img/edit.png' onclick='ActiveModificar(`.f-".$index."`,`$table-container`)' title='Editar Datos' style='width:30px;height:30px;cursor:pointer;margin-top:10px;margin-left:10px;'>");
+      if ($table=="horario_docente") {
+        print_r("<img class='img-historial' src='css/img/edit.png' onclick='ActiveHorario(`".$lista[$index][0]."`,`".$lista[$index][5]."`)' title='Editar Datos' style='width:30px;height:30px;cursor:pointer;margin-top:10px;margin-left:10px;'>");
+      }
+      else {
+        print_r("<img class='img-historial' src='css/img/edit.png' onclick='ActiveModificar(`.f-".$index."`,`$table-container`)' title='Editar Datos' style='width:30px;height:30px;cursor:pointer;margin-top:10px;margin-left:10px;'>");
+      }
       if ($table=="pensum") {
         echo "<img class='img-historial' src='css/img/borrar.png' onclick='DisplayDelete(`block`,`.delete-window`,`#materia`,`".$lista[$index][1]."`)'title='Borrar Datos' style='width:30px;height:30px;cursor:pointer;margin-top:10px;margin-left:10px;'>";
       }
@@ -218,6 +248,9 @@ function CreateTable($table,$campo,$dato) {
       }
       else if ($table=="materia") {
         echo "<img class='img-historial' src='css/img/borrar.png' onclick='DisplayDelete(`block`,`.delete-window`,`#unidad`,`".$lista[$index][0]."`)' title='Borrar Datos' style='width:30px;height:30px;cursor:pointer;margin-top:10px;margin-left:10px;'>";
+      }
+      else if ($table=="horario_docente") {
+        echo "<img class='img-historial' src='css/img/borrar.png' onclick='DisplayDelete(`block`,`.delete-window`,`#horario`,`".$lista[$index][0]."`)' title='Borrar Datos' style='width:30px;height:30px;cursor:pointer;margin-top:10px;margin-left:10px;'>";
       }
       else {
         echo "<img class='img-historial' src='css/img/borrar.png' onclick='DisplayDelete(`block`,`.delete-window`,`#$table`,`".$lista[$index][0]."`)' title='Borrar Datos' style='width:30px;height:30px;cursor:pointer;margin-top:10px;margin-left:10px;'>";

@@ -1,5 +1,5 @@
 
-<div id='horario_agrupar' class='container' style='display:none;'>
+<div id='horario_agrupar' class='container' style='display:none;position:relative;z-index:500;'>
     <div class='profesor_datos'>
         <div class='profesor_cedula'><b>Cedula: </b><?php echo  $_SESSION["disponibilidad_profesor"][0][0];?></div>
         <div class='profesor_nombre'><b>Nombre: </b><?php echo  $_SESSION["disponibilidad_profesor"][0][1]." ".$_SESSION["disponibilidad_profesor"][0][3];?></div>

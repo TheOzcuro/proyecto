@@ -10,10 +10,10 @@ function GetAll($tabla)
 function History($tabla,$campo,$dato)
 {
     $ejecutar= new registry();
-    if ($campo!="undefined" && $tabla!="pensum" && $tabla!="oferta" && $tabla!="profesor" && $tabla!="materia") {
+    if ($campo!="undefined" && $tabla!="pensum" && $tabla!="oferta" && $tabla!="profesor" && $tabla!="materia" && $tabla!="horario_docente") {
         return $ejecutar->GetFindQuery($tabla,$campo,$dato);
     }
-    if ($tabla=="pensum") {
+    else if ($tabla=="pensum") {
         if ($campo!="undefined") {
             return $ejecutar->GetAllPensum($campo);
         }
@@ -23,7 +23,7 @@ function History($tabla,$campo,$dato)
         }
        
     }
-    if ($tabla=="oferta") {
+    else if ($tabla=="oferta") {
         if ($campo!="undefined") {
             return $ejecutar->GetAllOferta($campo,$dato);
         }
@@ -33,17 +33,25 @@ function History($tabla,$campo,$dato)
         }
        
     }
-    if ($tabla=="materia") {
+    else if ($tabla=="materia") {
         if ($campo!="undefined") {
-            return $ejecutar->GetMateriasMulti($campo);
+            return $ejecutar->GetMateriasMulti($campo,$dato);
         }
         else {
-            
-            return $ejecutar->GetMateriasMulti("");
+            return $ejecutar->GetMateriasMulti("","");
         }
        
     }
-    if ($tabla=="profesor") {
+    else if ($tabla=="horario_docente") {
+        if ($campo!="undefined") {
+            return $ejecutar->GetHistorialHorario($campo,$dato);
+        }
+        else {
+            return $ejecutar->GetHistorialHorario("","");
+        }
+       
+    }
+    else if ($tabla=="profesor") {
         if ($campo!="undefined"){
             return $ejecutar->GetAllProfesor($campo,$dato);
         }
