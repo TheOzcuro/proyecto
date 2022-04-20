@@ -54,6 +54,7 @@ else if (isset($_POST["update"]) && $_POST["update"]!=""){
 else if (isset($_POST["delete"]) && $_POST["delete"]!=""){
     $carrera=$ejecutar->FindQuery('carrera', 'nombre', $_POST["delete"]);
     $ejecutar->DeleteTable("oferta","pnf",$carrera[0]);
+    $ejecutar->DeleteTable("horario_docente","carrera",$carrera[0]);
     $_SESSION["completado"]="Los datos fueron eliminados correctamente";
     header("Location:../vista/administrador.php#$url");
 }

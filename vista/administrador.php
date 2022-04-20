@@ -57,6 +57,13 @@ if (isset($_SESSION["usuario"])==false) {
             </button>
             <button class="delete" onclick="DisplayDelete('none','.delete-window')">No</button>
         </div>
+        <div class="horario-window" style="display:none;height:160px;">
+            <h4 style='text-align:center;'>Si cambia de horario los datos que no esten guardados se perderan.</h4>
+            <h4 style='text-align:center;'>¿Desea continuar?</h4>
+            <button class="delete" id="yes-horario">Si
+            </button>
+            <button class="delete" onclick="DisplayDelete('none','.horario-window')">No</button>
+        </div>
         
         
     

@@ -70,6 +70,7 @@ else if (isset($_POST["update"]) && $_POST["update"]!=""){
 }
 else if (isset($_POST["delete"]) && $_POST["delete"]!=""){
     $delete_array=explode(",",$_POST["delete"]);
+    $ejecutar->DeleteTable('horario_docente','carrera', $_POST["delete"]);
     $carrera=$ejecutar->FindQuery("carrera","codigo",$_POST["delete"]);
     if ($carrera!=2) {
         $values=$ejecutar->GetAllPensum($carrera[1]);

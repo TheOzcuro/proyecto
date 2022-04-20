@@ -10,6 +10,15 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
+  background-color: rgb(10, 0, 0);
+}
+
+.imgtitle{
+  margin-right: auto;
+  margin-left: auto;
+  display: block;
+  max-height: 30%;
+  max-width: 30%;
 }
 
 .grid-container {
@@ -89,9 +98,9 @@ a:hover > .test-1 {
   text-indent: 40px;
   letter-spacing: 2px;
   background-color: rgb(230, 230, 230);
-  padding: 10px 20px;
-  border: 6px solid rgb(211, 52, 52);
-  border-radius: 7px;
+  padding: 20px 40px;
+  /*border: 6px solid rgb(211, 52, 52);
+  border-radius: 7px;*/
 }
 
 @-webkit-keyframes Opacity {

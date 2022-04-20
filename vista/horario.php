@@ -14,6 +14,13 @@
         ?></div>
         <div class='lapso' style='position:relative;top:5px;left:-25px;'><b>Lapso: </b><?php echo  $_SESSION["lapso"];?></div>
     </div>
+<?php 
+if (isset($_SESSION["find_horario"])) {
+?>
+<a href='ReportesHorarioPDF.php?cedula=<?php echo  $_SESSION["disponibilidad_profesor"][0][0]?>&lapso=<?php echo  $_SESSION["lapso"];?>' title='Descargar el horario' style='position:absolute;top:150px; left:-80px;'><img src='css/img/pdf.png' style='width:60xp;height:60px;'></a>
+<?php 
+}
+?>
 <div id='horario_list'>
     <div class='title'>HORA</div>
     <div class='title'>LUNES</div>
@@ -41,10 +48,10 @@
     if ($_SESSION["tipo_horario"]==0) {
         $hora="07:00";
         $hora2="07:45";
-        echo "<button type='button' onclick='ChangeHorarioType(`8`)' style='position:absolute;left:-100px;width:100px;font-size:14px;'>Crear Horario Vespertino</button>";
+        echo "<button type='button' onclick='DisplayChange(`8`)' style='position:absolute;left:-100px;width:100px;font-size:14px;'>Crear Horario Vespertino</button>";
     }
     else if ($_SESSION["tipo_horario"]==8) {
-        echo "<button type='button' onclick='ChangeHorarioType(`0`)' style='position:absolute;left:-100px;width:100px;font-size:14px;'>Crear Horario Matunino</button>";
+        echo "<button type='button' onclick='DisplayChange(`0`)' style='position:absolute;left:-100px;width:100px;font-size:14px;'>Crear Horario Matunino</button>";
         $hora="13:00";
         $hora2="13:45";
         

@@ -685,10 +685,7 @@
                         </select>
                         
                     </div>
-                    <button type="button" onclick="Submit('horario')" style='grid-column:1/2;'>Crear</button>
-                    <button type="button" onclick="DisplayDelete('flex','#lapso-find','#lapso_academico')" style='grid-column:2/3;'>Buscar</button>
-                    <button type="button" onclick="Save('lapso_academico')" class="button-edit button-update">Guardar</button><br>
-                    <button type="button" onclick="DisplayDelete('block','.delete-window','#lapso_academico')" class="button-edit button-delete">Eliminar</button>
+                    <button type="button" onclick="Submit('horario')" style='grid-column:2/4;'>Crear</button>
                 </div>
             </form>
             <form action="../control/c_lapso_academico.php" method="POST" name="lapso_academico" id="lapso_academico">

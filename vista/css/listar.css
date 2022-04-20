@@ -34,6 +34,10 @@
           animation-duration: 1s;
 }
 
+table {
+  border: 1px black solid;
+}
+
 .listar-container {
   grid-auto-rows: 60px;
   box-sizing: border-box;

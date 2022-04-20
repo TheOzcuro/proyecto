@@ -7,7 +7,7 @@ function ActiveModificar(fila,container) {
         ValideDelMateria=0;
         add_array=0;
         filas=document.querySelectorAll(fila);
-        ActiveModificarMateria(filas[1].innerText+" **");
+        ActiveModificarMateria(filas[0].innerText+" **");
     }
     else {
         valores=[];

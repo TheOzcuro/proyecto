@@ -469,3 +469,13 @@ function DisplayDelete(display,div,form,valor) {
         }
        
     }
+function DisplayChange(value) {
+        document.querySelector(".blackcover").addEventListener("click", function(){
+            DisplayDelete("none",'.horario-window')})
+            document.querySelector(".blackcover").style.display='block';
+            document.querySelector('.horario-window').style.display='block';
+            document.querySelector('.horario-window').style.animationName="Appear";
+            document.getElementById("yes-horario").addEventListener("click", function(){
+                ChangeHorarioType(value)})
+       
+    }

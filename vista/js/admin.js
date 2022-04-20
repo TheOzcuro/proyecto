@@ -38,6 +38,7 @@ function AppearsAndDissapear(appear,display) {
         if (appear=="horario_agrupar") {
             document.getElementById('register_back').style.display='none';
             document.getElementById('history_back').style.display='none';
+            document.getElementById('refresh').style.display='none';
         }
         document.getElementById(appear).style.display=display;
         document.getElementById(appear).style.animationName="Opacity";
@@ -190,7 +191,8 @@ function LabelInput() {
      totalinput=input.length;
      while (y<totalinput) {
          if (input[y].value!="") {
-             if (container_url=="horario-container" && activehorario==1) {
+             if (container_url=="horario_docente-container" && activehorario==1 || container_url=="horario_docente-historial" && activehorario==1) {
+                 console.log(activehorario);
                 LabelAnimation(input[y].id,label[y+2].id)
              }
              else {
@@ -1023,6 +1025,29 @@ function ChangeHorarioType(tipo) {
     document.getElementById('horario').querySelector(".input-url").value=container_url+"-grid";
     document.getElementById('tipo_horario').value=tipo;
     document.getElementById('horario').submit();
+}
+function HiddenDisponibilidad(value){
+   
+    dias=document.querySelectorAll('.input-dis');
+    
+    for (let index = 0; index < dias.length; index++) {
+        option_value=value.querySelectorAll('option');
+        option=dias[index].querySelectorAll('option');
+        option_origin=dias[index].querySelectorAll('option');
+        for (let i = 1; i < option.length; i++) {
+            console.log(dias[index].value)
+            if (option[i].value==value.value && value.value>0) {
+                option[i].hidden=true
+            }
+            if (option[i].value!=value.value && value.value>0 && dias[0].value!=option[i].value && dias[1].value!=option[i].value && dias[2].value!=option[i].value && dias[3].value!=option[i].value && dias[4].value!=option[i].value) {
+                option[i].hidden=false
+            }
+
+        }
+        
+        
+        
+    }
 }
 function ActiveHorario(cedula, lapso) {
     document.getElementById('cedula_horario').value=cedula;

@@ -92,6 +92,7 @@ else if (isset($_POST["update-profesor"]) && $_POST["update-profesor"]!="") {
 else if (isset($_POST["delete-profesor"]) && $_POST["delete-profesor"]!="") {
    $ejecutar->DeleteTable("profesor","cedula",$_POST["delete-profesor"]);
    $ejecutar->DeleteTable("bloque_disponibilidad","cedula",$_POST["delete-profesor"]);
+   $ejecutar->DeleteTable("horario_docente","cedula_docente",$_POST["delete-profesor"]);
    $_SESSION["completado"]="Los datos fueron eliminados sastifactoriamente";
    header("Location:../vista/administrador.php#$url");
 }

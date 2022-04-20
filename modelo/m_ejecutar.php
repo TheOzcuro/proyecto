@@ -76,6 +76,10 @@ class registry extends mybsd {
 			$query="SELECT * FROM `materia` WHERE `tipo`=1";
 			return $this->ListAll($this->execute($query), MYSQLI_NUM);
 		}
+		else if ($columna=="nombre" || $columna=="NOMBRE") {
+			$query="SELECT * FROM `materia` WHERE `tipo`=1 AND `$columna` LIKE '%$busca%'";
+			return $this->ListAll($this->execute($query), MYSQLI_NUM);
+		}
 		else {
 			$query="SELECT * FROM `materia` WHERE `tipo`=1 AND `$columna`='$busca'";
 			return $this->ListAll($this->execute($query), MYSQLI_NUM);
@@ -84,11 +88,11 @@ class registry extends mybsd {
 	}
 	function GetHistorialHorario($busca,$columna) {
 		if ($busca=="") {
-			$query="SELECT DISTINCT profesor.cedula, profesor.primer_nombre, profesor.segundo_nombre, profesor.primer_apellido, profesor.segundo_apellido, horario_docente.lapso_academico FROM horario_docente, profesor WHERE profesor.cedula IN (SELECT horario_docente.cedula_docente FROM horario_docente)";
+			$query="SELECT DISTINCT profesor.cedula, profesor.primer_nombre, profesor.segundo_nombre, profesor.primer_apellido, profesor.segundo_apellido, horario_docente.lapso_academico FROM horario_docente, profesor WHERE profesor.cedula IN (SELECT horario_docente.cedula_docente FROM horario_docente) AND profesor.cedula=horario_docente.cedula_docente";
 			return $this->ListAll($this->execute($query), MYSQLI_NUM);
 		}
 		else {
-			$query="SELECT DISTINCT profesor.cedula, profesor.primer_nombre, profesor.segundo_nombre, profesor.primer_apellido, profesor.segundo_apellido, horario_docente.lapso_academico FROM horario_docente, profesor WHERE profesor.cedula IN (SELECT horario_docente.cedula_docente FROM horario_docente) AND `$columna` LIKE '%$busca%'";
+			$query="SELECT DISTINCT profesor.cedula, profesor.primer_nombre, profesor.segundo_nombre, profesor.primer_apellido, profesor.segundo_apellido, horario_docente.lapso_academico FROM horario_docente, profesor WHERE profesor.cedula IN (SELECT horario_docente.cedula_docente FROM horario_docente) AND profesor.cedula=horario_docente.cedula_docente AND `$columna` LIKE '%$busca%'";
 			return $this->ListAll($this->execute($query), MYSQLI_NUM);
 		}
 		

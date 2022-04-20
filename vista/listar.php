@@ -1,5 +1,5 @@
 <link rel="stylesheet" href="css/listar.css">
-<?php 
+<?php
 include_once("../control/c_listar.php");
 $tabla=$_GET["tabla"] ?? '';
 $campo=$_GET["campo"] ?? '';
@@ -62,6 +62,10 @@ function CreateTable($table,$campo,$dato) {
   }
   if ($table=="horario_docente") {
     $namecount=8;
+    $width=$namecount*105;
+  }
+  if ($table=="pensum") {
+    $namecount=4;
     $width=$namecount*105;
   }
     //El div donde estara la tabla
@@ -150,9 +154,47 @@ function CreateTable($table,$campo,$dato) {
   if ($campo!="undefined") {
     echo "<button id='back' type='button' onclick='refresh(1,``,`undefined`,`undefined`)' style='width:100px;height: 30px;margin-top: 20px;margin-left: 20px;'>Volver</button>";
   }
+  if (count($lista)>0) {
+    if ($campo!="undefined" && $table!="horario_docente") {
+      echo "<a href='reportesPDF.php?table=$table&url=$table-historial-grid&campo=$campo&dato=$dato' title='Descargar todos los datos del historial'><img src='css/img/pdf.png' style='width:40xp;height:40px;margin-top:10px;margin-left:60px;'></a>";
+    }
+    else if ($table=="horario_docente") {
+      echo "<a href='reportesHorarioPDF.php?cedula=";
+      $a=0;
+      while ($a < $numero_items) {
+        if ($a==$numero_items) {
+          echo $lista[$a][0];
+        }
+        else {
+          echo $lista[$a][0].",";
+        }
+        $a=$a+1;
+      }  
+      echo "&lapso=";
+      $b=0;
+      while ($b < $numero_items) {
+        if ($b==$numero_items) {
+          echo $lista[$b][5];
+        }
+        else {
+          echo $lista[$b][5].",";
+        }
+        $b=$b+1;
+      }  
+      echo "' title='Descargar todos los datos del historial'><img src='css/img/pdf.png' style='width:40xp;height:40px;margin-top:10px;margin-left:60px;'></a>";
+    }
+    else {
+      echo "<a href='reportesPDF.php?table=$table&url=$table-historial-grid' title='Descargar todos los datos del historial'><img src='css/img/pdf.png' style='width:40xp;height:40px;margin-top:10px;margin-left:60px;'></a>";
+    }
+    
+  }
+  
  echo "</div>";
   if ($table=="profesor") {
     echo "<div class='listar-container' id='teacher' style='display:none;width:".$width."px;grid-template-columns:repeat(".$namecount.",auto);left:46%;'>";
+  }
+  else if($table=="pensum"){
+    echo "<div class='listar-container' style='display:none;width:".$width."px;grid-template-columns:repeat(".$namecount.",1fr);'>";
   }
   else {
     echo "<div class='listar-container' style='display:none;width:".$width."px;grid-template-columns:repeat(".$namecount.",auto);'>";
@@ -162,13 +204,18 @@ function CreateTable($table,$campo,$dato) {
     if ($table=="materia" && $i==2) {
 
     }
-    if ($table=="horario_docente") {
+    else if ($table=="horario_docente") {
       echo"<div class='title'>CEDULA DOCENTE</div>";
       echo"<div class='title'>PRIMER NOMBRE</div>";
       echo"<div class='title'>SEGUNDO NOMBRE</div>";
       echo"<div class='title'>PRIMER APELLIDO</div>";
       echo"<div class='title'>SEGUNDO APELLIDO</div>";
       echo"<div class='title'>LAPSO ACADEMICO</div>";
+      break;
+    }
+    else if ($table=="pensum") {
+      echo"<div class='title' style='width:1000px;'>PNF</div>";
+      echo"<div class='title' style='width:1000px;'>UNIDAD CURRICULAR</div>";
       break;
     }
     else {
@@ -194,14 +241,12 @@ function CreateTable($table,$campo,$dato) {
     else {
       //Se verifica si la tabla es la pensum para decirle que aparezca los datos de una forma especifica
       if($table==="pensum") {
-        
-          echo "<div class='".$name[0]["COLUMN_NAME"]." f-".$index."' value=".$lista[$index][0].">".$lista[$index][0]."</div>";
           echo "<div class='".$name[1]["COLUMN_NAME"]." f-".$index."' value=".$lista[$index][1].">".$lista[$index][2]."</div>";
-          echo "<div class='".$name[2]["COLUMN_NAME"]." f-".$index."' >";
+          echo "<div class='".$name[2]["COLUMN_NAME"]." f-".$index."' style='overflow:auto;width:1000px;'>";
           $x=4;
           //for donde se agregan todas las materias al mismo div para mas comodidad para el usuario
           for ($i=3; $i < count($lista[$index]); $i=$i+2) { 
-            echo "<span id=".$lista[$index][$i].">".$lista[$index][$x]." ||  </span>";
+            echo "<span id=".$lista[$index][$i].">".$lista[$index][$x]." ||  </span><br>";
             $x=$x+2;
           }
           echo "</div>";
@@ -213,7 +258,6 @@ function CreateTable($table,$campo,$dato) {
           //Transformar los valores de la tabla de materia en algo mas agradable y entendible para el usuario
           if ($table==="materia" && $i===2) {
           }
-          
           else {
             if ($i==9) {
               echo "<div></div>";
