@@ -37,15 +37,15 @@ while($x<$c){
         color: rgb(240, 240, 240);
         background: rgb(73, 87, 214);
         text-align: center;'>
-            <th class='profesor_cedula'><b>Cedula: </b><?php echo  $_SESSION["disponibilidad_profesor"][0][0];?></th>
-            <th class='profesor_nombre'><b>Nombre: </b><?php echo  $_SESSION["disponibilidad_profesor"][0][1]." ".$_SESSION["disponibilidad_profesor"][0][3];?></th>
-            <th class='profesor_oficio'><b>Oficio: </b><?php echo  $_SESSION["disponibilidad_profesor"][0][13];?></th>
+            <th class='profesor_cedula'><b>Cedula: </b><?php echo  $_SESSION["disponibilidad_profesor_pdf"][0][0];?></th>
+            <th class='profesor_nombre'><b>Nombre: </b><?php echo  $_SESSION["disponibilidad_profesor_pdf"][0][1]." ".$_SESSION["disponibilidad_profesor_pdf"][0][3];?></th>
+            <th class='profesor_oficio'><b>Oficio: </b><?php echo  $_SESSION["disponibilidad_profesor_pdf"][0][13];?></th>
             <th class='profesor_titulo'><b>Titulo: </b><?php 
-            if ($_SESSION["disponibilidad_profesor"][0][12]=="") {
+            if ($_SESSION["disponibilidad_profesor_pdf"][0][12]=="") {
                 echo "No tiene";
             }
             else {
-                echo  $_SESSION["disponibilidad_profesor"][0][12];
+                echo  $_SESSION["disponibilidad_profesor_pdf"][0][12];
             }
             ?></th>
             <th class='lapso'><b>Lapso: </b><?php echo  $_SESSION["lapso"];?></th>
@@ -65,7 +65,7 @@ while($x<$c){
         $dias=1;
         $b=0+1;
         $bloque="";
-        $list=$_SESSION["lista_disponibilidad"];
+        $list=$_SESSION["lista_disponibilidad_pdf"];
         $list_i=0;
         $bloque_id=0;
         $y=0;
@@ -118,9 +118,8 @@ while($x<$c){
     <?php
     
 }
-unset($_SESSION["disponibilidad_profesor"]);
-unset($_SESSION["lista_disponibilidad"]);
-unset($_SESSION["lapso"]);
+unset($_SESSION["disponibilidad_profesor_pdf"]);
+unset($_SESSION["lista_disponibilidad_pdf"]);
 include_once("../libreria/dompdf/autoload.inc.php");
 use Dompdf\Dompdf;
 $dompdf= new Dompdf();
