@@ -10,6 +10,19 @@ function GetAll($tabla)
 function History($tabla,$campo,$dato)
 {
     $ejecutar= new registry();
+    if ($campo!="undefined") {
+        $new=explode("+",$campo);
+        $newCampo="";
+        for ($i=0; $i < count($new); $i++) { 
+            if ($newCampo=="") {
+                $newCampo=$new[$i];
+            }
+            else {
+                $newCampo=$newCampo." ".$new[$i];
+            }
+        }
+        $campo=$newCampo;
+    }
     if ($campo!="undefined" && $tabla!="pensum" && $tabla!="oferta" && $tabla!="profesor" && $tabla!="materia" && $tabla!="horario_docente") {
         return $ejecutar->GetFindQuery($tabla,$campo,$dato);
     }

@@ -271,6 +271,20 @@ function findHistorial() {
         var dato=document.getElementById('buscar_historial').value.toUpperCase();
     }
     if (dato!="") {
+        datoarray=dato.split(" ");
+        if (dato.length>0) {
+            let newDato="";
+            for (let index = 0; index < datoarray.length; index++) {
+                if (newDato=="") {
+                    newDato=datoarray[index];
+                }
+                else {
+                    newDato=newDato+"+"+datoarray[index];
+                }
+            }
+            dato=newDato;
+        }
+        
         if (dato=="MULTIDICIPLINARIA" && campo=='TIPO') {
             refresh(1,'',"1",campo);
         }

@@ -17,7 +17,7 @@
 <?php 
 if (isset($_SESSION["find_horario"])) {
 ?>
-<a href='ReportesHorarioPDF.php?cedula=<?php echo  $_SESSION["disponibilidad_profesor"][0][0]?>&lapso=<?php echo  $_SESSION["lapso"];?>' title='Descargar el horario' style='position:absolute;top:150px; left:-80px;'><img src='css/img/pdf.png' style='width:60xp;height:60px;'></a>
+<a href='ReportesHorarioPDF.php?cedula=<?php echo  $_SESSION["disponibilidad_profesor"][0][0]?>,&lapso=<?php echo  $_SESSION["lapso"];?>,' title='Descargar el horario' style='position:absolute;top:150px; left:-80px;' target='_blank'><img src='css/img/pdf.png' style='width:60xp;height:60px;'></a>
 <?php 
 }
 ?>

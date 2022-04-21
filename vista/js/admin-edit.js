@@ -74,6 +74,7 @@ function Save(form) {
             }
             if (form=="oferta") {
                 document.querySelector("#"+form).querySelector(".input-update").value=valores[1];
+                document.querySelector("#"+form).querySelector(".input-lapso").value=valores[0];
             }
             else {
                 document.querySelector("#"+form).querySelector(".input-update").value=valores[0];

@@ -30,21 +30,31 @@ else if (isset($_GET["buscar_oferta"]) && $_GET["buscar_oferta"]!="") {
      }
 }
 else if (isset($_POST["update"]) && $_POST["update"]!=""){
-    $dato=$ejecutar->UpdateTableOferta($_POST["lapso"], $_POST["carrera_oferta"], $_POST["horas_semana"], $_POST["unidad_credito"], $_POST["update"]);
-    if ($dato===3) {
+    $validate=$ejecutar->ValidateOferta($_POST["carrera_oferta"],$_POST["lapso"]);
+    $dato=$ejecutar->FindQuery("lapso_academico","trayecto",$_POST["lapso"]);
+    $dato2=$ejecutar->FindQuery("carrera","nombre",$_POST["carrera_oferta"]);
+    if ($validate!=false) {
+        $_SESSION["error"]="La carrera ".$_POST["carrera_oferta"]." ya se encuentra registrada al lapso ".$_POST["lapso"]."";
+        $_SESSION["update"]=$ejecutar->FindQueryOferta($_POST["carrera_oferta"],$_POST["lapso"]);
+        header("Location:../vista/administrador.php#$url");
+    }
+    else if ($dato===2) {
+        $_SESSION["error"]="El lapso que ingreso no existe";
+        $_SESSION["container"]="oferta-container";
+        $_SESSION["update"]=$ejecutar->GetAllOferta($_POST["update"],'PNF');
+        header("Location:../vista/administrador.php#$url");
+    }
+    else if($dato2===2) {
         $_SESSION["error"]="El nombre de carrera que ingreso no existe";
         $_SESSION["container"]="oferta-container";
         $_SESSION["update"]=$ejecutar->GetAllOferta($_POST["update"],'PNF');
         header("Location:../vista/administrador.php#$url");
     }
-    else if($dato===2) {
-        $_SESSION["error"]="El nombre de carrera que ingreso ya se encuentra registrada";
-        $_SESSION["container"]="oferta-container";
-        $_SESSION["update"]=$ejecutar->GetAllOferta($_POST["update"],'PNF');
-        header("Location:../vista/administrador.php#$url");
-    }
     else {
-        $_SESSION["update"]=$ejecutar->GetAllOferta($_POST["carrera_oferta"],'PNF');
+        $dato=$ejecutar->UpdateTableOferta($_POST["lapso"], $_POST["carrera_oferta"], $_POST["horas_semana"], $_POST["unidad_credito"], $_POST["update"], $_POST["update_lapso"]);
+        echo $dato;
+        $_SESSION["update"]=$ejecutar->FindQueryOferta($_POST["carrera_oferta"],$_POST["lapso"]);
+        echo $_SESSION["update"];
         $_SESSION["completado"]="Los datos fueron actualizados correctamente";
         $_SESSION["container"]="oferta-container";
         header("Location:../vista/administrador.php#$url");
@@ -60,10 +70,22 @@ else if (isset($_POST["delete"]) && $_POST["delete"]!=""){
 }
 
 else {
+    $validate=$ejecutar->ValidateOferta($_POST["carrera_oferta"],$_POST["lapso"]);
     $dato=$ejecutar->FindQuery("lapso_academico","trayecto",$_POST["lapso"]);
+    $dato2=$ejecutar->FindQuery("carrera","nombre",$_POST["carrera_oferta"]);
     if ($dato===2) {
+        $_SESSION["error"]="El lapso que ingreso no existe";
+        $_SESSION["container"]="oferta-container";
         header("Location:../vista/administrador.php#$url");
-        $_SESSION["error"]="El trayecto que ingreso no existe";
+    }
+    else if($dato2===2) {
+        $_SESSION["error"]="El nombre de carrera que ingreso no existe";
+        $_SESSION["container"]="oferta-container";
+        header("Location:../vista/administrador.php#$url");
+    }
+    else if ($validate!=false) {
+        $_SESSION["error"]="La carrera ".$_POST["carrera_oferta"]." ya se encuentra registrada al lapso ".$_POST["lapso"]."";
+        header("Location:../vista/administrador.php#$url");
     }
     else {
         $val=$ejecutar->registrarOferta($_POST["lapso"],$_POST["carrera_oferta"],$_POST["horas_semana"],$_POST["unidad_credito"]);

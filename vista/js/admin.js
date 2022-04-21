@@ -38,7 +38,9 @@ function AppearsAndDissapear(appear,display) {
         if (appear=="horario_agrupar") {
             document.getElementById('register_back').style.display='none';
             document.getElementById('history_back').style.display='none';
-            document.getElementById('refresh').style.display='none';
+            setTimeout(() => {
+                document.getElementById('horario_docente-historial').style.display='none';
+            }, 500);
         }
         document.getElementById(appear).style.display=display;
         document.getElementById(appear).style.animationName="Opacity";

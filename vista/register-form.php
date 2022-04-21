@@ -170,7 +170,7 @@
                     <div class="input-container" style='grid-column:1/3;width:100%;grid-row:7;'>
                         <label for="direccion" id="labeldireccion">Direccion <b style="color:red;">*</b></label><br>
                         <textarea type="text" id="direccion" name="direccion"
-                        onfocus="LabelAnimation('direccion','labeldireccion')" onblur="LabelOut('direccion','labeldireccion')" maxlength="60" class="input input-label" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"' style='width:90%;text-transform:uppercase;'></textarea>
+                        onfocus="LabelAnimation('direccion','labeldireccion')" onblur="LabelOut('direccion','labeldireccion')" maxlength="100" class="input input-label" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"' style='width:90%;text-transform:uppercase;'></textarea>
                         <input type="checkbox" class="checkbox-edit" onclick="CheckboxDisabled('direccion', this)" style='left:540px;'>
                     </div>
 
@@ -290,7 +290,7 @@
                     </div>
                     <div class="input-container">
                         <label for="nombre_carrera" id="labelnombre_carrera">Nombre</label><br>
-                        <input type="text" id="nombre_carrera" name="nombre_carrera" onfocus="LabelAnimation('nombre_carrera','labelnombre_carrera')" onblur="LabelOut('nombre_carrera','labelnombre_carrera')" maxlength="30" class="input input-label">
+                        <input type="text" id="nombre_carrera" name="nombre_carrera" onfocus="LabelAnimation('nombre_carrera','labelnombre_carrera')" onblur="LabelOut('nombre_carrera','labelnombre_carrera')" maxlength="32" class="input input-label">
                         <input type="checkbox" class="checkbox-edit checkbox-materia"  onclick="CheckboxDisabled('nombre_carrera', this)">
                     </div>
                     <button type="button" onclick="Submit('carrera')">Registrar</button>
@@ -301,6 +301,7 @@
             </form>
             <form action="../control/c_oferta.php" method="POST" name="oferta" id="oferta">
                 <input type="text" class="input-update" id="update" name="update" hidden>
+                <input type="text" class='input-lapso' id="update_lapso" name="update_lapso" hidden>
                 <input type="text" class="input-delete" id="delete" name="delete" hidden>
                 <input type="text" class="input-url" id="url" name="url" hidden>
                 <div id="oferta-container" class="container container-flex">
@@ -340,12 +341,12 @@
                     </div>
                     <div class="input-container  input-add">
                         <label for="horas_semana" id="labelhoras_semana">Horas por semana</label><br>
-                    <input type="text" id="horas_semana" name="horas_semana" onfocus="LabelAnimation('horas_semana','labelhoras_semana')" onblur="LabelOut('horas_semana','labelhoras_semana')" maxlength="30" class="input input-label input_add" autocomplete="off">
+                    <input type="text" id="horas_semana" name="horas_semana" onfocus="LabelAnimation('horas_semana','labelhoras_semana')" onblur="LabelOut('horas_semana','labelhoras_semana')" maxlength="2" class="input input-label input_add" autocomplete="off">
                         <input type="checkbox" class="checkbox-edit checkbox-add"  onclick="CheckboxDisabled('horas_semana', this)">
                     </div>
                     <div class="input-container  input-add">
                         <label for="unidad_credito" id="labelunidad_credito">Unidad de credito</label><br>
-                    <input type="text" id="unidad_credito" name="unidad_credito" onfocus="LabelAnimation('unidad_credito','labelunidad_credito')" onblur="LabelOut('unidad_credito','labelunidad_credito')" maxlength="30" class="input input-label input_add" autocomplete="off">
+                    <input type="text" id="unidad_credito" name="unidad_credito" onfocus="LabelAnimation('unidad_credito','labelunidad_credito')" onblur="LabelOut('unidad_credito','labelunidad_credito')" maxlength="2" class="input input-label input_add" autocomplete="off">
                         <input type="checkbox" class="checkbox-edit checkbox-add"  onclick="CheckboxDisabled('unidad_credito', this)">
                     </div>
                    
@@ -696,7 +697,7 @@
                     <a class="a_img"><img src="css/img/close.png" alt="" class="close-icon" id="close-icon-profesor" onclick="Close()"></a>
                     <h2>Lapso</h2>
                     <div class="input-container">
-                        <label for="trayecto" id="labeltrayecto">Trayecto</label><br>
+                        <label for="trayecto" id="labeltrayecto">Lapso</label><br>
                         <input type="text" id="trayecto" name="trayecto" onfocus="LabelAnimation('trayecto','labeltrayecto')" onblur="LabelOut('trayecto','labeltrayecto')" maxlength="11" class="input input-label" maxlength="15">
                         
                         <input type="checkbox" class="checkbox-edit checkbox-materia"  onclick="CheckboxDisabled('trayecto', this)">

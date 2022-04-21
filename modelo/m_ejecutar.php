@@ -118,7 +118,7 @@ class registry extends mybsd {
 	}
 	function GetCarrerasNotInOferta() {
 		$query="SELECT carrera.codigo, carrera.nombre FROM carrera
-		WHERE carrera.codigo NOT IN (SELECT oferta.pnf FROM oferta) AND carrera.codigo IN (SELECT pensum.pnf FROM pensum)";
+		WHERE carrera.codigo IN (SELECT pensum.pnf FROM pensum)";
 		return $this->ListAll($this->execute($query), MYSQLI_NUM);
 	}
 	
@@ -400,6 +400,12 @@ function GetFindQuery($tabla,$dato,$campo)
 			return $list;
 		}
 	}
+	function FindQueryOferta($pnf,$lapso){
+		$pnf=$this->FindQuery('carrera','nombre',$pnf);
+		$codigo=$pnf[0];
+		$query="SELECT * FROM `oferta` WHERE `pnf`='$codigo' AND `lapso_academico`='$lapso'";
+		return $this->ListAll($this->execute($query), MYSQLI_NUM);
+	}
 	function UpdateTableProfesor($cedula) {
 		$query="UPDATE `profesor` SET `cedula`='$this->cedula', `rol`='$this->rol', `primer_nombre`='$this->primer_nombre', `segundo_nombre`='$this->segundo_nombre', `primer_apellido`='$this->primer_apellido', `segundo_apellido`='$this->segundo_apellido', `direccion`='$this->direccion', `telefono`='$this->telefono', `telefono_fijo`='$this->telefono_fijo', `correo`='$this->correo', `titulo`='$this->titulo', `oficio`='$this->oficio',`contratacion`='$this->contratacion', `categoria`='$this->categoria', `dedicacion`='$this->dedicacion' WHERE `cedula`=$cedula";
 		return $this->execute($query);
@@ -434,7 +440,7 @@ function GetFindQuery($tabla,$dato,$campo)
 			return $this->execute($query);
 		
 	}
-	function UpdateTableOferta($trayecto,$pnf,$horas,$unidad,$original_codigo)
+	function UpdateTableOferta($trayecto,$pnf,$horas,$unidad,$original_codigo, $original_trayecto)
 	{
 			$trayecto=strtoupper($trayecto);
 			$pnf=strtoupper($pnf);
@@ -444,7 +450,7 @@ function GetFindQuery($tabla,$dato,$campo)
 			$pnf=$carrera[0];
 			$original_codigo=$carrera_origin[0];
 			if ($carrera!=2 && $carrera_origin!=2) {
-				$query="UPDATE `oferta` SET `lapso_academico`='$trayecto', `pnf`='$pnf', `horas_semanales`='$horas', `creditos`='$unidad' WHERE `pnf`='$original_codigo'";
+				$query="UPDATE `oferta` SET `lapso_academico`='$trayecto', `pnf`='$pnf', `horas_semanales`='$horas', `creditos`='$unidad' WHERE `pnf`='$original_codigo' AND `lapso_academico`='$original_trayecto'";
 				return $this->execute($query);
 			}
 			else {
@@ -489,6 +495,13 @@ function GetFindQuery($tabla,$dato,$campo)
 			$query="UPDATE `lapso_academico` SET `trayecto`='$trayecto',`fecha_inicio`='$fecha_inicio',`fecha_final`='$fecha_final' WHERE `trayecto`='$trayecto_origin'";
 			return $this->execute($query);
 		
+	}
+	function ValidateOferta($carrera,$lapso)
+	{
+		$carrera=$this->FindQuery('carrera','nombre',$carrera);
+		$codigo=$carrera[0];
+		$query="SELECT * FROM `oferta` WHERE `pnf`='$codigo' AND `lapso_academico`='$lapso'";
+		return $this->CheckResult($this->execute($query));
 	}
 	function DeleteTable($tabla, $campo, $dato) {
 		$query="DELETE FROM `$tabla` WHERE `$campo`='$dato'";

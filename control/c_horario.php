@@ -35,7 +35,6 @@ else if (isset($_POST["carrera_horario"]) && $_POST["carrera_horario"]!="") {
 }
 else if (isset($_POST["input_horario"]) && $_POST["input_horario"]!="") {
     $ejecutar->DeleteTable('horario_docente','cedula_docente',$_POST["input_horario"][0]);
-    print_r($_POST["input_horario"]);
      for ($i=2; $i < count($_POST["input_horario"]); $i=$i+5) { 
         if ($_POST["input_horario"][$i]!="") {
             $ejecutar->registrarHorario($_POST["input_horario"][0],$_POST["input_horario"][$i+2],$_POST["input_horario"][1],$_POST["input_horario"][$i+3],$_POST["input_horario"][$i+1],$_POST["input_horario"][$i],$_POST["input_horario"][$i+4]);

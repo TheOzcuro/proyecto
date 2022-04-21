@@ -22,7 +22,6 @@ function CreateTable($table,$campo,$dato) {
   }
   //Variable con los nombres de la tabla
   $name=GetAll($table);
- 
   //Datos de las columnas de las tabla
   $lista=History($table,$campo,$dato);
   //Desde donde empezara a contar
@@ -181,10 +180,10 @@ function CreateTable($table,$campo,$dato) {
         }
         $b=$b+1;
       }  
-      echo "' title='Descargar todos los datos del historial'><img src='css/img/pdf.png' style='width:40xp;height:40px;margin-top:10px;margin-left:60px;'></a>";
+      echo "' title='Descargar todos los datos del historial' target='_blank'><img src='css/img/pdf.png' style='width:40xp;height:40px;margin-top:10px;margin-left:60px;'></a>";
     }
     else {
-      echo "<a href='reportesPDF.php?table=$table&url=$table-historial-grid' title='Descargar todos los datos del historial'><img src='css/img/pdf.png' style='width:40xp;height:40px;margin-top:10px;margin-left:60px;'></a>";
+      echo "<a href='reportesPDF.php?table=$table&url=$table-historial-grid' title='Descargar todos los datos del historial' target='_blank'><img src='css/img/pdf.png' style='width:40xp;height:40px;margin-top:10px;margin-left:60px;'></a>";
     }
     
   }

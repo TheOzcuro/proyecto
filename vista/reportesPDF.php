@@ -21,6 +21,12 @@ function CreateTable($table,$campo,$dato) {
       
     }
   }
+  if ($campo=="") {
+    $campo="undefined";
+  }
+  if ($dato=="") {
+    $dato="undefined";
+  }
   //Variable con los nombres de la tabla
   $name=GetAll($table);
  
