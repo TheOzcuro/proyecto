@@ -128,7 +128,7 @@ class registry extends mybsd {
 	}
 	
 	function GetLapsoOferta() {
-		$query="SELECT lapso_academico.trayecto FROM lapso_academico";
+		$query="SELECT lapso_academico.lapso FROM lapso_academico";
 		return $this->ListAll($this->execute($query), MYSQLI_NUM);
 	}
 	function GetOficio() {

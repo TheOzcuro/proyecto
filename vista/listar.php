@@ -276,6 +276,10 @@ function CreateTable($table,$campo,$dato) {
           //Transformar los valores de la tabla de materia en algo mas agradable y entendible para el usuario
           if ($table==="materia" && $i===2) {
           }
+          if ($table=="noticia" && $i===1) {
+            echo "<div class='".$name[$i]["COLUMN_NAME"]." f-".$index."' value=".$lista[$index][$i]." title='".$lista[$index][$i]."'  style='overflow:auto;'>".$lista[$index][$i];
+            echo "</div>";
+          }
           else {
             if ($i==9) {
               echo "<div></div>";
