@@ -132,6 +132,7 @@ a
         grid-column: 1/3
         margin-top: -5px
     .checkbox-edit
+        top: 23px
         left: 235px
 #horario_docente-container
     display: none
@@ -180,7 +181,7 @@ a
     background: rgb(250, 250, 250)
     grid-gap: 10px
     box-shadow: 50px 30px 50px rgb(30, 30, 30,0.6)
-    max-width: 590px
+    width: 590px
     box-sizing: border-box
     padding: 20px
     position: absolute
@@ -344,6 +345,9 @@ input, textarea
     -o-transition-timing-function: ease
     &:focus
         border-color: rgb(32, 107, 219)
+#noticia-container
+    grid-template-columns: repeat(3,180px) 
+    width: 560px
 #profesor-container select, .container-flex select, #disponibilidad-container select, #horario_docente-container select
     width: 80%
     border: none

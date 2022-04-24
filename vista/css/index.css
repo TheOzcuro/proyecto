@@ -10,15 +10,6 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
-  background-color: rgb(10, 0, 0);
-}
-
-.imgtitle{
-  margin-right: auto;
-  margin-left: auto;
-  display: block;
-  max-height: 30%;
-  max-width: 30%;
 }
 
 .grid-container {
@@ -74,6 +65,14 @@ a:hover > .test-1 {
   padding: 5px 20px;
 }
 
+.imgtitle {
+  margin-right: auto;
+  margin-left: auto;
+  display: block;
+  max-height: 30%;
+  max-width: 30%;
+}
+
 .test, .test-1 {
   background-color: transparent;
   transition: all 0.2s ease-in-out;
@@ -86,7 +85,23 @@ a:hover > .test-1 {
   margin: auto;
 }
 
-.parrafo {
+.container-noticia {
+  height: 500px;
+}
+.container-noticia h2 {
+  text-align: center;
+}
+.container-noticia div {
+  background: rgb(250, 250, 250);
+  border-radius: 3px;
+  padding-top: 10px;
+  font-size: 18px;
+}
+.container-noticia div p {
+  font-size: 13px;
+}
+
+.parrafo, .container-noticia {
   font-size: 20px;
   width: 50%;
   display: none;
@@ -98,9 +113,9 @@ a:hover > .test-1 {
   text-indent: 40px;
   letter-spacing: 2px;
   background-color: rgb(230, 230, 230);
-  padding: 20px 40px;
-  /*border: 6px solid rgb(211, 52, 52);
-  border-radius: 7px;*/
+  padding: 10px 20px;
+  border: 6px solid rgb(211, 52, 52);
+  border-radius: 7px;
 }
 
 @-webkit-keyframes Opacity {

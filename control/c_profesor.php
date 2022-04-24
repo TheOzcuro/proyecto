@@ -67,7 +67,8 @@ else if (isset($_POST["update-profesor"]) && $_POST["update-profesor"]!="") {
         $_SESSION["container"]="profesor-container";
         $ejecutar->UpdateTableDisponibilidad($_POST["cedula"], $_POST["update-profesor"]);
         $_SESSION["update"]=$ejecutar->FindQuery('profesor','cedula',$_POST["cedula"]);
-        print_r($_SESSION["update"]);
+        $ejecutar->UpdateCampoHorario('cedula_docente',$_POST["cedula"],$_POST["update-profesor"]);
+        $ejecutar->registrarOficio($_POST["oficio"]);
         if ($_POST["rol"]==="1") {
             $admin=$ejecutar->FindQuery("administrador","cedula",$_POST["update-profesor"]);
            if ($admin===2) {
@@ -112,6 +113,7 @@ else {
            $_SESSION["completado"]="El Administrador fue registrado sastifactoriamente";
         }
         if ($_POST["rol"]==0) {
+            $ejecutar->registrarOficio($_POST["oficio"]);
             $val=$ejecutar->FindQuery("administrador","cedula",$_POST["cedula"]);
             if ($val===2) {
                 header("Location:../vista/administrador.php#$url");

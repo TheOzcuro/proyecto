@@ -10,7 +10,7 @@ function CreateTable($table,$campo,$dato) {
     $page=1;
     
   }
-
+ 
   else {
     if (isset($_SESSION["pagina"])) {
       $page=$_SESSION["pagina"];
@@ -56,6 +56,9 @@ function CreateTable($table,$campo,$dato) {
     $count_lista=8;
     $width=$namecount*105;
   }
+  if ($table=="aula") {
+    $namecount=4;
+  }
   if ($table=="materia") {
     $namecount=4;
   }
@@ -80,6 +83,11 @@ function CreateTable($table,$campo,$dato) {
         <option value=''>Rol<b style='color:red;'>*</b></option>
         <option value='1'>Administrador</option>
         <option value='0'>Profesor</option>
+    </select>
+    <select name='disponibilidad_buscar' id='disponibilidad_buscar' onclick='SelectAnimation(`rol_buscar`)' style='display:none; margin-bottom: 10px;' class='find_inputs'>
+        <option value=''>Disponibilidad</b></option>
+        <option value='0'>Inactivo</option>
+        <option value='1'>Activo</option>
     </select>
     <select name='contratacion_buscar' id='contratacion_buscar' onclick='SelectAnimation(`contratacion_buscar`)' style='display:none; margin-bottom: 30px;' class='find_inputs'>
         <option value=''>Contratacion<b style='color:red;'>*</b></option>
@@ -115,6 +123,12 @@ function CreateTable($table,$campo,$dato) {
     echo "<option value=".strtoupper($name[0]["COLUMN_NAME"]).">".strtoupper($name[0]["COLUMN_NAME"]);
     echo "</option>";
     echo "<option value=".strtoupper($name[1]["COLUMN_NAME"]).">".strtoupper($name[1]["COLUMN_NAME"]);
+    echo "</option>";
+  }
+  else if ($table=="aula") {
+    echo "<option value='CODIGO'>CODIGO";
+    echo "</option>";
+    echo "<option value='NOMBRE'>NOMBRE";
     echo "</option>";
   }
   else if($table=="horario_docente") {
@@ -202,6 +216,11 @@ function CreateTable($table,$campo,$dato) {
   for ($i=0; $i < count($name); $i++) {
     if ($table=="materia" && $i==2) {
 
+    }
+    else if ($table=="aula") {
+      echo"<div class='title'>CODIGO</div>";
+      echo"<div class='title'>NOMBRE</div>";
+      break;
     }
     else if ($table=="horario_docente") {
       echo"<div class='title'>CEDULA DOCENTE</div>";

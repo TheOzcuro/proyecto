@@ -111,28 +111,28 @@ else {
         $_SESSION["error"]="La cedula que ingreso no existe";
     }
     else {
-        if ($_POST['bloques_add_1']!="") {
+        if ($_POST['bloques_add_1']!="" && $_POST['dias_1']!="") {
             $array=explode(",",$_POST["bloques_add_1"]);
             sort($array, SORT_NATURAL);
             for ($i=0; $i < count($array); $i++) { 
                $ejecutar->registrarDisponibilidad($_POST["cedula_dis"], $array[$i],$_POST["dias_1"],1);
             }
         }
-        if ($_POST['bloques_add_2']!="") {
+        if ($_POST['bloques_add_2']!=""  && $_POST['dias_2']!="") {
             $array=explode(",",$_POST["bloques_add_2"]);
             sort($array, SORT_NATURAL);
             for ($i=0; $i < count($array); $i++) { 
                 $ejecutar->registrarDisponibilidad($_POST["cedula_dis"], $array[$i],$_POST["dias_2"],1);
              }
         }
-        if ($_POST['bloques_add_3']!="") {
+        if ($_POST['bloques_add_3']!=""  && $_POST['dias_3']!="") {
             $array=explode(",",$_POST["bloques_add_3"]);
             sort($array, SORT_NATURAL);
             for ($i=0; $i < count($array); $i++) { 
                 $ejecutar->registrarDisponibilidad($_POST["cedula_dis"], $array[$i],$_POST["dias_3"],1);
              }
         }
-        if ($_POST['bloques_add_4']!="") {
+        if ($_POST['bloques_add_4']!=""  && $_POST['dias_4']!="") {
             $array=explode(",",$_POST["bloques_add_4"]);
             sort($array, SORT_NATURAL);
             for ($i=0; $i < count($array); $i++) { 
@@ -140,7 +140,7 @@ else {
              }
         }
         echo $_POST['bloques_add_5'];
-        if ($_POST['bloques_add_5']!="") {
+        if ($_POST['bloques_add_5']!=""  && $_POST['dias_5']!="") {
             $array=explode(",",$_POST["bloques_add_5"]);
             sort($array, SORT_NATURAL);
             for ($i=0; $i < count($array); $i++) { 

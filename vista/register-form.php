@@ -14,6 +14,7 @@
                         <div class="dropdown" id="carreras_drop">
                         <?php 
                             include_once("../control/c_function.php");
+                            DeleteNoticia();
                             $list=[];
                             $list=GetCarrerasNotPensum();
                             $carrera=GetCarreras();
@@ -175,13 +176,13 @@
                     </div>
 
                     <div class="input-container" style='grid-column:2/3;grid-row:4;'>
-                        <label for="telefono" id="labeltelefono">Telefono Personal</label><br>
+                        <label for="telefono" id="labeltelefono">Telefono Personal <b style="color:rgb(90,110,200);font-size:12px;">(04)</b></label><br>
                         <input type="text" id="telefono" name="telefono"
                         onfocus="LabelAnimation('telefono','labeltelefono')" onblur="LabelOut('telefono','labeltelefono')" maxlength="11" class="input input-label">
                         <input type="checkbox" class="checkbox-edit" onclick="CheckboxDisabled('telefono', this)" >
                     </div>
                     <div class="input-container">
-                        <label for="telefono_fijo" id="labeltelefono_fijo">Telefono Fijo</label><br>
+                        <label for="telefono_fijo" id="labeltelefono_fijo">Telefono Fijo <b style="color:rgb(90,110,200);font-size:12px;">(0255)</b></label><br>
                         <input type="text" id="telefono_fijo" name="telefono_fijo"
                         onfocus="LabelAnimation('telefono_fijo','labeltelefono_fijo')" onblur="LabelOut('telefono_fijo','labeltelefono_fijo')" maxlength="11" class="input input-label">
                         <input type="checkbox" class="checkbox-edit" onclick="CheckboxDisabled('telefono_fijo', this)" >
@@ -194,14 +195,24 @@
                     <div class="input-container">
                         <label for="titulo" id="labeltitulo">Titulo</label><br>
                         <input type="text" id="titulo" name="titulo"
-                        onfocus="LabelAnimation('titulo','labeltitulo')" onblur="LabelOut('titulo','labeltitulo')" maxlength="30" class="input input-label">
+                        onfocus="LabelAnimation('titulo','labeltitulo')" onblur="LabelOut('titulo','labeltitulo')" maxlength="30" class="input input-label" style='text-transform:uppercase;'>
                         <input type="checkbox" class="checkbox-edit" onclick="CheckboxDisabled('titulo', this)" >
                     </div>
                     <div class="input-container">
                         <label for="oficio" id="labeloficio">Oficio <b style="color:red;">*</b></label><br>
                         <input type="text" id="oficio" name="oficio"
-                        onfocus="LabelAnimation('oficio','labeloficio')" onblur="LabelOut('oficio','labeloficio')" maxlength="30" class="input input-label">
+                        onfocus="LabelAnimation('oficio','labeloficio')" onblur="LabelOut('oficio','labeloficio')" maxlength="30" class="input input-label" autocomplete='off' style='text-transform:uppercase;' onkeyup="Search('oficio','oficio_drop')">
                         <input type="checkbox" class="checkbox-edit" onclick="CheckboxDisabled('oficio', this)" >
+                        <div class="dropdown drop" id="oficio_drop">
+                        <?php 
+                            $list=[];
+                            $list=GetOficio();
+                            $totalarray=count($list);
+                            for ($i=0; $i < $totalarray; $i++) { 
+                                echo "<span id='".$list[$i][0]."'". "onclick="."AddValueMateria('oficio',this)".">".$list[$i][0]."</span>";
+                            }
+                        ?>
+                        </div>
                     </div>
                     <div class="input-container">
                         <select name="rol" id="rol" onclick="SelectAnimation('rol')" class="input">
@@ -230,6 +241,8 @@
                             <option value="5">Asistente</option>
                             <option value="6">Asesor</option>
                             <option value="7">Agregado</option>
+                            <option value="8">Asociado</option>
+                            <option value="9">Titular</option>
                         </select>
                         <input type="checkbox" class="checkbox-edit"  onclick="CheckboxDisabled('categoria', this)">
                     </div>
@@ -408,12 +421,7 @@
                     <input type="text" id="del" name="del" hidden>
                     <div class="input-container">
                         <select name="dias_1" id="dias_1" class='input-dis' value="bloques_add_drop_1" style='margin-top:25px;'>
-                            <option value="">Dia</option>
                             <option value="1">LUNES</option>
-                            <option value="2">MARTES</option>
-                            <option value="3">MIERCOLES</option>
-                            <option value="4">JUEVES</option>
-                            <option value="5">VIERNES</option>
                         </select>
                     </div>
                     <div class="input-container input-bloques" style='margin-bottom:60px;margin-top:0px;'>
@@ -453,12 +461,7 @@
                     <!-- --------------SEGUNDO BLOQUE---------- -->
                     <div class="input-container">
                         <select name="dias_2" id="dias_2" class='input-dis' value="bloques_add_drop_2">
-                            <option value="">Dia</option>
-                            <option value="1">LUNES</option>
                             <option value="2">MARTES</option>
-                            <option value="3">MIERCOLES</option>
-                            <option value="4">JUEVES</option>
-                            <option value="5">VIERNES</option>
                         </select>
                     </div>
                     <div class="input-container input-bloques" id="input-carreras" style='margin-bottom:60px;'>
@@ -498,12 +501,7 @@
                     <!-- --------------TERCER BLOQUE---------- -->
                     <div class="input-container">
                         <select name="dias_3" id="dias_3" class='input-dis' value="bloques_add_drop_3">
-                            <option value="">Dia</option>
-                            <option value="1">LUNES</option>
-                            <option value="2">MARTES</option>
                             <option value="3">MIERCOLES</option>
-                            <option value="4">JUEVES</option>
-                            <option value="5">VIERNES</option>
                         </select>
                     </div>
                     <div class="input-container input-bloques" id="input-carreras" style='margin-bottom:60px;'>
@@ -544,12 +542,7 @@
                     <!-- --------------CUARTO BLOQUE---------- -->
                     <div class="input-container">
                         <select name="dias_4" id="dias_4" class='input-dis' value="bloques_add_drop_4">
-                            <option value="">Dia</option>
-                            <option value="1">LUNES</option>
-                            <option value="2">MARTES</option>
-                            <option value="3">MIERCOLES</option>
                             <option value="4">JUEVES</option>
-                            <option value="5">VIERNES</option>
                         </select>
                     </div>
                     <div class="input-container input-bloques" id="input-carreras" style='margin-bottom:60px;'>
@@ -590,11 +583,6 @@
                     <!-- --------------QUINTO BLOQUE---------- -->
                     <div class="input-container">
                         <select name="dias_5" id="dias_5" class='input-dis' value="bloques_add_drop_5">
-                            <option value="">Dia</option>
-                            <option value="1">LUNES</option>
-                            <option value="2">MARTES</option>
-                            <option value="3">MIERCOLES</option>
-                            <option value="4">JUEVES</option>
                             <option value="5">VIERNES</option>
                         </select>
                     </div>
@@ -687,6 +675,35 @@
                         
                     </div>
                     <button type="button" onclick="Submit('horario')" style='grid-column:2/4;'>Crear</button>
+                </div>
+            </form>
+            <form action="../control/c_noticia.php" method="POST" name="noticia" id="noticia">
+            <input type="text" class="input-update" id="update" name="update" hidden>
+                <input type="text" class="input-delete" id="delete" name="delete" hidden>
+                <input type="text" class="input-url" id="url" name="url" hidden>
+                <div id="noticia-container" class="container container-flex">
+                    <a class="a_img"><img src="css/img/close.png" alt="" class="close-icon" id="close-icon-profesor" onclick="Close()"></a>
+                    <h2 style='grid-column:1/4;'>Crear</h2>
+                    <div class="input-container" style='grid-column:1/2;'>
+                        <label for="codigo_noticia" id="labelcodigo_noticia">Codigo</label><br>
+                        <input type="text" id="codigo_noticia" name="codigo_noticia" onfocus="LabelAnimation('codigo_noticia','labelcodigo_noticia')" onblur="LabelOut('codigo_noticia','labelcodigo_noticia')" maxlength="20" class="input input-label" autocomplete='off' style='text-transform:uppercase;'>
+                        <input type="checkbox" class="checkbox-edit checkbox-add"  onclick="CheckboxDisabled('codigo_noticia', this)" style="left:170px;">
+                    </div>
+                    <div class="input-container" id="input-carreras"  style='grid-column:3/4;'>
+                        <label for="fecha_expiracion" id="labelfecha_expiracion" style='top:-1px;font-size:15px;' title='Ingrese la fecha en la que quiere que la noticia desaparezca'>Fecha de Expiracion</label><br>
+                        <input type="date" id="fecha_expiracion" name="fecha_expiracion" maxlength="30" class="input input-label" title='Ingrese la fecha en la que quiere que la noticia desaparezca' onblur='ValueDate()'>
+                        <input type="checkbox" class="checkbox-edit checkbox-add"  onclick="CheckboxDisabled('fecha_expiracion', this)" style="left:170px;">
+                    </div>
+                    <div class="input-container" style='grid-column:1/4;width:100%;'>
+                        <label for="descripcion" id="labeldescripcion">Descripcion de Noticia</label><br>
+                        <textarea type="text" id="descripcion" name="descripcion"
+                        onfocus="LabelAnimation('descripcion','labeldescripcion')" onblur="LabelOut('descripcion','labeldescripcion')" maxlength="150" class="input input-label" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"' style='width:90%;text-transform:uppercase;'></textarea>
+                        <input type="checkbox" class="checkbox-edit checkbox-add"  onclick="CheckboxDisabled('descripcion', this)" style="left:490px;">
+                    </div>
+
+                    <button type="button" onclick="Submit('noticia')" style='grid-column:2/3;'>Crear</button>
+                    <button type="button" onclick="Save('noticia')" class="button-edit button-update">Guardar</button><br>
+                    <button type="button" onclick="DisplayDelete('block','.delete-window','#noticia')" class="button-edit button-delete">Eliminar</button>
                 </div>
             </form>
             <form action="../control/c_lapso_academico.php" method="POST" name="lapso_academico" id="lapso_academico">

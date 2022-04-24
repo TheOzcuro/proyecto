@@ -1,3 +1,7 @@
+<?php 
+include_once("control/c_index.php");
+$noticia=Get();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,13 +19,11 @@
                 <a href="#mision" id="mision"><li>Mision</li><div class="test"></div></a>
                 <a href="#vision" id="vision"><li>Vision</li><div class="test"></div></a>
                 <a href="#sobren" id="sobren"><li>Sobre Nosotros</li><div class="test-1"></div></a>
+                <a href="#noticias" id="noticias"><li>Noticias</li><div class="test-1"></div></a>
                 <a href="vista/login.php" class="login"><li>Iniciar Sesion</li><div class="test-1"></div></a>
             </ul>
         </div>
         <div class="content">
-            
-           
-            
             <p class="parrafo">
             <img src="vista/css/img/mision.png" alt="" class="imgtitle">    
             La UNEARTE es un espacio de discusión y reflexión permanente sobre la construcción, renovación y desarrollo de las artes así como de las culturas de nuestros pueblos. Es una universidad abierta a todas las corrientes de pensamiento, así como al legado y transmisión de las tradiciones latinoamericanas, caribeñas y universales. Reconocida por la formación integral de humanistas con vocación, sensibilidad artística y social, que considera la intuición y la emoción como factores inseparables del artista, capaz de responder a los grandes cambios socio-históricos y culturales del siglo XXI y de coadyuvar en la construcción de una sociedad regida por los principios de una democracia protagónica, participativa, inclusiva, multiétnica y pluricultural.</p>
@@ -35,8 +37,19 @@
             Cuenta con siete Centros de Estudios y Creación Artística signados por los nombres de ejemplares creadoras y creadores venezolanos como Aquiles Nazoa, Modesta Bor, Armando Reverón, Jacobo Borges (Museo Universitario - Museo Escuela), Candelario Aray y Argimiro Gabaldón, y próceres venezolanos como Santiago Mariño.
             </p>
         </div>
+        <div class="container-noticia"><h2>Ultimas Noticias</h2>
+            <?php 
+            for ($i=0; $i < 3; $i++) { 
+                echo "<div class='noticia'>".$noticia[$i][0];
+                echo "<p>Fecha de Publicacion: ".$noticia[$i][1]."</p>";
+                echo "</div>";
+            }
+            ?>
+
+        </div>
         <!--<div class="footer"></div>-->
     </div>
+
 </body>
 <script src="vista/js/index.js"></script>
 </html>

@@ -54,9 +54,10 @@ function LabelAnimation(input,label){
 }
 function AnimationPrincipalMenu(child){
     click=click+1;
-        for (let index = 0; index < 6; index++) {
+        for (let index = 0; index < 7; index++) {
             if (index==child) {
                 const div=document.querySelector(".slide-menu").children[child];
+                
                 if (click>=2 && comparechild==child) {
                     div.children[1].style.transform = "rotate(0)";
                     div.children[2].style.maxHeight = "0";
@@ -198,6 +199,7 @@ function LabelInput() {
                 LabelAnimation(input[y].id,label[y+2].id)
              }
              else {
+                console.log(input[y].id);
                 LabelAnimation(input[y].id,label[y].id)
              }
          }
@@ -243,50 +245,15 @@ function SubmitDisponibilidad(active) {
             valideSpan=true
         }
     }
-    for (let index = 0; index < select.length; index++) {
-        if (select[index].value!="") {
-            id_drop=select[index].getAttribute('value');
-            if (document.getElementById(id_drop).querySelectorAll('span').length>0) {
-                valideSpanAdd=true;
-            }
-            if (document.getElementById(id_drop).querySelectorAll('span').length==0) {
-                valideSpanAdd=false;
-                select[index].style.borderColor='red';
-                document.getElementById(id_drop).style.borderColor='red';
-                break
-            }
-            select[index].style.borderColor='';
-        }
-    }
-    for (let index = 0; index < select.length; index++) {
-        for (let i = 0; i < select.length; i++) {
-            if (index==i) {
-            }
-            else if(select[index].value!="" && select[i].value!="" && select[index].value==select[i].value) {
-                valideSelect=false;
-                break
-            }
-            else if(select[index].value!="" && select[i].value!="" && select[index].value!=select[i].value){
-                valideSelect=true;
-            }
-        }
-    }
-    for (let index = 0; index < select.length; index++) {
-        id_drop=select[index].getAttribute('value');
-        block=document.getElementById(id_drop).querySelectorAll('span');
-       
-        if (select[index].value=="" && block.length>0) {
-            valideSelect=false;
-            select[index].style.borderColor='red';
-            break
-        }
-        
-    }
     if (document.getElementById('cedula_dis').value=="") {
         valide=false
         document.getElementById('cedula_dis').style.borderColor='red';
     }
-    if (valide && valideSpan && valideSelect && valideSpanAdd) {
+    console.log(valide);
+    console.log(valideSpan);
+    console.log(valideSelect);
+    console.log(valideSpanAdd);
+    if (valide && valideSpan) {
         if (active!="active") {
             for (let index = 0; index < drop.length; index++) {
                 span=drop[index].querySelectorAll("span");
@@ -326,7 +293,7 @@ function SubmitDisponibilidad(active) {
             Error("Recuerde que no pueden haber dos dias repetidos o vacios","msg_error","p_error")
         }
         else {
-            Error("Recuerde añadir los bloques y seleccionar el dia","msg_error","p_error")
+            Error("Recuerde añadir los bloques","msg_error","p_error")
         }
      if (active=="active") {
          return false;
@@ -647,9 +614,6 @@ function CreateDisponibilidad(value) {
     let profesor=value.slice(-2);
     if (profesor=="**") {
         ant_value_dis=profesor;
-        for (let index = 0; index < dias.length; index++) {
-            dias[index].value="";
-        }
         for (let index = 0; index < bloques_add_drop.length; index++) {
             bloques_add[index].value="";
             span_bloques=bloques_add_drop[index].querySelectorAll('span');
@@ -674,25 +638,24 @@ function CreateDisponibilidad(value) {
         for (let index = 0; index < disponibilidadArray.length; index=index+3) {
             if (value==disponibilidadArray[index]) {
                 if (antdia!=disponibilidadArray[index+2]) {
-                    dias[d].value=disponibilidadArray[index+2];
                     dias_main.push(disponibilidadArray[index+2]);
                     antdia=disponibilidadArray[index+2];
                     d=d+1;
                     b=b+1;
-                    let inputs=bloques_add[b];
+                    let inputs=bloques_add[disponibilidadArray[index+2]-1];
                     inputs.style.borderColor="rgb(32, 190, 109)";
                     setTimeout(() => {
                         inputs.style.borderColor="";
                         }, 800);
                 }
-                bloques_drop_main[b].querySelector("#"+disponibilidadArray[index+1]).hidden=true;
-                let input_id=bloques_add[b].id;
+                bloques_drop_main[disponibilidadArray[index+2]-1].querySelector("#"+disponibilidadArray[index+1]).hidden=true;
+                let input_id=bloques_add[disponibilidadArray[index+2]-1].id;
                 let span_add=document.createElement('span');
                 span_add.innerHTML=bloques_drop.querySelector("#"+disponibilidadArray[index+1]).innerText;
                 span_add.onclick=function () {AddValueMateria(input_id, this)}
                 span_add.id=disponibilidadArray[index+1];
-                bloques_add[b].value=bloques_drop.querySelector("#"+disponibilidadArray[index+1]).innerText;
-                bloques_add_drop[b].appendChild(span_add);
+                bloques_add[disponibilidadArray[index+2]-1].value=bloques_drop.querySelector("#"+disponibilidadArray[index+1]).innerText;
+                bloques_add_drop[disponibilidadArray[index+2]-1].appendChild(span_add);
                 totalspan=totalspan+1;
                 add_disponibilidad=totalspan;
                 
@@ -703,9 +666,6 @@ function CreateDisponibilidad(value) {
         button[2].style.display="block";
     }
     else if(profesor!="**" && ant_value_dis=="**") {
-        for (let index = 0; index < dias.length; index++) {
-            dias[index].value="";
-        }
         for (let index = 0; index < bloques_drop_main.length; index++) {
             span_main=bloques_drop_main[index].querySelectorAll('span');
             for (let i = 0; i < span_main.length; i++) {
@@ -729,23 +689,31 @@ function CreateDisponibilidad(value) {
 function SubmitBloque(form,bloque) {
     form=document.querySelector(form);
     bloque=document.getElementById(bloque);
+    data=bloque.querySelectorAll('span');
+    arrayAula=data[2].innerText.split(': ');
+    console.log(arrayAula);
     drop=form.querySelectorAll('.drop_horario');
     input=form.querySelectorAll('.input_horario');
     valide=0;
     valideUpdate=0;
+    console.log(drop.length);
     for (let index = 0; index < drop.length; index++) {
         if (span_data[index]!=input[index].value) {
             valideUpdate=valideUpdate+1;
         }
+    }
+    for (let index = 0; index < drop.length; index++) {
         span=drop[index].querySelectorAll('span');
         for (let i = 0; i < span.length; i++) {
             if (span[i].innerText==input[index].value.toUpperCase()) {
                 valide=valide+1;
             }
         }
-        
     }
-    if (valide==3 && valideUpdate>0) {
+    if (arrayAula[1]==input[2].value) {
+        valide=valide+1;
+    }
+    if (valide>=3 && valideUpdate>0) {
         bloques=bloque.querySelectorAll("span");
         bloques[0].innerText='Carrera: '+input[0].value;
         bloques[1].innerText='Materia: '+input[1].value;
@@ -1146,6 +1114,25 @@ function BackOption(div){
             AppearsAndDissapear(container+"-container","grid")
         }
 }
+function ValueDate() {
+    var fecha_expiracion=document.getElementById('fecha_expiracion');
+    console.log(fecha_expiracion.value);
+    const date = new Date();
+    fecha=date.getFullYear();
+    let mes=date.getMonth()+1;
+    if (mes<10) {
+        fecha=fecha+"-0"+mes;
+    }
+    else {
+        fecha=fecha+"-0"+mes;
+    }
+    fecha=fecha+"-"+date.getDate();
+    console.log(fecha);
+    if (fecha_expiracion.value<fecha) {
+        document.getElementById('fecha_expiracion').value="";
+        Error("Tiene que ingresar una fecha mayor a la fecha actual","msg_error","p_error")
+    }
+}
 //--------------------------------------------FUNCIONES--------------------------------
 
 //----------------------------------------EJECUTAR FUNCIONES------------------------------------
@@ -1215,7 +1202,13 @@ document.getElementById("registrarMateriaMulti").addEventListener("click", funct
     DissapearVarious('.back-option','none');
     document.getElementById('history_back').style.display='inline';
     AppearsAndDissapear("materia-container","grid")})
-    
+document.getElementById("registrarNoticia").addEventListener("click", function(){
+    if (div_edit!="") {
+            Close()
+        }
+    DissapearVarious('.back-option','none');
+    document.getElementById('history_back').style.display='inline';
+    AppearsAndDissapear("noticia-container","grid")})
 
 document.getElementById("crearLapso").addEventListener("click", function(){
     if (div_edit!="") {
@@ -1241,6 +1234,16 @@ if (div_edit!="") {
     document.getElementById('register_back').style.display='inline';
     
 })
+document.getElementById("editarNoticia").addEventListener("click", function(){
+    if (div_edit!="") {
+         Close()
+        }
+        DissapearVarious('.container','none');
+        refresh(1,'noticia')
+        DissapearVarious('.back-option','none');
+        document.getElementById('register_back').style.display='inline';
+        
+    })
 document.getElementById("historialMateria").addEventListener("click", function(){
     if (div_edit!="") {
          Close()
@@ -1309,6 +1312,8 @@ document.getElementById("cedula_horario").addEventListener("click", function(){
         
 document.getElementById("lapso_horario").addEventListener("click", function(){
         document.querySelector("#lapso_drop_horario").style.display="flex"})
+document.getElementById("oficio").addEventListener("click", function(){
+        document.querySelector("#oficio_drop").style.display="flex"})
 
 document.addEventListener('mouseup', function(e) {
     var input = document.getElementById('materias_unidad');
@@ -1319,7 +1324,7 @@ document.addEventListener('mouseup', function(e) {
     var input7= document.getElementById('bloques_1');
     var input8= document.getElementById('bloques_add_1');
     var input9= document.getElementById('cedula_dis');
-    var input10= document.getElementById('bloques_2');
+    var input10= document.getElementById('oficio');
     var input11= document.getElementById('bloques_add_2');
     var input12= document.getElementById('bloques_3');
     var input13= document.getElementById('bloques_add_3');
@@ -1356,6 +1361,10 @@ document.addEventListener('mouseup', function(e) {
         document.getElementById("disponibilidad_drop").style.display = 'none';
         input9.style.border=""
     }
+    if (!input10.contains(e.target)) {
+        document.getElementById("oficio_drop").style.display = 'none';
+        input9.style.border=""
+    }
     if (!input20.contains(e.target)) {
         document.getElementById("horario_drop").style.display = 'none';
         input3.style.border=""
@@ -1387,6 +1396,8 @@ ValidateNumeros('horas_semana');
 ValidateNumeros('unidad_credito');
 ValidateVarchar('codigo_carrera');
 ValidateVarchar('direccion');
+ValidateVarchar('descripcion');
+ValidateVarchar('codigo_noticia');
 ValidateVarchar('codigo_materia');
 ValidateVarchar('nombre_materia');
 ValidateVarchar('codigo_aula');

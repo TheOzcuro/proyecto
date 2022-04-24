@@ -167,10 +167,8 @@ function SaveMaterias() {
 function SaveDisponibilidad() {
     var ValideCarrera=false;
     var ValideSpan=false;
-    var ValideDias=false;
     div=document.getElementById('disponibilidad-container');
     cedula=div.querySelector('#cedula_dis');
-    dias=div.querySelectorAll('.input-dis');
     bloques_add=div.querySelectorAll('.input_add');
     bloques_add_drop=div.querySelectorAll('.drop_add');
     drop_dis=div.querySelector('#disponibilidad_drop');
@@ -184,27 +182,6 @@ function SaveDisponibilidad() {
     for (let index = 0; index < bloques_add_drop.length; index++) {
         span_dis=bloques_add_drop[index].querySelectorAll('span');
         totalspan=totalspan+span_dis.length;
-    }
-    for (let index = 0; index < dias.length; index++) {
-        if (dias[index].value!=dias_main[index] && dias[index].value!="") {
-            ValideDias=true
-        }
-        if(dias[index].value!="") {
-            diasarray.push(dias[index].value);
-        }
-    }
-    for (let index = 0; index < dias_main.length; index++) {
-        if (diasarray[index]!=dias_main[index]) {
-            ValideDias=true
-        }
-    }
-    for (let index = 0; index < dias_main.length; index++) {
-        if (dias[index].value==dias_main[index]) {
-            bloque=document.getElementById(dias[index].getAttribute('value')).querySelectorAll('span');
-            if (bloque.length==0) {
-                ValideSubmit=true
-            }
-        }
     }
     for (let index = 0; index < span_main_mod.length; index++) {
         
@@ -230,9 +207,7 @@ function SaveDisponibilidad() {
      }
      if (totalspan!=add_disponibilidad) {
          ValideSpan=true;
-     }
-     if (ValideSubmit && ValideDias) {
-        ValideSpan=true;
+         ValideSubmit=true;
      }
      if (ValideCarrera && ValideSpan && ValideSubmit) {
         for (let index = 0; index < bloques_add_drop.length; index++) {
@@ -300,10 +275,18 @@ function Modificar(container,display,valores) {
          div_edit.querySelector(".close-icon").style.display="block";
         //---Hacer aparecer los botones correspondientes
         button=div_edit.querySelectorAll("button");
-        button[0].style.display="none";
-        button[1].style.display="none";
-        button[2].style.display="block";
-        button[3].style.display="block";
+        if (container=="noticia-container") {
+            button[0].style.display="none";
+            button[1].style.display="block";
+            button[2].style.display="block";
+        }
+        else {
+            button[0].style.display="none";
+            button[1].style.display="none";
+            button[2].style.display="block";
+            button[3].style.display="block";
+        }
+       
         //-----------------------------------------------
     
         //Se guardan en variables los elementos que vamos a utilizar
@@ -315,11 +298,9 @@ function Modificar(container,display,valores) {
             checkbox[index].checked=true;
        }
         var input=div_edit.querySelectorAll(".input");
-      
         for (let index = 0; index < input.length; index++) {
                 input[index].disabled=true
                 input[index].value=valores[index]
-             
          }
 
         if (container=="materia-container") {
@@ -349,7 +330,7 @@ function Close() {
                 }
             }
         }
-        else if (div_edit.id=="pensum-container") {
+        else if (div_edit.id=="pensum-container" || div_edit.id=="noticia-container") {
             button[0].style.display="block";
             button[1].style.display="none";
             button[2].style.display="none";
@@ -375,7 +356,7 @@ function Close() {
             input[index].value=""
         }
         for (let index = 0; index < label.length; index++) {
-            if (div_edit.id!="lapso_academico-container") {
+            if (div_edit.id!="lapso_academico-container" && div_edit.id!="noticia-container") {
                 label[index].style.top="20px";
                 label[index].style.fontSize="18px";
             }

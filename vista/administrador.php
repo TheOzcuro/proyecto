@@ -87,27 +87,27 @@ if (isset($_SESSION["usuario"])==false) {
             </div>
             <div class="principal-menu">
             <div class="h4-container" onclick="AnimationPrincipalMenu(1)">
-                <h4>Unidad Curricular</h4>
-            </div>
+                <h4>PNF</h4>
+            </div> 
+            
             <img src="css/img/arrow_down.png" alt="" id="arrow_down" onclick="AnimationPrincipalMenu(1)">
             <div class="submenu">
                     <ul>
-                        <a href="#pensum-container-grid"><li id="registrarMateria">Crear/Buscar</li><div class="borderline"></div></a>
-                        <a href="#materia-container-grid"><li id="registrarMateriaMulti">Añadir Multidisciplinaria</li><div class="borderline"></div></a>
-                        <a href="#pensum-historial-grid"><li id="historialMateria">Historial</li><div class="borderline"></div></a>
+                        <a href="#carrera-container-grid"><li id="registrarCarreras">Crear/Buscar</li><div class="borderline"></div></a>
+                        <a href="#carrera-historial-grid"><li id="historialCarreras">Historial</li><div class="borderline"></div></a>
                     </ul>
                 </div>
             </div>
             <div class="principal-menu">
             <div class="h4-container" onclick="AnimationPrincipalMenu(2)">
-                <h4>PNF</h4>
-            </div> 
-            
+                <h4>Unidad Curricular</h4>
+            </div>
             <img src="css/img/arrow_down.png" alt="" id="arrow_down" onclick="AnimationPrincipalMenu(2)">
             <div class="submenu">
                     <ul>
-                        <a href="#carrera-container-grid"><li id="registrarCarreras">Crear/Buscar</li><div class="borderline"></div></a>
-                        <a href="#carrera-historial-grid"><li id="historialCarreras">Historial</li><div class="borderline"></div></a>
+                        <a href="#pensum-container-grid"><li id="registrarMateria">Crear/Buscar</li><div class="borderline"></div></a>
+                        <a href="#materia-container-grid"><li id="registrarMateriaMulti">Añadir Multidisciplinaria</li><div class="borderline"></div></a>
+                        <a href="#pensum-historial-grid"><li id="historialMateria">Historial</li><div class="borderline"></div></a>
                     </ul>
                 </div>
             </div>
@@ -147,7 +147,19 @@ if (isset($_SESSION["usuario"])==false) {
                     <ul>
                         <a href="#horario_docente-container-grid"><li id="registrarHorario">Crear</li><div class="borderline"></div></a>
                         <a href="#horario_docente-historial-grid"><li id="editarHorario">Historial</li><div class="borderline"></div></a>
-                        <a href="#imphorario"><li id="ImprimirHorario">Imprimir</li><div class="borderline"></div></a>
+                    </ul>
+                </div>
+            </div>
+            <div class="principal-menu">
+            <div class="h4-container" onclick="AnimationPrincipalMenu(6)">
+                <h4>Noticia</h4>
+            </div>
+            
+            <img src="css/img/arrow_down.png" alt="" id="arrow_down" onclick="AnimationPrincipalMenu(6)">
+            <div class="submenu">
+                    <ul>
+                        <a href="#noticia-container-grid"><li id="registrarNoticia">Crear</li><div class="borderline"></div></a>
+                        <a href="#noticia-historial-grid"><li id="editarNoticia">Historial</li><div class="borderline"></div></a>
                     </ul>
                 </div>
             </div>
@@ -300,6 +312,15 @@ if (isset($_SESSION["completado"]) && $_SESSION["completado"]!="") {
                         echo "Modificar('".$_SESSION["container"]."','grid', valores);";
                         
                         }
+                else if ($_SESSION["container"]=="noticia-container") {
+                        echo "valores=[";
+                        echo  "'".$_SESSION["update"][0]."'".',';
+                        echo  "'".$_SESSION["update"][3]."'".',';
+                        echo  "'".$_SESSION["update"][1]."'".',';
+                        echo "];";
+                        echo "Modificar('".$_SESSION["container"]."','grid', valores);";
+                            
+                        }   
                 else if ($_SESSION["container"]=="profesor-container") {
                         echo "valores=[";
                         while ($x<$total) {

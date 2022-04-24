@@ -49,6 +49,7 @@ else if (isset($_POST["update"]) && $_POST["update"]!=""){
         header("Location:../vista/administrador.php#$url");
     }
     else {
+        $ejecutar->UpdateCampoHorario('carrera',$_POST["codigo_carrera"],$_POST["update"]);
         if ($_POST["codigo_carrera"]!=$_POST["update"]) {
             $ejecutar->UpdateTableCarreraPensum($_POST["update"],$_POST["codigo_carrera"]);
             $ejecutar->UpdateTableCarrerasOferta($_POST["update"],$_POST["codigo_carrera"]);

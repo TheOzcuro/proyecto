@@ -31,6 +31,10 @@ class registry extends mybsd {
 		$query="SELECT `primer_nombre`,`primer_apellido` FROM `profesor` WHERE `cedula`=$cedula";
 		return $this->list($this->execute($query));
 	}
+	function GetNoticias() {
+		$query="SELECT noticia.noticia, noticia.fecha_de_publicacion FROM `noticia` ORDER BY noticia.fecha_de_publicacion LIMIT 3";
+		return $this->ListAll($this->execute($query), MYSQLI_NUM);
+	}
 	function GetAllProfesor($buscar,$campo) 
 	{
 		if ($buscar=="") {
@@ -105,6 +109,7 @@ class registry extends mybsd {
 		$query="SELECT DISTINCT materia.codigo, materia.nombre, materia.tipo, pensum.pnf FROM materia, pensum WHERE materia.codigo IN (SELECT pensum.unidad_curricular FROM pensum) AND materia.codigo=pensum.unidad_curricular";
 		return $this->ListAll($this->execute($query), MYSQLI_NUM);
 	}
+	
 	function GetMateriasPensumWithPNF($busca) {
 		$busca=$this->FindQuery("carrera","nombre",$busca);
 		$codigo=$busca[0];
@@ -124,6 +129,10 @@ class registry extends mybsd {
 	
 	function GetLapsoOferta() {
 		$query="SELECT lapso_academico.trayecto FROM lapso_academico";
+		return $this->ListAll($this->execute($query), MYSQLI_NUM);
+	}
+	function GetOficio() {
+		$query="SELECT * FROM `oficio`";
 		return $this->ListAll($this->execute($query), MYSQLI_NUM);
 	}
 	function GetUserInDisponibilidad() {
@@ -262,6 +271,10 @@ function GetFindQuery($tabla,$dato,$campo)
 		VALUES ('".$this->cedula."','".$this->rol."','".$this->primer_nombre."','".$this->segundo_nombre."','".$this->primer_apellido."','".$this->segundo_apellido."','".$this->direccion."','".$this->telefono."','".$this->telefono_fijo."','".$this->contratacion."','".$this->categoria."','".$this->dedicacion."','".$this->correo."','".$this->titulo."','".$this->oficio."', '0')";
 		return $this->execute($query);
 	}
+	function registrarOficio($oficio){
+		$query="INSERT INTO `oficio`(`nombre`) VALUES ('$oficio')";
+		return $this->execute($query);
+	}
 	function registrarHorario($cedula,$aula,$lapso,$bloque,$unidad,$carrera,$dia){
 		$codigo_a=$this->FindQuery('aula','nombre',$aula);
 		$codigo_m=$this->FindQuery('materia','nombre',$unidad);
@@ -324,7 +337,7 @@ function GetFindQuery($tabla,$dato,$campo)
 	}
 	function registrarLapso($trayecto, $fecha_inicio, $fecha_final){
 			$trayecto=strtoupper($trayecto);
-			$query="INSERT INTO `lapso_academico`(`trayecto`, `fecha_inicio`, `fecha_final`)
+			$query="INSERT INTO `lapso_academico`(`lapso`, `fecha_inicio`, `fecha_final`)
 			VALUES ('".strtoupper($trayecto)."','$fecha_inicio','$fecha_final')";
 			return $this->execute($query);
 		
@@ -356,6 +369,10 @@ function GetFindQuery($tabla,$dato,$campo)
 		}
 		
 		
+	}
+	function registraNoticia($codigo, $noticia, $fecha_inicio, $fecha_final){
+			$query="INSERT INTO `noticia`(`codigo`, `noticia`, `fecha_de_publicacion`, `fecha_de_expiracion`) VALUES ('$codigo','$noticia','$fecha_inicio','$fecha_final')";
+			return $this->execute($query);
 	}
     function ValidateLogin($cedula){
 		$query="SELECT `cedula`,`rol` FROM `profesor` WHERE `cedula`=$cedula";
@@ -414,6 +431,10 @@ function GetFindQuery($tabla,$dato,$campo)
 		$query="UPDATE `bloque_disponibilidad` SET `cedula`=$cedula WHERE `cedula`=$origin_cedula";
 		return $this->execute($query);
 	}
+	function UpdateCampoHorario($campo,$dato,$origin_dato) {
+		$query="UPDATE `horario_docente` SET `$campo`='$dato' WHERE `$campo`='$origin_dato'";
+		return $this->execute($query);
+	}
 	function UpdateDisponibilidad($cedula, $tipo)
 	{
 		$query="UPDATE `profesor` SET `disponibilidad`='$tipo' WHERE `cedula`='$cedula' ";
@@ -467,6 +488,13 @@ function GetFindQuery($tabla,$dato,$campo)
 			return $this->execute($query);
 	
 	}
+	function UpdateTableNoticia($codigo,$noticia,$fecha_publi,$fecha_exp,$original_codigo)
+	{
+			$nombre=strtoupper($nombre);
+			$query="UPDATE `noticia` SET `codigo`='$codigo', `noticia`='$noticia', `fecha_de_publicacion`='$fecha_publi', `fecha_de_expiracion`='$fecha_exp' WHERE `codigo`='$original_codigo'";
+			return $this->execute($query);
+	
+	}
 	function UpdateTableCarreraPensum($codigo_origin,$codigo_nuevo)
 	{
 		$query="UPDATE `pensum` SET `pnf`='$codigo_nuevo' WHERE `pnf`='$codigo_origin'";
@@ -492,7 +520,7 @@ function GetFindQuery($tabla,$dato,$campo)
 	function UpdateTableLapso($trayecto,$fecha_inicio,$fecha_final, $trayecto_origin)
 	{
 		$trayecto=strtoupper($trayecto);
-			$query="UPDATE `lapso_academico` SET `trayecto`='$trayecto',`fecha_inicio`='$fecha_inicio',`fecha_final`='$fecha_final' WHERE `trayecto`='$trayecto_origin'";
+			$query="UPDATE `lapso_academico` SET `lapso`='$trayecto',`fecha_inicio`='$fecha_inicio',`fecha_final`='$fecha_final' WHERE `lapso`='$trayecto_origin'";
 			return $this->execute($query);
 		
 	}
@@ -517,6 +545,11 @@ function GetFindQuery($tabla,$dato,$campo)
 	}
 	function DeleteTableTwoWhere($tabla, $campo, $dato, $campo2, $dato2) {
 		$query="DELETE FROM `$tabla` WHERE `$campo`='$dato' AND `$campo2`='$dato2'";
+		return $this->execute($query);
+	}
+	function DeleteNoticia() {
+		$date = date('y-m-d');
+		$query="DELETE FROM `noticia` WHERE `fecha_de_expiracion`='$date'";
 		return $this->execute($query);
 	}
 	function TakeColumnNames($tabla) {

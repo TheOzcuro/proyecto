@@ -21,3 +21,11 @@ document.getElementById("sobren").addEventListener('click', function(){
     x[2].style.animationName="Opacity";
     x[2].style.animationDuration="0.7s";
 })
+document.getElementById("noticias").addEventListener('click', function(){
+    x[0].style.display="none";
+    x[2].style.display="none";
+    x[1].style.display="none";
+   document.querySelector('.container-noticia').style.display="block";
+   document.querySelector('.container-noticia').style.animationName="Opacity";
+   document.querySelector('.container-noticia').style.animationDuration="0.7s";
+})

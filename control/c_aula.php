@@ -37,7 +37,7 @@ else if (isset($_POST["update"]) && $_POST["update"]!=""){
     if ($dato[1]!=$dato_origin[1] && $dato!==2) {
        $validate=3;
     }
-    if ($validate===3) {
+    else if ($validate===3) {
         $_SESSION["error"]="El nombre de aula que ingreso ya existe";
         $_SESSION["container"]="aula-container";
         $_SESSION["update"]=$ejecutar->FindQuery("aula","codigo", $_POST["update"]);
@@ -51,6 +51,7 @@ else if (isset($_POST["update"]) && $_POST["update"]!=""){
         header("Location:../vista/administrador.php#$url");
     }
     else {
+        $ejecutar->UpdateCampoHorario('codigo_aula',$_POST["codigo_aula"],$_POST["update"]);
         $_SESSION["completado"]="Los datos fueron actualizados correctamente";
         $_SESSION["container"]="aula-container";
         $_SESSION["update"]=$ejecutar->FindQuery("aula","codigo", $_POST["codigo_aula"]);
@@ -71,7 +72,7 @@ else {
         $_SESSION["error"]="El codigo de aula que ingreso ya existe";
         
     }
-    if ($dato!==2) {
+    else if ($dato!==2) {
         header("Location:../vista/administrador.php#$url");
         $_SESSION["error"]="El nombre de aula que ingreso ya existe";
     }

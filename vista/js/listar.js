@@ -12,6 +12,7 @@ function ActiveModificar(fila,container) {
     else {
         valores=[];
         filas=document.querySelectorAll(fila);
+        console.log(values);
         for (let index = 0; index < filas.length; index++) {
             if (filas[index].innerText=="PROFESOR" || filas[index].innerText=="DICIPLINARIA") {
                 valores.push('0');
@@ -30,6 +31,12 @@ function ActiveModificar(fila,container) {
             }
             else if (index==0 && container=="oferta-container") {
                 console.log("pasa");
+            }
+            else if (container=="noticia-container") {
+                valores.push(filas[0].innerText);
+                valores.push(filas[3].innerText);
+                valores.push(filas[1].innerText);
+                break
             }
             else {
                 valores.push(filas[index].innerText);
@@ -223,6 +230,10 @@ function SelectValidation() {
         DissapearVarious('.find_inputs','none')
         document.getElementById('rol_buscar').style.display="block";
     }
+    else if (campo=="DISPONIBILIDAD") {
+        DissapearVarious('.find_inputs','none')
+        document.getElementById('disponibilidad_buscar').style.display="block";
+    }
     else if (campo=='PRIMER_NOMBRE' || campo=='SEGUNDO_NOMBRE' || campo=='PRIMER_APELLIDO' || campo=='SEGUNDO_APELIDO'
             || campo=='ROL' || campo=='TIPO') {
         input.removeEventListener("keypress",KeyNumeros)
@@ -266,6 +277,9 @@ function findHistorial() {
     }
     else if(campo=="DEDICACION") {
         var dato=document.getElementById('dedicacion_buscar').value;
+    }
+    else if(campo=="DISPONIBILIDAD") {
+        var dato=document.getElementById('disponibilidad_buscar').value;
     }
     else {
         var dato=document.getElementById('buscar_historial').value.toUpperCase();

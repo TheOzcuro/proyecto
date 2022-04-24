@@ -47,6 +47,16 @@ function GetCarrerasNotOferta()
     $ejecutar=new registry();
     return $ejecutar->GetCarrerasNotInOferta();
 }
+function DeleteNoticia()
+{
+    $ejecutar=new registry();
+    return $ejecutar->DeleteNoticia();
+}
+function GetOficio()
+{
+    $ejecutar=new registry();
+    return $ejecutar->GetOficio();
+}
 function GetDisponibilidad()
 {
     $ejecutar=new registry();
