@@ -169,6 +169,7 @@ function SelectAnimation(select){
     
 }
 function SubmitDisponibilidad(active) {
+    document.getElementById('cedula_dis').disabled=false;
     var div=document.getElementById('disponibilidad-container')
     var drop=div.querySelectorAll(".drop_add");
     var select=div.querySelectorAll('.input-dis')

@@ -122,14 +122,31 @@ else if (isset($_POST["delete"]) && $_POST["delete"]!=""){
 }
 else {
     $valida=$ejecutar->FindQuery('profesor','cedula',$_POST['cedula_dis']);
-    echo $valida[1]." ".$valida[3];
     $validate=$ejecutar->FindQuery('bloque_disponibilidad','cedula',$_POST['cedula_dis']);
     if ($validate!==2) {
-        header("Location:../vista/administrador.php#$url");
+        if ($_SESSION["usuario"]=="profesor") {
+            header("Location:../vista/profesor.php#$url");
+            $_SESSION["cedula_usuario"]=$_SESSION["cedula_origin"]." **";
+        }
+        else if($_SESSION["usuario"]=="administrador"){
+            header("Location:../vista/coordinador.php#$url");
+        }
+        else {
+            header("Location:../vista/administrador.php#$url");
+        }
         $_SESSION["error"]="La cedula que ingreso ya existe";
     }
     else if($valida===2) {
-        header("Location:../vista/administrador.php#$url");
+        if ($_SESSION["usuario"]=="profesor") {
+            header("Location:../vista/profesor.php#$url");
+            $_SESSION["cedula_usuario"]=$_SESSION["cedula_origin"]." **";
+        }
+        else if($_SESSION["usuario"]=="administrador"){
+            header("Location:../vista/coordinador.php#$url");
+        }
+        else {
+            header("Location:../vista/administrador.php#$url");
+        }
         $_SESSION["error"]="La cedula que ingreso no existe";
     }
     else {
