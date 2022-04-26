@@ -334,6 +334,7 @@
                 <input type="text" class="input-update" id="update" name="update" hidden>
                 <input type="text" class='input-lapso' id="update_lapso" name="update_lapso" hidden>
                 <input type="text" class="input-delete" id="delete" name="delete" hidden>
+                <input type="text" class="delete-lapso" id="delete_lapso" name="delete_lapso" hidden>
                 <input type="text" class="input-url" id="url" name="url" hidden>
                 <div id="oferta-container" class="container container-flex">
                     <a class="a_img"><img src="css/img/close.png" alt="" class="close-icon" id="close-icon-profesor" onclick="Close()"></a>

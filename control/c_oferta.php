@@ -64,7 +64,7 @@ else if (isset($_GET["buscar_oferta"]) && $_GET["buscar_oferta"]!="") {
 }
 else if (isset($_POST["update"]) && $_POST["update"]!=""){
     $validate=$ejecutar->ValidateOferta($_POST["carrera_oferta"],$_POST["lapso"]);
-    $dato=$ejecutar->FindQuery("lapso_academico","trayecto",$_POST["lapso"]);
+    $dato=$ejecutar->FindQuery("lapso_academico","lapso",$_POST["lapso"]);
     $dato2=$ejecutar->FindQuery("carrera","nombre",$_POST["carrera_oferta"]);
     if ($validate!=false) {
         $_SESSION["error"]="La carrera ".$_POST["carrera_oferta"]." ya se encuentra registrada al lapso ".$_POST["lapso"]."";
@@ -128,7 +128,7 @@ else if (isset($_POST["update"]) && $_POST["update"]!=""){
 }
 else if (isset($_POST["delete"]) && $_POST["delete"]!=""){
     $carrera=$ejecutar->FindQuery('carrera', 'nombre', $_POST["delete"]);
-    $ejecutar->DeleteTable("oferta","pnf",$carrera[0]);
+    $ejecutar->DeleteTableTwoWhere("oferta","pnf",$carrera[0], "lapso_academico",$_POST["delete_lapso"]);
     $ejecutar->DeleteTable("horario_docente","carrera",$carrera[0]);
     $_SESSION["completado"]="Los datos fueron eliminados correctamente";
     if ($_SESSION["usuario"]=="profesor") {
@@ -144,7 +144,7 @@ else if (isset($_POST["delete"]) && $_POST["delete"]!=""){
 
 else {
     $validate=$ejecutar->ValidateOferta($_POST["carrera_oferta"],$_POST["lapso"]);
-    $dato=$ejecutar->FindQuery("lapso_academico","trayecto",$_POST["lapso"]);
+    $dato=$ejecutar->FindQuery("lapso_academico","lapso",$_POST["lapso"]);
     $dato2=$ejecutar->FindQuery("carrera","nombre",$_POST["carrera_oferta"]);
     if ($dato===2) {
         $_SESSION["error"]="El lapso que ingreso no existe";

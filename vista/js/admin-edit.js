@@ -252,11 +252,17 @@ function SaveDisponibilidad() {
          localStorage.setItem('disponibilidad_c',"");
      }
 }
-function Delete(form,valor) {
+function Delete(form,valor,lapso) {
     if (valor=="" || valor==undefined) {
         valor="";
     }
-        if (valores!="" && form!="#unidad" && valor=="") {
+    if (lapso=="" || lapso==undefined) {
+       document.querySelector('#oferta').querySelector(".delete-lapso").value=valores[0];
+    }
+    else if (lapso!="" || lapso!=undefined) {
+        document.querySelector('#oferta').querySelector(".delete-lapso").value=lapso;
+    }
+        if (valores!="" && form!="#unidad" && valor=="" && form!="#oferta") {
             document.querySelector(form).querySelector(".input-delete").value=valores[0];
             console.log(document.querySelector(form).querySelector(".input-delete").value);
         }
@@ -264,12 +270,15 @@ function Delete(form,valor) {
             document.querySelector("#materia").querySelector(".input-delete").value=valor;
             form="#materia";
         }
+        else if(form=="#oferta" && valor==""){
+            document.querySelector(form).querySelector(".input-delete").value=valores[1];
+        }
         else if (valor!="") {
             document.querySelector(form).querySelector(".input-delete").value=valor;
         } 
         OnLoad("active");
         document.querySelector(form).querySelector(".input-url").value=container_url+"-grid";
-        console.log(document.querySelector(form).querySelector(".input-url").value)
+        console.log(document.querySelector(form).querySelector(".input-delete").value)
         document.querySelector(form).submit();
     }
 function Modificar(container,display,valores) {
@@ -427,7 +436,7 @@ function UnDisplayHorario(){
     }
     document.querySelector(".blackcover").style.display='none';
 }
-function DisplayDelete(display,div,form,valor) {
+function DisplayDelete(display,div,form,valor,lapso) {
         console.log(form)
         document.querySelector(".blackcover").addEventListener("click", function(){
             DisplayDelete("none",div,form)})
@@ -440,7 +449,7 @@ function DisplayDelete(display,div,form,valor) {
                 input.focus();
             }
             document.getElementById("yes-delete").addEventListener("click", function(){
-                Delete(form,valor)})
+                Delete(form,valor,lapso)})
             
         }
         else {

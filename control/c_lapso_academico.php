@@ -120,7 +120,7 @@ else if (isset($_POST["update"]) && $_POST["update"]!=""){
 }
 else if (isset($_POST["delete"]) && $_POST["delete"]!=""){
     $ejecutar->DeleteTable("oferta","lapso_academico",$_POST["delete"]);
-    $ejecutar->DeleteTable("lapso_academico","trayecto",$_POST["delete"]);
+    $ejecutar->DeleteTable("lapso_academico","lapso",$_POST["delete"]);
     $ejecutar->DeleteTable("horario_docente","lapso_academico",$_POST["delete"]);
     $_SESSION["completado"]="Los datos fueron eliminados correctamente";
     if ($_SESSION["usuario"]=="profesor") {
