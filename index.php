@@ -38,11 +38,16 @@ $noticia=Get();
             </p>
         </div>
         <div class="container-noticia"><h2>Ultimas Noticias</h2>
-            <?php 
-            for ($i=0; $i < 3; $i++) { 
-                echo "<div class='noticia'>".$noticia[$i][0];
-                echo "<p>Fecha de Publicacion: ".$noticia[$i][1]."</p>";
-                echo "</div>";
+            <?php
+            if (count($noticia)>0) {
+                for ($i=0; $i < count($noticia); $i++) { 
+                    echo "<div class='noticia'>".$noticia[$i][0];
+                    echo "<p>Fecha de Publicacion: ".$noticia[$i][1]."</p>";
+                    echo "</div>";
+                }
+            }
+            else {
+                echo "<div>No existen noticias actuales</div>";
             }
             ?>
 
