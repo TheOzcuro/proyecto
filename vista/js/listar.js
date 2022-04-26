@@ -14,10 +14,10 @@ function ActiveModificar(fila,container) {
         filas=document.querySelectorAll(fila);
         console.log(values);
         for (let index = 0; index < filas.length; index++) {
-            if (filas[index].innerText=="PROFESOR" || filas[index].innerText=="DICIPLINARIA") {
+            if (filas[index].innerText=="PROFESOR" && container=='profesor-container') {
                 valores.push('0');
             }
-            else if (filas[index].innerText=="ADMINISTRADOR" || filas[index].innerText=="MULTIDICIPLINARIA") {
+            else if (filas[index].innerText=="ADMINISTRADOR" && container=='profesor-container') {
                 valores.push('1');
             }
             else if (index==5 && container=="profesor-container"){

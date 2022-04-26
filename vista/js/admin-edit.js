@@ -253,10 +253,12 @@ function SaveDisponibilidad() {
      }
 }
 function Delete(form,valor) {
-    console.log(form);
-    console.log(document.querySelector(form))
-        if (valores!="" && form!="#unidad") {
+    if (valor=="" || valor==undefined) {
+        valor="";
+    }
+        if (valores!="" && form!="#unidad" && valor=="") {
             document.querySelector(form).querySelector(".input-delete").value=valores[0];
+            console.log(document.querySelector(form).querySelector(".input-delete").value);
         }
         else if(form=="#pensum") {
             document.querySelector("#materia").querySelector(".input-delete").value=valor;
@@ -264,7 +266,7 @@ function Delete(form,valor) {
         }
         else if (valor!="") {
             document.querySelector(form).querySelector(".input-delete").value=valor;
-        }
+        } 
         OnLoad("active");
         document.querySelector(form).querySelector(".input-url").value=container_url+"-grid";
         console.log(document.querySelector(form).querySelector(".input-url").value)
