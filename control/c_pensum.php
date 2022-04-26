@@ -40,7 +40,7 @@ else if (isset($_POST["update"]) && $_POST["update"]!=""){
         if ($_POST["del"]!="") {
             for ($i=0; $i < count($del); $i++) { 
                 $validate=$ejecutar->DeleteTableTwoWhere("pensum","unidad_curricular",$del[$i], 'pnf',$_POST["update"]);
-                $ejecutar->DeleteTable("horario_docente",'unidad_curricular',$del[$i]);
+                $ejecutar->DeleteTableTwoWhere("horario_docente",'unidad_curricular',$del[$i], 'carrera',$_POST["update"]);
             }
         }
         if ($_POST["add"]!="") {
@@ -53,7 +53,7 @@ else if (isset($_POST["update"]) && $_POST["update"]!=""){
             for ($i=0; $i < count($del); $i++) { 
                 $validate=$ejecutar->DeleteTableTwoWhere("pensum","unidad_curricular",$del[$i], 'pnf',$_POST["update"]);
                 $ejecutar->DeleteTable("materia",'codigo',$del[$i]);
-                $ejecutar->DeleteTable("horario_docente",'unidad_curricular',$del[$i]);
+                $ejecutar->DeleteTableTwoWhere("horario_docente",'unidad_curricular',$del[$i], 'carrera',$_POST["update"]);
             }
         }
         print_r($_POST["add_multi"]);
