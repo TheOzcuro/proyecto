@@ -4,7 +4,7 @@ function Error(parrafo, msg, p){
     url=window.location.href;
     link=url.slice(-9);
     console.log(link);
-    if (link!="login.php") {
+    if (link!="login.php" && link!="admin.php") {
         var scrolltop=document.documentElement.offsetHeight-200
         document.querySelector('.hidder').style.top=document.querySelector('.grid-container').scrollTop+"px";
     

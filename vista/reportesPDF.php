@@ -115,7 +115,7 @@ function CreateTable($table,$campo,$dato) {
           //Transformar los valores de la tabla de materia en algo mas agradable y entendible para el usuario
           if ($table==="materia" && $i===2) {
           }
-          if ($table=="profesor" && $i==1) {
+          else if ($table=="profesor" && $i==1) {
             echo "<td class='".$name[$i]["COLUMN_NAME"]." f-".$index."' value=".$lista[$index][$i]." title='".$lista[$index][$i]."' style='border:1px solid black;'>".$lista[$index][1]." ".$lista[$index][2]." ".$lista[$index][3]." ".$lista[$index][4];
             echo "</td>";
             $i=$i+3;

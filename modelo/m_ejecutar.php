@@ -272,6 +272,7 @@ function GetFindQuery($tabla,$dato,$campo)
 		return $this->execute($query);
 	}
 	function registrarOficio($oficio){
+		$oficio=strtoupper($oficio);
 		$query="INSERT INTO `oficio`(`nombre`) VALUES ('$oficio')";
 		return $this->execute($query);
 	}
@@ -290,8 +291,17 @@ function GetFindQuery($tabla,$dato,$campo)
 		VALUES ('".$this->cedula."','$contrasena')";
 		return $this->execute($query);
 	}
+	function registrarProfesorLogin(){
+		$query="INSERT INTO `profesor_pass`(`cedula`,`password`)
+		VALUES ('".$this->cedula."','')";
+		return $this->execute($query);
+	}
 	function createPassword($cedula, $contrasena){
 		$query="UPDATE `administrador` SET `contrasena`='$contrasena' WHERE `cedula`='$cedula' ";
+		return $this->execute($query);
+	}
+	function createPasswordProfesor($cedula, $contrasena){
+		$query="UPDATE `profesor_pass` SET `password`='$contrasena' WHERE `cedula`='$cedula' ";
 		return $this->execute($query);
 	}
 	function registrarMateria($codigo, $nombre, $tipo){
@@ -374,18 +384,24 @@ function GetFindQuery($tabla,$dato,$campo)
 			$query="INSERT INTO `noticia`(`codigo`, `noticia`, `fecha_de_publicacion`, `fecha_de_expiracion`) VALUES ('$codigo','$noticia','$fecha_inicio','$fecha_final')";
 			return $this->execute($query);
 	}
-    function ValidateLogin($cedula){
-		$query="SELECT `cedula`,`rol` FROM `profesor` WHERE `cedula`=$cedula";
+    function ValidateLogin($cedula, $pass){
+		$query="SELECT `cedula`,`password` FROM `profesor_pass` WHERE `cedula`=$cedula";
 		$valido=$this->list($this->execute($query));
-		if ($valido[0]==$cedula && $valido[1]==0) {
+		if ($valido[0]==$cedula && $valido[1]==$pass) {
 			return true;
 			}
-		if ($valido[0]==$cedula && $valido[1]==1) {
+		if ($valido[0]==$cedula && $valido[1]=="") {
 			return 2;
+			}
+		if ($valido[0]==$cedula && $pass=="recovery") {
+			return 2;
+		}
+		if ($valido[0]==$cedula && $valido[1]!=$pass) {
+			return 3;
 		}
 		else {
 			return false;
-			}	
+			}		
 	}
 	function ValidateAdministrador($cedula, $contraseña){
 		$query="SELECT `cedula`,`contrasena` FROM `administrador` WHERE `cedula`=$cedula";
@@ -445,12 +461,27 @@ function GetFindQuery($tabla,$dato,$campo)
 		$query="UPDATE `administrador` SET `cedula`='$cedula' WHERE `cedula`='$origin_cedula' ";
 		return $this->execute($query);
 	}
+	function UpdateTableProfesorPass($cedula, $origin_cedula)
+	{
+		$query="UPDATE `profesor_pass` SET `cedula`='$cedula' WHERE `cedula`='$origin_cedula' ";
+		return $this->execute($query);
+	}
 	function UpdateTableMateria($codigo,$nombre_origin,$tipo,$original_codigo)
 	{
 		$nombre=strtoupper($nombre_origin);
 		$query="UPDATE `materia` SET `codigo`='$codigo', `nombre`='$nombre', `tipo`='$tipo' WHERE `codigo`='$original_codigo'";
 			return $this->execute($query);
 		
+	}
+	function UpdateTableOficio($nombre,$nombre_origin)
+	{
+		$query="UPDATE `oficio` SET `nombre`='$nombre' WHERE `nombre`='$nombre_origin'";
+		return $this->execute($query);
+	}
+	function UpdateTableProfesorInOficio($nombre,$nombre_origin)
+	{
+		$query="UPDATE `profesor` SET `oficio`='$nombre' WHERE `oficio`='$nombre_origin'";
+		return $this->execute($query);
 	}
 	function UpdateTableAula($codigo,$nombre,$original_codigo)
 	{

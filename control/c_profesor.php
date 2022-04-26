@@ -16,6 +16,14 @@ if (isset($_POST["buscar_profesor"]) && $_POST["buscar_profesor"]!="") {
        }
    
 }
+else if (isset($_POST["find-correo"]) && $_POST["find-correo"]!="") {
+    $validate=$ejecutar->FindQuery('profesor','correo',$_POST["correo"]);
+    if($validate!==2){
+        echo "yes";
+    }
+    else echo "no";
+
+}
 else if (isset($_GET["buscar_profesor"]) && $_GET["buscar_profesor"]!="") {
     $validate=$ejecutar->FindQuery('profesor','cedula',$_GET["buscar_profesor"]);
     if ($validate===2) {
@@ -72,19 +80,21 @@ else if (isset($_POST["update-profesor"]) && $_POST["update-profesor"]!="") {
         if ($_POST["rol"]==="1") {
             $admin=$ejecutar->FindQuery("administrador","cedula",$_POST["update-profesor"]);
            if ($admin===2) {
-                echo $ejecutar->registrarAdministrador("");
+                $ejecutar->registrarAdministrador("");
+                $ejecutar->DeleteTable("profesor_pass","cedula",$_POST["update-profesor"]);
            }
            if ($_POST["update-profesor"]!=$_POST["cedula"]) {
                 $ejecutar->UpdateTableAdmin($_POST["cedula"],$_POST["update-profesor"]);
            }
         }
         if ($_POST["rol"]==="0") {
-            $admin=$ejecutar->FindQuery("administrador","cedula",$_POST["update-profesor"]);
+            $admin=$ejecutar->FindQuery("profesor_pass","cedula",$_POST["update-profesor"]);
            if ($admin===2) {
-                
+                $ejecutar->registrarProfesorLogin();
+                $ejecutar->DeleteTable("administrador","cedula",$_POST["update-profesor"]);
            }
            else {
-                $ejecutar->DeleteTable("administrador","cedula",$_POST["update-profesor"]);
+                $ejecutar->UpdateTableProfesorPass($_POST["cedula"],$_POST["update-profesor"]);
            }
         }
         header("Location:../vista/administrador.php#$url");
@@ -92,6 +102,8 @@ else if (isset($_POST["update-profesor"]) && $_POST["update-profesor"]!="") {
 }
 else if (isset($_POST["delete-profesor"]) && $_POST["delete-profesor"]!="") {
    $ejecutar->DeleteTable("profesor","cedula",$_POST["delete-profesor"]);
+   $ejecutar->DeleteTable("profesor_pass","cedula",$_POST["delete-profesor"]);
+   $ejecutar->DeleteTable("administrador","cedula",$_POST["delete-profesor"]);
    $ejecutar->DeleteTable("bloque_disponibilidad","cedula",$_POST["delete-profesor"]);
    $ejecutar->DeleteTable("horario_docente","cedula_docente",$_POST["delete-profesor"]);
    $_SESSION["completado"]="Los datos fueron eliminados sastifactoriamente";
@@ -102,18 +114,31 @@ else {
         $_POST["cedula"],$_POST["rol"],$_POST["primer_nombre"],$_POST["segundo_nombre"],$_POST["primer_apellido"],$_POST["segundo_apellido"],$_POST["direccion"], $_POST["telefono"], $_POST["tipo_contratacion"], $_POST["categoria"], $_POST["dedicacion"], $_POST["telefono_fijo"],$_POST["correo"], $_POST["titulo"], $_POST["oficio"]);
     $validate=$ejecutar->registrarProfesor();
     if ($validate===2) {
-
         header("Location:../vista/administrador.php#$url");
         $_SESSION["error"]="La cedula que ingreso ya existe o es invalida";
     }
     else {
         if ($_POST["rol"]==1) {
+            $ejecutar->registrarOficio($_POST["oficio"]);
             $ejecutar->registrarAdministrador("");
+            $val=$ejecutar->FindQuery("profesor_pass","cedula",$_POST["cedula"]);
+            if ($val===2) {
+                header("Location:../vista/administrador.php#$url");
+                $_SESSION["completado"]="El profesor fue registrado sastifactoriamente";
+                $_SESSION["link"]="../control/c_profesor.php?buscar_profesor=".$_POST["cedula"];
+            }
+            else {
+                $ejecutar->DeleteTable("profesor_pass","cedula",$_POST["cedula"]);
+                header("Location:../vista/administrador.php#$url");
+                $_SESSION["completado"]="El profesor fue registrado sastifactoriamente";
+                $_SESSION["link"]="../control/c_profesor.php?buscar_profesor=".$_POST["cedula"];
+            }
            header("Location:../vista/administrador.php#$url");
            $_SESSION["completado"]="El Administrador fue registrado sastifactoriamente";
         }
         if ($_POST["rol"]==0) {
             $ejecutar->registrarOficio($_POST["oficio"]);
+            $ejecutar->registrarProfesorLogin();
             $val=$ejecutar->FindQuery("administrador","cedula",$_POST["cedula"]);
             if ($val===2) {
                 header("Location:../vista/administrador.php#$url");

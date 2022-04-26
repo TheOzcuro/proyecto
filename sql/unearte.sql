@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 24-04-2022 a las 21:23:17
+-- Tiempo de generación: 26-04-2022 a las 01:33:18
 -- Versión del servidor: 8.0.21
 -- Versión de PHP: 7.3.21
 
@@ -36,15 +36,14 @@ CREATE TABLE IF NOT EXISTS `administrador` (
   `contrasena` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   PRIMARY KEY (`codigo`),
   UNIQUE KEY `cedula` (`cedula`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `administrador`
 --
 
 INSERT INTO `administrador` (`codigo`, `cedula`, `contrasena`) VALUES
-(1, 9372683, '152560loco'),
-(9, 16541564, '');
+(1, 9372683, '152560loco');
 
 -- --------------------------------------------------------
 
@@ -85,24 +84,21 @@ CREATE TABLE IF NOT EXISTS `bloque_disponibilidad` (
   `dia` int NOT NULL,
   `disponibilidad` int NOT NULL,
   PRIMARY KEY (`codigo`)
-) ENGINE=MyISAM AUTO_INCREMENT=1076 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=1176 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `bloque_disponibilidad`
 --
 
 INSERT INTO `bloque_disponibilidad` (`codigo`, `cedula`, `bloque`, `dia`, `disponibilidad`) VALUES
-(846, 11716900, 'B3', 2, 1),
-(845, 11716900, 'B2', 2, 1),
-(844, 11716900, 'B1', 2, 1),
-(1060, 27414575, 'B3', 1, 1),
-(843, 11716900, 'B4', 1, 1),
-(842, 11716900, 'B3', 1, 1),
-(841, 11716900, 'B2', 1, 1),
-(840, 11716900, 'B1', 1, 1),
-(1059, 27414575, 'B2', 1, 1),
-(1058, 27414575, 'B1', 1, 1),
-(1061, 27414575, 'B4', 1, 1),
+(1175, 11716900, 'B7', 2, 1),
+(1174, 11716900, 'B6', 2, 1),
+(1173, 11716900, 'B5', 2, 1),
+(1172, 11716900, 'B4', 2, 1),
+(1171, 11716900, 'B3', 2, 1),
+(1170, 11716900, 'B2', 2, 1),
+(1169, 11716900, 'B1', 2, 1),
+(1168, 11716900, 'B7', 1, 1),
 (1074, 9372683, 'B4', 5, 1),
 (1073, 9372683, 'B3', 5, 1),
 (1072, 9372683, 'B2', 5, 1),
@@ -113,10 +109,13 @@ INSERT INTO `bloque_disponibilidad` (`codigo`, `cedula`, `bloque`, `dia`, `dispo
 (1067, 9372683, 'B3', 1, 1),
 (1066, 9372683, 'B2', 1, 1),
 (1065, 9372683, 'B1', 1, 1),
-(1062, 27414575, 'B1', 5, 1),
-(1063, 27414575, 'B2', 5, 1),
-(1064, 27414575, 'B3', 5, 1),
-(1075, 9372683, 'B5', 5, 1);
+(1075, 9372683, 'B5', 5, 1),
+(1167, 11716900, 'B6', 1, 1),
+(1166, 11716900, 'B5', 1, 1),
+(1165, 11716900, 'B4', 1, 1),
+(1164, 11716900, 'B3', 1, 1),
+(1163, 11716900, 'B2', 1, 1),
+(1162, 11716900, 'B1', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -233,13 +232,15 @@ CREATE TABLE IF NOT EXISTS `horario_docente` (
   `carrera` varchar(40) COLLATE utf8_spanish_ci NOT NULL,
   `dia` int NOT NULL,
   PRIMARY KEY (`codigo`)
-) ENGINE=MyISAM AUTO_INCREMENT=58 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=60 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `horario_docente`
 --
 
 INSERT INTO `horario_docente` (`codigo`, `cedula_docente`, `codigo_aula`, `lapso_academico`, `bloque`, `unidad_curricular`, `carrera`, `dia`) VALUES
+(59, 11716900, '91303', '1103', 'B2', '009', '1616', 1),
+(58, 11716900, '91303', '1103', 'B1', '009', '1616', 1),
 (57, 9372683, '2023', '1103', 'B1', '07', '1616', 1);
 
 -- --------------------------------------------------------
@@ -285,8 +286,6 @@ CREATE TABLE IF NOT EXISTS `materia` (
 --
 
 INSERT INTO `materia` (`codigo`, `nombre`, `tipo`) VALUES
-('10', 'MATERIA10', '0'),
-('11', 'MATERIA11', '0'),
 ('009', 'ARTES PLASTICAS', '0'),
 ('05', 'MATERIAS', '0'),
 ('GFGFG', 'GFGFGF', '0'),
@@ -320,9 +319,9 @@ CREATE TABLE IF NOT EXISTS `noticia` (
 --
 
 INSERT INTO `noticia` (`codigo`, `noticia`, `fecha_de_publicacion`, `fecha_de_expiracion`) VALUES
-('DSADAS', 'MELANIE ESCRIBE UNA FANFIC PARA NADA CRISTIANO Y LO COMPRA NETFLIX PARA UNA PELICULA ', '2022-04-24', '2022-04-30'),
-('HHHHHHHH', 'ANGEL TUVO UNA NOCHE DE PLACER CON UNA SEñORITA DE LA NOCHE', '2022-04-24', '2022-05-07'),
-('BBBBBB', 'MARTIN REBAJO 6 KILOS, QUE GRANDE', '2022-04-24', '2022-04-27');
+('DSADAS', 'EL PROFESOR JUAN RODRIGUEZ SE ENCUENTRA ENFERMO Y NO PODRA DAR CLASES', '2022-04-25', '2022-04-30'),
+('HHHHHHHH', 'LOS HORARIOS YA SE CREARON', '2022-04-25', '2022-05-07'),
+('BBBBBB', 'LA COORDINADORA YULI YA LLEGO', '2022-04-25', '2022-04-27');
 
 -- --------------------------------------------------------
 
@@ -367,8 +366,13 @@ CREATE TABLE IF NOT EXISTS `oficio` (
 --
 
 INSERT INTO `oficio` (`nombre`) VALUES
-('MAMARLA'),
-('MUSICO');
+('BAILARINA'),
+('CARLITOS'),
+('JUGADOR DE DFO'),
+('MUSICO'),
+('PINTOR'),
+('PUTA'),
+('RUDY');
 
 -- --------------------------------------------------------
 
@@ -435,9 +439,30 @@ CREATE TABLE IF NOT EXISTS `profesor` (
 
 INSERT INTO `profesor` (`cedula`, `primer_nombre`, `segundo_nombre`, `primer_apellido`, `segundo_apellido`, `contratacion`, `categoria`, `dedicacion`, `direccion`, `telefono`, `telefono_fijo`, `correo`, `titulo`, `oficio`, `rol`, `disponibilidad`) VALUES
 (9372683, 'NIRETCIA', 'INMACULADA', 'RAMIREZ', 'VALERO', 3, 5, 1, 'CAMBURITO', '04147965415', '02556659105', 'perro@gmail.com', 'BACHILLER', 'MUSICO', '1', 1),
-(11716900, 'JONATHAN', 'SEXO', 'RAMIREZ', '', 2, 3, 3, 'URB CAMBURITO, CALLE 7, CASA 7-24', '04167577138', '0255669105', 'jonathan@gmail.com', 'MASTER EN PINTURA', 'PINTOR', '0', 1),
-(27414575, 'MARTIN', 'PEREZ', 'ROJAS', 'PASTOR', 1, 6, 3, 'EN LAS PALMAS', '04125719342', '02314242113', 'sexo@gmail.com', 'LICENCIADA EN ADMINISTRACION', 'BAILARINA', '0', 1),
-(6546, 'ALOHA', '', 'VERGA', '', 1, 8, 3, 'AAAAAAAA', '0416139094', '02556649749', 'jonas@gmail.com', 'PERRO', 'MAMARLA', '0', 0);
+(11716900, 'JONATHAN', 'ENMANUEL', 'RAMIREZ', '', 2, 3, 3, 'URB CAMBURITO, CALLE 7, CASA 7-24', '04167577138', '0255669105', 'jonathan@gmail.com', 'MASTER EN PINTURA', 'PINTOR', '0', 1),
+(27414575, 'MARTIN', '', 'ROJAS', '', 1, 8, 3, 'EN LAS PALMAS', '0416139094', '02556649749', 'martin@gmail.com', 'LICENCIADO EN ADMINISTRACION', 'PINTOR', '0', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `profesor_pass`
+--
+
+DROP TABLE IF EXISTS `profesor_pass`;
+CREATE TABLE IF NOT EXISTS `profesor_pass` (
+  `codigo` bigint NOT NULL AUTO_INCREMENT,
+  `cedula` bigint NOT NULL,
+  `password` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
+  PRIMARY KEY (`codigo`)
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `profesor_pass`
+--
+
+INSERT INTO `profesor_pass` (`codigo`, `cedula`, `password`) VALUES
+(3, 11716900, '152560loco'),
+(4, 27414575, '');
 
 -- --------------------------------------------------------
 

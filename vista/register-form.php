@@ -1,3 +1,21 @@
+<form action="../control/c_oficio.php" method="POST" name="oficio_reg" id="oficio_reg">
+                <input type="text" class="input-update" id="update" name="update" hidden>
+                <input type="text" class="input-delete" id="delete" name="delete" hidden>
+                <input type="text" class="input-url" id="url" name="url" hidden>
+                <div id="oficio-container" class="container container-flex">
+                    <a class="a_img"><img src="css/img/close.png" alt="" class="close-icon" id="close-icon-profesor" onclick="Close()" style='left:-10px;top:-5px;'></a>
+                    <h2>Crear Oficio</h2>
+                    <div class="input-container">
+                        <label for="oficio_registrar" id="labeloficio_registrar">Oficio</label><br>
+                        <input type="text" id="oficio_registrar" name="oficio_registrar" onfocus="LabelAnimation('oficio_registrar','labeloficio_registrar')" onblur="LabelOut('oficio_registrar','labeloficio_registrar')" maxlength="30" class="input input-label">
+                        <input type="checkbox" class="checkbox-edit checkbox-materia" onclick="CheckboxDisabled('oficio_registrar', this)">
+                    </div>
+                    <button type="button" onclick="Submit('oficio_reg')" style='grid-column:1/3;'>Registrar</button>
+                    <button type="button" onclick="Save('oficio_reg')" class="button-edit button-update">Guardar</button>
+                    <button type="button" onclick="DisplayDelete('block','.delete-window','#oficio_reg')" class="button-edit button-delete">Eliminar</button>
+                </div>
+            </form>
+
 
 <form action="../control/c_pensum.php" method="POST" name="materia" id="materia">
                 <input type="text" class="input-update" id="update" name="update" hidden>

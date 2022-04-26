@@ -66,39 +66,69 @@ if (isset($_SESSION["find_horario"])) {
     for ($i=$_SESSION["tipo_horario"]; $i < $_SESSION["tipo_horario"]+7; $i++) {
         $dias=1;
         $bloque="B".$b; 
-        
-        
         echo "<div class='hora'>".$hora."-".$hora2."</div>";
         for ($index=0; $index < 5; $index++) {
             $list_i=searchForId($dias,$list);
             $bloque_id=searchForBloque($bloque,$dias,$list);
-            if (isset($list[$list_i]) && $dias==$list[$list_i][2] && $bloque==$list[$bloque_id][1]) {
-                echo "<div class='".$dias." B".$b." bloque_add' id='bloque_".$dias."_".$b."'active' style='border:3px solid rgb(110,225,80);cursor:pointer;'  onclick='DisplayHorario(`block`,`.form-".$dias."_".$b."`,this)'>";
-                if (isset($_SESSION["find_horario"]) && $y<count($_SESSION["find_horario"])) {
-                    if ($_SESSION["find_horario"][$y][3]==$bloque && $_SESSION["find_horario"][$y][6]==$dias) {
-                        echo "<span>Carrera: ".$_SESSION["find_horario"][$y][5]."</span><br>";
-                        echo "<span>Materia: ".$_SESSION["find_horario"][$y][4]."</span><br>";
-                        echo "<span>Aula: ".$_SESSION["find_horario"][$y][1]."</span>";
-                        $y=$y+1;
+            if ($_SESSION["usuario"]=="profesor") {
+                if (isset($list[$list_i]) && $dias==$list[$list_i][2] && $bloque==$list[$bloque_id][1]) {
+                    echo "<div class='".$dias." B".$b." bloque_add' id='bloque_".$dias."_".$b."'active'>";
+                    if (isset($_SESSION["find_horario"]) && $y<count($_SESSION["find_horario"])) {
+                        if ($_SESSION["find_horario"][$y][3]==$bloque && $_SESSION["find_horario"][$y][6]==$dias) {
+                            echo "<span>Carrera: ".$_SESSION["find_horario"][$y][5]."</span><br>";
+                            echo "<span>Materia: ".$_SESSION["find_horario"][$y][4]."</span><br>";
+                            echo "<span>Aula: ".$_SESSION["find_horario"][$y][1]."</span>";
+                            $y=$y+1;
+                        }
+                        else {
+                        echo "<span></span><br>
+                        <span></span><br>
+                        <span></span>";
+                        }
                     }
                     else {
-                    echo "<span></span><br>
-                    <span></span><br>
-                    <span></span>";
+                        echo "<span></span><br>
+                        <span></span><br>
+                        <span></span>";
                     }
+                    echo "</div>";
                 }
                 else {
-                    echo "<span></span><br>
-                    <span></span><br>
-                    <span></span>";
-                }
-                echo "</div>";
+                    echo "<div class='".$dias." B".$b."'>
+                    </div>";
+                } 
+                $dias=$dias+1;
             }
             else {
-                echo "<div class='".$dias." B".$b."'>
-                </div>";
-            } 
-            $dias=$dias+1;
+                if (isset($list[$list_i]) && $dias==$list[$list_i][2] && $bloque==$list[$bloque_id][1]) {
+                    echo "<div class='".$dias." B".$b." bloque_add' id='bloque_".$dias."_".$b."'active' style='border:3px solid rgb(110,225,80);cursor:pointer;'  onclick='DisplayHorario(`block`,`.form-".$dias."_".$b."`,this)'>";
+                    if (isset($_SESSION["find_horario"]) && $y<count($_SESSION["find_horario"])) {
+                        if ($_SESSION["find_horario"][$y][3]==$bloque && $_SESSION["find_horario"][$y][6]==$dias) {
+                            echo "<span>Carrera: ".$_SESSION["find_horario"][$y][5]."</span><br>";
+                            echo "<span>Materia: ".$_SESSION["find_horario"][$y][4]."</span><br>";
+                            echo "<span>Aula: ".$_SESSION["find_horario"][$y][1]."</span>";
+                            $y=$y+1;
+                        }
+                        else {
+                        echo "<span></span><br>
+                        <span></span><br>
+                        <span></span>";
+                        }
+                    }
+                    else {
+                        echo "<span></span><br>
+                        <span></span><br>
+                        <span></span>";
+                    }
+                    echo "</div>";
+                }
+                else {
+                    echo "<div class='".$dias." B".$b."'>
+                    </div>";
+                } 
+                $dias=$dias+1;
+            }
+          
         }
         
         $b=$b+1;
@@ -112,11 +142,14 @@ if (isset($_SESSION["find_horario"])) {
     ?>
 </div>
 <?php
-    if (isset($_SESSION["find_horario"]) && count($_SESSION["find_horario"])>0) {
+    if (isset($_SESSION["find_horario"]) && count($_SESSION["find_horario"])>0 && $_SESSION["usuario"]!="profesor") {
         echo "<img class='img-horario' src='css/img/borrar.png' onclick='DisplayDelete(`block`,`.delete-window`,`#horario`,`".$_SESSION["disponibilidad_profesor"][0][0]."`)'title='Borrar Datos' style='width:60px;height:60px;cursor:pointer;position:absolute;left:450px;top:870px;'>";
     }
- 
+    if ($_SESSION["usuario"]!="profesor") {
 ?>
 <button type="button" class='button_horario' onclick='SubmitHorario()'>Guardar</button>
 <button onClick='window.location.reload();' class='button_horario cancel_horario' style='left:717px;'>Volver</button>
+<?php 
+    }
+?>
 </div>

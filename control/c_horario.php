@@ -8,7 +8,15 @@ if (isset($_POST["cedula_horario"]) && $_POST["cedula_horario"]!="") {
     if (count($_SESSION["lista_disponibilidad"])==0) {
         $_SESSION["error"]="La cedula que ingreso no existe";
         unset($_SESSION["lista_disponibilidad"]);
-        header("Location:../vista/administrador.php#$url");
+        if ($_SESSION["usuario"]=="profesor") {
+            header("Location:../vista/profesor.php#$url");
+        }
+        else if($_SESSION["usuario"]=="administrador"){
+            header("Location:../vista/coordinador.php#$url");
+        }
+        else {
+            header("Location:../vista/administrador.php#$url");
+        }
     }
     $_SESSION["disponibilidad_profesor"]=$ejecutar->GetAllProfesor($_POST["cedula_horario"], "cedula");
     $_SESSION["tipo_horario"]=$_POST["tipo_horario"];
@@ -17,18 +25,42 @@ if (isset($_POST["cedula_horario"]) && $_POST["cedula_horario"]!="") {
     if (count($_SESSION["carreras_horario"])==0) {
         $_SESSION["error"]="El lapso que ingreso no existe o no tiene carreras agregadas";
         unset($_SESSION["lista_disponibilidad"]);
-        header("Location:../vista/administrador.php#$url");
+        if ($_SESSION["usuario"]=="profesor") {
+            header("Location:../vista/profesor.php#$url");
+        }
+        else if($_SESSION["usuario"]=="administrador"){
+            header("Location:../vista/coordinador.php#$url");
+        }
+        else {
+            header("Location:../vista/administrador.php#$url");
+        }
     }
     $bloques_add=$ejecutar->GetHorario($_POST["cedula_horario"],$_POST["lapso_horario"]);
     if ($bloques_add!=2) {
         $_SESSION["find_horario"]=$bloques_add;
     }
-    header("Location:../vista/administrador.php#$url");
+    if ($_SESSION["usuario"]=="profesor") {
+        header("Location:../vista/profesor.php#$url");
+    }
+    else if($_SESSION["usuario"]=="administrador"){
+        header("Location:../vista/coordinador.php#$url");
+    }
+    else {
+        header("Location:../vista/administrador.php#$url");
+    }
 }
 else if (isset($_POST["delete"]) && $_POST["delete"]!=""){
     $ejecutar->DeleteTable('horario_docente', 'cedula_docente',$_POST["delete"]);
     $_SESSION["completado"]="Los datos fueron eliminados correctamente";
-    header("Location:../vista/administrador.php#$url");
+    if ($_SESSION["usuario"]=="profesor") {
+        header("Location:../vista/profesor.php#$url");
+    }
+    else if($_SESSION["usuario"]=="administrador"){
+        header("Location:../vista/coordinador.php#$url");
+    }
+    else {
+        header("Location:../vista/administrador.php#$url");
+    }
 }
 else if (isset($_POST["carrera_horario"]) && $_POST["carrera_horario"]!="") {
    echo json_encode([$ejecutar->GetMateriasPensumWithPNF($_POST["carrera_horario"]),$ejecutar->GetAulasHorario($_POST["bloque"],$_POST['dia'],$_POST['lapso'])]);
@@ -45,7 +77,15 @@ else if (isset($_POST["input_horario"]) && $_POST["input_horario"]!="") {
     $_SESSION["disponibilidad_profesor"]=$ejecutar->GetAllProfesor($_POST["input_horario"][0], "cedula");
     $_SESSION["carreras_horario"]=$ejecutar->GetCarrerasOferta($_POST["input_horario"][1]);
      $_SESSION["find_horario"]=$ejecutar->GetHorario($_POST["input_horario"][0],$_POST["input_horario"][1]);
-     header("Location:../vista/administrador.php#$url");
+    if ($_SESSION["usuario"]=="profesor") {
+        header("Location:../vista/profesor.php#$url");
+    }
+    else if($_SESSION["usuario"]=="administrador"){
+        header("Location:../vista/coordinador.php#$url");
+    }
+    else {
+        header("Location:../vista/administrador.php#$url");
+    }
 }
 
 ?>

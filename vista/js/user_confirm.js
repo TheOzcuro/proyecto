@@ -1,4 +1,4 @@
-let resp="no";
+
 function userConfirm(){
     var cedula = document.querySelector("#cedula");
     const data = new FormData();
@@ -24,6 +24,34 @@ function userConfirm(){
      .catch(function(err) {
         console.log(err);
      });
+}
+function userConfirmCorreo(){
+   console.log("aver")
+   var cedula = document.querySelector("#correo");
+   const data = new FormData();
+   data.append("correo",`${cedula.value}`);
+   data.append("find-correo","find");
+   data.append("url","paraEvitarError")
+   fetch('../control/c_profesor.php', {
+       method: 'POST',
+       body: data
+    })
+    .then(function(response) {
+       if(response.ok) {
+           return response.text()
+       } 
+    })
+    .then(function(response) {
+       if(response=="yes"){
+            Error("El correo "+cedula.value+" ya se encuentra registrado","msg_error","p_error")
+           cedula.value = "";
+           LabelOut('correo','labelcorreo')
+          
+       }
+    })
+    .catch(function(err) {
+       console.log(err);
+    });
 }
 function MateriaConfirm(codigo,nombre){
    const data = new FormData();

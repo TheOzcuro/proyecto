@@ -88,7 +88,20 @@ else if (isset($_POST["update"]) && $_POST["update"]!=""){
             }
         }
         $_SESSION["completado"]="Los datos fueron actualizados correctamente";
-        header("Location:../vista/administrador.php#$url");
+        if ($_SESSION["usuario"]=="profesor") {
+            $validate=$ejecutar->FindQuery('bloque_disponibilidad','cedula',$_POST['cedula_dis']);
+            if ($validate==2) {
+                $_SESSION["cedula_usuario"]=$_SESSION["cedula_origin"];
+            }
+            header("Location:../vista/profesor.php#$url");
+        }
+        else if($_SESSION["usuario"]=="administrador"){
+            header("Location:../vista/coordinador.php#$url");
+        }
+        else {
+            header("Location:../vista/administrador.php#$url");
+        }
+        
     }
 }
 else if (isset($_POST["delete"]) && $_POST["delete"]!=""){
@@ -96,7 +109,16 @@ else if (isset($_POST["delete"]) && $_POST["delete"]!=""){
     $ejecutar->DeleteTable('horario_docente', 'cedula_docente',$_POST["delete"]);
     $ejecutar->UpdateDisponibilidad($_POST["delete"], 0);
     $_SESSION["completado"]="Los datos fueron eliminados correctamente";
-    header("Location:../vista/administrador.php#$url");
+    if ($_SESSION["usuario"]=="profesor") {
+        header("Location:../vista/profesor.php#$url");
+        $_SESSION["cedula_usuario"]=$_SESSION["cedula_origin"];
+    }
+    else if($_SESSION["usuario"]=="administrador"){
+        header("Location:../vista/coordinador.php#$url");
+    }
+    else {
+        header("Location:../vista/administrador.php#$url");
+    }
 }
 else {
     $valida=$ejecutar->FindQuery('profesor','cedula',$_POST['cedula_dis']);
@@ -148,7 +170,16 @@ else {
              }
         }
         $ejecutar->UpdateDisponibilidad($_POST["cedula_dis"], 1);
-        header("Location:../vista/administrador.php#$url");
+        if ($_SESSION["usuario"]=="profesor") {
+            header("Location:../vista/profesor.php#$url");
+            $_SESSION["cedula_usuario"]=$_SESSION["cedula_origin"]." **";
+        }
+        else if($_SESSION["usuario"]=="administrador"){
+            header("Location:../vista/coordinador.php#$url");
+        }
+        else {
+            header("Location:../vista/administrador.php#$url");
+        }
         $_SESSION["completado"]="Se creo correctamente la disponibilidad del profesor ".$valida[1]." ".$valida[3];
     }
 }

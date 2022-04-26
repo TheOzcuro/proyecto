@@ -1,6 +1,6 @@
 <?php 
 session_start();
-if ($_SESSION["usuario"]!="master") {
+if ($_SESSION["usuario"]!="administrador") {
    header("Location: ../index.php");
 }
 ?>
@@ -12,7 +12,7 @@ if ($_SESSION["usuario"]!="master") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/administrador.css">
     <link rel="stylesheet" href="css/horario.css">
-    <title>Administrador</title>
+    <title>Coordinador</title>
 </head>
 <body onload="LabelInput()">
         <div class="blackcover">
@@ -79,58 +79,17 @@ if ($_SESSION["usuario"]!="master") {
             <img src="css/img/arrow_down.png" alt="" id="arrow_down" onclick="AnimationPrincipalMenu(0)">
                 <div class="submenu">
                     <ul>
-                        <a href="#profesor-container-grid"><li id="registrarProfesor">Registrar</li><div class="borderline"></div></a>
                         <a href="#profesor-historial-grid"><li id="historialProfesor">Historial</li><div class="borderline"></div></a>
                         <a href="#disponibilidad-container-grid"><li id="disponibilidadProfesor">Disponibilidad</li> <div class="borderline"></div></a>
-                        <a href="#oficio-historial-grid"><li id="oficioProfesor">Oficio</li> <div class="borderline"></div></a>
                     </ul>
                 </div>
             </div>
             <div class="principal-menu">
+            
             <div class="h4-container" onclick="AnimationPrincipalMenu(1)">
-                <h4>PNF</h4>
-            </div> 
-            
-            <img src="css/img/arrow_down.png" alt="" id="arrow_down" onclick="AnimationPrincipalMenu(1)">
-            <div class="submenu">
-                    <ul>
-                        <a href="#carrera-container-grid"><li id="registrarCarreras">Crear/Buscar</li><div class="borderline"></div></a>
-                        <a href="#carrera-historial-grid"><li id="historialCarreras">Historial</li><div class="borderline"></div></a>
-                    </ul>
-                </div>
-            </div>
-            <div class="principal-menu">
-            <div class="h4-container" onclick="AnimationPrincipalMenu(2)">
-                <h4>Unidad Curricular</h4>
-            </div>
-            <img src="css/img/arrow_down.png" alt="" id="arrow_down" onclick="AnimationPrincipalMenu(2)">
-            <div class="submenu">
-                    <ul>
-                        <a href="#pensum-container-grid"><li id="registrarMateria">Crear/Buscar</li><div class="borderline"></div></a>
-                        <a href="#materia-container-grid"><li id="registrarMateriaMulti">Añadir Multidisciplinaria</li><div class="borderline"></div></a>
-                        <a href="#pensum-historial-grid"><li id="historialMateria">Historial</li><div class="borderline"></div></a>
-                    </ul>
-                </div>
-            </div>
-            <div class="principal-menu">
-            <div class="h4-container" onclick="AnimationPrincipalMenu(3)">
-                <h4>Aula</h4>
-            </div>
-            
-            <img src="css/img/arrow_down.png" alt="" id="arrow_down" onclick="AnimationPrincipalMenu(3)">
-            <div class="submenu">
-                    <ul>
-                        <a href="#aula-container-grid"><li id="registrarAulas">Crear/Buscar</li><div class="borderline"></div></a>
-                        <a href="#aula-historial-grid"><li id="historialAulas">Historial</li><div class="borderline"></div></a>
-                    </ul>
-                </div>
-            </div>
-            <div class="principal-menu">
-            
-            <div class="h4-container" onclick="AnimationPrincipalMenu(4)">
                 <h4>Lapso Academico</h4>
             </div>
-            <img src="css/img/arrow_down.png" alt="" id="arrow_down" onclick="AnimationPrincipalMenu(4)">
+            <img src="css/img/arrow_down.png" alt="" id="arrow_down" onclick="AnimationPrincipalMenu(1)">
             <div class="submenu">
                     <ul>
                         <a href="#lapso_academico-container-grid"><li id="crearLapso">Crear</li><div class="borderline"></div></a>
@@ -139,11 +98,11 @@ if ($_SESSION["usuario"]!="master") {
                 </div>
             </div>
             <div class="principal-menu">
-            <div class="h4-container" onclick="AnimationPrincipalMenu(5)">
+            <div class="h4-container" onclick="AnimationPrincipalMenu(2)">
                 <h4>Horario</h4>
             </div>
             
-            <img src="css/img/arrow_down.png" alt="" id="arrow_down" onclick="AnimationPrincipalMenu(5)">
+            <img src="css/img/arrow_down.png" alt="" id="arrow_down" onclick="AnimationPrincipalMenu(2)">
             <div class="submenu">
                     <ul>
                         <a href="#horario_docente-container-grid"><li id="registrarHorario">Crear</li><div class="borderline"></div></a>
@@ -152,11 +111,11 @@ if ($_SESSION["usuario"]!="master") {
                 </div>
             </div>
             <div class="principal-menu">
-            <div class="h4-container" onclick="AnimationPrincipalMenu(6)">
+            <div class="h4-container" onclick="AnimationPrincipalMenu(3)">
                 <h4>Noticia</h4>
             </div>
             
-            <img src="css/img/arrow_down.png" alt="" id="arrow_down" onclick="AnimationPrincipalMenu(6)">
+            <img src="css/img/arrow_down.png" alt="" id="arrow_down" onclick="AnimationPrincipalMenu(3)">
             <div class="submenu">
                     <ul>
                         <a href="#noticia-container-grid"><li id="registrarNoticia">Crear</li><div class="borderline"></div></a>
@@ -258,7 +217,7 @@ if (isset($_SESSION["completado"]) && $_SESSION["completado"]!="") {
 
 <script type="text/javascript" src="js/jquery-3.6.0.js"></script>
 <script type="text/javascript" src="js/admin.js"></script>
-<script type="text/javascript" src="js/ejecutar_admin.js"></script>
+<script type="text/javascript" src="js/ejecutar_coor.js"></script>
 <script type="text/javascript" src="js/user_confirm.js"></script>
 <script type="text/javascript" src="js/admin-edit.js"></script>
 <script type="text/javascript" src="js/listar.js"></script>

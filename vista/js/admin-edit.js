@@ -84,7 +84,7 @@ function Save(form) {
             document.querySelector("#"+form).submit();
         }
         else {
-            Error("Parece que algunos datos estan vacios o son erroneos","msg_error","p_error")
+            Error("Existen campos vacios o no se ha hecho ningun cambio por favor verifique","msg_error","p_error")
             console.log("error")
         }
     }
@@ -167,6 +167,7 @@ function SaveMaterias() {
 function SaveDisponibilidad() {
     var ValideCarrera=false;
     var ValideSpan=false;
+    document.getElementById('cedula_dis').disabled=false;
     div=document.getElementById('disponibilidad-container');
     cedula=div.querySelector('#cedula_dis');
     bloques_add=div.querySelectorAll('.input_add');
@@ -201,8 +202,8 @@ function SaveDisponibilidad() {
             }
              ValideCarrera=true;
         }
-        if (carrera.value=="") {
-            carrera.style.borderColor='red';
+        if (cedula.value=="") {
+            cedula.style.borderColor='red';
         }
      }
      if (totalspan!=add_disponibilidad) {
@@ -275,7 +276,7 @@ function Modificar(container,display,valores) {
          div_edit.querySelector(".close-icon").style.display="block";
         //---Hacer aparecer los botones correspondientes
         button=div_edit.querySelectorAll("button");
-        if (container=="noticia-container") {
+        if (container=="noticia-container" || container=="oficio-container") {
             button[0].style.display="none";
             button[1].style.display="block";
             button[2].style.display="block";
@@ -317,9 +318,6 @@ function Close() {
             dias=div_edit.querySelectorAll('.input-dis');
             bloques_add_drop=div_edit.querySelectorAll('.drop_add');
             bloques_add=div_edit.querySelectorAll('.input_add');
-            for (let index = 0; index < dias.length; index++) {
-                dias[index].value="";
-            }
             for (let index = 0; index < bloques_add_drop.length; index++) {
                 for (let index = 0; index < bloques_add_drop.length; index++) {
                     bloques_add[index].value="";
@@ -330,7 +328,7 @@ function Close() {
                 }
             }
         }
-        else if (div_edit.id=="pensum-container" || div_edit.id=="noticia-container") {
+        else if (div_edit.id=="pensum-container" || div_edit.id=="noticia-container" || div_edit.id=="oficio-container") {
             button[0].style.display="block";
             button[1].style.display="none";
             button[2].style.display="none";
@@ -344,7 +342,6 @@ function Close() {
         DissapearVarious('.dis','block');
         DissapearVarious('.das','none');
         document.getElementById('tipo_materia').value="";
-        console.log(button.length);
         if (button.length>4) {
             button[4].style.display="none";
             button[5].style.display="none";
@@ -362,7 +359,6 @@ function Close() {
             }
             
         }
-        console.log(div_edit.id)
         if (div_edit.id=="profesor-container") {
             div_edit.querySelector("h2").innerHTML="Profesor"
         }
