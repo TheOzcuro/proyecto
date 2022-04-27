@@ -174,19 +174,7 @@ else {
             header("Location:../vista/administrador.php#$url");
         }
     }
-    else if ($validate!=false && $_POST["lapso"]!=$dato[0]) {
-        $_SESSION["error"]="La carrera ".$_POST["carrera_oferta"]." ya se encuentra registrada al lapso ".$_POST["lapso"]."";
-        if ($_SESSION["usuario"]=="profesor") {
-            header("Location:../vista/profesor.php#$url");
-        }
-        else if($_SESSION["usuario"]=="administrador"){
-            header("Location:../vista/coordinador.php#$url");
-        }
-        else {
-            header("Location:../vista/administrador.php#$url");
-        }
-    }
-    else if ($validate!=false && $_POST["carrera_oferta"]!=$dato2[1]) {
+    else if ($validate!=false) {
         $_SESSION["error"]="La carrera ".$_POST["carrera_oferta"]." ya se encuentra registrada al lapso ".$_POST["lapso"]."";
         if ($_SESSION["usuario"]=="profesor") {
             header("Location:../vista/profesor.php#$url");

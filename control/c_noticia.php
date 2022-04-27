@@ -37,13 +37,13 @@ else if (isset($_GET["buscar_noticia"]) && $_GET["buscar_noticia"]!="") {
        $_SESSION["error"]="El codigo que ingreso no existe";
        if ($_SESSION["usuario"]=="profesor") {
         header("Location:../vista/profesor.php#$url");
-        }
-        else if($_SESSION["usuario"]=="administrador"){
-            header("Location:../vista/coordinador.php#$url");
-        }
-        else {
-            header("Location:../vista/administrador.php#$url");
-        }
+    }
+    else if($_SESSION["usuario"]=="administrador"){
+        header("Location:../vista/coordinador.php#noticia-container-grid");
+    }
+    else {
+        header("Location:../vista/administrador.php#noticia-container-grid");
+    }
     }
     else {
         $_SESSION["update"]=$validate;
@@ -52,10 +52,10 @@ else if (isset($_GET["buscar_noticia"]) && $_GET["buscar_noticia"]!="") {
             header("Location:../vista/profesor.php#$url");
         }
         else if($_SESSION["usuario"]=="administrador"){
-            header("Location:../vista/coordinador.php#$url");
+            header("Location:../vista/coordinador.php#noticia-container-grid");
         }
         else {
-            header("Location:../vista/administrador.php#$url");
+            header("Location:../vista/administrador.php#noticia-container-grid");
         }
      }
 }
