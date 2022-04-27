@@ -14,7 +14,7 @@ function CreateHorario($cedula,$lapso)
     $_SESSION["disponibilidad_profesor_pdf"]=$ejecutar->GetAllProfesor($cedula, "cedula");
     $_SESSION["lapso"]=$lapso;
     $_SESSION["carreras_horario"]=$ejecutar->GetCarrerasOferta($lapso);
-    $bloques_add=$ejecutar->GetHorario($cedula,$lapso);
+    $bloques_add=$ejecutar->GetHorarioPDF($cedula,$lapso);
     if ($bloques_add!=2) {
         $_SESSION["find_horario"]=$bloques_add;
     }
