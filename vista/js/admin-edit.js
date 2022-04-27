@@ -70,7 +70,6 @@ function Save(form) {
             console.log("funciono")
             for (let index = 0; index < input.length; index++) {
                 input[index].disabled=false;
-                
             }
             if (form=="oferta") {
                 document.querySelector("#"+form).querySelector(".input-update").value=valores[1];

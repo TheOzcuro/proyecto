@@ -436,7 +436,7 @@ function GetFindQuery($tabla,$dato,$campo)
 	function FindQueryOferta($pnf,$lapso){
 		$pnf=$this->FindQuery('carrera','nombre',$pnf);
 		$codigo=$pnf[0];
-		$query="SELECT * FROM `oferta` WHERE `pnf`='$codigo' AND `lapso_academico`='$lapso'";
+		$query="SELECT oferta.codigo, oferta.lapso_academico, carrera.nombre, oferta.horas_semanales, oferta.creditos FROM `oferta`,`carrera` WHERE oferta.pnf='$codigo' AND oferta.lapso_academico='$lapso' AND oferta.pnf=carrera.codigo";
 		return $this->ListAll($this->execute($query), MYSQLI_NUM);
 	}
 	function UpdateTableProfesor($cedula) {
@@ -476,6 +476,11 @@ function GetFindQuery($tabla,$dato,$campo)
 	function UpdateTableOficio($nombre,$nombre_origin)
 	{
 		$query="UPDATE `oficio` SET `nombre`='$nombre' WHERE `nombre`='$nombre_origin'";
+		return $this->execute($query);
+	}
+	function UpdateTableHorarioOferta($nombre,$lapso,$nombre_origin)
+	{
+		$query="UPDATE `horario_docente` SET `carrera`='$nombre' WHERE `lapso_academico`='$lapso' AND `carrera`='$nombre_origin'";
 		return $this->execute($query);
 	}
 	function UpdateTableProfesorInOficio($nombre,$nombre_origin)
@@ -557,10 +562,21 @@ function GetFindQuery($tabla,$dato,$campo)
 	}
 	function ValidateOferta($carrera,$lapso)
 	{
-		$carrera=$this->FindQuery('carrera','nombre',$carrera);
-		$codigo=$carrera[0];
+		$pnf=$this->FindQuery('carrera','nombre',$carrera);
+		$lapso_academico=$this->FindQuery('lapso_academico','lapso',$lapso);
+		$codigo=$pnf[0];
 		$query="SELECT * FROM `oferta` WHERE `pnf`='$codigo' AND `lapso_academico`='$lapso'";
 		return $this->CheckResult($this->execute($query));
+		
+	}
+	function DeleteOfertaHorario($carrera,$lapso)
+	{
+		$pnf=$this->FindQuery('carrera','nombre',$carrera);
+		$lapso_academico=$this->FindQuery('lapso_academico','lapso',$lapso);
+		$codigo=$pnf[0];
+		$query="DELETE FROM `horario_docente` WHERE `carrera`='$codigo' AND `lapso_academico`='$lapso'";
+		return $this->execute($query);
+		
 	}
 	function DeleteTable($tabla, $campo, $dato) {
 		$query="DELETE FROM `$tabla` WHERE `$campo`='$dato'";

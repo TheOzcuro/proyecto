@@ -16,6 +16,7 @@ let activehorario="";
 let valideBloque=0;
 let ValideAddMateria=0;
 let ValideDelMateria=0;
+let span_update=0;
 // ----------------------------------VARIABLES---------------------------------
 
 
@@ -270,6 +271,7 @@ function Submit(form,active){
    if (valide) {
         OnLoad("active")
         document.getElementById(form).querySelector(".input-url").value=container_url+"-grid";
+
         document.getElementById(form).submit();
    }
    else {
@@ -819,7 +821,8 @@ async function AddMateria(modo) {
             for (let index = 0; index < span.length; index++) {
                 array=span[index].id.split("/");
                 nombre_span=span[index].innerText.split('/');
-                if (nombre.value.toUpperCase()==nombre_span[1] || array[0].toUpperCase()==codigo.value.toUpperCase()) {
+                console.log(nombre.value.toUpperCase()==nombre_span[1]);
+                if (nombre.value.toUpperCase()==nombre_span[1]) {
                     valide=false
                     break
                 }
@@ -1055,7 +1058,7 @@ function ValueDate() {
     }
     fecha=fecha+"-"+date.getDate();
     console.log(fecha);
-    if (fecha_expiracion.value<fecha) {
+    if (fecha_expiracion.value<=fecha) {
         document.getElementById('fecha_expiracion').value="";
         Error("Tiene que ingresar una fecha mayor a la fecha actual","msg_error","p_error")
     }
