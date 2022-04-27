@@ -166,8 +166,8 @@ class registry extends mybsd {
 		$query="SELECT profesor.cedula, profesor.primer_nombre, profesor.primer_apellido FROM profesor WHERE profesor.cedula IN (SELECT bloque_disponibilidad.cedula FROM bloque_disponibilidad)";
 		return $this->ListAll($this->execute($query), MYSQLI_NUM);
 	}
-	function GetHorario($busca,$lapso) {
-		$query="SELECT horario_docente.cedula_docente, aula.nombre, horario_docente.lapso_academico, horario_docente.bloque, materia.nombre, carrera.nombre, horario_docente.dia FROM horario_docente, carrera, materia, aula WHERE carrera.codigo=horario_docente.carrera AND materia.codigo=horario_docente.unidad_curricular AND horario_docente.codigo_aula=aula.codigo AND horario_docente.cedula_docente='$busca' AND horario_docente.lapso_academico='$lapso' ORDER BY horario_docente.codigo";
+	function GetHorario($busca,$lapso,$tipo) {
+		$query="SELECT horario_docente.cedula_docente, aula.nombre, horario_docente.lapso_academico, horario_docente.bloque, materia.nombre, carrera.nombre, horario_docente.dia FROM horario_docente, carrera, materia, aula WHERE carrera.codigo=horario_docente.carrera AND materia.codigo=horario_docente.unidad_curricular AND horario_docente.codigo_aula=aula.codigo AND horario_docente.cedula_docente='$busca' AND horario_docente.lapso_academico='$lapso' AND horario_docente.tipo='$tipo' ORDER BY horario_docente.codigo";
 		return $this->ListAll($this->execute($query), MYSQLI_NUM);
 	}
 	function GetDisponibilidad($busca) {
@@ -295,14 +295,14 @@ function GetFindQuery($tabla,$dato,$campo)
 		$query="INSERT INTO `oficio`(`nombre`) VALUES ('$oficio')";
 		return $this->execute($query);
 	}
-	function registrarHorario($cedula,$aula,$lapso,$bloque,$unidad,$carrera,$dia){
+	function registrarHorario($cedula,$aula,$lapso,$bloque,$unidad,$carrera,$dia,$tipo){
 		$codigo_a=$this->FindQuery('aula','nombre',$aula);
 		$codigo_m=$this->FindQuery('materia','nombre',$unidad);
 		$codigo_c=$this->FindQuery('carrera','nombre',$carrera);
 		$aula=$codigo_a[0];
 		$unidad=$codigo_m[0];
 		$carrera=$codigo_c[0];
-		$query="INSERT INTO `horario_docente` (`cedula_docente`,`codigo_aula`,`lapso_academico`,`bloque`, `unidad_curricular`,`carrera`,`dia`) VALUES ('$cedula','$aula','$lapso','$bloque','$unidad','$carrera','$dia')";
+		$query="INSERT INTO `horario_docente` (`cedula_docente`,`codigo_aula`,`lapso_academico`,`bloque`, `unidad_curricular`,`carrera`,`dia`,`tipo`) VALUES ('$cedula','$aula','$lapso','$bloque','$unidad','$carrera','$dia','$tipo')";
 		return $this->execute($query);
 	}
 	function registrarAdministrador($contrasena){
