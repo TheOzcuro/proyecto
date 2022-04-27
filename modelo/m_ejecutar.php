@@ -54,6 +54,25 @@ class registry extends mybsd {
 			return $this->ListAll($this->execute($query), MYSQLI_NUM);
 		}
 	}
+	function GetAllHorario($buscar,$campo) 
+	{
+		if ($buscar=="") {
+			$query="SELECT profesor.cedula, profesor.primer_nombre, profesor.segundo_nombre, profesor.primer_apellido,  profesor.segundo_apellido, tcontratacion.tcontratacion, categoria.nombre, dedicacion.nombre,profesor.direccion, profesor.telefono, profesor.telefono_fijo, profesor.correo, profesor.titulo, profesor.oficio,  profesor.rol, tcontratacion.codigo, categoria.codigo, dedicacion.codigo, profesor.disponibilidad FROM `profesor`,`tcontratacion`,`dedicacion`,`categoria` WHERE profesor.contratacion=tcontratacion.codigo AND profesor.categoria=categoria.codigo AND profesor.dedicacion=dedicacion.codigo ORDER BY contratacion DESC";
+			return $this->ListAll($this->execute($query), MYSQLI_NUM);
+		}
+		else {
+			$query="SELECT profesor.cedula, profesor.primer_nombre, profesor.segundo_nombre, profesor.primer_apellido,  
+			profesor.segundo_apellido, tcontratacion.tcontratacion, categoria.nombre, dedicacion.nombre,profesor.direccion, 
+			profesor.telefono, profesor.telefono_fijo, profesor.correo, profesor.titulo, profesor.oficio, profesor.rol, 
+			tcontratacion.codigo, categoria.codigo, dedicacion.codigo, profesor.disponibilidad  
+			FROM `profesor`,`tcontratacion`,`dedicacion`,`categoria` 
+			WHERE profesor.contratacion=tcontratacion.codigo 
+			AND profesor.categoria=categoria.codigo 
+			AND profesor.dedicacion=dedicacion.codigo 
+			AND profesor.$campo='$buscar' ORDER BY contratacion DESC";
+			return $this->ListAll($this->execute($query), MYSQLI_NUM);
+		}
+	}
 	function GetAll($tabla)
 	{		
 			$query="SELECT * FROM $tabla";
@@ -162,7 +181,7 @@ class registry extends mybsd {
 			return $this->ListAll($this->execute($query), MYSQLI_NUM);
 		}
 		else {
-			$query="SELECT bloque_disponibilidad.cedula, bloque_disponibilidad.bloque, bloque_disponibilidad.dia FROM `bloque_disponibilidad` WHERE bloque_disponibilidad.cedula=$busca ORDER BY bloque_disponibilidad.cedula DESC, bloque_disponibilidad.codigo ASC, bloque_disponibilidad.dia ASC, bloque_disponibilidad.bloque ASC";
+			$query="SELECT bloque_disponibilidad.cedula, bloque_disponibilidad.bloque, bloque_disponibilidad.dia FROM `bloque_disponibilidad` WHERE bloque_disponibilidad.cedula='$busca' ORDER BY bloque_disponibilidad.cedula DESC, bloque_disponibilidad.codigo ASC, bloque_disponibilidad.dia ASC, bloque_disponibilidad.bloque ASC";
 			return $this->ListAll($this->execute($query), MYSQLI_NUM);
 		}
 		

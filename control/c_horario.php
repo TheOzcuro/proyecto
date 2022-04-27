@@ -18,7 +18,7 @@ if (isset($_POST["cedula_horario"]) && $_POST["cedula_horario"]!="") {
             header("Location:../vista/administrador.php#$url");
         }
     }
-    $_SESSION["disponibilidad_profesor"]=$ejecutar->GetAllProfesor($_POST["cedula_horario"], "cedula");
+    $_SESSION["disponibilidad_profesor"]=$ejecutar->GetAllHorario($_POST["cedula_horario"], "cedula");
     $_SESSION["tipo_horario"]=$_POST["tipo_horario"];
     $_SESSION["lapso"]=$_POST["lapso_horario"];
     $_SESSION["carreras_horario"]=$ejecutar->GetCarrerasOferta($_POST["lapso_horario"]);
@@ -74,7 +74,7 @@ else if (isset($_POST["input_horario"]) && $_POST["input_horario"]!="") {
      }
      $_SESSION["completado"]="El horario se creo correctamente";
      $_SESSION["lista_disponibilidad"]=$ejecutar->GetDisponibilidad($_POST["input_horario"][0]);
-    $_SESSION["disponibilidad_profesor"]=$ejecutar->GetAllProfesor($_POST["input_horario"][0], "cedula");
+    $_SESSION["disponibilidad_profesor"]=$ejecutar->GetAllHorario($_POST["input_horario"][0], "cedula");
     $_SESSION["carreras_horario"]=$ejecutar->GetCarrerasOferta($_POST["input_horario"][1]);
      $_SESSION["find_horario"]=$ejecutar->GetHorario($_POST["input_horario"][0],$_POST["input_horario"][1]);
     if ($_SESSION["usuario"]=="profesor") {

@@ -118,7 +118,7 @@ if ($_SESSION["usuario"]!="profesor") {
                     </div>
                     <div class="input-container" id="input-carreras">
                         <label for="lapso_horario" id="labelapso_horario">Lapso Academico</label><br>
-                        <input type="text" id="lapso_horario" name="lapso_horario" onfocus="LabelAnimation('lapso_horario','labelapso_horario')" onblur="LabelOut('lapso_horario','labelapso_horario')" maxlength="30" class="input input-label principal_input" onkeyup="Search('lapso_horario','lapso_drop_horario')" autocomplete="off">
+                        <input type="text" id="lapso_horario" name="lapso_horario" onfocus="LabelAnimation('lapso_horario','labelapso_horario')" onblur="LabelOut('lapso_horario','labelapso_horario')" maxlength="30" class="input input-label principal_input" onkeyup="Search('lapso_horario','lapso_drop_horario')" autocomplete="off" onclick="OnclickAppear('flex','lapso_drop_horario','lapso_horario')">
                         <div class="dropdown" id="lapso_drop_horario">
                         <?php
                             include_once("../control/c_function.php");
