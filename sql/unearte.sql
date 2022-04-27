@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 27-04-2022 a las 06:07:14
+-- Tiempo de generación: 27-04-2022 a las 06:37:31
 -- Versión del servidor: 8.0.21
 -- Versión de PHP: 7.3.21
 
@@ -38,13 +38,6 @@ CREATE TABLE IF NOT EXISTS `administrador` (
   UNIQUE KEY `cedula` (`cedula`)
 ) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
---
--- Volcado de datos para la tabla `administrador`
---
-
-INSERT INTO `administrador` (`codigo`, `cedula`, `contrasena`) VALUES
-(1, 9372683, '152560loco');
-
 -- --------------------------------------------------------
 
 --
@@ -57,18 +50,6 @@ CREATE TABLE IF NOT EXISTS `aula` (
   `nombre` varchar(60) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   PRIMARY KEY (`codigo`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Volcado de datos para la tabla `aula`
---
-
-INSERT INTO `aula` (`codigo`, `nombre`) VALUES
-('14564165', 'SIMON RODRIGUEZ'),
-('2023', 'FRANCISCO DE MIRANDA'),
-('9009', 'FLOR ESPIRITUAL'),
-('91303', 'ARAGUANEY'),
-('4654165', 'GGGGG'),
-('7', 'AULA');
 
 -- --------------------------------------------------------
 
@@ -86,50 +67,6 @@ CREATE TABLE IF NOT EXISTS `bloque_disponibilidad` (
   PRIMARY KEY (`codigo`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1238 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
---
--- Volcado de datos para la tabla `bloque_disponibilidad`
---
-
-INSERT INTO `bloque_disponibilidad` (`codigo`, `cedula`, `bloque`, `dia`, `disponibilidad`) VALUES
-(1175, 11716900, 'B7', 2, 1),
-(1174, 11716900, 'B6', 2, 1),
-(1173, 11716900, 'B5', 2, 1),
-(1172, 11716900, 'B4', 2, 1),
-(1171, 11716900, 'B3', 2, 1),
-(1170, 11716900, 'B2', 2, 1),
-(1169, 11716900, 'B1', 2, 1),
-(1168, 11716900, 'B7', 1, 1),
-(1234, 9372683, 'B2', 5, 1),
-(1233, 9372683, 'B1', 5, 1),
-(1232, 9372683, 'B15', 4, 1),
-(1231, 9372683, 'B14', 4, 1),
-(1230, 9372683, 'B11', 4, 1),
-(1229, 9372683, 'B14', 2, 1),
-(1228, 9372683, 'B13', 2, 1),
-(1227, 9372683, 'B12', 2, 1),
-(1226, 9372683, 'B11', 2, 1),
-(1225, 9372683, 'B12', 1, 1),
-(1224, 9372683, 'B11', 1, 1),
-(1167, 11716900, 'B6', 1, 1),
-(1166, 11716900, 'B5', 1, 1),
-(1165, 11716900, 'B4', 1, 1),
-(1164, 11716900, 'B3', 1, 1),
-(1163, 11716900, 'B2', 1, 1),
-(1162, 11716900, 'B1', 1, 1),
-(1223, 9372683, 'B10', 1, 1),
-(1222, 9372683, 'B9', 1, 1),
-(1221, 9372683, 'B8', 1, 1),
-(1220, 9372683, 'B7', 1, 1),
-(1219, 9372683, 'B6', 1, 1),
-(1218, 9372683, 'B5', 1, 1),
-(1217, 9372683, 'B4', 1, 1),
-(1216, 9372683, 'B3', 1, 1),
-(1215, 9372683, 'B2', 1, 1),
-(1214, 9372683, 'B1', 1, 1),
-(1235, 9372683, 'B3', 5, 1),
-(1236, 9372683, 'B4', 5, 1),
-(1237, 9372683, 'B5', 5, 1);
-
 -- --------------------------------------------------------
 
 --
@@ -142,16 +79,6 @@ CREATE TABLE IF NOT EXISTS `carrera` (
   `nombre` varchar(40) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   PRIMARY KEY (`codigo`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Volcado de datos para la tabla `carrera`
---
-
-INSERT INTO `carrera` (`codigo`, `nombre`) VALUES
-('2121', 'INGENIERIA EN AZUCAR'),
-('1616', 'DANZA'),
-('102', 'ARTES PLASTICAS'),
-('70', 'PROGRAMACION');
 
 -- --------------------------------------------------------
 
@@ -246,7 +173,7 @@ CREATE TABLE IF NOT EXISTS `horario_docente` (
   `dia` int NOT NULL,
   `tipo` int NOT NULL,
   PRIMARY KEY (`codigo`)
-) ENGINE=MyISAM AUTO_INCREMENT=85 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=90 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
 
@@ -262,16 +189,6 @@ CREATE TABLE IF NOT EXISTS `lapso_academico` (
   PRIMARY KEY (`lapso`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
---
--- Volcado de datos para la tabla `lapso_academico`
---
-
-INSERT INTO `lapso_academico` (`lapso`, `fecha_inicio`, `fecha_final`) VALUES
-('90', '2022-02-19', '2022-03-13'),
-('1103', '2022-03-13', '2022-03-16'),
-('TRAYECTO1 ', '2022-04-16', '2022-04-30'),
-('9000', '2022-03-13', '2022-03-14');
-
 -- --------------------------------------------------------
 
 --
@@ -285,24 +202,6 @@ CREATE TABLE IF NOT EXISTS `materia` (
   `tipo` varchar(60) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   PRIMARY KEY (`codigo`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Volcado de datos para la tabla `materia`
---
-
-INSERT INTO `materia` (`codigo`, `nombre`, `tipo`) VALUES
-('009', 'ARTES PLASTICAS', '0'),
-('05', 'MATERIAS', '0'),
-('GFGFG', 'GFGFGF', '0'),
-('06', 'MATERIA', '0'),
-('005', 'MAT', '1'),
-('008', 'MAT', '1'),
-('03', 'MATERIAS', '0'),
-('04', 'MATERIAS01', '0'),
-('07', 'MATEMATICA', '0'),
-('MATANGA', 'DIJO', '0'),
-('ALV', 'PERRO', '0'),
-('UFF', 'ALAMADRE', '0');
 
 -- --------------------------------------------------------
 
@@ -343,16 +242,6 @@ CREATE TABLE IF NOT EXISTS `oferta` (
   PRIMARY KEY (`codigo`)
 ) ENGINE=MyISAM AUTO_INCREMENT=72 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
---
--- Volcado de datos para la tabla `oferta`
---
-
-INSERT INTO `oferta` (`codigo`, `lapso_academico`, `pnf`, `horas_semanales`, `creditos`) VALUES
-(49, '1103', '1616', 15, 15),
-(69, 'TRAYECTO1 ', '2121', 90, 15),
-(70, '9000', '2121', 90, 15),
-(71, '90', '2121', 90, 30);
-
 -- --------------------------------------------------------
 
 --
@@ -364,19 +253,6 @@ CREATE TABLE IF NOT EXISTS `oficio` (
   `nombre` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   PRIMARY KEY (`nombre`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Volcado de datos para la tabla `oficio`
---
-
-INSERT INTO `oficio` (`nombre`) VALUES
-('BAILARINA'),
-('CARLITOS'),
-('JUGADOR DE DFO'),
-('MUSICO'),
-('PINTOR'),
-('PUTA'),
-('RUDY');
 
 -- --------------------------------------------------------
 
@@ -391,24 +267,6 @@ CREATE TABLE IF NOT EXISTS `pensum` (
   `unidad_curricular` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   PRIMARY KEY (`codigo`)
 ) ENGINE=MyISAM AUTO_INCREMENT=421 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Volcado de datos para la tabla `pensum`
---
-
-INSERT INTO `pensum` (`codigo`, `pnf`, `unidad_curricular`) VALUES
-(383, '70', 'PO-12'),
-(392, '70', '03'),
-(393, '70', '04'),
-(418, '2121', 'MATANGA'),
-(419, '2121', 'ALV'),
-(415, '1616', '009'),
-(414, '1616', '07'),
-(375, '102', 'GFGFG'),
-(413, '1616', '06'),
-(410, '2121', ''),
-(412, '102', '05'),
-(420, '2121', 'UFF');
 
 -- --------------------------------------------------------
 
@@ -437,15 +295,6 @@ CREATE TABLE IF NOT EXISTS `profesor` (
   PRIMARY KEY (`cedula`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
---
--- Volcado de datos para la tabla `profesor`
---
-
-INSERT INTO `profesor` (`cedula`, `primer_nombre`, `segundo_nombre`, `primer_apellido`, `segundo_apellido`, `contratacion`, `categoria`, `dedicacion`, `direccion`, `telefono`, `telefono_fijo`, `correo`, `titulo`, `oficio`, `rol`, `disponibilidad`) VALUES
-(9372683, 'NIRETCIA', 'INMACULADA', 'RAMIREZ', 'VALERO', 3, 5, 1, 'CAMBURITO', '04147965415', '02556659105', 'perro@gmail.com', 'BACHILLER', 'MUSICO', '1', 1),
-(11716900, 'JONATHAN', 'ENMANUEL', 'RAMIREZ', '', 2, 3, 3, 'URB CAMBURITO, CALLE 7, CASA 7-24', '04167577138', '0255669105', 'jonathan@gmail.com', 'MASTER EN PINTURA', 'PINTOR', '0', 1),
-(27414575, 'MARTIN', '', 'ROJAS', '', 1, 8, 3, 'EN LAS PALMAS', '0416139094', '02556649749', 'martin@gmail.com', 'LICENCIADO EN ADMINISTRACION', 'PINTOR', '0', 0);
-
 -- --------------------------------------------------------
 
 --
@@ -459,14 +308,6 @@ CREATE TABLE IF NOT EXISTS `profesor_pass` (
   `password` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   PRIMARY KEY (`codigo`)
 ) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Volcado de datos para la tabla `profesor_pass`
---
-
-INSERT INTO `profesor_pass` (`codigo`, `cedula`, `password`) VALUES
-(3, 11716900, '152560loco'),
-(4, 27414575, '');
 
 -- --------------------------------------------------------
 
