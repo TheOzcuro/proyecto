@@ -269,6 +269,14 @@ function Delete(form,valor,lapso) {
             document.querySelector("#materia").querySelector(".input-delete").value=valor;
             form="#materia";
         }
+        else if(form=="#unidad"){
+            if (valor!="") {
+                document.querySelector(form).querySelector(".input-delete").value=valor;
+            }
+            else {
+                document.querySelector(form).querySelector(".input-delete").value=valores[0];
+            } 
+        }
         else if(form=="#oferta" && valor==""){
             document.querySelector(form).querySelector(".input-delete").value=valores[1];
         }
