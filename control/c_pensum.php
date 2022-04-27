@@ -77,7 +77,7 @@ else if (isset($_POST["delete"]) && $_POST["delete"]!=""){
     if ($carrera!=2) {
         $values=$ejecutar->GetAllPensum($carrera[1]);
         for ($i=3; $i < count($values[0]); $i=$i+2) { 
-            $ejecutar->DeleteTableMateriaMulti("materia","codigo",$values[0][$i]);
+            echo $ejecutar->DeleteTableMateriaMulti("materia","codigo",$values[0][$i]);
         }
         $ejecutar->DeleteTable("pensum","pnf",$_POST["delete"]);
     }

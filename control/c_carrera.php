@@ -61,8 +61,16 @@ else if (isset($_POST["update"]) && $_POST["update"]!=""){
     }
 }
 else if (isset($_POST["delete"]) && $_POST["delete"]!=""){
+    $carrera=$ejecutar->FindQuery("carrera","codigo",$_POST["delete"]);
+    if ($carrera!=2) {
+        $values=$ejecutar->GetAllPensum($carrera[1]);
+        for ($i=3; $i < count($values[0]); $i=$i+2) { 
+            echo $ejecutar->DeleteTableMateriaMulti("materia","codigo",$values[0][$i]);
+        }
+    }
     $ejecutar->DeleteTable("pensum","pnf",$_POST["delete"]);
     $ejecutar->DeleteTable("oferta","pnf",$_POST["delete"]);
+    
     $ejecutar->DeleteTable("carrera","codigo",$_POST["delete"]);
     $ejecutar->DeleteTable("horario_docente","carrera",$_POST["delete"]);
     $_SESSION["completado"]="Los datos fueron eliminados correctamente";
