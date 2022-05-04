@@ -254,10 +254,6 @@ document.addEventListener('mouseup', function(e) {
         document.getElementById("horario_drop").style.display = 'none';
         input3.style.border=""
     }
-    if (!input20.contains(e.target)) {
-        document.getElementById("lapso_drop_horario").style.display = 'none';
-        input3.style.border=""
-    }
     if (!input2.contains(e.target)) {
         document.getElementById("materias_add_drop_unidad").style.display = 'none';
         input2.style.border=""

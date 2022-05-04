@@ -287,7 +287,7 @@ function Modificar(container,display,valores) {
             button[1].style.display="block";
             button[2].style.display="block";
         }
-        if (container=="oferta-container") {
+        else if (container=="oferta-container") {
             button[0].style.display="none";
             button[1].style.display="block";
         }

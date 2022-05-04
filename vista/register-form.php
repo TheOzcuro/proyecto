@@ -7,7 +7,7 @@
                     <h2>Crear Oficio</h2>
                     <div class="input-container">
                         <label for="oficio_registrar" id="labeloficio_registrar">Oficio</label><br>
-                        <input type="text" id="oficio_registrar" name="oficio_registrar" onfocus="LabelAnimation('oficio_registrar','labeloficio_registrar')" onblur="LabelOut('oficio_registrar','labeloficio_registrar')" maxlength="30" class="input input-label" style="text-transform:uppercase">
+                        <input type="text" id="oficio_registrar" name="oficio_registrar" onfocus="LabelAnimation('oficio_registrar','labeloficio_registrar')" onblur="LabelOut('oficio_registrar','labeloficio_registrar')" maxlength="30" class="input input-label" style="text-transform:uppercase" autocomplete='off'>
                         <input type="checkbox" class="checkbox-edit checkbox-materia" onclick="CheckboxDisabled('oficio_registrar', this)">
                     </div>
                     <button type="button" onclick="Submit('oficio_reg')" style='grid-column:1/3;'>Registrar</button>
@@ -25,7 +25,7 @@
                     <h2>Crear Seccion</h2>
                     <div class="input-container">
                         <label for="seccion_registrar" id="labelseccion_registrar">Codigo</label><br>
-                        <input type="text" id="seccion_registrar" name="seccion_registrar" onfocus="LabelAnimation('seccion_registrar','labelseccion_registrar')" onblur="LabelOut('seccion_registrar','labelseccion_registrar')" maxlength="10" class="input input-label" style="text-transform:uppercase">
+                        <input type="text" id="seccion_registrar" name="seccion_registrar" onfocus="LabelAnimation('seccion_registrar','labelseccion_registrar')" onblur="LabelOut('seccion_registrar','labelseccion_registrar')" maxlength="10" class="input input-label" style="text-transform:uppercase" autocomplete='off'>
                         <input type="checkbox" class="checkbox-edit checkbox-materia" onclick="CheckboxDisabled('seccion_registrar', this)">
                     </div>
                     <button type="button" onclick="Submit('seccion')" style='grid-column:1/3;'>Registrar</button>
@@ -79,13 +79,13 @@
                     </div>
                     <div class="input-container dis">
                         <label for="codigo_materia" id="labelcodigo_materia">Codigo</label><br>
-                        <input type="text" id="codigo_materia" name="codigo_materia" onfocus="LabelAnimation('codigo_materia','labelcodigo_materia')" onblur="LabelOut('codigo_materia','labelcodigo_materia')" maxlength="11" class="input input-label" style="text-transform:uppercase">
+                        <input type="text" id="codigo_materia" name="codigo_materia" onfocus="LabelAnimation('codigo_materia','labelcodigo_materia')" onblur="LabelOut('codigo_materia','labelcodigo_materia')" maxlength="11" class="input input-label" style="text-transform:uppercase" autocomplete='off'>
                         <input type="checkbox" class="checkbox-edit checkbox-materia"   onclick="CheckboxDisabled('codigo_materia', this)">
                     </div>
 
                     <div class="input-container dis" style='grid-column:3/5;'>
                         <label for="nombre_materia" id="labelnombre_materia">Nombre Materia</label><br>
-                        <input type="text" id="nombre_materia" name="nombre_materia" onfocus="LabelAnimation('nombre_materia','labelnombre_materia')" onblur="LabelOut('nombre_materia','labelnombre_materia')" maxlength="30" class="input input-label" style="text-transform:uppercase">
+                        <input type="text" id="nombre_materia" name="nombre_materia" onfocus="LabelAnimation('nombre_materia','labelnombre_materia')" onblur="LabelOut('nombre_materia','labelnombre_materia')" maxlength="30" class="input input-label" style="text-transform:uppercase" autocomplete='off'>
                         <input type="checkbox" class="checkbox-edit checkbox-materia"   onclick="CheckboxDisabled('nombre_materia', this)" style='right:30px;'>
                         <div class='button-add' onclick="AddMateria('add')" class='dis' >
                             <b style='position:relative;top:-10px;left:5px;'>Agregar</b>
@@ -156,12 +156,12 @@
                     <h2>Materia Multidiciplinaria</h2>
                     <div class="input-container">
                         <label for="codigo_materia_multi" id="labelcodigo_materia_multi">Codigo</label><br>
-                        <input type="text" id="codigo_materia_multi" name="codigo_materia_multi" onfocus="LabelAnimation('codigo_materia_multi','labelcodigo_materia_multi')" onblur="LabelOut('codigo_materia_multi','labelcodigo_materia_multi')" maxlength="11" class="input input-label" style="text-transform:uppercase">
+                        <input type="text" id="codigo_materia_multi" name="codigo_materia_multi" onfocus="LabelAnimation('codigo_materia_multi','labelcodigo_materia_multi')" onblur="LabelOut('codigo_materia_multi','labelcodigo_materia_multi')" maxlength="11" class="input input-label" style="text-transform:uppercase"> autocomplete='off'
                         <input type="checkbox" class="checkbox-edit checkbox-materia"   onclick="CheckboxDisabled('codigo_materia_multi', this)" style='left:265px;'>
                     </div>
                     <div class="input-container">
                         <label for="nombre_materia_multi" id="labelnombre_materia_multi">Nombre Materia</label><br>
-                        <input type="text" id="nombre_materia_multi" name="nombre_materia_multi" onfocus="LabelAnimation('nombre_materia_multi','labelnombre_materia_multi')" onblur="LabelOut('nombre_materia_multi','labelnombre_materia_multi')" maxlength="30" class="input input-label" style="text-transform:uppercase">
+                        <input type="text" id="nombre_materia_multi" name="nombre_materia_multi" onfocus="LabelAnimation('nombre_materia_multi','labelnombre_materia_multi')" onblur="LabelOut('nombre_materia_multi','labelnombre_materia_multi')" maxlength="30" class="input input-label" style="text-transform:uppercase" autocomplete='off'>
                         <input type="checkbox" class="checkbox-edit checkbox-materia"   onclick="CheckboxDisabled('nombre_materia_multi', this)" style='left:265px;'>
                     </div>
                     <div class="input-container  input-add">
@@ -196,64 +196,64 @@
 
                     <div class="input-container">
                         <label for="cedula" id="labelcedula">Cedula <b style="color:red;">*</b></label><br>
-                        <input type="text" id="cedula" name="cedula" onfocus="LabelAnimation('cedula','labelcedula')" onblur="LabelOut('cedula','labelcedula')" maxlength="10" class="input input-label" onfocusout="userConfirm()">
+                        <input type="text" id="cedula" name="cedula" onfocus="LabelAnimation('cedula','labelcedula')" onblur="LabelOut('cedula','labelcedula')" maxlength="10" class="input input-label" onfocusout="userConfirm()" autocomplete='off'>
                         <input type="checkbox" class="checkbox-edit checkbox-profesor" onclick="CheckboxDisabled('cedula', this)">
                     </div>
 
                     <div class="input-container">
                         <label for="primer_nombre" id="labelprimer_nombre">Primer Nombre <b style="color:red;">*</b></label><br>
-                        <input type="text" id="primer_nombre" name="primer_nombre" onfocus="LabelAnimation('primer_nombre','labelprimer_nombre')" onblur="LabelOut('primer_nombre','labelprimer_nombre')" maxlength="20" class="input input-label" style="text-transform:uppercase">
+                        <input type="text" id="primer_nombre" name="primer_nombre" onfocus="LabelAnimation('primer_nombre','labelprimer_nombre')" onblur="LabelOut('primer_nombre','labelprimer_nombre')" maxlength="20" class="input input-label" style="text-transform:uppercase" autocomplete='off'>
                         <input type="checkbox" class="checkbox-edit checkbox-profesor"   onclick="CheckboxDisabled('primer_nombre', this)">
                     </div>
 
                     <div class="input-container">
                         <label for="segundo_nombre" id="labelsegundo_nombre">Segundo Nombre</label><br>
                         <input type="text" id="segundo_nombre" name="segundo_nombre"
-                        onfocus="LabelAnimation('segundo_nombre','labelsegundo_nombre')" onblur="LabelOut('segundo_nombre','labelsegundo_nombre')" maxlength="20" class="input input-label" style="text-transform:uppercase">
+                        onfocus="LabelAnimation('segundo_nombre','labelsegundo_nombre')" onblur="LabelOut('segundo_nombre','labelsegundo_nombre')" maxlength="20" class="input input-label" style="text-transform:uppercase" autocomplete='off'>
                         <input type="checkbox" class="checkbox-edit checkbox-profesor" onclick="CheckboxDisabled('segundo_nombre', this)">
                     </div>
 
                     <div class="input-container">
                         <label for="primer_apellido" id="labelprimer_apellido">Primer Apellido <b style="color:red;">*</b></label><br>
                         <input type="text" id="primer_apellido" name="primer_apellido"
-                        onfocus="LabelAnimation('primer_apellido','labelprimer_apellido')" onblur="LabelOut('primer_apellido','labelprimer_apellido')" maxlength="20" class="input input-label" style="text-transform:uppercase">
+                        onfocus="LabelAnimation('primer_apellido','labelprimer_apellido')" onblur="LabelOut('primer_apellido','labelprimer_apellido')" maxlength="20" class="input input-label" style="text-transform:uppercase" autocomplete='off'>
                         <input type="checkbox" class="checkbox-edit checkbox-profesor" onclick="CheckboxDisabled('primer_apellido', this)">
                     </div>
 
                     <div class="input-container">
                         <label for="segundo_apellido" id="labelsegundo_apellido">Segundo Apellido</label><br>
                         <input type="text" id="segundo_apellido" name="segundo_apellido"
-                        onfocus="LabelAnimation('segundo_apellido','labelsegundo_apellido')" onblur="LabelOut('segundo_apellido','labelsegundo_apellido')" maxlength="20" class="input input-label" style="text-transform:uppercase">
+                        onfocus="LabelAnimation('segundo_apellido','labelsegundo_apellido')" onblur="LabelOut('segundo_apellido','labelsegundo_apellido')" maxlength="20" class="input input-label" style="text-transform:uppercase" autocomplete='off'>
                         <input type="checkbox" class="checkbox-edit" onclick="CheckboxDisabled('segundo_apellido', this)">
                     </div>
                     <div class="input-container" style='grid-column:1/3;width:100%;grid-row:7;'>
                         <label for="direccion" id="labeldireccion">Direccion <b style="color:red;">*</b></label><br>
                         <textarea type="text" id="direccion" name="direccion"
-                        onfocus="LabelAnimation('direccion','labeldireccion')" onblur="LabelOut('direccion','labeldireccion')" maxlength="100" class="input input-label" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"' style='width:90%;text-transform:uppercase;'></textarea>
+                        onfocus="LabelAnimation('direccion','labeldireccion')" onblur="LabelOut('direccion','labeldireccion')" maxlength="100" class="input input-label" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"' style='width:90%;text-transform:uppercase;' autocomplete='off'></textarea>
                         <input type="checkbox" class="checkbox-edit" onclick="CheckboxDisabled('direccion', this)" style='left:540px;'>
                     </div>
 
                     <div class="input-container" style='grid-column:2/3;grid-row:4;'>
                         <label for="telefono" id="labeltelefono">Telefono Personal <b style="color:rgb(90,110,200);font-size:12px;">(04)</b></label><br>
                         <input type="text" id="telefono" name="telefono"
-                        onfocus="LabelAnimation('telefono','labeltelefono')" onblur="LabelOut('telefono','labeltelefono')" maxlength="11" class="input input-label">
+                        onfocus="LabelAnimation('telefono','labeltelefono')" onblur="LabelOut('telefono','labeltelefono')" maxlength="11" class="input input-label" autocomplete='off'>
                         <input type="checkbox" class="checkbox-edit" onclick="CheckboxDisabled('telefono', this)" >
                     </div>
                     <div class="input-container">
                         <label for="telefono_fijo" id="labeltelefono_fijo">Telefono Fijo <b style="color:rgb(90,110,200);font-size:12px;">(0255)</b></label><br>
                         <input type="text" id="telefono_fijo" name="telefono_fijo"
-                        onfocus="LabelAnimation('telefono_fijo','labeltelefono_fijo')" onblur="LabelOut('telefono_fijo','labeltelefono_fijo')" maxlength="11" class="input input-label">
+                        onfocus="LabelAnimation('telefono_fijo','labeltelefono_fijo')" onblur="LabelOut('telefono_fijo','labeltelefono_fijo')" maxlength="11" class="input input-label" autocomplete='off'>
                         <input type="checkbox" class="checkbox-edit" onclick="CheckboxDisabled('telefono_fijo', this)" >
                     </div>
                     <div class="input-container">
                         <label for="correo" id="labelcorreo">Correo <b style="color:red;">*</b></label><br>
-                        <textarea type="text" id="correo" name="correo" onfocus="LabelAnimation('correo','labelcorreo')" onblur="LabelOut('correo','labelcorreo')" maxlength="50" class="input input-label" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'></textarea>
+                        <textarea type="text" id="correo" name="correo" onfocus="LabelAnimation('correo','labelcorreo')" onblur="LabelOut('correo','labelcorreo')" maxlength="50" class="input input-label" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"' autocomplete='off'></textarea>
                         <input type="checkbox" class="checkbox-edit" onclick="CheckboxDisabled('correo', this)" >
                     </div>
                     <div class="input-container">
                         <label for="titulo" id="labeltitulo">Titulo</label><br>
                         <input type="text" id="titulo" name="titulo"
-                        onfocus="LabelAnimation('titulo','labeltitulo')" onblur="LabelOut('titulo','labeltitulo')" maxlength="30" class="input input-label" style='text-transform:uppercase;'>
+                        onfocus="LabelAnimation('titulo','labeltitulo')" onblur="LabelOut('titulo','labeltitulo')" maxlength="30" class="input input-label" style='text-transform:uppercase;' autocomplete='off'>
                         <input type="checkbox" class="checkbox-edit" onclick="CheckboxDisabled('titulo', this)" >
                     </div>
                     <div class="input-container">
@@ -350,18 +350,18 @@
                 <input type="text" class="input-url" id="url" name="url" hidden>
                 <div id="carrera-container" class="container container-flex">
                     <a class="a_img"><img src="css/img/close.png" alt="" class="close-icon" id="close-icon-profesor" onclick="Close()"></a>
-                    <h2>Carrera</h2>
+                    <h2>PNF</h2>
                     <div class="input-container">
                     
                         <label for="codigo_carrera" id="labelcodigo_carrera">Codigo</label><br>
                         
-                        <input type="text" id="codigo_carrera" name="codigo_carrera" onfocus="LabelAnimation('codigo_carrera','labelcodigo_carrera')" onblur="LabelOut('codigo_carrera','labelcodigo_carrera')" maxlength="11" class="input input-label" style="text-transform:uppercase">
+                        <input type="text" id="codigo_carrera" name="codigo_carrera" onfocus="LabelAnimation('codigo_carrera','labelcodigo_carrera')" onblur="LabelOut('codigo_carrera','labelcodigo_carrera')" maxlength="11" class="input input-label" style="text-transform:uppercase" autocomplete='off'>
                         
                         <input type="checkbox" class="checkbox-edit checkbox-materia"  onclick="CheckboxDisabled('codigo_carrera', this)">
                     </div>
                     <div class="input-container">
                         <label for="nombre_carrera" id="labelnombre_carrera">Nombre</label><br>
-                        <input type="text" id="nombre_carrera" name="nombre_carrera" onfocus="LabelAnimation('nombre_carrera','labelnombre_carrera')" onblur="LabelOut('nombre_carrera','labelnombre_carrera')" maxlength="32" class="input input-label" style="text-transform:uppercase">
+                        <input type="text" id="nombre_carrera" name="nombre_carrera" onfocus="LabelAnimation('nombre_carrera','labelnombre_carrera')" onblur="LabelOut('nombre_carrera','labelnombre_carrera')" maxlength="32" class="input input-label" style="text-transform:uppercase"  autocomplete='off'>
                         <input type="checkbox" class="checkbox-edit checkbox-materia"  onclick="CheckboxDisabled('nombre_carrera', this)">
                     </div>
                     <button type="button" onclick="Submit('carrera')">Registrar</button>

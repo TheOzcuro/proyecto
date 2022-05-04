@@ -1,6 +1,6 @@
 function Error(parrafo, msg, p){
-    document.getElementById(p).innerHTML=parrafo
-    document.getElementById(msg).style.display="block"
+    document.getElementById(p).innerHTML=parrafo;
+    document.getElementById(msg).style.display="block";
     url=window.location.href;
     link=url.slice(-9);
     document.querySelector('.hidder').style.display='block';
@@ -14,13 +14,13 @@ function Error(parrafo, msg, p){
         })
     }
     
-    setTimeout(function(){
+    const aparecer=setTimeout(function(){
         document.getElementById(msg).style.right="30px"
     },200)
-    setTimeout(function(){
+    const desaparecer=setTimeout(function(){
         document.getElementById(msg).style.right="-500px"
     },5000)
-    setTimeout(function(){
+   const  diss=setTimeout(function(){
         document.getElementById(msg).style.display="none"
         document.querySelector('.hidder').style.display='none';
     },6000)

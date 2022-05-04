@@ -134,7 +134,7 @@ if ($_SESSION["usuario"]!="administrador") {
         <div class="contend" id='contend'>
          <div class='back-option' id='register_back' onclick='BackOption(this)'>Ir al Registro</div>
         <div class='back-option' id='history_back' onclick='BackOption(this)'>Ir al Historial</div>
-            <?php include_once("msg_error.php");include_once("register-form.php"); 
+            <?php include_once("register-form.php"); 
                     if (isset($_SESSION["lista_disponibilidad"])) {
                         include_once("horario.php");
                         
@@ -145,6 +145,7 @@ if ($_SESSION["usuario"]!="administrador") {
         
     </div>
     <?php
+    include_once("msg_error.php");
         if (isset($_SESSION["lista_disponibilidad"])) {
                 $dias=1;
                 $b=$_SESSION["tipo_horario"]+1;
@@ -163,15 +164,15 @@ if ($_SESSION["usuario"]!="administrador") {
                            $list_i=searchForId($dias,$list);
                            $bloque_id=searchForBloque($bloque,$dias,$list);
                            if (isset($list[$list_i]) && $dias==$list[$list_i][2] && $bloque==$list[$bloque_id][1]) {
-                               echo "<div class='form-".$dias."_".$b." formularios' style='display:none;z-index:1000;position:absolute;top:70px;width: 300px;height: 480px;background:rgb(250,250,250);'>
+                               echo "<div class='form-".$dias."_".$b." formularios' style='display:none;z-index:1000;position:absolute;top:70px;width: 300px;height: 580px;background:rgb(250,250,250);'>
                                <h2 style='margin-left:-15px;'>Añadir Horario</h2>
                                <div class='input-container'>
-                                    <label for='carrera_horario_".$dias."_".$b."' id='labelcarrera_horario_".$dias."_".$b."'>Carreras</label><br>
+                                    <label for='carrera_horario_".$dias."_".$b."' id='labelcarrera_horario_".$dias."_".$b."'>PNF</label><br>
                                     <input type='text' id='carrera_horario_".$dias."_".$b."' name='input_horario[]' onfocus='LabelAnimation(`carrera_horario_".$dias."_".$b."`,`labelcarrera_horario_".$dias."_".$b."`)' onblur='LabelOut(`carrera_horario_".$dias."_".$b."`,`labelcarrera_horario_".$dias."_".$b."`)' maxlength='30' class='input input-label input_horario' maxlength='30' onkeyup='Search(`carrera_horario_".$dias."_".$b."`,`drop_carrera_".$dias."_".$b."`)' onclick='OnclickAppear(`flex`,`drop_carrera_".$dias."_".$b."`,`carrera_horario_".$dias."_".$b."`)' autocomplete='off'>
                                     <div class='dropdown drop_horario' id='drop_carrera_".$dias."_".$b."'>";
                                     for ($i=0; $i < count($_SESSION["carreras_horario"]); $i++) { 
                                         echo "<span 
-                                        onclick='GetMateriasHorario(`carrera_horario_".$dias."_".$b."`,this,`".$bloque."`,`".$dias."`,`labelcarrera_horario_".$dias."_".$b."`,`unidad_horario_".$dias."_".$b."`,`drop_unidad_".$dias."_".$b."`,`aula_horario_".$dias."_".$b."`,`drop_aula_".$dias."_".$b."`,`".$_SESSION["lapso"]."`)'>".$_SESSION["carreras_horario"][$i][1]."</span>";
+                                        onclick='GetMateriasHorario(`carrera_horario_".$dias."_".$b."`,this,`".$bloque."`,`".$dias."`,`labelcarrera_horario_".$dias."_".$b."`,`unidad_horario_".$dias."_".$b."`,`drop_unidad_".$dias."_".$b."`,`aula_horario_".$dias."_".$b."`,`drop_aula_".$dias."_".$b."`,`drop_seccion_".$dias."_".$b."`,`seccion_horario_".$dias."_".$b."`,`".$_SESSION["lapso"]."`)'>".$_SESSION["carreras_horario"][$i][0]."—".$_SESSION["carreras_horario"][$i][1]."</span>";
                                     }
                                 echo "</div>
                                 </div>
@@ -181,6 +182,12 @@ if ($_SESSION["usuario"]!="administrador") {
                                     <div class='dropdown drop_horario' id='drop_unidad_".$dias."_".$b."'>
                                     </div>
                                  </div>
+                                 <div class='input-container' style='margin-top:60px;'>
+                                    <label for='seccion_horario_".$dias."_".$b."' id='labelseccion_horario_".$dias."_".$b."'>Seccion</label><br>
+                                    <input type='text' id='seccion_horario_".$dias."_".$b."' name='input_horario[]' onfocus='LabelAnimation(`seccion_horario_".$dias."_".$b."`,`labelseccion_horario_".$dias."_".$b."`)' onblur='LabelOut(`seccion_horario_".$dias."_".$b."`,`labelseccion_horario_".$dias."_".$b."`)' maxlength='30' class='input input-label input_horario' maxlength='30' onkeyup='Search(`seccion_horario_".$dias."_".$b."`,`drop_seccion_".$dias."_".$b."`)' onclick='OnclickAppear(`flex`,`drop_seccion_".$dias."_".$b."`,`seccion_horario_".$dias."_".$b."`)' autocomplete='off'>
+                                    <div class='dropdown drop_horario' id='drop_seccion_".$dias."_".$b."'>
+                                    </div>
+                                </div>
                                 <div class='input-container' style='margin-top:60px;'>
                                     <label for='aula_horario_".$dias."_".$b."' id='labelaula_horario_".$dias."_".$b."'>Aula</label><br>
                                     <input type='text' id='aula_horario_".$dias."_".$b."' name='input_horario[]' onfocus='LabelAnimation(`aula_horario_".$dias."_".$b."`,`labelaula_horario_".$dias."_".$b."`)' onblur='LabelOut(`aula_horario_".$dias."_".$b."`,`labelaula_horario_".$dias."_".$b."`)' maxlength='30' class='input input-label input_horario' maxlength='30' onkeyup='Search(`aula_horario_".$dias."_".$b."`,`drop_aula_".$dias."_".$b."`)' onclick='OnclickAppear(`flex`,`drop_aula_".$dias."_".$b."`,`aula_horario_".$dias."_".$b."`)' autocomplete='off'>

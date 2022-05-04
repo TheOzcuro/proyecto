@@ -175,7 +175,7 @@ else {
             header("Location:../vista/administrador.php#$url");
         }
     }
-    else if ($validate!=false) {
+    else if (count($validate)>0) {
         $_SESSION["error"]="La carrera ".$_POST["carrera_oferta"]." ya se encuentra registrada al lapso ".$_POST["lapso"]."";
         if ($_SESSION["usuario"]=="profesor") {
             header("Location:../vista/profesor.php#$url");

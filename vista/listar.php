@@ -206,7 +206,7 @@ function CreateTable($table,$campo,$dato) {
     echo "<div class='listar-container' id='teacher' style='display:none;width:".$width."px;grid-template-columns:repeat(".$namecount.",auto);left:46%;'>";
   }
   else if($table=="pensum"){
-    echo "<div class='listar-container' style='display:none;width:".$width."px;grid-template-columns:repeat(".$namecount.",1fr);'>";
+    echo "<div class='listar-container' style='display:none;width:".$width."px;grid-template-columns:1fr 350px 1fr 1fr;left:43%;'>";
   }
   else {
     echo "<div class='listar-container' style='display:none;width:".$width."px;grid-template-columns:repeat(".$namecount.",auto);'>";
@@ -238,7 +238,7 @@ function CreateTable($table,$campo,$dato) {
     }
     else if ($table=="pensum") {
       echo"<div class='title' style='width:1000px;'>PNF</div>";
-      echo"<div class='title' style='width:1000px;'>UNIDAD CURRICULAR</div>";
+      echo"<div class='title' style='max-width:350px;'>UNIDAD CURRICULAR</div>";
       break;
     }
     else {
@@ -265,12 +265,12 @@ function CreateTable($table,$campo,$dato) {
       //Se verifica si la tabla es la pensum para decirle que aparezca los datos de una forma especifica
       if($table==="pensum") {
           echo "<div class='".$name[1]["COLUMN_NAME"]." f-".$index."' value=".$lista[$index][1].">".$lista[$index][2]."</div>";
-          echo "<div class='".$name[2]["COLUMN_NAME"]." f-".$index."' style='overflow:auto;width:1000px;'>";
+          echo "<div class='".$name[2]["COLUMN_NAME"]." f-".$index."' style='overflow:auto;max-width:350px;'>";
           $x=4;
           //for donde se agregan todas las materias al mismo div para mas comodidad para el usuario
           $contador=1;
           for ($i=3; $i < count($lista[$index]); $i=$i+2) { 
-            echo "<span id=".$lista[$index][$i].">".$contador.") ".$lista[$index][$x]."</span><br>";
+            echo "<span id=".$lista[$index][$i].">".$contador.") ".$lista[$index][$x]." </span><br>";
             $x=$x+2;
             $contador=$contador+1;
           }

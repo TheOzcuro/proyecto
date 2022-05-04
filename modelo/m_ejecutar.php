@@ -620,10 +620,9 @@ function GetFindQuery($tabla,$dato,$campo)
 	function ValidateOferta($carrera,$lapso)
 	{
 		$pnf=$this->FindQuery('carrera','nombre',$carrera);
-		$lapso_academico=$this->FindQuery('lapso_academico','periodo',$lapso);
 		$codigo=$pnf[0];
-		$query="SELECT * FROM `oferta` WHERE `pnf`='$codigo' AND `lapso_academico`='$lapso'";
-		return $this->CheckResult($this->execute($query));
+		$query="SELECT * FROM `oferta` WHERE `pnf`='$codigo' AND `periodo`='$lapso'";
+		return $this->ListAll($this->execute($query), MYSQLI_NUM);
 		
 	}
 	function DeleteOfertaHorario($carrera,$lapso)

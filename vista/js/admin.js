@@ -1140,9 +1140,16 @@ function ValueDate() {
         fecha=fecha+"-0"+mes;
     }
     else {
-        fecha=fecha+"-0"+mes;
+        fecha=fecha+"-"+mes;
     }
-    fecha=fecha+"-"+date.getDate();
+    
+   dia=date.getDate();
+    if (dia<10) {
+        fecha=fecha+"-0"+dia;
+    }
+    else {
+        fecha=fecha+"-"+dia;
+    }
     console.log(fecha);
     if (fecha_expiracion.value<=fecha) {
         document.getElementById('fecha_expiracion').value="";

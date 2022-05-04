@@ -70,7 +70,7 @@ else if (isset($_POST["update"]) && $_POST["update"]!=""){
     $array=$ejecutar->GetAll("lapso_academico");
     $type=false;
     for ($i=0; $i < count($array); $i++) { 
-        if ($array[$i][3]==1) {
+        if ($array[$i][3]==1 && $array[$i][0]!=$_POST["trayecto"]) {
             $type=true;
         }
     }
@@ -124,7 +124,7 @@ else if (isset($_POST["update"]) && $_POST["update"]!=""){
         $_SESSION["error"]="Ya existe un periodo academico activo, si quiere registrar uno nuevo, borre o desactive el actual periodo academico";
     }
     else {
-        $ejecutar->UpdateCampoHorario('lapso_academico',$_POST["trayecto"],$_POST["update"]);
+        $ejecutar->UpdateCampoHorario('periodo_academico',$_POST["trayecto"],$_POST["update"]);
         if ($_POST["trayecto"]!=$_POST["update"]) {
             $ejecutar->UpdateTableLapsoOferta($_POST["update"],$_POST["trayecto"]);
         }
@@ -143,7 +143,7 @@ else if (isset($_POST["update"]) && $_POST["update"]!=""){
     }
 }
 else if (isset($_POST["delete"]) && $_POST["delete"]!=""){
-    $ejecutar->DeleteTable("oferta","lapso_academico",$_POST["delete"]);
+    $ejecutar->DeleteTable("oferta","periodo",$_POST["delete"]);
     $ejecutar->DeleteTable("lapso_academico","periodo",$_POST["delete"]);
     $ejecutar->DeleteTable("horario_docente","lapso_academico",$_POST["delete"]);
     $_SESSION["completado"]="Los datos fueron eliminados correctamente";
@@ -160,15 +160,12 @@ else if (isset($_POST["delete"]) && $_POST["delete"]!=""){
 
 else {
     $dato=$ejecutar->GetAll("lapso_academico");
+    $type=false;
     for ($i=0; $i < count($dato); $i++) { 
         if ($dato[$i][3]==1) {
             $type=true;
         }
-        else {
-            $type=false;
-        }
     }
-    print_r($_POST["fecha_final"]);
     if (count($dato)>0 && $_POST["lapso_activo"]==1 && $type) {
         if ($_SESSION["usuario"]=="profesor") {
             header("Location:../vista/profesor.php#$url");

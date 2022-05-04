@@ -16,6 +16,7 @@
   right: -500px;
   display: none;
   z-index: 2000;
+  pointer-events: auto;
 }
 
 .msg_check {
@@ -31,6 +32,7 @@
   right: -500px;
   display: none;
   z-index: 2000;
+  pointer-events: auto;
 }
 
 .msg_error h2, .msg_check h2 {
