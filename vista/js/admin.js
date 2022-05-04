@@ -1101,14 +1101,15 @@ function SubmitMateria(form) {
         if (container_url=="pensum-container") {
             for (let index = 0; index < span.length; index++) {
                 array=span[index].id.split("/");
-                nombre=span[index].innerText.split("/");
-                hora=nombre[2].split(': ');
-                creditos=nombre[3].split(': ');
+                nombre=span[index].innerText.split(", ");
+                console.log(nombre);
+                hora=nombre[1].split(': ');
+                creditos=nombre[2].split(': ');
                 if (input_add.value!="") {
-                    input_add.value=input_add.value+","+array[0]+","+nombre[1]+","+array[1]+","+hora[1]+","+creditos[1];
+                    input_add.value=input_add.value+","+array[0]+","+array[1]+","+array[2]+","+hora[1]+","+creditos[1];
                 }
                 else {
-                    input_add.value=array[0]+","+nombre[1]+","+array[1]+","+hora[1]+","+creditos[1];
+                    input_add.value=array[0]+","+array[1]+","+array[2]+","+hora[1]+","+creditos[1];
                 }
             }
         }

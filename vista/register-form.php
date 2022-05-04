@@ -89,7 +89,7 @@
                         <input type="checkbox" class="checkbox-edit checkbox-materia"   onclick="CheckboxDisabled('nombre_materia', this)" style='right:30px;'>
                         <div class='button-add' onclick="AddMateria('add')" class='dis' >
                             <b style='position:relative;top:-10px;left:5px;'>Agregar</b>
-                            <img src="css/img/add.png" alt="" onclick="AddMateria('add')" style='position:relative;top:0;'>
+                            <img src="css/img/add.png" alt="" style='position:relative;top:0;'>
                         </div>
                         
                     </div>
