@@ -61,7 +61,7 @@ function CreateTable($table,$campo,$dato) {
     $namecount=4;
   }
   if ($table=="materia") {
-    $namecount=4;
+    $namecount=6;
   }
   if ($table=="horario_docente") {
     $namecount=8;
@@ -143,13 +143,11 @@ function CreateTable($table,$campo,$dato) {
     echo "</option>";
   }
   else if ($table=="oferta") {
-    echo "<option value=".strtoupper($name[1]["COLUMN_NAME"]).">".strtoupper($name[1]["COLUMN_NAME"]);
+    echo "<option value='PERIODO'>PERIODO";
     echo "</option>";
-    echo "<option value=".strtoupper($name[2]["COLUMN_NAME"]).">".strtoupper($name[2]["COLUMN_NAME"]);
+    echo "<option value='CODIGO_PNF'>CODIGO_PNF";
     echo "</option>";
-    echo "<option value=".strtoupper($name[3]["COLUMN_NAME"]).">".strtoupper($name[3]["COLUMN_NAME"]);
-    echo "</option>";
-    echo "<option value=".strtoupper($name[4]["COLUMN_NAME"]).">".strtoupper($name[4]["COLUMN_NAME"]);
+    echo "<option value='PNF'>PNF";
     echo "</option>";
   }
   //Si no es igual a pensum se ejecuta como normalmente lo haria
@@ -216,6 +214,12 @@ function CreateTable($table,$campo,$dato) {
   //Se crean las columnas con los nombres
   for ($i=0; $i < count($name); $i++) {
     if ($table=="materia" && $i==2) {
+    }
+    else if ($table=="oferta" && $i==2) {
+      echo"<div class='title'>CODIGO_PNF</div>";
+      echo"<div class='title'>PNF</div>";
+    }
+    else if ($table=="oferta" && $i==0) {
 
     }
     else if ($table=="aula") {
@@ -229,7 +233,7 @@ function CreateTable($table,$campo,$dato) {
       echo"<div class='title'>SEGUNDO NOMBRE</div>";
       echo"<div class='title'>PRIMER APELLIDO</div>";
       echo"<div class='title'>SEGUNDO APELLIDO</div>";
-      echo"<div class='title'>LAPSO ACADEMICO</div>";
+      echo"<div class='title'>PERIODO ACADEMICO</div>";
       break;
     }
     else if ($table=="pensum") {
@@ -264,10 +268,13 @@ function CreateTable($table,$campo,$dato) {
           echo "<div class='".$name[2]["COLUMN_NAME"]." f-".$index."' style='overflow:auto;width:1000px;'>";
           $x=4;
           //for donde se agregan todas las materias al mismo div para mas comodidad para el usuario
+          $contador=1;
           for ($i=3; $i < count($lista[$index]); $i=$i+2) { 
-            echo "<span id=".$lista[$index][$i].">".$lista[$index][$x]." ||  </span><br>";
+            echo "<span id=".$lista[$index][$i].">".$contador.") ".$lista[$index][$x]."</span><br>";
             $x=$x+2;
+            $contador=$contador+1;
           }
+         
           echo "</div>";
     }
       else {
@@ -276,6 +283,11 @@ function CreateTable($table,$campo,$dato) {
           //Transformar los valores de la tabla del profesor en algo mas agradable y entendible para el usuario
           //Transformar los valores de la tabla de materia en algo mas agradable y entendible para el usuario
           if ($table==="materia" && $i===2) {
+          }
+          else if ($table==="lapso_academico" && $i===3) {
+            $resultado=$lista[$index][$i]==1 ? "ACTIVO" : "DESACTIVADO";
+            echo "<div class='".$name[$i]["COLUMN_NAME"]." f-".$index."' value=".$lista[$index][$i]." title='".$lista[$index][$i]."'  style='overflow:auto;'>".$resultado;
+            echo "</div>";
           }
           else if ($table=="noticia" && $i===1) {
             echo "<div class='".$name[$i]["COLUMN_NAME"]." f-".$index."' value=".$lista[$index][$i]." title='".$lista[$index][$i]."'  style='overflow:auto;'>".$lista[$index][$i];

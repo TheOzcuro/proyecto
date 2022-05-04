@@ -46,6 +46,10 @@ function History($tabla,$campo,$dato)
         }
        
     }
+    else if ($tabla=="pensumPDF") {
+        return $ejecutar->GetAllPensumPDF();
+       
+    }
     else if ($tabla=="materia") {
         if ($campo!="undefined") {
             return $ejecutar->GetMateriasMulti($campo,$dato);

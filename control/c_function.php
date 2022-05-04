@@ -88,4 +88,9 @@ function GetLapso()
     $ejecutar= new registry();
    return $ejecutar->GetLapsoOferta();
 }
+function GetLapsoHorario()
+{
+    $ejecutar= new registry();
+   return $ejecutar->GetLapsoHorario();
+}
 ?>

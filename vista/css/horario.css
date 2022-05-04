@@ -50,7 +50,10 @@
   top: 20%;
   left: 60%;
   transform: translate(-50%, 2%);
-  padding-left: 45px;
+  padding-left: 25px;
+}
+.formularios input {
+  width: 87%;
 }
 
 .button_horario {

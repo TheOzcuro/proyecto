@@ -120,6 +120,8 @@ function ShowContratacion(direccion,telefono,telefono_fijo,correo,titulo,oficio,
 function ValidateDate() {
     var date_inicio=document.getElementById('fecha_inicio').value;
     var date_final=document.getElementById('fecha_final').value;
+    console.log(date_inicio)
+    console.log(date_final)
     array_inicio=date_inicio.split("-");
     array_final=date_final.split("-");
     if (date_final<date_inicio && date_final!="") {
@@ -275,8 +277,28 @@ function Submit(form,active){
         document.getElementById(form).submit();
    }
    else {
-    Error("Existen campos vacios se han marcado en rojo por favor verifique","msg_error","p_error")
+    Error("Existen campos vacios se han marcado en rojo por favor verifique","msg_error","p_error");
    }
+}
+function ValidateOficio() {
+    console.log("aver");
+    span_oficio=document.getElementById('oficio_drop').querySelectorAll('span');
+        valideoficio=false;
+        setTimeout(() => {
+            for (let index = 0; index < span_oficio.length; index++) {
+                if (document.getElementById('oficio').value==span_oficio[index].innerText) {
+                    valideoficio=true;
+                }
+                
+            }
+            if (valideoficio==false) {
+                Error("El oficio '"+document.getElementById('oficio').value.toUpperCase()+"' no corresponde a ningun oficio registrado. Verifique o registre el oficio deseado","msg_error","p_error");
+                document.getElementById('oficio').value="";
+                document.getElementById('oficio').style.borderColor='red';
+                Search('oficio','oficio_drop');
+            }
+        }, 200);
+       
 }
 function KeyTexto() {
     var x=new RegExp("[A-Za-z-ñ]+")
@@ -369,6 +391,9 @@ function AddValueMateria(input, span) {
         document.getElementById("nombre_dis").value=nombre;
         document.getElementById("contratacion_dis").value=array[2];
     }
+    else if (input=="carrera_oferta") {
+        CreateHistorialMateria(span.id)
+    }
     span=span.textContent || span.innerText;
     document.getElementById(input).value=span;
     if (input=="cedula_horario") {
@@ -379,6 +404,7 @@ function AddValueMateria(input, span) {
     if (input=="carreras" || input=="carreras_unidad") {
         CreateMaterias(span)
     }
+    
     else if (input=="cedula_dis" || input=="cedula_dis") {
         CreateDisponibilidad(span)
     }
@@ -435,6 +461,7 @@ function CreateMaterias(value) {
         ValideDelMateria=0;
         ValideAddMateria=0;
         nombre_add=document.getElementById('materias_add');
+        nombre_add_multi=document.getElementById('materias_add_unidad');
         drop_main=document.getElementById('carreras_drop');
         drop=document.getElementById('materias_add_drop');
         nombre_add_multi=document.getElementById('materias_add_unidad');
@@ -476,21 +503,22 @@ function CreateMaterias(value) {
         
         valores.push(carrera_id);
         var y=0;
-        for (let index = 0; index < materiasArray.length; index=index+4) {
+        console.log(materiasArray);
+        for (let index = 0; index < materiasArray.length; index=index+6) {
                 if (carrera_id==materiasArray[index+3] && materiasArray[index+2]==0) {
                     let span_add=document.createElement('span');
-                    span_add.innerHTML=materiasArray[index]+"/"+materiasArray[index+1];
+                    span_add.innerHTML=materiasArray[index]+", "+materiasArray[index+1]+" | HS: "+materiasArray[index+4]+", UC: "+materiasArray[index+5];
                     span_add.onclick=function () {AddValueMateria(nombre_add.id, this)}
-                    span_add.id=materiasArray[index]+"/"+materiasArray[index+2];
-                    nombre_add.value=materiasArray[index]+"/"+materiasArray[index+1];
+                    span_add.id=materiasArray[index]+"/"+materiasArray[index+1]+"/"+materiasArray[index+2];
+                    nombre_add.value=materiasArray[index]+", "+materiasArray[index+1]+" | HS: "+materiasArray[index+4]+", UC: "+materiasArray[index+5];
                     drop.appendChild(span_add);
                 }
                 if (carrera_id==materiasArray[index+3] && materiasArray[index+2]==1) {
                     let span_add=document.createElement('span');
-                    span_add.innerHTML=materiasArray[index+1];
+                    span_add.innerHTML=materiasArray[index]+", "+materiasArray[index+1]+" | HS: "+materiasArray[index+4]+", UC: "+materiasArray[index+5];
                     span_add.onclick=function () {AddValueMateria(nombre_add_multi.id, this)}
                     span_add.id=materiasArray[index];
-                    nombre_add_multi.value=materiasArray[index+1];
+                    nombre_add_multi.value=materiasArray[index]+", "+materiasArray[index+1]+" | HS: "+materiasArray[index+4]+", UC: "+materiasArray[index+5];
                     drop_main_unidad.querySelector("[id='"+materiasArray[index]+"']").hidden=true;
                     drop_multi.appendChild(span_add);
                 }
@@ -637,13 +665,12 @@ function SubmitBloque(form,bloque) {
     form=document.querySelector(form);
     bloque=document.getElementById(bloque);
     data=bloque.querySelectorAll('span');
-    arrayAula=data[2].innerText.split(': ');
-    console.log(arrayAula);
+    arrayAula=data[3].innerText.split(': ');
+    arraySeccion=data[2].innerText.split(': ');
     drop=form.querySelectorAll('.drop_horario');
     input=form.querySelectorAll('.input_horario');
     valide=0;
     valideUpdate=0;
-    console.log(drop.length);
     for (let index = 0; index < drop.length; index++) {
         if (span_data[index]!=input[index].value) {
             valideUpdate=valideUpdate+1;
@@ -652,19 +679,24 @@ function SubmitBloque(form,bloque) {
     for (let index = 0; index < drop.length; index++) {
         span=drop[index].querySelectorAll('span');
         for (let i = 0; i < span.length; i++) {
+            
             if (span[i].innerText==input[index].value.toUpperCase()) {
                 valide=valide+1;
             }
         }
     }
-    if (arrayAula[1]==input[2].value) {
+    if (arrayAula[1]==input[3].value) {
         valide=valide+1;
     }
-    if (valide>=3 && valideUpdate>0) {
+    if (arraySeccion[1]==input[2].value) {
+        valide=valide+1;
+    }
+    if (valide>=4 && valideUpdate>0) {
         bloques=bloque.querySelectorAll("span");
         bloques[0].innerText='Carrera: '+input[0].value;
         bloques[1].innerText='Materia: '+input[1].value;
-        bloques[2].innerText='Aula: '+input[2].value;
+        bloques[3].innerText='Aula: '+input[3].value;
+        bloques[2].innerText='Seccion: '+input[2].value;
         form.style.display='none';
         valideBloque=valideBloque+1;
         document.querySelector('.blackcover').style.display='none';
@@ -730,8 +762,11 @@ function AddAndRemove(div,div_add,input,input_add, type, container) {
             }
         }
         else if (type=="add") {
+            array_input=input.value.split(', ');
+            console.log(array_input);
             for (let index = 0; index < span_mod.length; index++) {
-                if (input.value.toUpperCase()==span_mod[index].innerText) {
+                array_span=span_mod[index].innerText.split(', ');
+                if (array_input[0]==array_span[0]) {
                     valide=false
                     break
                 }
@@ -794,11 +829,40 @@ function SelectMateria() {
     }
     else if (tipo==0){
         button=document.getElementById("materia").querySelectorAll('button');
-        DissapearVarious('.dis','block');
+        DissapearVarious('.dis','');
         DissapearVarious('.das','none');
         carrera=document.getElementById("carreras").value;
         type=carrera.slice(-2);
     }
+}
+function CreateHistorialMateria(value) {
+    document.getElementById('materias-oferta').style.display='grid';
+        div=document.getElementById('materias-oferta');
+        console.log(value);
+        for (let index = 0; index < materiasArray.length; index=index+6) {
+            if (value==materiasArray[index+3]) {
+                span_add=document.createElement('span');
+                span_add.innerHTML=materiasArray[index];
+                div.appendChild(span_add);
+                span_add=document.createElement('span');
+                span_add.innerHTML=materiasArray[index+1];
+                div.appendChild(span_add);
+                span_add=document.createElement('span');
+                if (materiasArray[index+2]==0) {
+                    span_add.innerHTML="DISCIPLINARIA";
+                }
+                else {
+                    span_add.innerHTML="MULTIDISCIPLINARIA";
+                }
+                div.appendChild(span_add);
+                span_add=document.createElement('span');
+                span_add.innerHTML=materiasArray[index+4];
+                div.appendChild(span_add);
+                span_add=document.createElement('span');
+                span_add.innerHTML=materiasArray[index+5];
+                div.appendChild(span_add);  
+            }
+}
 }
 async function AddMateria(modo) {
     OnLoad('active');
@@ -808,6 +872,8 @@ async function AddMateria(modo) {
         nombre=document.getElementById('nombre_materia');
         nombre_add=document.getElementById('materias_add');
         tipo=document.getElementById('tipo_materia');
+        horas=document.getElementById('horas_semana_unidad');
+        creditos=document.getElementById('unidad_credito_unidad');
         div=document.getElementById('materia');
         drop=document.getElementById('materias_add_drop');
     
@@ -816,13 +882,11 @@ async function AddMateria(modo) {
     let span=drop.querySelectorAll('span');
     let add=div.querySelector('#add_multi');
     if (modo=="add") {
-        if (carrera.value!="" && codigo.value!="" && nombre.value!="" && tipo.value==0 && tipo.value!="") {
+        if (carrera.value!="" && codigo.value!="" && nombre.value!="" &&  horas.value!="" &&  creditos.value!="" && tipo.value==0 && tipo.value!="") {
             let valide=true;
             for (let index = 0; index < span.length; index++) {
                 array=span[index].id.split("/");
-                nombre_span=span[index].innerText.split('/');
-                console.log(nombre.value.toUpperCase()==nombre_span[1]);
-                if (nombre.value.toUpperCase()==nombre_span[1]) {
+                if (nombre.value.toUpperCase()==array[1] || codigo.value.toUpperCase()==array[0]) {
                     valide=false
                     break
                 }
@@ -838,23 +902,25 @@ async function AddMateria(modo) {
            console.log(valueconfirm);
            window.localStorage.removeItem('respuesta');
             if (valide && valueconfirm!="si") {
-                span_add.innerHTML=codigo.value.toUpperCase()+"/"+nombre.value.toUpperCase();
+                span_add.innerHTML=codigo.value.toUpperCase()+", "+nombre.value.toUpperCase()+" | HS: "+horas.value+", UC: "+creditos.value;
                 span_add.onclick=function () {AddValueMateria(nombre_add.id, this)}
-                span_add.id=codigo.value.toUpperCase()+"/"+tipo.value;
-                nombre_add.value=codigo.value.toUpperCase()+"/"+nombre.value.toUpperCase();
+                span_add.id=codigo.value.toUpperCase()+"/"+nombre.value.toUpperCase()+"/"+tipo.value;
+                nombre_add.value=codigo.value.toUpperCase()+", "+nombre.value.toUpperCase()+" | HS: "+horas.value+", UC: "+creditos.value;
                 document.getElementById('materias_add_drop').appendChild(span_add);
                 if (add.value!="") {
-                    add.value=add.value+","+codigo.value.toUpperCase()+","+nombre.value.toUpperCase()+","+tipo.value;
+                    add.value=add.value+","+codigo.value.toUpperCase()+","+nombre.value.toUpperCase()+","+tipo.value+","+horas.value+","+creditos.value;
                 }
                 else {
-                    add.value=codigo.value.toUpperCase()+","+nombre.value.toUpperCase()+","+tipo.value;
+                    add.value=codigo.value.toUpperCase()+","+nombre.value.toUpperCase()+","+tipo.value+","+horas.value+","+creditos.value;
                 }
-
+                console.log(add);
                 LabelInput()
                 ValideAddMateria=ValideAddMateria+1;
                 
                 codigo.value="";
                 nombre.value="";
+                horas.value="";
+                creditos.value="";
                 nombre_add.style.borderColor="rgb(32, 190, 109)";
                 setTimeout(() => {
                 nombre_add.style.borderColor="";
@@ -872,8 +938,28 @@ async function AddMateria(modo) {
             }
            
         }
+        else if(carrera.value=="") {
+            Error("Seleccione un PNF por favor",'msg_error','p_error')
+            carrera.style.borderColor='red';
+        }
+        else if(tipo.value=="") {
+            Error("Seleccione el tipo de materia",'msg_error','p_error')
+            tipo.style.borderColor='red';
+        }
         else {
-            Error("Seleccione una carrera por favor",'msg_error','p_error')
+            Error("Existen campos vacios se han marcando en rojo por favor verifique",'msg_error','p_error')
+            if (codigo.value=="") {
+                codigo.style.borderColor='red';
+            }
+            if (nombre.value=="") {
+                nombre.style.borderColor='red';
+            }
+            if (horas.value=="") {
+                horas.style.borderColor='red';
+            }
+            if (creditos.value=="") {
+                creditos.style.borderColor='red';
+            }
         }
     }
     else if (modo=="del") {
@@ -1007,9 +1093,6 @@ function SubmitMateria(form) {
            carrera.style.borderColor='red';
        }
     }
-    if (document.getElementById("tipo_materia").value==1) {
-        Submit('materia');
-    }
     if (span.length>0 || span_multi.length>0) {
         valideSpan=true;
     }
@@ -1019,11 +1102,13 @@ function SubmitMateria(form) {
             for (let index = 0; index < span.length; index++) {
                 array=span[index].id.split("/");
                 nombre=span[index].innerText.split("/");
+                hora=nombre[2].split(': ');
+                creditos=nombre[3].split(': ');
                 if (input_add.value!="") {
-                    input_add.value=input_add.value+","+array[0]+","+nombre[1]+","+array[1];
+                    input_add.value=input_add.value+","+array[0]+","+nombre[1]+","+array[1]+","+hora[1]+","+creditos[1];
                 }
                 else {
-                    input_add.value=array[0]+","+nombre[1]+","+array[1];
+                    input_add.value=array[0]+","+nombre[1]+","+array[1]+","+hora[1]+","+creditos[1];
                 }
             }
         }

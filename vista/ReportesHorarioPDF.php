@@ -80,9 +80,10 @@ while($x<$c){
                 if (isset($list[$list_i]) && $dias==$list[$list_i][2] && $bloque==$list[$bloque_id][1]) {
                     echo "<td class='".$dias." B".$b." bloque_add' id='bloque_".$dias."_".$b."'active' style='border:1px solid black;font-size:13px;height:80px;' onclick='DisplayHorario(`block`,`.form-".$dias."_".$b."`,this)'>";
                     if (isset($_SESSION["find_horario"]) && $y<count($_SESSION["find_horario"])) {
-                        if ($_SESSION["find_horario"][$y][3]==$bloque && $_SESSION["find_horario"][$y][6]==$dias) {
-                            echo "<span>Carrera: ".$_SESSION["find_horario"][$y][5]."</span><br>";
-                            echo "<span>Materia: ".$_SESSION["find_horario"][$y][4]."</span><br>";
+                        if ($_SESSION["find_horario"][$y][3]==$bloque && $_SESSION["find_horario"][$y][8]==$dias) {
+                            echo "<span>Carrera: ".$_SESSION["find_horario"][$y][6]."—".$_SESSION["find_horario"][$y][7]."</span><br>";
+                            echo "<span>Materia: ".$_SESSION["find_horario"][$y][4]."—".$_SESSION["find_horario"][$y][5]."</span><br>";
+                            echo "<span>Seccion: ".$_SESSION["find_horario"][$y][9]."</span><br>";
                             echo "<span>Aula: ".$_SESSION["find_horario"][$y][1]."</span>";
                             $y=$y+1;
                         }

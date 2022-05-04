@@ -7,7 +7,7 @@
                     <h2>Crear Oficio</h2>
                     <div class="input-container">
                         <label for="oficio_registrar" id="labeloficio_registrar">Oficio</label><br>
-                        <input type="text" id="oficio_registrar" name="oficio_registrar" onfocus="LabelAnimation('oficio_registrar','labeloficio_registrar')" onblur="LabelOut('oficio_registrar','labeloficio_registrar')" maxlength="30" class="input input-label">
+                        <input type="text" id="oficio_registrar" name="oficio_registrar" onfocus="LabelAnimation('oficio_registrar','labeloficio_registrar')" onblur="LabelOut('oficio_registrar','labeloficio_registrar')" maxlength="30" class="input input-label" style="text-transform:uppercase">
                         <input type="checkbox" class="checkbox-edit checkbox-materia" onclick="CheckboxDisabled('oficio_registrar', this)">
                     </div>
                     <button type="button" onclick="Submit('oficio_reg')" style='grid-column:1/3;'>Registrar</button>
@@ -16,7 +16,23 @@
                 </div>
             </form>
 
-
+<form action="../control/c_seccion.php" method="POST" name="seccion" id="seccion">
+            <input type="text" class="input-update" id="update" name="update" hidden>
+            <input type="text" class="input-delete" id="delete" name="delete" hidden>
+            <input type="text" class="input-url" id="url" name="url" hidden>
+            <div id="seccion-container" class="container container-flex">
+            <a class="a_img"><img src="css/img/close.png" alt="" class="close-icon" id="close-icon-profesor" onclick="Close()" style='left:-10px;top:-5px;'></a>
+                    <h2>Crear Seccion</h2>
+                    <div class="input-container">
+                        <label for="seccion_registrar" id="labelseccion_registrar">Codigo</label><br>
+                        <input type="text" id="seccion_registrar" name="seccion_registrar" onfocus="LabelAnimation('seccion_registrar','labelseccion_registrar')" onblur="LabelOut('seccion_registrar','labelseccion_registrar')" maxlength="10" class="input input-label" style="text-transform:uppercase">
+                        <input type="checkbox" class="checkbox-edit checkbox-materia" onclick="CheckboxDisabled('seccion_registrar', this)">
+                    </div>
+                    <button type="button" onclick="Submit('seccion')" style='grid-column:1/3;'>Registrar</button>
+                    <button type="button" onclick="Save('seccion')" class="button-edit button-update">Guardar</button>
+                    <button type="button" onclick="DisplayDelete('block','.delete-window','#seccion')" class="button-edit button-delete">Eliminar</button>
+                </div>
+        </form>
 <form action="../control/c_pensum.php" method="POST" name="materia" id="materia">
                 <input type="text" class="input-update" id="update" name="update" hidden>
                 <input type="text" class="input-delete" id="delete" name="delete" hidden>
@@ -24,10 +40,10 @@
                 <div class="container container-flex" id="pensum-container">
                 <a class="a_img"><img src="css/img/close.png" alt="" class="close-icon" id="close-icon-profesor" onclick="Close()"></a>
                     
-                    <h2>Unidad Curricular</h2>
+                    <h2 style='grid-column:1/5;'>Unidad Curricular</h2>
                     <div class="input-container" id="input-carreras">
-                        <label for="carreras" id="labelcarreras">Carreras</label><br>
-                        <input type="text" id="carreras" name="carreras" onfocus="LabelAnimation('carreras','labelcarreras')" onblur="LabelOut('carreras','labelcarreras')" maxlength="30" class="input-label principal_input" onkeyup="Search('carreras','carreras_drop')" autocomplete="off" style='width:89%;'>
+                        <label for="carreras" id="labelcarreras">PNF</label><br>
+                        <input type="text" id="carreras" name="carreras" onfocus="LabelAnimation('carreras','labelcarreras')" onblur="LabelOut('carreras','labelcarreras')" maxlength="30" class="input-label principal_input" onkeyup="Search('carreras','carreras_drop')" autocomplete="off" style='width:89%;text-transform:uppercase'>
                         <input type="checkbox" class="checkbox-edit"  onclick="CheckboxDisabled('carreras', this)">
                         <div class="dropdown" id="carreras_drop">
                         <?php 
@@ -53,36 +69,7 @@
                         ?>
                         </div>
                     </div>
-                    <div class="input-container dis">
-                        <label for="codigo_materia" id="labelcodigo_materia">Codigo</label><br>
-                        <input type="text" id="codigo_materia" name="codigo_materia" onfocus="LabelAnimation('codigo_materia','labelcodigo_materia')" onblur="LabelOut('codigo_materia','labelcodigo_materia')" maxlength="11" class="input input-label">
-                        <input type="checkbox" class="checkbox-edit checkbox-materia"   onclick="CheckboxDisabled('codigo_materia', this)">
-                    </div>
-
-                    <div class="input-container dis">
-                        <label for="nombre_materia" id="labelnombre_materia">Nombre Materia</label><br>
-                        <input type="text" id="nombre_materia" name="nombre_materia" onfocus="LabelAnimation('nombre_materia','labelnombre_materia')" onblur="LabelOut('nombre_materia','labelnombre_materia')" maxlength="30" class="input input-label">
-                        <input type="checkbox" class="checkbox-edit checkbox-materia"   onclick="CheckboxDisabled('nombre_materia', this)" style='right:30px;'>
-                        <img src="css/img/add.png" class='dis' alt="" onclick="AddMateria('add')">
-                    </div>
-                    <div class="input-container das" hidden>
-                        <label for="materias_unidad" id="labelmaterias_unidad">Materias</label><br>
-                        <input type="text" id="materias_unidad" name="materias_unidad" onfocus="LabelAnimation('materias_unidad','labelmaterias_unidad')" onblur="LabelOut('materias_unidad','labelmaterias_unidad')" maxlength="30" class="input-label input_added" onkeyup="Search('materias_unidad','materias_drop_unidad')" autocomplete="off">
-                        <img src="css/img/add.png" alt="" onclick="AddAndRemove('materias_drop_unidad','materias_add_drop_unidad','materias_unidad','materias_add_unidad','add','pensum-container')">
-                        <input type="checkbox" class="checkbox-edit checkbox-lapso"  onclick="CheckboxDisabled('materias_unidad', this,'active')">
-                    <div class="dropdown drop" id="materias_drop_unidad">
-   
-                        <?php 
-                            $list=[];
-                            $list=GetMateriaMulti();
-                            $totalarray=count($list);
-                            for ($i=0; $i < $totalarray; $i++) { 
-                                echo "<span id='".$list[$i][0]."'". "onclick="."AddValueMateria('materias_unidad',this)".">".$list[$i][1]."</span>";
-                            }
-                        ?>
-                        </div>
-                    </div>
-                    <div class="input-container">
+                    <div class="input-container" style='grid-column:3/5;'>
                         <select name="tipo_materia" id="tipo_materia" onclick="SelectAnimation('rol')" class="input">
                             <option value="">Tipo</option>
                             <option value="0">Disciplinaria</option>
@@ -90,32 +77,74 @@
                         </select>
                         
                     </div>
-                        <div class="input-container input-add das" hidden>
+                    <div class="input-container dis">
+                        <label for="codigo_materia" id="labelcodigo_materia">Codigo</label><br>
+                        <input type="text" id="codigo_materia" name="codigo_materia" onfocus="LabelAnimation('codigo_materia','labelcodigo_materia')" onblur="LabelOut('codigo_materia','labelcodigo_materia')" maxlength="11" class="input input-label" style="text-transform:uppercase">
+                        <input type="checkbox" class="checkbox-edit checkbox-materia"   onclick="CheckboxDisabled('codigo_materia', this)">
+                    </div>
+
+                    <div class="input-container dis" style='grid-column:3/5;'>
+                        <label for="nombre_materia" id="labelnombre_materia">Nombre Materia</label><br>
+                        <input type="text" id="nombre_materia" name="nombre_materia" onfocus="LabelAnimation('nombre_materia','labelnombre_materia')" onblur="LabelOut('nombre_materia','labelnombre_materia')" maxlength="30" class="input input-label" style="text-transform:uppercase">
+                        <input type="checkbox" class="checkbox-edit checkbox-materia"   onclick="CheckboxDisabled('nombre_materia', this)" style='right:30px;'>
+                        <div class='button-add' onclick="AddMateria('add')" class='dis' >
+                            <b style='position:relative;top:-10px;left:5px;'>Agregar</b>
+                            <img src="css/img/add.png" alt="" onclick="AddMateria('add')" style='position:relative;top:0;'>
+                        </div>
+                        
+                    </div>
+                    <div class="input-container  dis">
+                        <label for="horas_semana_unidad" id="labelhoras_semana_unidad">Horas por semana</label><br>
+                    <input type="text" id="horas_semana_unidad" name="horas_semana_unidad" onfocus="LabelAnimation('horas_semana_unidad','labelhoras_semana_unidad')" onblur="LabelOut('horas_semana_unidad','labelhoras_semana_unidad')" maxlength="2" class="input input-label input_add" autocomplete="off">
+                    </div>
+                    <div class="input-container dis" style='grid-column:3/5;'>
+                        <label for="unidad_credito_unidad" id="labelunidad_credito_unidad">Unidad de credito</label><br>
+                    <input type="text" id="unidad_credito_unidad" name="unidad_credito_unidad" onfocus="LabelAnimation('unidad_credito_unidad','labelunidad_credito_unidad')" onblur="LabelOut('unidad_credito_unidad','labelunidad_credito_unidad')" maxlength="2" class="input input-label input_add" autocomplete="off">
+                    </div>
+                    <div class="input-container das" hidden style='grid-column:1/5;'>
+                        <label for="materias_unidad" id="labelmaterias_unidad">Materias</label><br>
+                        <input type="text" id="materias_unidad" name="materias_unidad" onfocus="LabelAnimation('materias_unidad','labelmaterias_unidad')" onblur="LabelOut('materias_unidad','labelmaterias_unidad')" maxlength="30" class="input-label input_added" onkeyup="Search('materias_unidad','materias_drop_unidad')" autocomplete="off" style='width:93%;'>
+                        <img src="css/img/add.png" alt="" onclick="AddAndRemove('materias_drop_unidad','materias_add_drop_unidad','materias_unidad','materias_add_unidad','add','pensum-container')">
+                        <input type="checkbox" class="checkbox-edit checkbox-lapso"  onclick="CheckboxDisabled('materias_unidad', this,'active')">
+                    <div class="dropdown drop" id="materias_drop_unidad" style='width:96%;font-size:16px;'>
+   
+                        <?php 
+                            $list=[];
+                            $list=GetMateriaMulti();
+                            $totalarray=count($list);
+                            for ($i=0; $i < $totalarray; $i++) { 
+                                echo "<span id='".$list[$i][0]."'". "onclick="."AddValueMateria('materias_unidad',this)".">".$list[$i][0].", ".$list[$i][1]." | HS: ".$list[$i][3].", UC: ".$list[$i][4]."</span>";
+                            }
+                        ?>
+                        </div>
+                    </div>
+                    
+                        <div class="input-container input-add das" hidden style='grid-column:1/5;width:100%;'>
                         <label for="materias_add_unidad" id="labelmaterias_add_unidad">Materias Añadidas</label><br>
-                        <input type="text" id="materias_add_unidad" name="materias_add_unidad" onfocus="LabelAnimation('materias_add_unidad','labelmaterias_add_unidad')" onblur="LabelOut('materias_add_unidad','labelmaterias_add_unidad')" maxlength="30" class="input-label input_add" onkeyup="Search('materias_add_unidad','materias_add_dropunidad')" autocomplete="off">
+                        <input type="text" id="materias_add_unidad" name="materias_add_unidad" onfocus="LabelAnimation('materias_add_unidad','labelmaterias_add_unidad')" onblur="LabelOut('materias_add_unidad','labelmaterias_add_unidad')" maxlength="30" class="input-label input_add" onkeyup="Search('materias_add_unidad','materias_add_dropunidad')" style='width:93%;' autocomplete="off">
                         <img src="css/img/menos.png" alt="" onclick="AddAndRemove('materias_add_drop_unidad','materias_drop_unidad','materias_add_unidad','materias_unidad','del','pensum-container')">
                         <input type="checkbox" class="checkbox-edit checkbox-add"  onclick="CheckboxDisabled('materias_add_unidad', this,'active')">
                         <input type="text" id="add" name="add" class='input' hidden>
                         <input type="text" id="del" name="del" class='input' hidden>
-                        <div class="dropdown drop_add" id="materias_add_drop_unidad"></div>
+                        <div class="dropdown drop_add" id="materias_add_drop_unidad" style='width:96%;font-size:16px;'></div>
                     </div>
-                    <div class="input-container input-add dis" style='margin-top:30px;'>
+                    <div class="input-container input-add dis" style='margin-top:30px;grid-column:1/5;'>
                         <label for="materias_add" id="labelmaterias_add">Materias Añadidas</label><br>
-                        <input type="text" id="materias_add" name="materias_add" onfocus="LabelAnimation('materias_add','labelmaterias_add')" onblur="LabelOut('materias_add','labelmaterias_add')" maxlength="30" class="input-label input_add" onkeyup="Search('materias_add','materias_add_drop')" autocomplete="off" style='width:89%;'>
+                        <input type="text" id="materias_add" name="materias_add" onfocus="LabelAnimation('materias_add','labelmaterias_add')" onblur="LabelOut('materias_add','labelmaterias_add')" maxlength="30" class="input-label input_add" onkeyup="Search('materias_add','materias_add_drop')" autocomplete="off" style='width:92%;'>
                         <img src="css/img/menos.png" alt="" onclick="AddMateria('del')">
                         <input type="checkbox" class="checkbox-edit checkbox-add"  onclick="CheckboxDisabled('materias_add', this,'active')">
                         <input type="text" id="add_multi" name="add_multi" hidden>
                         <input type="text" id="del_multi" name="del_multi" hidden>
-                        <div class="dropdown drop_add" id="materias_add_drop"></div>
+                        <div class="dropdown drop_add" id="materias_add_drop" style='width:96%;font-size:16px;'></div>
                     </div>
-                    <button type="button" class='button_main' onclick="SubmitMateria('materia')" style='margin-top:30px;grid-column:1/3;'>Registrar</button>
+                    <button type="button" class='button_main' onclick="SubmitMateria('materia')" style='margin-top:30px;grid-column:2/4;'>Registrar</button>
                     <!--
                         <button type="button" onclick="DisplayDelete('flex','#materia-find','#materia')" style="grid-column:2/3;margin-top:30px;">Buscar</button>
                          <button type="button" onclick="Save('materia')" class="button-edit button-update" style='margin-top:30px;'>Guardar</button>
                           <button type="button" onclick="DisplayDelete('block','.delete-window','#materia')" class="button-edit button-delete" style="grid-column:2/3;margin-top:30px;">Eliminar</button>
                      -->
-                    <button type="button" onclick="SaveMaterias()" class="button-edit button-update button_unidad" style='margin-top:30px;'>Guardar</button>
-                    <button type="button" onclick="DisplayDelete('block','.delete-window','#materia')" class="button-edit button-delete button_unidad" style="grid-column:2/3;margin-top:30px;">Eliminar</button>
+                    <button type="button" onclick="SaveMaterias()" class="button-edit button-update button_unidad" style='margin-top:30px;grid-column:1/3;'>Guardar</button>
+                    <button type="button" onclick="DisplayDelete('block','.delete-window','#materia')" class="button-edit button-delete button_unidad" style="grid-column:3/5;margin-top:30px;">Eliminar</button>
                 </div>
             </form>
             <form action="../control/c_materia.php" method="POST" name="unidad" id="unidad">
@@ -127,14 +156,25 @@
                     <h2>Materia Multidiciplinaria</h2>
                     <div class="input-container">
                         <label for="codigo_materia_multi" id="labelcodigo_materia_multi">Codigo</label><br>
-                        <input type="text" id="codigo_materia_multi" name="codigo_materia_multi" onfocus="LabelAnimation('codigo_materia_multi','labelcodigo_materia_multi')" onblur="LabelOut('codigo_materia_multi','labelcodigo_materia_multi')" maxlength="11" class="input input-label">
-                        <input type="checkbox" class="checkbox-edit checkbox-materia"   onclick="CheckboxDisabled('codigo_materia_multi', this)">
+                        <input type="text" id="codigo_materia_multi" name="codigo_materia_multi" onfocus="LabelAnimation('codigo_materia_multi','labelcodigo_materia_multi')" onblur="LabelOut('codigo_materia_multi','labelcodigo_materia_multi')" maxlength="11" class="input input-label" style="text-transform:uppercase">
+                        <input type="checkbox" class="checkbox-edit checkbox-materia"   onclick="CheckboxDisabled('codigo_materia_multi', this)" style='left:265px;'>
                     </div>
                     <div class="input-container">
                         <label for="nombre_materia_multi" id="labelnombre_materia_multi">Nombre Materia</label><br>
-                        <input type="text" id="nombre_materia_multi" name="nombre_materia_multi" onfocus="LabelAnimation('nombre_materia_multi','labelnombre_materia_multi')" onblur="LabelOut('nombre_materia_multi','labelnombre_materia_multi')" maxlength="30" class="input input-label">
-                        <input type="checkbox" class="checkbox-edit checkbox-materia"   onclick="CheckboxDisabled('nombre_materia_multi', this)" style='right:30px;'>
+                        <input type="text" id="nombre_materia_multi" name="nombre_materia_multi" onfocus="LabelAnimation('nombre_materia_multi','labelnombre_materia_multi')" onblur="LabelOut('nombre_materia_multi','labelnombre_materia_multi')" maxlength="30" class="input input-label" style="text-transform:uppercase">
+                        <input type="checkbox" class="checkbox-edit checkbox-materia"   onclick="CheckboxDisabled('nombre_materia_multi', this)" style='left:265px;'>
                     </div>
+                    <div class="input-container  input-add">
+                        <label for="horas_semana" id="labelhoras_semana">Horas por semana</label><br>
+                    <input type="text" id="horas_semana" name="horas_semana" onfocus="LabelAnimation('horas_semana','labelhoras_semana')" onblur="LabelOut('horas_semana','labelhoras_semana')" maxlength="2" class="input input-label input_add" autocomplete="off">
+                        <input type="checkbox" class="checkbox-edit checkbox-add"  onclick="CheckboxDisabled('horas_semana', this)" style='left:265px;'>
+                    </div>
+                    <div class="input-container  input-add">
+                        <label for="unidad_credito" id="labelunidad_credito">Unidad de credito</label><br>
+                    <input type="text" id="unidad_credito" name="unidad_credito" onfocus="LabelAnimation('unidad_credito','labelunidad_credito')" onblur="LabelOut('unidad_credito','labelunidad_credito')" maxlength="2" class="input input-label input_add" autocomplete="off">
+                        <input type="checkbox" class="checkbox-edit checkbox-add"  onclick="CheckboxDisabled('unidad_credito', this)" style='left:265px;'>
+                    </div>
+                   
                     <div class="input-container" hidden>
                         <select name="tipo_materia_multi" id="tipo_materia_multi" onclick="SelectAnimation('rol')" class="input">
                             <option value="1">Multidisciplinaria</option>
@@ -289,13 +329,13 @@
                     <h2> Aula</h2>
                     <div class="input-container">
                         <label for="codigo_aula" id="labelcodigo_aula">Codigo</label><br>
-                        <input type="text" id="codigo_aula" name="codigo_aula" onfocus="LabelAnimation('codigo_aula','labelcodigo_aula')" onblur="LabelOut('codigo_aula','labelcodigo_aula')" maxlength="11" class="input input-label">
+                        <input type="text" id="codigo_aula" name="codigo_aula" onfocus="LabelAnimation('codigo_aula','labelcodigo_aula')" onblur="LabelOut('codigo_aula','labelcodigo_aula')" maxlength="11" class="input input-label" style="text-transform:uppercase">
                         <input type="checkbox" class="checkbox-edit checkbox-materia" onclick="CheckboxDisabled('codigo_aula', this)">
                     </div>
 
                     <div class="input-container">
                         <label for="nombre_aula" id="labelnombre_aula">Nombre Aula</label><br>
-                        <input type="text" id="nombre_aula" name="nombre_aula" onfocus="LabelAnimation('nombre_aula','labelnombre_aula')" onblur="LabelOut('nombre_aula','labelnombre_aula')" maxlength="30" class="input input-label">
+                        <input type="text" id="nombre_aula" name="nombre_aula" onfocus="LabelAnimation('nombre_aula','labelnombre_aula')" onblur="LabelOut('nombre_aula','labelnombre_aula')" maxlength="30" class="input input-label" style="text-transform:uppercase">
                         <input type="checkbox" class="checkbox-edit checkbox-materia"  onclick="CheckboxDisabled('nombre_aula', this)">
                     </div>
                     <button type="button" onclick="Submit('aula')">Registrar</button>
@@ -315,13 +355,13 @@
                     
                         <label for="codigo_carrera" id="labelcodigo_carrera">Codigo</label><br>
                         
-                        <input type="text" id="codigo_carrera" name="codigo_carrera" onfocus="LabelAnimation('codigo_carrera','labelcodigo_carrera')" onblur="LabelOut('codigo_carrera','labelcodigo_carrera')" maxlength="11" class="input input-label">
+                        <input type="text" id="codigo_carrera" name="codigo_carrera" onfocus="LabelAnimation('codigo_carrera','labelcodigo_carrera')" onblur="LabelOut('codigo_carrera','labelcodigo_carrera')" maxlength="11" class="input input-label" style="text-transform:uppercase">
                         
                         <input type="checkbox" class="checkbox-edit checkbox-materia"  onclick="CheckboxDisabled('codigo_carrera', this)">
                     </div>
                     <div class="input-container">
                         <label for="nombre_carrera" id="labelnombre_carrera">Nombre</label><br>
-                        <input type="text" id="nombre_carrera" name="nombre_carrera" onfocus="LabelAnimation('nombre_carrera','labelnombre_carrera')" onblur="LabelOut('nombre_carrera','labelnombre_carrera')" maxlength="32" class="input input-label">
+                        <input type="text" id="nombre_carrera" name="nombre_carrera" onfocus="LabelAnimation('nombre_carrera','labelnombre_carrera')" onblur="LabelOut('nombre_carrera','labelnombre_carrera')" maxlength="32" class="input input-label" style="text-transform:uppercase">
                         <input type="checkbox" class="checkbox-edit checkbox-materia"  onclick="CheckboxDisabled('nombre_carrera', this)">
                     </div>
                     <button type="button" onclick="Submit('carrera')">Registrar</button>
@@ -337,28 +377,32 @@
                 <input type="text" class="delete-lapso" id="delete_lapso" name="delete_lapso" hidden>
                 <input type="text" class="input-url" id="url" name="url" hidden>
                 <div id="oferta-container" class="container container-flex">
+                    <div style='position:absolute;' class='historial-materias' id='materias-oferta'>
+                            <span style='background: rgb(89, 100, 201);color:white;'>CODIGO</span>
+                            <span style='background: rgb(89, 100, 201);color:white;'>NOMBRE</span>
+                            <span style='background: rgb(89, 100, 201);color:white;'>TIPO</span>
+                            <span style='background: rgb(89, 100, 201);color:white;'>HORAS</span>
+                            <span style='background: rgb(89, 100, 201);color:white;'>CREDITOS</span>
+                            
+                    </div>
                     <a class="a_img"><img src="css/img/close.png" alt="" class="close-icon" id="close-icon-profesor" onclick="Close()"></a>
-                    <h2>Oferta Academica</h2>
-                    <div class="input-container" id="input-carreras">
-                        <label for="lapso" id="labelapso">Lapso</label><br>
-                        <input type="text" id="lapso" name="lapso" onfocus="LabelAnimation('lapso','labelapso')" onblur="LabelOut('lapso','labelapso')" maxlength="30" class="input input-label principal_input" onkeyup="Search('lapso','lapso_drop')" autocomplete="off">
-                        <input type="checkbox" class="checkbox-edit"  onclick="CheckboxDisabled('lapso', this)">
-                        <div class="dropdown" id="lapso_drop">
-                        <?php 
+                    <?php 
                             $list=[];
                             $list=GetLapso();
-                            $totalarray=count($list);
-                            for ($i=0; $i < $totalarray; $i++) { 
-                                echo "<span value=".$list[$i][0]." onclick="."AddValueMateria('lapso',this)".">".$list[$i][0]."</span>";
-                            }
+                            $lapso=$list ? $list[0][0] : "";
                         ?>
+                    <h2>Oferta Academica</h2>
+                    <div class="input-container" id="input-carreras">
+                        <label for="lapso" id="labelapso">Periodo Academico Activo</label><br>
+                        <input type="text" id="lapso" name="lapso" onfocus="LabelAnimation('lapso','labelapso')" onblur="LabelOut('lapso','labelapso')" maxlength="30" class="input-label principal_input" onkeyup="Search('lapso','lapso_drop')" autocomplete="off" value='<?php echo $lapso ?>' disabled>
+                        <div class="dropdown" id="lapso_drop">
+                        
                         </div>
                     </div>
+                    
                     <div class="input-container">
-                        <label for="carrera" id="labelcar">Carreras</label><br>
+                        <label for="carrera" id="labelcar">PNF</label><br>
                         <input type="text" id="carrera_oferta" name="carrera_oferta" onfocus="LabelAnimation('carrera_oferta','labelcar')" onblur="LabelOut('carrera_oferta','labelcar')" maxlength="30" class="input input-label input_added" onkeyup="Search('carrera_oferta','carreras_oferta_drop')" autocomplete="off">
-                        <input type="checkbox" class="checkbox-edit checkbox-lapso"  onclick="CheckboxDisabled('carrera_oferta', this)">
-
                         <div class="dropdown drop" id="carreras_oferta_drop">
    
                         <?php 
@@ -371,26 +415,13 @@
                         ?>
                         </div>
                     </div>
-                    <div class="input-container  input-add">
-                        <label for="horas_semana" id="labelhoras_semana">Horas por semana</label><br>
-                    <input type="text" id="horas_semana" name="horas_semana" onfocus="LabelAnimation('horas_semana','labelhoras_semana')" onblur="LabelOut('horas_semana','labelhoras_semana')" maxlength="2" class="input input-label input_add" autocomplete="off">
-                        <input type="checkbox" class="checkbox-edit checkbox-add"  onclick="CheckboxDisabled('horas_semana', this)">
-                    </div>
-                    <div class="input-container  input-add">
-                        <label for="unidad_credito" id="labelunidad_credito">Unidad de credito</label><br>
-                    <input type="text" id="unidad_credito" name="unidad_credito" onfocus="LabelAnimation('unidad_credito','labelunidad_credito')" onblur="LabelOut('unidad_credito','labelunidad_credito')" maxlength="2" class="input input-label input_add" autocomplete="off">
-                        <input type="checkbox" class="checkbox-edit checkbox-add"  onclick="CheckboxDisabled('unidad_credito', this)">
-                    </div>
-                   
                     <!--
                     <div>
                     <img src="css/img/add.png" alt="" onclick="AddAndRemove('carreras_drop','carreras_add_drop','carreras','carreras_add')">
 
                         -->
-                    <button type="button" onclick="Submit('oferta')">Registrar</button>
-                    <button type="button" onclick="DisplayDelete('flex','#oferta-find','#oferta')">Buscar</button>
-                    <button type="button" onclick="Save('oferta')" class="button-edit button-update">Guardar</button>
-                    <button type="button" onclick="DisplayDelete('block','.delete-window','#oferta')" class="button-edit button-delete">Eliminar</button>
+                    <button type="button" onclick="Submit('oferta')" style='grid-column:1/3;'>Registrar</button>
+                    <button type="button" onclick="DisplayDelete('block','.delete-window','#oferta')" class="button-edit button-delete" style='grid-column:1/3;'>Eliminar</button>
                 </div>
             </form>
             <form action="../control/c_disponibilidad.php" method="POST" name="disponibilidad" id="disponibilidad">
@@ -671,19 +702,14 @@
                         <label for="nombre_horario" id="labelnombre_horario">Nombre</label><br>
                         <input type="text" id="nombre_horario" name="nombre_horario" onfocus="LabelAnimation('nombre_horario','labelnombre_horario')" onblur="LabelOut('nombre_horario','labelnombre_horario')" maxlength="11" class="input input-label" maxlength="70" disabled>
                     </div>
-                    <div class="input-container" id="input-carreras">
-                        <label for="lapso_horario" id="labelapso_horario">Lapso Academico</label><br>
-                        <input type="text" id="lapso_horario" name="lapso_horario" onfocus="LabelAnimation('lapso_horario','labelapso_horario')" onblur="LabelOut('lapso_horario','labelapso_horario')" maxlength="30" class="input input-label principal_input" onkeyup="Search('lapso_horario','lapso_drop_horario')" autocomplete="off">
-                        <div class="dropdown" id="lapso_drop_horario">
-                        <?php 
+                    <?php 
                             $list=[];
-                            $list=GetLapso();
-                            $totalarray=count($list);
-                            for ($i=0; $i < $totalarray; $i++) { 
-                                echo "<span value=".$list[$i][0]." onclick="."AddValueMateria('lapso_horario',this)".">".$list[$i][0]."</span>";
-                            }
+                            $list=GetLapsoHorario();
+                            $lapso=$list ? $list[0][0] : "";
                         ?>
-                        </div>
+                    <div class="input-container" id="input-carreras">
+                        <label for="lapso_horario" id="labelapso_horario">Periodo Academico Activo</label><br>
+                        <input type="text" id="lapso_horario" name="lapso_horario" onfocus="LabelAnimation('lapso_horario','labelapso_horario')" onblur="LabelOut('lapso_horario','labelapso_horario')" maxlength="30" class="input input-label principal_input" onkeyup="Search('lapso_horario','lapso_drop_horario')" autocomplete="off" value='<?php echo $lapso ?>' disabled>
                     </div>
                     <div class="input-container" id="input-carreras">
                         <select name="tipo_horario" id="tipo_horario" class='input'>
@@ -731,10 +757,10 @@
                 <input type="text" class="input-url" id="url" name="url" hidden>
                 <div id="lapso_academico-container" class="container">
                     <a class="a_img"><img src="css/img/close.png" alt="" class="close-icon" id="close-icon-profesor" onclick="Close()"></a>
-                    <h2>Lapso</h2>
+                    <h2>Periodo Academico</h2>
                     <div class="input-container">
-                        <label for="trayecto" id="labeltrayecto">Lapso</label><br>
-                        <input type="text" id="trayecto" name="trayecto" onfocus="LabelAnimation('trayecto','labeltrayecto')" onblur="LabelOut('trayecto','labeltrayecto')" maxlength="11" class="input input-label" maxlength="15">
+                        <label for="trayecto" id="labeltrayecto">Codigo</label><br>
+                        <input type="text" id="trayecto" name="trayecto" onfocus="LabelAnimation('trayecto','labeltrayecto')" onblur="LabelOut('trayecto','labeltrayecto')" maxlength="11" class="input input-label" maxlength="15" style="text-transform:uppercase">
                         
                         <input type="checkbox" class="checkbox-edit checkbox-materia"  onclick="CheckboxDisabled('trayecto', this)">
                     </div>
@@ -750,10 +776,18 @@
                         <input type="date" id="fecha_final" name="fecha_final" maxlength="30" class="input" onblur='ValidateDate()'>
                         <input type="checkbox" class="checkbox-edit checkbox-materia"  onclick="CheckboxDisabled('fecha_final', this)">
                     </div>
-                    <button type="button" onclick="Submit('lapso_academico')" style='grid-column:1/2;'>Crear</button>
-                    <button type="button" onclick="DisplayDelete('flex','#lapso-find','#lapso_academico')" style='grid-column:3/4;'>Buscar</button>
-                    <button type="button" onclick="Save('lapso_academico')" class="button-edit button-update">Guardar</button><br>
-                    <button type="button" onclick="DisplayDelete('block','.delete-window','#lapso_academico')" class="button-edit button-delete">Eliminar</button>
+                    <div class="input-container" id="input-carreras">
+                        <select name="lapso_activo" id="lapso_activo" class='input'>
+                            <option value="">Estatus</option>
+                            <option value="1">Activo</option>
+                            <option value="0">Inactivo</option>
+                        </select>
+                        <input type="checkbox" class="checkbox-edit checkbox-materia"  onclick="CheckboxDisabled('lapso_activo', this)">
+                    </div>
+                    <button type="button" onclick="Submit('lapso_academico')" style='grid-column:1/3;'>Crear</button>
+                    <button type="button" onclick="DisplayDelete('flex','#lapso-find','#lapso_academico')" style='grid-column:3/5;'>Buscar</button>
+                    <button type="button" onclick="Save('lapso_academico')" class="button-edit button-update" style='grid-column:1/3;'>Guardar</button>
+                    <button type="button" onclick="DisplayDelete('block','.delete-window','#lapso_academico')" class="button-edit button-delete" style='grid-column:3/5;'>Eliminar</button>
                 </div>
             </form>
             

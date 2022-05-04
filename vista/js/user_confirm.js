@@ -15,10 +15,13 @@ function userConfirm(){
         } 
      })
      .then(function(response) {
-        if(response=="yes"){
+        if(response!="no"){
+            LabelOut('cedula','labelcedula');
+            Error("La cedula '"+cedula.value+"' pertenece al profesor "+response,"msg_error","p_error");
+            document.getElementById('link_error').hidden=false;
+            document.getElementById('a_error').hidden=false;
+            document.getElementById('a_error').href="../control/c_profesor.php?buscar_profesor="+cedula.value;
             cedula.value = "";
-            LabelOut('cedula','labelcedula')
-            Error("El profesor ya se encuentra registrado.","msg_error","p_error")
         }
      })
      .catch(function(err) {
@@ -78,17 +81,21 @@ function MateriaConfirm(codigo,nombre){
        console.log(err);
     });
 }
-function GetMateriasHorario(input, span, bloque, dia,  label, input_materias, drop_materias, input_aula, drop_aulas, lapso){
+function GetMateriasHorario(input, span, bloque, dia,  label, input_materias, drop_materias, input_aula, drop_aulas, drop_seccion,input_seccion, lapso){
    if (span!="") {
       document.querySelector("#"+input).value=span.innerText;
    }
    let span_horario=document.getElementById(drop_materias).querySelectorAll('span');
    let span_horario_aula=document.getElementById(drop_aulas).querySelectorAll('span');
+   let span_horario_seccion=document.getElementById(drop_seccion).querySelectorAll('span');
    for (let index = 0; index < span_horario.length; index++) {
       span_horario[index].remove();
    }
    for (let index = 0; index < span_horario_aula.length; index++) {
       span_horario_aula[index].remove();
+   }
+   for (let index = 0; index < span_horario_seccion.length; index++) {
+      span_horario_seccion[index].remove();
    }
    
    var horario = document.querySelector("#"+input);
@@ -113,9 +120,10 @@ function GetMateriasHorario(input, span, bloque, dia,  label, input_materias, dr
           alert("El usuario no existe");
       }
       else{
+         console.log(data);
          for (let index = 0; index < data[0].length; index++) {
             let span_add=document.createElement('span');
-            span_add.innerHTML=data[0][index][1];
+            span_add.innerHTML=data[0][index][0]+"—"+data[0][index][1];
             span_add.onclick=function () {AddValueMateria(input_materias, this)}
             span_add.id=data[0][index][0];
             document.getElementById(drop_materias).appendChild(span_add);
@@ -128,6 +136,23 @@ function GetMateriasHorario(input, span, bloque, dia,  label, input_materias, dr
             span_add.id=data[1][index][0];
             document.getElementById(drop_aulas).appendChild(span_add);
             
+         }
+         for (let index = 0; index < data[2].length; index++) {
+            let span_add=document.createElement('span');
+            span_add.innerHTML=data[2][index][0];
+            span_add.onclick=function () {AddValueMateria(input_seccion, this)}
+            span_add.id=data[2][index][0];
+            document.getElementById(drop_seccion).appendChild(span_add);
+            
+         }
+         if (data[0].length==0) {
+            Error("No existen materias agregadas a esta carrera", "msg_error","p_error");
+         }
+         else if (data[1].length==0) {
+            Error("No existen aulas disponibles en este bloque", "msg_error","p_error");
+         }
+         else if (data[2].length==0) {
+            Error("No existen secciones disponibles en este bloque", "msg_error","p_error");
          }
         
       }

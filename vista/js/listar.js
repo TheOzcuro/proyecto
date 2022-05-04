@@ -1,7 +1,6 @@
 var valores=[];
 var span_array=[];
 function ActiveModificar(fila,container) {
-    console.log(container);
     if (container=="pensum-container") {
         ValideAddMateria=0;
         ValideDelMateria=0;
@@ -12,13 +11,18 @@ function ActiveModificar(fila,container) {
     else {
         valores=[];
         filas=document.querySelectorAll(fila);
-        console.log(values);
         for (let index = 0; index < filas.length; index++) {
             if (filas[index].innerText=="PROFESOR" && container=='profesor-container') {
                 valores.push('0');
             }
             else if (filas[index].innerText=="ADMINISTRADOR" && container=='profesor-container') {
                 valores.push('1');
+            }
+            else if (filas[index].innerText=="ACTIVO" && container=='lapso_academico-container') {
+                valores.push('1');
+            }
+            else if (filas[index].innerText=="DESACTIVADO" && container=='lapso_academico-container') {
+                valores.push('0');
             }
             else if (index==5 && container=="profesor-container"){
 
@@ -62,7 +66,6 @@ function ActiveModificarMateria(value) {
     button[1].style.display="block";
     button[2].style.display="block";
     document.getElementById('carreras').value=value;
-    console.log(value);
     CreateMaterias(value);
 }
 function ClearSpan() {
@@ -140,8 +143,7 @@ function ModificarPensum(lista, container){
         else {
             div_edit.querySelector("#add").value=add_array[index];
             }
-    }
-    console.log(div_edit.querySelector("#add").value);   
+    } 
     div_edit.querySelector(".close-icon").style.display="block";
     button=div_edit.querySelectorAll("button");
     button[0].style.display="none";
@@ -174,7 +176,6 @@ function refresh(page,tabla,campo,dato) {
             }
             if (campo=='') {
                 campo=localStorage.getItem('campo');
-                console.log(campo);
             }
             if (dato=='') {
                 dato=localStorage.getItem('dato');
@@ -186,9 +187,6 @@ function refresh(page,tabla,campo,dato) {
                 localStorage.setItem('campo',campo);
                 localStorage.setItem('dato',dato);
             }
-            console.log(tabla);
-            console.log(campo);
-            console.log(dato);
             $('#refresh').load('listar.php?page='+page+'&tabla='+tabla+'&campo='+campo+'&dato='+dato);
             setTimeout(() => {
                 SelectValidation();

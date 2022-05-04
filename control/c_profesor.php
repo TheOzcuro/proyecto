@@ -40,7 +40,10 @@ else if (isset($_GET["buscar_profesor"]) && $_GET["buscar_profesor"]!="") {
 else if (isset($_POST["find-user"]) && $_POST["find-user"]!=""){
     $validate=$ejecutar->FindQuery('profesor','cedula',$_POST["cedula"]);
     if($validate!==2){
-        echo "yes";
+        $_SESSION["link_error"]="../control/c_profesor.php?buscar_profesor=".$_POST["cedula"];
+        $nombre=$validate[1]." ".$validate[3];
+        echo $nombre;
+        
     }
     else echo "no";
 }
@@ -119,7 +122,6 @@ else {
     }
     else {
         if ($_POST["rol"]==1) {
-            $ejecutar->registrarOficio($_POST["oficio"]);
             $ejecutar->registrarAdministrador("");
             $val=$ejecutar->FindQuery("profesor_pass","cedula",$_POST["cedula"]);
             if ($val===2) {
@@ -137,7 +139,6 @@ else {
            $_SESSION["completado"]="El Administrador fue registrado sastifactoriamente";
         }
         if ($_POST["rol"]==0) {
-            $ejecutar->registrarOficio($_POST["oficio"]);
             $ejecutar->registrarProfesorLogin();
             $val=$ejecutar->FindQuery("administrador","cedula",$_POST["cedula"]);
             if ($val===2) {

@@ -27,6 +27,9 @@ function CreateTable($table,$campo,$dato) {
   if ($dato=="") {
     $dato="undefined";
   }
+  if ($table=='pensum') {
+   $table="pensumPDF";
+  }
   //Variable con los nombres de la tabla
   $name=GetAll($table);
  
@@ -45,19 +48,25 @@ function CreateTable($table,$campo,$dato) {
       $count_lista=14;
   }
   //Si el numero de elementos sobrepasa a 5 se crean las variables
-  if (count($lista)>6) {
-    $numero_items=6*$page;
-    $index=$numero_items-6;
-  }
+  $numero_items=count($lista);
 
-  else {
-    $numero_items=count($lista);
-  }
     echo "<table class='listar-container' style='width:100%;border-collapse: collapse;'>";
   echo "<tr>";
+  if ($table=="pensumPDF") {
+    echo"<th class='title' style='border:1px solid black;font-size:18px;background: rgb(73, 87, 214);color:white;'>CODIGO PNF</th>";
+    echo"<th class='title' style='border:1px solid black;font-size:18px;background: rgb(73, 87, 214);color:white;'>PNF</th>";
+    echo"<th class='title' style='border:1px solid black;font-size:18px;background: rgb(73, 87, 214);color:white;'>CODIGO MATERIA</th>";
+    echo"<th class='title' style='border:1px solid black;font-size:18px;background: rgb(73, 87, 214);color:white;'>NOMBRE MATERIA</th>";
+    echo"<th class='title' style='border:1px solid black;font-size:18px;background: rgb(73, 87, 214);color:white;'>TIPO MATERIA</th>";
+    echo"<th class='title' style='border:1px solid black;font-size:18px;background: rgb(73, 87, 214);color:white;'>HORAS SEMANALES</th>";
+    echo"<th class='title' style='border:1px solid black;font-size:18px;background: rgb(73, 87, 214);color:white;'>UNIDAD DE CREDITO</th>";
+  }
   //Se crean las columnas con los nombres
   for ($i=0; $i < count($name); $i++) {
     if ($table=="materia" && $i==2) {
+
+    }
+    else if ($table=="oferta" && $i==0) {
 
     }
     else if ($table=="horario_docente") {
@@ -69,15 +78,21 @@ function CreateTable($table,$campo,$dato) {
       echo"<th class='title' style='border:1px solid black;'>LAPSO ACADEMICO</th>";
       break;
     }
+  
     else if ($table=="profesor" && $i==1) {
       echo"<th class='title' style='border:1px solid black;font-size:18px;background: rgb(73, 87, 214);color:white;'>NOMBRE COMPLETO</th>";
       $i=$i+3;
+    }
+    else if ($table=="oferta" && $i==2) {
+      echo"<th class='title' style='border:1px solid black;font-size:18px;background: rgb(73, 87, 214);color:white;'>CODIGO_PNF</th>";
+      echo"<th class='title' style='border:1px solid black;font-size:18px;background: rgb(73, 87, 214);color:white;'>PNF</th>";
     }
     else if ($table=="pensum") {
       echo"<th class='title' style='border:1px solid black;font-size:18px;background: rgb(73, 87, 214);color:white;'>PNF</th>";
       echo"<th class='title' style='border:1px solid black;font-size:18px;background: rgb(73, 87, 214);color:white;'>UNIDAD CURRICULAR</th>";
       break;
     }
+    
     else {
         if ($i==14) {
             break;
@@ -115,13 +130,29 @@ function CreateTable($table,$campo,$dato) {
           //Transformar los valores de la tabla de materia en algo mas agradable y entendible para el usuario
           if ($table==="materia" && $i===2) {
           }
+          else if ($table==="lapso_academico" && $i===3) {
+            $resultado=$lista[$index][$i]==1 ? "ACTIVO" : "DESACTIVADO";
+            echo "<td class='".$name[$i]["COLUMN_NAME"]." f-".$index."' value=".$lista[$index][$i]." title='".$lista[$index][$i]."'  style='overflow:auto;'>".$resultado;
+            echo "</td>";
+          }
           else if ($table=="profesor" && $i==1) {
             echo "<td class='".$name[$i]["COLUMN_NAME"]." f-".$index."' value=".$lista[$index][$i]." title='".$lista[$index][$i]."' style='border:1px solid black;'>".$lista[$index][1]." ".$lista[$index][2]." ".$lista[$index][3]." ".$lista[$index][4];
             echo "</td>";
             $i=$i+3;
           }
+          else if ($table=="pensumPDF" && $i==4) {
+            if ($lista[$index][$i]==0) {
+              echo "<td style='border:1px solid black;'>DISCIPLINARIA";
+              echo "</td>";
+            }
+            else {
+              echo "<td style='border:1px solid black;'>MULTIDISCIPLINARIA";
+              echo "</td>";
+            }
+           
+          }
           else {
-            echo "<td class='".$name[$i]["COLUMN_NAME"]." f-".$index."' value=".$lista[$index][$i]." title='".$lista[$index][$i]."' style='border:1px solid black;'>".$lista[$index][$i];
+            echo "<td style='border:1px solid black;'>".$lista[$index][$i];
             echo "</td>";
           }
          

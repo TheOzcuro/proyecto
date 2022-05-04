@@ -102,7 +102,6 @@ function SavePensum(form) {
         carrera=document.getElementById("carreras_unidad").value.toUpperCase();
         if (span.length==0) {
             carrera_array=carrera.split(" **");
-            console.log(carrera_array);
             localStorage.setItem('carrera',carrera_array[0]);
         }
         else {
@@ -146,14 +145,6 @@ function SaveMaterias() {
             carrera.style.borderColor='red';
         }
      }
-     console.log(add_array);
-     console.log(span.length);
-     console.log(ValideAddMateria);
-     console.log(ValideDelMateria);
-     console.log(form.querySelector('#add_multi').value)
-     console.log(form.querySelector('#del_multi').value)
-     console.log(form.querySelector('#add').value)
-     console.log(form.querySelector('#del').value)
      if (ValideCarrera && ValideAddMateria>0 || ValideDelMateria>0) {
         form.querySelector(".input-update").value=carrera_id;
         form.querySelector(".input-url").value=container_url+"-grid";
@@ -239,7 +230,6 @@ function SaveDisponibilidad() {
         }
         form.querySelector(".input-update").value=carrera_id;
         form.querySelector(".input-url").value=container_url+"-grid";
-        console.log(form.querySelector(".input-url").value)
         form.submit();
      }
      else {
@@ -263,7 +253,6 @@ function Delete(form,valor,lapso) {
     }
         if (valores!="" && form!="#unidad" && valor=="" && form!="#oferta") {
             document.querySelector(form).querySelector(".input-delete").value=valores[0];
-            console.log(document.querySelector(form).querySelector(".input-delete").value);
         }
         else if(form=="#pensum") {
             document.querySelector("#materia").querySelector(".input-delete").value=valor;
@@ -285,7 +274,6 @@ function Delete(form,valor,lapso) {
         } 
         OnLoad("active");
         document.querySelector(form).querySelector(".input-url").value=container_url+"-grid";
-        console.log(document.querySelector(form).querySelector(".input-delete").value)
         document.querySelector(form).submit();
     }
 function Modificar(container,display,valores) {
@@ -298,6 +286,10 @@ function Modificar(container,display,valores) {
             button[0].style.display="none";
             button[1].style.display="block";
             button[2].style.display="block";
+        }
+        if (container=="oferta-container") {
+            button[0].style.display="none";
+            button[1].style.display="block";
         }
         else {
             button[0].style.display="none";
@@ -319,7 +311,24 @@ function Modificar(container,display,valores) {
         var input=div_edit.querySelectorAll(".input");
         for (let index = 0; index < input.length; index++) {
                 input[index].disabled=true
-                input[index].value=valores[index]
+                if (container=='lapso_academico-container' && index>0 && index<3) {
+                    fecha=valores[index].split('-');
+                    input[index].value=fecha[2]+"-"+fecha[1]+"-"+fecha[0];
+                }
+                else if(container=='materia-container' && index==2 && valores.length>4){
+                    input[index].value=valores[index+1];
+                }
+                else if(container=='oferta-container' && index==0){
+                    CreateHistorialMateria(valores[index]);
+                    input[index].value=valores[index+1];
+                }
+                else if(container=='materia-container' && index==3 && valores.length>4){
+                    input[index].value=valores[index+1];
+                }
+                else {
+                    input[index].value=valores[index];
+                }
+               
          }
 
         if (container=="materia-container") {
@@ -327,6 +336,7 @@ function Modificar(container,display,valores) {
         }
     }
 function Close() {
+        document.getElementById('materias-oferta').style.display='none';
         DissapearVarious(".checkbox-edit","none")
         if (div_edit.id=="disponibilidad-container") {
             button=div_edit.querySelectorAll('button');
@@ -350,6 +360,10 @@ function Close() {
             button[0].style.display="block";
             button[1].style.display="none";
             button[2].style.display="none";
+        }
+        else if (div_edit.id=="oferta-container") {
+            button[0].style.display="block";
+            button[1].style.display="none";
         }
         else {
             button[0].style.display="block";
@@ -400,6 +414,7 @@ function Close() {
         div_edit.querySelector(".close-icon").style.display="none"
         document.getElementById("buscar_profesor").value=""
         div_edit="";
+        LabelInput();
     }
 function DisplayHorario(display,div,bloque) {
     span_data=[];
@@ -410,6 +425,7 @@ function DisplayHorario(display,div,bloque) {
     drop_div=document.querySelector(div_horario).querySelectorAll('.dropdown');
     input=document.querySelector(div_horario).querySelectorAll('.input');
     button=document.querySelector(div_horario).querySelectorAll('button');
+    console.log(input_div[0].id);
     for (let index = 0; index < input.length; index++) {
         if (span[index].innerText!="") {
             span_value=span[index].innerText.split(': ');
@@ -419,12 +435,12 @@ function DisplayHorario(display,div,bloque) {
        
     }
     if (span[0].innerText!="") {
-        GetMateriasHorario(input_div[0].id,"",input_div[3].value,input_div[4].value, label_div[0].id,input_div[1].id,drop_div[1].id,input_div[2].id,drop_div[2].id,document.getElementById('codigo_lapso_horario').value);
+        GetMateriasHorario(input_div[0].id,"",input_div[4].value,input_div[5].value, label_div[0].id,input_div[1].id,drop_div[1].id,input_div[3].id,drop_div[3].id,drop_div[2].id,input_div[2].id,document.getElementById('codigo_lapso_horario').value);
         button[1].hidden=false;
         button[1].style.width='100px';
         button[0].style.width='100px';
         button[1].style.marginLeft='200px';
-        button[0].style.marginLeft='-15px';
+        button[0].style.marginLeft='10px';
         
 
     }
@@ -444,7 +460,6 @@ function UnDisplayHorario(){
     document.querySelector(".blackcover").style.display='none';
 }
 function DisplayDelete(display,div,form,valor,lapso) {
-        console.log(form)
         document.querySelector(".blackcover").addEventListener("click", function(){
             DisplayDelete("none",div,form)})
             var input=document.querySelector(div).querySelector("input");

@@ -64,6 +64,7 @@ function OnLoad(active){
         console.log(container_url);
         AppearsAndDissapear(container_url, "grid")
     }
+    
 }
 
 function BackOption(div){
@@ -92,17 +93,28 @@ document.getElementById("registrarMateria").addEventListener("click", function()
     DissapearVarious('.back-option','none');
     document.getElementById('history_back').style.display='inline';
     AppearsAndDissapear("pensum-container","grid")})
+document.getElementById("registrarSeccion").addEventListener("click", function(){
+        if (div_edit!="") {
+            Close()
+        }
+        DissapearVarious('.back-option','none');
+        document.getElementById('history_back').style.display='inline';
+        AppearsAndDissapear("seccion-container","grid")})
 document.getElementById("registrarHorario").addEventListener("click", function(){
     if (div_edit!="") {
         Close()
     }
     DissapearVarious('.back-option','none');
     document.getElementById('history_back').style.display='inline';
+    LabelInput();
     if (activehorario==1) {
         AppearsAndDissapear('horario_agrupar','block');
     }
     else {
         AppearsAndDissapear("horario_docente-container","grid");
+        if (document.getElementById('lapso_horario').value=="") {
+            Error('No existe un Periodo Academico activo. O el Periodo Academico actual no posee ningun PNF agregado','msg_error','p_error');
+        }
     }
     })
     document.getElementById("editarHorario").addEventListener("click", function(){
@@ -172,7 +184,12 @@ document.getElementById("crearLapso").addEventListener("click", function(){
     }
     DissapearVarious('.back-option','none');
     document.getElementById('history_back').style.display='inline';
+   
+    if (document.getElementById('lapso').value=="") {
+        Error('No existe un Periodo Academico activo. Registre o active algun periodo academico','msg_error','p_error');
+    }
     AppearsAndDissapear("oferta-container","grid")})
+    LabelAnimation('lapso','labelapso');
 document.getElementById("historialProfesor").addEventListener("click", function(){
 if (div_edit!="") {
      Close()
@@ -231,7 +248,15 @@ document.getElementById("historialAulas").addEventListener("click", function(){
     DissapearVarious('.back-option','none');
     document.getElementById('register_back').style.display='inline';
 })
-
+document.getElementById("historialSeccion").addEventListener("click", function(){
+    if (div_edit!="") {
+         Close()
+        }
+    DissapearVarious('.container','none');
+    refresh(1,'seccion')
+    DissapearVarious('.back-option','none');
+    document.getElementById('register_back').style.display='inline';
+})
 document.getElementById("correo").addEventListener("blur", function(){
     var valor=document.getElementById('correo').value
     if (email.test(valor)==false) {
@@ -275,6 +300,8 @@ document.getElementById("lapso_horario").addEventListener("click", function(){
         document.querySelector("#lapso_drop_horario").style.display="flex"})
 document.getElementById("oficio").addEventListener("click", function(){
         document.querySelector("#oficio_drop").style.display="flex"})
+document.getElementById("oficio").addEventListener("blur", function(){
+    ValidateOficio()})
 
 document.addEventListener('mouseup', function(e) {
     var input = document.getElementById('materias_unidad');
@@ -330,10 +357,6 @@ document.addEventListener('mouseup', function(e) {
         document.getElementById("horario_drop").style.display = 'none';
         input3.style.border=""
     }
-    if (!input20.contains(e.target)) {
-        document.getElementById("lapso_drop_horario").style.display = 'none';
-        input3.style.border=""
-    }
     if (!input2.contains(e.target)) {
         document.getElementById("materias_add_drop_unidad").style.display = 'none';
         input2.style.border=""
@@ -355,6 +378,9 @@ ValidateNumeros('telefono');
 ValidateNumeros('telefono_fijo');
 ValidateNumeros('horas_semana');
 ValidateNumeros('unidad_credito');
+ValidateNumeros('horas_semana_unidad');
+ValidateNumeros('unidad_credito_unidad');
+ValidateNumeros('seccion_registrar');
 ValidateVarchar('codigo_carrera');
 ValidateVarchar('direccion');
 ValidateVarchar('descripcion');

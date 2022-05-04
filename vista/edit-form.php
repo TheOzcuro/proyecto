@@ -57,9 +57,9 @@
     <form action="../control/c_lapso_academico.php" method="POST" name="find_lapso" id="find_lapso">
         <input type="text" class="input-url" id="url" name="url" hidden>
         <div id="lapso-find" class="container container-edit">
-        <h4 style="text-align:center;">Introduzca el trayecto del lapso</h4>
+        <h4 style="text-align:center;">Introduzca el periodo academico</h4>
         <div class="input-container">
-            <label for="buscar_lapso" id="labelbuscar_lapso">Trayecto</label><br>
+            <label for="buscar_lapso" id="labelbuscar_lapso">Periodo Academico</label><br>
             <input type="text" id="buscar_lapso" name="buscar_lapso" onfocus="LabelAnimation('buscar_lapso','labelbuscar_lapso')" onblur="LabelOut('buscar_lapso','labelbuscar_lapso')" maxlength="30" class="input-label input">
         </div><br>
         <button type="button"  onclick="Submit('find_lapso')" style="text-align:center;">Buscar</button>

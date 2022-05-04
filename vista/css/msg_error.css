@@ -15,7 +15,7 @@
   transition-timing-function: ease;
   right: -500px;
   display: none;
-  z-index: 1000;
+  z-index: 2000;
 }
 
 .msg_check {
@@ -30,7 +30,7 @@
   transition-timing-function: ease;
   right: -500px;
   display: none;
-  z-index: 1000;
+  z-index: 2000;
 }
 
 .msg_error h2, .msg_check h2 {
@@ -50,9 +50,11 @@
 
 .hidder {
   position: absolute;
+  display: none;
   top: 20px;
   right: 0px;
   width: 300px;
   height: 300px;
   overflow: hidden;
+  pointer-events: none;
 }/*# sourceMappingURL=msg_error.css.map */

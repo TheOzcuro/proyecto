@@ -111,43 +111,50 @@ class registry extends mybsd {
 	}
 	function GetHistorialHorario($busca,$columna) {
 		if ($busca=="") {
-			$query="SELECT DISTINCT profesor.cedula, profesor.primer_nombre, profesor.segundo_nombre, profesor.primer_apellido, profesor.segundo_apellido, horario_docente.lapso_academico FROM horario_docente, profesor WHERE profesor.cedula IN (SELECT horario_docente.cedula_docente FROM horario_docente) AND profesor.cedula=horario_docente.cedula_docente";
+			$query="SELECT DISTINCT profesor.cedula, profesor.primer_nombre, profesor.segundo_nombre, profesor.primer_apellido, profesor.segundo_apellido, horario_docente.periodo_academico FROM horario_docente, profesor WHERE profesor.cedula IN (SELECT horario_docente.cedula_docente FROM horario_docente) AND profesor.cedula=horario_docente.cedula_docente";
 			return $this->ListAll($this->execute($query), MYSQLI_NUM);
 		}
 		else {
-			$query="SELECT DISTINCT profesor.cedula, profesor.primer_nombre, profesor.segundo_nombre, profesor.primer_apellido, profesor.segundo_apellido, horario_docente.lapso_academico FROM horario_docente, profesor WHERE profesor.cedula IN (SELECT horario_docente.cedula_docente FROM horario_docente) AND profesor.cedula=horario_docente.cedula_docente AND `$columna` LIKE '%$busca%'";
+			$query="SELECT DISTINCT profesor.cedula, profesor.primer_nombre, profesor.segundo_nombre, profesor.primer_apellido, profesor.segundo_apellido, horario_docente.periodo_academico FROM horario_docente, profesor WHERE profesor.cedula IN (SELECT horario_docente.cedula_docente FROM horario_docente) AND profesor.cedula=horario_docente.cedula_docente AND `$columna` LIKE '%$busca%'";
 			return $this->ListAll($this->execute($query), MYSQLI_NUM);
 		}
 		
 	}
 	function GetAulasHorario($busca,$dia,$lapso) {
-			$query="SELECT DISTINCT aula.codigo, aula.nombre FROM `aula` WHERE aula.codigo NOT IN (SELECT horario_docente.codigo_aula FROM horario_docente) OR aula.codigo NOT IN (SELECT horario_docente.codigo_aula FROM horario_docente WHERE horario_docente.bloque='$busca' AND horario_docente.dia='$dia' AND horario_docente.lapso_academico='$lapso')";
+			$query="SELECT DISTINCT aula.codigo, aula.nombre FROM `aula` WHERE aula.codigo NOT IN (SELECT horario_docente.codigo_aula FROM horario_docente) OR aula.codigo NOT IN (SELECT horario_docente.codigo_aula FROM horario_docente WHERE horario_docente.bloque='$busca' AND horario_docente.dia='$dia' AND horario_docente.periodo_academico='$lapso')";
 			return $this->ListAll($this->execute($query), MYSQLI_NUM);
 	}
+	function GetSeccionHorario($busca,$dia,$lapso) {
+		$query="SELECT DISTINCT seccion.codigo FROM `seccion` WHERE seccion.codigo NOT IN (SELECT horario_docente.seccion FROM horario_docente) OR seccion.codigo NOT IN (SELECT horario_docente.seccion FROM horario_docente WHERE horario_docente.bloque='$busca' AND horario_docente.dia='$dia' AND horario_docente.periodo_academico='$lapso')";
+		return $this->ListAll($this->execute($query), MYSQLI_NUM);
+}
 	function GetMateriasPensum() {
-		$query="SELECT DISTINCT materia.codigo, materia.nombre, materia.tipo, pensum.pnf FROM materia, pensum WHERE materia.codigo IN (SELECT pensum.unidad_curricular FROM pensum) AND materia.codigo=pensum.unidad_curricular";
+		$query="SELECT DISTINCT materia.codigo, materia.nombre, materia.tipo, materia.horas_semanales, materia.unidad_credito, pensum.pnf FROM materia, pensum WHERE materia.codigo IN (SELECT pensum.unidad_curricular FROM pensum) AND materia.codigo=pensum.unidad_curricular";
 		return $this->ListAll($this->execute($query), MYSQLI_NUM);
 	}
 	
 	function GetMateriasPensumWithPNF($busca) {
 		$busca=$this->FindQuery("carrera","nombre",$busca);
 		$codigo=$busca[0];
-		$query="SELECT DISTINCT materia.codigo, materia.nombre FROM materia, pensum WHERE materia.codigo IN (SELECT pensum.unidad_curricular FROM pensum) AND materia.codigo=pensum.unidad_curricular AND pensum.pnf=$codigo";
+		$query="SELECT DISTINCT materia.codigo, materia.nombre FROM materia, pensum WHERE materia.codigo IN (SELECT pensum.unidad_curricular FROM pensum) AND materia.codigo=pensum.unidad_curricular AND pensum.pnf='$codigo'";
 		return $this->ListAll($this->execute($query), MYSQLI_NUM);
 	}
 	function GetCarrerasOferta($busca) {
 		$query="SELECT carrera.codigo, carrera.nombre FROM carrera
-		WHERE carrera.codigo IN (SELECT oferta.pnf FROM oferta WHERE oferta.lapso_academico='$busca')";
+		WHERE carrera.codigo IN (SELECT oferta.pnf FROM oferta WHERE oferta.periodo='$busca')";
 		return $this->ListAll($this->execute($query), MYSQLI_NUM);
 	}
 	function GetCarrerasNotInOferta() {
-		$query="SELECT carrera.codigo, carrera.nombre FROM carrera
-		WHERE carrera.codigo IN (SELECT pensum.pnf FROM pensum)";
+		$query="SELECT carrera.codigo, carrera.nombre FROM carrera WHERE carrera.codigo IN (SELECT pensum.pnf FROM pensum) AND carrera.codigo NOT IN (SELECT oferta.pnf FROM oferta)";
 		return $this->ListAll($this->execute($query), MYSQLI_NUM);
 	}
 	
 	function GetLapsoOferta() {
-		$query="SELECT lapso_academico.lapso FROM lapso_academico";
+		$query="SELECT lapso_academico.periodo FROM lapso_academico WHERE estatus='1'";
+		return $this->ListAll($this->execute($query), MYSQLI_NUM);
+	}
+	function GetLapsoHorario() {
+		$query="SELECT lapso_academico.periodo FROM lapso_academico WHERE estatus='1' AND lapso_academico.periodo IN (SELECT oferta.periodo FROM oferta)";
 		return $this->ListAll($this->execute($query), MYSQLI_NUM);
 	}
 	function GetOficio() {
@@ -167,11 +174,11 @@ class registry extends mybsd {
 		return $this->ListAll($this->execute($query), MYSQLI_NUM);
 	}
 	function GetHorario($busca,$lapso,$tipo) {
-		$query="SELECT horario_docente.cedula_docente, aula.nombre, horario_docente.lapso_academico, horario_docente.bloque, materia.nombre, carrera.nombre, horario_docente.dia FROM horario_docente, carrera, materia, aula WHERE carrera.codigo=horario_docente.carrera AND materia.codigo=horario_docente.unidad_curricular AND horario_docente.codigo_aula=aula.codigo AND horario_docente.cedula_docente='$busca' AND horario_docente.lapso_academico='$lapso' AND horario_docente.tipo='$tipo' ORDER BY horario_docente.codigo";
+		$query="SELECT horario_docente.cedula_docente, aula.nombre, horario_docente.periodo_academico, horario_docente.bloque, materia.codigo, materia.nombre, carrera.codigo, carrera.nombre, horario_docente.dia, horario_docente.seccion FROM horario_docente, carrera, materia, aula WHERE carrera.codigo=horario_docente.carrera AND materia.codigo=horario_docente.unidad_curricular AND horario_docente.codigo_aula=aula.codigo AND horario_docente.cedula_docente='$busca' AND horario_docente.periodo_academico='$lapso' AND horario_docente.tipo='$tipo' ORDER BY horario_docente.codigo";
 		return $this->ListAll($this->execute($query), MYSQLI_NUM);
 	}
 	function GetHorarioPDF($busca,$lapso) {
-		$query="SELECT horario_docente.cedula_docente, aula.nombre, horario_docente.lapso_academico, horario_docente.bloque, materia.nombre, carrera.nombre, horario_docente.dia FROM horario_docente, carrera, materia, aula WHERE carrera.codigo=horario_docente.carrera AND materia.codigo=horario_docente.unidad_curricular AND horario_docente.codigo_aula=aula.codigo AND horario_docente.cedula_docente='$busca' AND horario_docente.lapso_academico='$lapso' ORDER BY horario_docente.tipo, horario_docente.codigo";
+		$query="SELECT horario_docente.cedula_docente, aula.nombre, horario_docente.periodo_academico, horario_docente.bloque, materia.codigo, materia.nombre, carrera.codigo, carrera.nombre, horario_docente.dia, horario_docente.seccion FROM horario_docente, carrera, materia, aula WHERE carrera.codigo=horario_docente.carrera AND materia.codigo=horario_docente.unidad_curricular AND horario_docente.codigo_aula=aula.codigo AND horario_docente.cedula_docente='$busca' AND horario_docente.periodo_academico='$lapso' ORDER BY horario_docente.tipo, horario_docente.codigo";
 		return $this->ListAll($this->execute($query), MYSQLI_NUM);
 	}
 	function GetDisponibilidad($busca) {
@@ -216,6 +223,10 @@ class registry extends mybsd {
 	   return $f_array;
 	   */
 	}
+	function GetAllPensumPDF() {
+		$query="SELECT carrera.codigo, carrera.nombre, materia.codigo, materia.nombre, materia.tipo, materia.horas_semanales, materia.unidad_credito FROM ((carrera INNER JOIN pensum ON pensum.pnf = carrera.codigo) INNER JOIN materia ON pensum.unidad_curricular = materia.codigo) ORDER BY pensum.pnf DESC";
+		return $lista=$this->ListAll($this->execute($query), MYSQLI_NUM);
+	}
 	function GetAllPensum($busca)
 	{
 		$columna="";
@@ -257,20 +268,21 @@ class registry extends mybsd {
 	function GetAllOferta($dato,$campo)
 	{
 		if ($dato=="") {
-			$query="SELECT oferta.codigo, oferta.lapso_academico, carrera.nombre, oferta.horas_semanales, oferta.creditos FROM oferta, carrera WHERE oferta.pnf=carrera.codigo";
+			$query="SELECT oferta.periodo, carrera.codigo, carrera.nombre FROM oferta, carrera WHERE oferta.pnf=carrera.codigo";
 			return $this->ListAll($this->execute($query), MYSQLI_NUM);
 		}
 		else {
 			if ($campo=="pnf" || $campo=="PNF") {
-				$query="SELECT oferta.codigo, oferta.lapso_academico, carrera.nombre, oferta.horas_semanales, oferta.creditos FROM oferta, carrera WHERE oferta.pnf=carrera.codigo AND carrera.nombre LIKE '%$dato%'";
+				$query="SELECT oferta.periodo, carrera.codigo, carrera.nombre FROM oferta, carrera WHERE oferta.pnf=carrera.codigo AND carrera.nombre LIKE '%$dato%'";
 				return $this->ListAll($this->execute($query), MYSQLI_NUM);
 			}
-			if ($campo=="HORAS_SEMANALES" || $campo=="CREDITOS" || $campo=="horas_semanales" || $campo=="creditos") {
-				$query="SELECT oferta.codigo, oferta.lapso_academico, carrera.nombre, oferta.horas_semanales, oferta.creditos FROM oferta, carrera WHERE oferta.pnf=carrera.codigo AND `$campo`='$dato'";
+			else if($campo=="CODIGO_PNF" || $campo=="codigo_pnf"){
+				$query="SELECT oferta.periodo, carrera.codigo, carrera.nombre FROM oferta, carrera WHERE oferta.pnf=carrera.codigo AND oferta.pnf LIKE '%$dato%'";
 				return $this->ListAll($this->execute($query), MYSQLI_NUM);
 			}
+			
 			else {
-				$query="SELECT oferta.codigo, oferta.lapso_academico, carrera.nombre, oferta.horas_semanales, oferta.creditos FROM oferta, carrera WHERE oferta.pnf=carrera.codigo AND `$campo` LIKE '%$dato%'";
+				$query="SELECT oferta.periodo, carrera.codigo, carrera.nombre FROM oferta, carrera WHERE oferta.pnf=carrera.codigo AND `$campo` LIKE '%$dato%'";
 				return $this->ListAll($this->execute($query), MYSQLI_NUM);
 			}
 			
@@ -299,14 +311,19 @@ function GetFindQuery($tabla,$dato,$campo)
 		$query="INSERT INTO `oficio`(`nombre`) VALUES ('$oficio')";
 		return $this->execute($query);
 	}
-	function registrarHorario($cedula,$aula,$lapso,$bloque,$unidad,$carrera,$dia,$tipo){
+	function registrarSeccion($oficio){
+		$oficio=strtoupper($oficio);
+		$query="INSERT INTO `seccion`(`codigo`) VALUES ('$oficio')";
+		return $this->execute($query);
+	}
+	function registrarHorario($cedula,$aula,$lapso,$bloque,$seccion,$unidad,$carrera,$dia,$tipo){
 		$codigo_a=$this->FindQuery('aula','nombre',$aula);
-		$codigo_m=$this->FindQuery('materia','nombre',$unidad);
-		$codigo_c=$this->FindQuery('carrera','nombre',$carrera);
+		$array_m=explode("—",$unidad);
+		$array_c=explode("—",$carrera);
 		$aula=$codigo_a[0];
-		$unidad=$codigo_m[0];
-		$carrera=$codigo_c[0];
-		$query="INSERT INTO `horario_docente` (`cedula_docente`,`codigo_aula`,`lapso_academico`,`bloque`, `unidad_curricular`,`carrera`,`dia`,`tipo`) VALUES ('$cedula','$aula','$lapso','$bloque','$unidad','$carrera','$dia','$tipo')";
+		$unidad=$array_m[0];
+		$carrera=$array_c[0];
+		$query="INSERT INTO `horario_docente` (`cedula_docente`,`codigo_aula`,`periodo_academico`,`bloque`, `unidad_curricular`,`carrera`,`dia`,`seccion`,`tipo`) VALUES ('$cedula','$aula','$lapso','$bloque','$unidad','$carrera','$dia','$seccion','$tipo')";
 		return $this->execute($query);
 	}
 	function registrarAdministrador($contrasena){
@@ -327,11 +344,11 @@ function GetFindQuery($tabla,$dato,$campo)
 		$query="UPDATE `profesor_pass` SET `password`='$contrasena' WHERE `cedula`='$cedula' ";
 		return $this->execute($query);
 	}
-	function registrarMateria($codigo, $nombre, $tipo){
+	function registrarMateria($codigo, $nombre, $tipo,$horas,$creditos){
 		$nombre=strtoupper($nombre);
 		$codigo=strtoupper($codigo);
-			$query="INSERT INTO `materia`(`codigo`, `nombre`, `tipo`)
-		VALUES ('".$codigo."','".$nombre."','".$tipo."')";
+			$query="INSERT INTO `materia`(`codigo`, `nombre`, `tipo`,`horas_semanales`,`unidad_credito`)
+		VALUES ('".$codigo."','".$nombre."','".$tipo."','".$horas."','".$creditos."')";
 			return $this->execute($query);
 	}
 	function registrarAula($codigo, $nombre){
@@ -363,15 +380,15 @@ function GetFindQuery($tabla,$dato,$campo)
 		}
 		else {
 			$query="INSERT INTO `carrera`(`codigo`, `nombre`)
-			VALUES ('".$codigo."','".strtoupper($nombre)."')";
+			VALUES ('".strtoupper($codigo)."','".strtoupper($nombre)."')";
 			return $this->execute($query);
 		}
 		
 	}
-	function registrarLapso($trayecto, $fecha_inicio, $fecha_final){
+	function registrarLapso($trayecto, $fecha_inicio, $fecha_final,$estatus){
 			$trayecto=strtoupper($trayecto);
-			$query="INSERT INTO `lapso_academico`(`lapso`, `fecha_inicio`, `fecha_final`)
-			VALUES ('".strtoupper($trayecto)."','$fecha_inicio','$fecha_final')";
+			$query="INSERT INTO `lapso_academico`(`periodo`, `fecha_inicio`, `fecha_final`, `estatus`)
+			VALUES ('".strtoupper($trayecto)."','$fecha_inicio','$fecha_final','$estatus')";
 			return $this->execute($query);
 		
 	}
@@ -381,20 +398,22 @@ function GetFindQuery($tabla,$dato,$campo)
 		$codigo=$this->FindQuery("carrera","nombre",$carrera);
 		$codigo1=$codigo[0];
 		*/
+		$carrera=strtoupper($carrera);
+		$unidad=strtoupper($unidad);
 		$query="INSERT INTO `pensum`(`pnf`, `unidad_curricular`)
 			VALUES ('$carrera','$unidad')";
 			
 		return $this->execute($query);
 		
 	}
-	function registrarOferta($trayecto, $pnf, $horas, $unidad){
+	function registrarOferta($trayecto, $pnf){
 		$trayecto=strtoupper($trayecto);
 		$pnf=strtoupper($pnf);
 		$carrera=$this->FindQuery("carrera","nombre",$pnf);
 		$pnf=$carrera[0];
 		if ($carrera!=2) {
-			$query="INSERT INTO `oferta`(`lapso_academico`, `pnf`, `horas_semanales`, `creditos`)
-			VALUES ('$trayecto','$pnf', '$horas', '$unidad')";
+			$query="INSERT INTO `oferta`(`periodo`, `pnf`)
+			VALUES ('$trayecto','$pnf')";
 			return $this->execute($query);
 		}
 		else {
@@ -489,16 +508,21 @@ function GetFindQuery($tabla,$dato,$campo)
 		$query="UPDATE `profesor_pass` SET `cedula`='$cedula' WHERE `cedula`='$origin_cedula' ";
 		return $this->execute($query);
 	}
-	function UpdateTableMateria($codigo,$nombre_origin,$tipo,$original_codigo)
+	function UpdateTableMateria($codigo,$nombre_origin,$tipo,$horas,$credito,$original_codigo)
 	{
 		$nombre=strtoupper($nombre_origin);
-		$query="UPDATE `materia` SET `codigo`='$codigo', `nombre`='$nombre', `tipo`='$tipo' WHERE `codigo`='$original_codigo'";
+		$query="UPDATE `materia` SET `codigo`='$codigo', `nombre`='$nombre', `tipo`='$tipo', `horas_semanales`='$horas', `unidad_credito`='$credito' WHERE `codigo`='$original_codigo'";
 			return $this->execute($query);
 		
 	}
 	function UpdateTableOficio($nombre,$nombre_origin)
 	{
 		$query="UPDATE `oficio` SET `nombre`='$nombre' WHERE `nombre`='$nombre_origin'";
+		return $this->execute($query);
+	}
+	function UpdateTableSeccion($nombre,$nombre_origin)
+	{
+		$query="UPDATE `seccion` SET `codigo`='$nombre' WHERE `codigo`='$nombre_origin'";
 		return $this->execute($query);
 	}
 	function UpdateTableHorarioOferta($nombre,$lapso,$nombre_origin)
@@ -509,6 +533,11 @@ function GetFindQuery($tabla,$dato,$campo)
 	function UpdateTableProfesorInOficio($nombre,$nombre_origin)
 	{
 		$query="UPDATE `profesor` SET `oficio`='$nombre' WHERE `oficio`='$nombre_origin'";
+		return $this->execute($query);
+	}
+	function UpdateTableHorarioInSeccion($nombre,$nombre_origin)
+	{
+		$query="UPDATE `horario_docente` SET `seccion`='$nombre' WHERE `seccion`='$nombre_origin'";
 		return $this->execute($query);
 	}
 	function UpdateTableAula($codigo,$nombre,$original_codigo)
@@ -543,6 +572,7 @@ function GetFindQuery($tabla,$dato,$campo)
 	function UpdateTableCarrera($codigo,$nombre,$original_codigo)
 	{
 			$nombre=strtoupper($nombre);
+			$codigo=strtoupper($codigo);
 			$query="UPDATE `carrera` SET `codigo`='$codigo', `nombre`='$nombre' WHERE `codigo`='$original_codigo'";
 			return $this->execute($query);
 	
@@ -556,6 +586,8 @@ function GetFindQuery($tabla,$dato,$campo)
 	}
 	function UpdateTableCarreraPensum($codigo_origin,$codigo_nuevo)
 	{
+		$codigo_nuevo=strtoupper($codigo_nuevo);
+		$codigo_origin=strtoupper($codigo_origin);
 		$query="UPDATE `pensum` SET `pnf`='$codigo_nuevo' WHERE `pnf`='$codigo_origin'";
 		return $this->execute($query);
 	}
@@ -573,20 +605,22 @@ function GetFindQuery($tabla,$dato,$campo)
 	}
 	function UpdateTableCarrerasOferta($codigo_origin,$codigo_nuevo)
 	{
+		$codigo_nuevo=strtoupper($codigo_nuevo);
+		$codigo_origin=strtoupper($codigo_origin);
 		$query="UPDATE `oferta` SET `pnf`='$codigo_nuevo' WHERE `pnf`='$codigo_origin'";
 		return $this->execute($query);
 	}
-	function UpdateTableLapso($trayecto,$fecha_inicio,$fecha_final, $trayecto_origin)
+	function UpdateTableLapso($trayecto,$fecha_inicio,$fecha_final,$estatus, $trayecto_origin)
 	{
 		$trayecto=strtoupper($trayecto);
-			$query="UPDATE `lapso_academico` SET `lapso`='$trayecto',`fecha_inicio`='$fecha_inicio',`fecha_final`='$fecha_final' WHERE `lapso`='$trayecto_origin'";
+			$query="UPDATE `lapso_academico` SET `periodo`='$trayecto',`fecha_inicio`='$fecha_inicio',`fecha_final`='$fecha_final',`estatus`='$estatus' WHERE `periodo`='$trayecto_origin'";
 			return $this->execute($query);
 		
 	}
 	function ValidateOferta($carrera,$lapso)
 	{
 		$pnf=$this->FindQuery('carrera','nombre',$carrera);
-		$lapso_academico=$this->FindQuery('lapso_academico','lapso',$lapso);
+		$lapso_academico=$this->FindQuery('lapso_academico','periodo',$lapso);
 		$codigo=$pnf[0];
 		$query="SELECT * FROM `oferta` WHERE `pnf`='$codigo' AND `lapso_academico`='$lapso'";
 		return $this->CheckResult($this->execute($query));
@@ -595,7 +629,7 @@ function GetFindQuery($tabla,$dato,$campo)
 	function DeleteOfertaHorario($carrera,$lapso)
 	{
 		$pnf=$this->FindQuery('carrera','nombre',$carrera);
-		$lapso_academico=$this->FindQuery('lapso_academico','lapso',$lapso);
+		$lapso_academico=$this->FindQuery('lapso_academico','periodo',$lapso);
 		$codigo=$pnf[0];
 		$query="DELETE FROM `horario_docente` WHERE `carrera`='$codigo' AND `lapso_academico`='$lapso'";
 		return $this->execute($query);

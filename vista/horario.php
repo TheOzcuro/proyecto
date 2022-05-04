@@ -12,7 +12,7 @@
             echo  $_SESSION["disponibilidad_profesor"][0][12];
         }
         ?></div>
-        <div class='lapso' style='position:relative;top:5px;left:-25px;'><b>Lapso: </b><?php echo  $_SESSION["lapso"];?></div>
+        <div class='lapso' style='position:relative;top:5px;left:-25px;'><b>Periodo Academico: </b><?php echo  $_SESSION["lapso"];?></div>
     </div>
 <?php 
 if (isset($_SESSION["find_horario"])) {
@@ -103,20 +103,23 @@ if (isset($_SESSION["find_horario"])) {
                 if (isset($list[$list_i]) && $dias==$list[$list_i][2] && $bloque==$list[$bloque_id][1]) {
                     echo "<div class='".$dias." B".$b." bloque_add' id='bloque_".$dias."_".$b."'active' style='border:3px solid rgb(110,225,80);cursor:pointer;'  onclick='DisplayHorario(`block`,`.form-".$dias."_".$b."`,this)'>";
                     if (isset($_SESSION["find_horario"]) && $y<count($_SESSION["find_horario"])) {
-                        if ($_SESSION["find_horario"][$y][3]==$bloque && $_SESSION["find_horario"][$y][6]==$dias) {
-                            echo "<span>Carrera: ".$_SESSION["find_horario"][$y][5]."</span><br>";
-                            echo "<span>Materia: ".$_SESSION["find_horario"][$y][4]."</span><br>";
+                        if ($_SESSION["find_horario"][$y][3]==$bloque && $_SESSION["find_horario"][$y][8]==$dias) {
+                            echo "<span>Carrera: ".$_SESSION["find_horario"][$y][6]."—".$_SESSION["find_horario"][$y][7]."</span><br>";
+                            echo "<span>Materia: ".$_SESSION["find_horario"][$y][4]."—".$_SESSION["find_horario"][$y][5]."</span><br>";
+                            echo "<span>Seccion: ".$_SESSION["find_horario"][$y][9]."</span><br>";
                             echo "<span>Aula: ".$_SESSION["find_horario"][$y][1]."</span>";
                             $y=$y+1;
                         }
                         else {
                         echo "<span></span><br>
                         <span></span><br>
+                        <span></span>
                         <span></span>";
                         }
                     }
                     else {
                         echo "<span></span><br>
+                        <span></span><br>
                         <span></span><br>
                         <span></span>";
                     }

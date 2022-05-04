@@ -42,7 +42,7 @@ else if (isset($_POST["update"]) && $_POST["update"]!="") {
         $dato=$ejecutar->FindQuery("materia","nombre",$_POST["nombre_materia_multi"]);
         $dato_origin=$ejecutar->FindQuery("materia","codigo",$_POST["update"]);
         if ($dato[1]==$dato_origin[1] || $dato===2) {
-            $validate=$ejecutar->UpdateTableMateria($_POST["codigo_materia_multi"],$_POST["nombre_materia_multi"],$_POST["tipo_materia_multi"],$_POST["update"]);
+            $validate=$ejecutar->UpdateTableMateria($_POST["codigo_materia_multi"],$_POST["nombre_materia_multi"],$_POST["tipo_materia_multi"],$_POST["horas_semana"],$_POST["unidad_credito"],$_POST["update"]);
         }
         if ($dato[1]!=$dato_origin[1] && $dato!==2) {
            $validate=3;
@@ -115,7 +115,7 @@ else if (isset($_POST["delete"]) && $_POST["delete"]!="") {
 }
 else{
     if ($_POST["tipo_materia_multi"]==1) {
-        $validate=$ejecutar->registrarMateria($_POST["codigo_materia_multi"],$_POST["nombre_materia_multi"],$_POST["tipo_materia_multi"]);
+        $validate=$ejecutar->registrarMateria($_POST["codigo_materia_multi"],$_POST["nombre_materia_multi"],$_POST["tipo_materia_multi"],$_POST["horas_semana"],$_POST["unidad_credito"]);
         if ($validate===2) {
             header("Location:../vista/administrador.php#$url");
             $_SESSION["error"]="El codigo de materia que ingreso ya existe";

@@ -60,9 +60,9 @@ else if (isset($_POST["update"]) && $_POST["update"]!=""){
         if ($_POST["add_multi"]!="") {
             $added=explode(",",$_POST["add_multi"]);
             for ($i=0; $i < count($added);) {
-                $ejecutar->registrarMateria($added[$i],$added[$i+1],$added[$i+2]);
+                $ejecutar->registrarMateria($added[$i],$added[$i+1],$added[$i+2],$added[$i+3],$added[$i+4]);
                 $ejecutar->registrarPensum($_POST["update"],$added[$i],"");
-                $i=$i+3;
+                $i=$i+5;
             }
         }
         $_SESSION["completado"]="Los datos fueron actualizados correctamente";
@@ -99,18 +99,18 @@ else {
        
         if ($_POST["add"]!="") {
             $array=explode(",",$_POST["add"]);
-            print_r($array);
             for ($i=0; $i < count($array); $i++) { 
                 $ejecutar->registrarPensum($dato[0],$array[$i],"");
             }
         }
         if ($_POST["materias_add"]!="") {
             $array=explode(",",$_POST["materias_add"]);
+            print_r($_POST["materias_add"]);
             print_r($array);
             for ($i=0; $i < count($array);) { 
-                $ejecutar->registrarMateria($array[$i],$array[$i+1],$array[$i+2]);
+                $ejecutar->registrarMateria($array[$i],$array[$i+1],$array[$i+2],$array[$i+3],$array[$i+4]);
                 $ejecutar->registrarPensum($_POST["carreras"],$array[$i],"");
-                $i=$i+3;
+                $i=$i+5;
             }
         }
         header("Location:../vista/administrador.php#$url");
