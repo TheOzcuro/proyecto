@@ -144,8 +144,8 @@ class registry extends mybsd {
 		WHERE carrera.codigo IN (SELECT oferta.pnf FROM oferta WHERE oferta.periodo='$busca')";
 		return $this->ListAll($this->execute($query), MYSQLI_NUM);
 	}
-	function GetCarrerasNotInOferta() {
-		$query="SELECT carrera.codigo, carrera.nombre FROM carrera WHERE carrera.codigo IN (SELECT pensum.pnf FROM pensum) AND carrera.codigo NOT IN (SELECT oferta.pnf FROM oferta)";
+	function GetCarrerasNotInOferta($lapso) {
+		$query="SELECT carrera.codigo, carrera.nombre FROM carrera,oferta WHERE carrera.codigo IN (SELECT pensum.pnf FROM pensum) AND carrera.codigo NOT IN (SELECT oferta.pnf FROM oferta WHERE oferta.periodo='$lapso')";
 		return $this->ListAll($this->execute($query), MYSQLI_NUM);
 	}
 	

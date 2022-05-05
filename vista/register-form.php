@@ -407,7 +407,7 @@
    
                         <?php 
                             $list=[];
-                            $list=GetCarrerasNotOferta();
+                            $list=GetCarrerasNotOferta($lapso);
                             $totalarray=count($list);
                             for ($i=0; $i < $totalarray; $i++) { 
                                 echo "<span id='".$list[$i][0]."'". "onclick="."AddValueMateria('carrera_oferta',this)".">".$list[$i][1]."</span>";

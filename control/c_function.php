@@ -42,10 +42,10 @@ function GetCarrerasOferta()
     $ejecutar=new registry();
     return $ejecutar->GetCarrerasOferta();
 }
-function GetCarrerasNotOferta()
+function GetCarrerasNotOferta($lapso)
 {
     $ejecutar=new registry();
-    return $ejecutar->GetCarrerasNotInOferta();
+    return $ejecutar->GetCarrerasNotInOferta($lapso);
 }
 function DeleteNoticia()
 {
