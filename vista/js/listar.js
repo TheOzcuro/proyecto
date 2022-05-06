@@ -5,10 +5,13 @@ function ActiveModificar(fila,container) {
         ValideAddMateria=0;
         ValideDelMateria=0;
         add_array=0;
+        document.getElementById('register_back').style.display='none';
+        document.getElementById('history_back').style.display='none';
         filas=document.querySelectorAll(fila);
         ActiveModificarMateria(filas[0].innerText+" **");
     }
     else {
+        
         valores=[];
         filas=document.querySelectorAll(fila);
         for (let index = 0; index < filas.length; index++) {
