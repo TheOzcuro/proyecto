@@ -334,8 +334,18 @@ function Modificar(container,display,valores) {
         if (container=="materia-container") {
             document.getElementById('tipo_materia_multi').value=1;
         }
+        document.getElementById('register_back').style.display='none';
+        document.getElementById('history_back').style.display='none';
     }
 function Close() {
+        array=container_url.split("-")
+        back=array[1]
+        if (back=="historial") {
+            document.getElementById('register_back').style.display="inline";           
+        }
+        else {
+            document.getElementById('history_back').style.display="inline";
+        }
         document.getElementById('materias-oferta').style.display='none';
         DissapearVarious(".checkbox-edit","none")
         if (div_edit.id=="disponibilidad-container") {

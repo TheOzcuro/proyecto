@@ -357,6 +357,7 @@ function CountInput(input) {
     }
 }
 function DissapearVarious(element,display) {
+    console.log(element);
     x=0
     div=document.querySelectorAll(element)
     totaldiv=div.length;
@@ -837,8 +838,11 @@ function SelectMateria() {
 }
 function CreateHistorialMateria(value) {
     document.getElementById('materias-oferta').style.display='grid';
-        div=document.getElementById('materias-oferta');
-        console.log(value);
+    div=document.getElementById('materias-oferta');
+    celdas=div.querySelectorAll('span')
+    for (let index = 0; index < celdas.length; index++) {
+        celdas[index].remove();
+    }
         for (let index = 0; index < materiasArray.length; index=index+6) {
             if (value==materiasArray[index+3]) {
                 span_add=document.createElement('span');

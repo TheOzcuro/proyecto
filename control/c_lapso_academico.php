@@ -61,7 +61,7 @@ else if (isset($_GET["buscar_lapso"]) && $_GET["buscar_lapso"]!="") {
      }
 }
 else if (isset($_POST["update"]) && $_POST["update"]!=""){
-    $dato=$ejecutar->FindQuery("lapso_academico","periodo", $_POST["trayecto"]);
+    $dato=$ejecutar->FindQuery("lapso_academico","periodo", $_POST["update"]);
     $dato_origin=$ejecutar->FindQuery("lapso_academico","periodo", $_POST["update"]);
     $dato_inicio=explode("-",$_POST["fecha_inicio"]);
     $dato_final=explode("-",$_POST["fecha_final"]);
@@ -70,12 +70,11 @@ else if (isset($_POST["update"]) && $_POST["update"]!=""){
     $array=$ejecutar->GetAll("lapso_academico");
     $type=false;
     for ($i=0; $i < count($array); $i++) { 
-        if ($array[$i][3]==1 && $array[$i][0]!=$_POST["trayecto"]) {
+        if ($array[$i][3]==1 && $array[$i][0]!=$_POST["update"]) {
             $type=true;
         }
     }
-    echo $type;
-    if ($type===false || $_POST["lapso_activo"]==0 && $dato[0]==$dato_origin[0] || $dato===2) {
+    if ($type===false || $_POST["lapso_activo"]==0 || $dato===2 || $array[$i][0]==$_POST["update"]) {
             $validate=$ejecutar->UpdateTableLapso($_POST["trayecto"], $fecha_inicio, $fecha_final,$_POST["lapso_activo"], $_POST["update"]);
     }
     if ($dato[0]!=$dato_origin[0] && $dato!==2) {
@@ -125,9 +124,7 @@ else if (isset($_POST["update"]) && $_POST["update"]!=""){
     }
     else {
         $ejecutar->UpdateCampoHorario('periodo_academico',$_POST["trayecto"],$_POST["update"]);
-        if ($_POST["trayecto"]!=$_POST["update"]) {
-            $ejecutar->UpdateTableLapsoOferta($_POST["update"],$_POST["trayecto"]);
-        }
+        $ejecutar->UpdateTableLapsoOferta($_POST["update"],$_POST["trayecto"]);
         $_SESSION["completado"]="Los datos fueron actualizados correctamente";
         $_SESSION["container"]="lapso_academico-container";
         $_SESSION["update"]=$ejecutar->FindQuery("lapso_academico","periodo", $_POST["trayecto"]);

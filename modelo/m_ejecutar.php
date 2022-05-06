@@ -600,7 +600,7 @@ function GetFindQuery($tabla,$dato,$campo)
 	{
 		$codigo_origin=strtoupper($codigo_origin);
 		$codigo_nuevo=strtoupper($codigo_nuevo);
-		$query="UPDATE `oferta` SET `lapso_academico`='$codigo_nuevo' WHERE `lapso_academico`='$codigo_origin'";
+		$query="UPDATE `oferta` SET `periodo`='$codigo_nuevo' WHERE `periodo`='$codigo_origin'";
 		return $this->execute($query);
 	}
 	function UpdateTableCarrerasOferta($codigo_origin,$codigo_nuevo)

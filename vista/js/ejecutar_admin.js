@@ -56,7 +56,7 @@ function OnLoad(active){
         }, 600);
         
     }
-    else if (array[1]=="historial" && container_url!='disponibilidad-container' && container_url!='horario-container' && activehorario!=1) {
+    else if (array[1]=="historial" && container_url!='disponibilidad-container' && container_url!='horario-container' && activehorario!=1 && active!="active") {
         console.log(activehorario);
         document.getElementById('register_back').style.display="inline";
     }

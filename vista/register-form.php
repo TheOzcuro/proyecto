@@ -378,11 +378,11 @@
                 <input type="text" class="input-url" id="url" name="url" hidden>
                 <div id="oferta-container" class="container container-flex">
                     <div style='position:absolute;' class='historial-materias' id='materias-oferta'>
-                            <span style='background: rgb(89, 100, 201);color:white;'>CODIGO</span>
-                            <span style='background: rgb(89, 100, 201);color:white;'>NOMBRE</span>
-                            <span style='background: rgb(89, 100, 201);color:white;'>TIPO</span>
-                            <span style='background: rgb(89, 100, 201);color:white;'>HORAS</span>
-                            <span style='background: rgb(89, 100, 201);color:white;'>CREDITOS</span>
+                            <div style='background: rgb(89, 100, 201);color:white;'>CODIGO</div>
+                            <div style='background: rgb(89, 100, 201);color:white;'>NOMBRE</div>
+                            <div style='background: rgb(89, 100, 201);color:white;'>TIPO</div>
+                            <div style='background: rgb(89, 100, 201);color:white;'>HORAS</div>
+                            <div style='background: rgb(89, 100, 201);color:white;'>CREDITOS</div>
                             
                     </div>
                     <a class="a_img"><img src="css/img/close.png" alt="" class="close-icon" id="close-icon-profesor" onclick="Close()"></a>
