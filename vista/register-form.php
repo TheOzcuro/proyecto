@@ -153,10 +153,10 @@
                 <input type="text" class="input-url" id="url" name="url" hidden>
                 <div id="materia-container" class="container container-flex">
                     <a class="a_img"><img src="css/img/close.png" alt="" class="close-icon" id="close-icon-profesor" onclick="Close()" style='left:-10px;top:-5px;'></a>
-                    <h2>Materia Multidiciplinaria</h2>
+                    <h2>Materia Multidisciplinaria</h2>
                     <div class="input-container">
                         <label for="codigo_materia_multi" id="labelcodigo_materia_multi">Codigo</label><br>
-                        <input type="text" id="codigo_materia_multi" name="codigo_materia_multi" onfocus="LabelAnimation('codigo_materia_multi','labelcodigo_materia_multi')" onblur="LabelOut('codigo_materia_multi','labelcodigo_materia_multi')" maxlength="11" class="input input-label" style="text-transform:uppercase"> autocomplete='off'
+                        <input type="text" id="codigo_materia_multi" name="codigo_materia_multi" onfocus="LabelAnimation('codigo_materia_multi','labelcodigo_materia_multi')" onblur="LabelOut('codigo_materia_multi','labelcodigo_materia_multi')" maxlength="11" class="input input-label" style="text-transform:uppercase" autocomplete='off'> 
                         <input type="checkbox" class="checkbox-edit checkbox-materia"   onclick="CheckboxDisabled('codigo_materia_multi', this)" style='left:265px;'>
                     </div>
                     <div class="input-container">

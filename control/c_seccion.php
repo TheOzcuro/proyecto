@@ -40,7 +40,7 @@ else if (isset($_POST["update"]) && $_POST["update"]!=""){
         $_SESSION["completado"]="Los datos fueron actualizados correctamente";
         $ejecutar->UpdateTableHorarioInSeccion(strtoupper($_POST["seccion_registrar"]), $_POST["update"]);
         $_SESSION["container"]="seccion-container";
-        $_SESSION["update"]=$ejecutar->FindQuery("seccion","codigo", $_POST["oficio_registrar"]);
+        $_SESSION["update"]=$ejecutar->FindQuery("seccion","codigo", $_POST["seccion_registrar"]);
         header("Location:../vista/administrador.php#$url");
     }
 }

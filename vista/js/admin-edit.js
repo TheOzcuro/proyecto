@@ -282,7 +282,7 @@ function Modificar(container,display,valores) {
          div_edit.querySelector(".close-icon").style.display="block";
         //---Hacer aparecer los botones correspondientes
         button=div_edit.querySelectorAll("button");
-        if (container=="noticia-container" || container=="oficio-container") {
+        if (container=="noticia-container" || container=="oficio-container" || container=='seccion-container') {
             button[0].style.display="none";
             button[1].style.display="block";
             button[2].style.display="block";
@@ -356,7 +356,7 @@ function Close() {
                 }
             }
         }
-        else if (div_edit.id=="pensum-container" || div_edit.id=="noticia-container" || div_edit.id=="oficio-container") {
+        else if (div_edit.id=="pensum-container" || div_edit.id=="noticia-container" || div_edit.id=="oficio-container" || div_edit.id=='seccion-container') {
             button[0].style.display="block";
             button[1].style.display="none";
             button[2].style.display="none";
