@@ -273,7 +273,6 @@ function Submit(form,active){
    if (valide) {
         OnLoad("active")
         document.getElementById(form).querySelector(".input-url").value=container_url+"-grid";
-
         document.getElementById(form).submit();
    }
    else {
