@@ -56,8 +56,8 @@ CREATE TABLE IF NOT EXISTS `aula` (
 --
 
 INSERT INTO `aula` (`codigo`, `nombre`) VALUES
-('40', 'VERGA'),
-('90', 'ANO');
+('40', 'MARIO'),
+('90', 'SILVA');
 
 -- --------------------------------------------------------
 
@@ -253,8 +253,8 @@ CREATE TABLE IF NOT EXISTS `materia` (
 
 INSERT INTO `materia` (`codigo`, `nombre`, `tipo`, `horas_semanales`, `unidad_credito`) VALUES
 ('FISICUAN', 'FISICA CUANTICA', '0', 14, 20),
-('45', 'SEXO', '1', 45, 10),
-('46', 'SEXO', '1', 10, 35),
+('45', 'MATEMATICA', '1', 45, 10),
+('46', 'DANZA', '1', 10, 35),
 ('FFFF', 'FEO', '0', 40, 30),
 ('66666', '1561DS', '0', 30, 30),
 ('DSADAS', '6060GG', '0', 60, 30),
@@ -392,7 +392,7 @@ CREATE TABLE IF NOT EXISTS `profesor` (
 --
 
 INSERT INTO `profesor` (`cedula`, `primer_nombre`, `segundo_nombre`, `primer_apellido`, `segundo_apellido`, `contratacion`, `categoria`, `dedicacion`, `direccion`, `telefono`, `telefono_fijo`, `correo`, `titulo`, `oficio`, `rol`, `disponibilidad`) VALUES
-(11716900, 'ALEXI', '', 'RAMIREZ', '', 1, 5, 3, 'DSADA1DS65ADSA', '0416751138', '51616156161', 'jonatha@gmail.com', 'SEXO', 'PERRO', '0', 1);
+(11716900, 'ALEXI', '', 'RAMIREZ', '', 1, 5, 3, 'DSADA1DS65ADSA', '0416751138', '51616156161', 'jonatha@gmail.com', 'PRUEBA', 'PERRO', '0', 1);
 
 -- --------------------------------------------------------
 
